@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14.25, 8.5" name="PurolatorReportingSQL">
+  <DataContextMoniker Name="/PurolatorReportingSQLDataContext" />
+  <nestedChildShapes>
+    <classShape Id="5cbe18d5-0d3a-4ca3-be68-04f1af65ae7f" absoluteBounds="7.75, 1.375, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/tblPI_ApplicationUserRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="472a8d2d-fc08-4782-831b-9fed2c3f693f" absoluteBounds="7.765, 1.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dd2b1187-ad27-478e-9e9f-2653f4087bfc" absoluteBounds="8.25, 3.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/tblPI_ApplicationUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d523e596-5b98-415c-a32a-8efd96709a0a" absoluteBounds="8.265, 4.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(9 : 3.75); (9 : 3.14589680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PurolatorReportingSQLDataContext/tblPI_ApplicationUser/tblPI_ApplicationUser_tblPI_ApplicationUserRole" />
+      <nodes>
+        <classShapeMoniker Id="dd2b1187-ad27-478e-9e9f-2653f4087bfc" />
+        <classShapeMoniker Id="5cbe18d5-0d3a-4ca3-be68-04f1af65ae7f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="b0768dd5-f08a-44f8-918a-14f2df0adccd" absoluteBounds="1.25, 1, 2, 3.5016097005208326">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/vw_PI_ApplicationUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1f15980d-4678-42c0-96cb-8e20995bc9f1" absoluteBounds="1.2649999999999997, 1.46, 1.9700000000000002, 2.941609700520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b8a372d5-03c4-4a15-bcd2-dceb82ec55db" absoluteBounds="11.625, 1.625, 2, 1.9631982421875">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/tblPI_ApplicationRole" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e3e56ac6-4b99-4986-987c-da41b97b402a" absoluteBounds="11.64, 2.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(11.625 : 2.38544840494792); (9.75 : 2.38544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PurolatorReportingSQLDataContext/tblPI_ApplicationRole/tblPI_ApplicationRole_tblPI_ApplicationUserRole" />
+      <nodes>
+        <classShapeMoniker Id="b8a372d5-03c4-4a15-bcd2-dceb82ec55db" />
+        <classShapeMoniker Id="5cbe18d5-0d3a-4ca3-be68-04f1af65ae7f" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="eedde774-496f-4093-8fd9-e70075e05312" absoluteBounds="5.125, 4.125, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/tblEmployee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a48b86fe-2ab1-49bb-990c-77df8b31ed63" absoluteBounds="5.1400000000000006, 4.585, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ce3f20f7-f3b4-4e6e-bd59-03a3ca80c660" absoluteBounds="12, 4.25, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/tblPI_Application" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cc0e0545-9c96-4224-ac43-db5c6bb7991c" absoluteBounds="12.015, 4.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(12 : 4.88544840494792); (10.25 : 4.88544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PurolatorReportingSQLDataContext/tblPI_Application/tblPI_Application_tblPI_ApplicationUser" />
+      <nodes>
+        <classShapeMoniker Id="ce3f20f7-f3b4-4e6e-bd59-03a3ca80c660" />
+        <classShapeMoniker Id="dd2b1187-ad27-478e-9e9f-2653f4087bfc" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(12.8125 : 4.25); (12.8125 : 3.5881982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/PurolatorReportingSQLDataContext/tblPI_Application/tblPI_Application_tblPI_ApplicationRole" />
+      <nodes>
+        <classShapeMoniker Id="ce3f20f7-f3b4-4e6e-bd59-03a3ca80c660" />
+        <classShapeMoniker Id="b8a372d5-03c4-4a15-bcd2-dceb82ec55db" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f4274b99-6d84-4e4b-ae82-18291990ba08" absoluteBounds="4.625, 0.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PurolatorReportingSQLDataContext/tblPI_ApplicationDistrictRestriction" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3eb2dd57-ce0f-47c4-bef2-b163953f3da6" absoluteBounds="4.64, 1.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

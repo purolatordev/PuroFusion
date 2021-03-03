@@ -1,0 +1,398 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="DiscoveryRequestFormOld.aspx.cs" Inherits="DiscoveryRequestForm" %>
+<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <div>
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <ClientEvents OnRequestStart="onRequestStart" />
+        <AjaxSettings>
+            <telerik:AjaxSetting AjaxControlID="rgHomeGrid1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="rgHomeGrid1" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlSuccess" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlWarning" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlDanger" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+        </AjaxSettings>
+    </telerik:RadAjaxManager>
+   
+    </div>
+    <div style="width: 853px">
+
+        <asp:Panel ID="pnlsuccess" runat="server" Visible="false">
+            <div class="alert alert-success" role="alert">
+                <asp:Label ID="lblSuccess" CssClass="alert-link" runat="server"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlInfo" runat="server" Visible="false">
+            <div class="alert alert-info" role="alert">
+                <asp:Label ID="lblInfo" CssClass="alert-link" runat="server"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlwarning" runat="server" Visible="false">
+            <div class="alert alert-warning" role="alert">
+                <asp:Label ID="lblWarning" CssClass="alert-link" runat="server"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlDanger" runat="server" Visible="false">
+            <div class="alert alert-danger" role="alert">
+                <asp:Label ID="lblDanger" runat="server" CssClass="alert-link"></asp:Label>
+            </div>
+        </asp:Panel>
+    </div>
+    <div style="width: 1120px">
+     <table style="padding-top:2px;width:100%;" border="0" >        
+         <tr>            
+            <td style="color:blue;width:20%;font-size:medium">
+                 <b>Discovery Request Form</b>
+             </td>
+              <td style="width:1%"></td>
+             <td style="width:20%"></td>
+           <td style="color:blue;text-align:right;width:40%">
+               <i>Submitted By: </i>
+           </td>
+             <td style="width:1%"></td>
+           <td>
+                <asp:Label ID="lblSubmittedBy" runat="server" Text=''></asp:Label>
+           </td>
+         </tr>
+        <tr>
+            <td style="text-align:right">
+                 Sales Professional Email 
+             </td>  
+             <td style="width:1%"></td>
+            <td>
+                <telerik:RadTextBox ID="txtEmail" runat="server" MaxLength="75" Text=''  Width="250px" ToolTip="Enter Your Email Address"/>   
+            </td>         
+           <td style="color:blue;text-align:right;">
+               <i>Last Updated By: </i>
+           </td>
+             <td style="width:1%"></td>
+           <td>
+                <asp:Label ID="lblUpdatedOn" runat="server" Text=''></asp:Label>
+           </td>
+         </tr>
+         <tr>
+             <td style="text-align:right">
+                 District 
+             </td> 
+             <td style="width:1%"></td>
+            <td>
+               <telerik:RadDropDownList ID="rddlDistrict" runat="server" DefaultMessage="Select District" ToolTip="Select Your District" ></telerik:RadDropDownList>
+            </td>
+            <td style="color:blue;text-align:right;">
+                <i>Last Updated On: </i>
+            </td>
+             <td></td>
+            <td>
+                 <asp:Label ID="lblUpdatedBy" runat="server" Text=''></asp:Label>
+            </td>
+        </tr>
+    </table>
+        <div style="height:10px;"></div>
+       <%-- <--  Customer ADDRESS -->--%>
+                            <hr />
+        <table border="0">
+            <tr>
+                 <td style="text-align:right">
+                     Customer                    
+                 </td>
+                 <td style="width:1%"></td>
+                  <td>   
+                      <telerik:RadTextBox ID="txtCustomerName" runat="server" MaxLength="75" Text=''  Width="250px" ToolTip="Enter Customer Name"/>                     
+                 </td>
+                 <td style="width:1%"></td>
+                  <td>    
+                        New Business? <telerik:RadButton ID="newChk" runat="server" ToggleType="CheckBox" ButtonType="LinkButton" AutoPostBack="false" Checked=''>
+                    <ToggleStates>
+                        <telerik:RadButtonToggleState Text="Yes" PrimaryIconCssClass="rbToggleCheckboxChecked" />
+                        <telerik:RadButtonToggleState Text="No" PrimaryIconCssClass="rbToggleCheckbox" />
+                    </ToggleStates>
+                </telerik:RadButton>              
+                 </td>
+                <td style="width:1%"></td>
+                  <td style="text-align:right">
+                      Annualized Revenue                     
+                 </td>
+                 <td style="width:1%"></td>
+                <td>
+                    <telerik:RadTextBox ID="txtRevenue" runat="server" MaxLength="50" Text=''  Width="125px" ToolTip="Enter Annualized Revenue"/>   
+                </td>
+            </tr>
+            <tr>
+                 <td style="text-align:right">
+                     Address                     
+                 </td>
+                 <td style="width:1%"></td>
+                  <td>   
+                      <telerik:RadTextBox ID="txtAddress" runat="server" MaxLength="75" Text=''  Width="250px" ToolTip="Enter Customer Address"/>                     
+                 </td>
+                 <td style="width:1%"></td>
+                  <td style="text-align:right">    
+                     Commodity            
+                 </td>
+                <td style="width:1%"></td>
+                  <td colspan="3">
+                      <telerik:RadTextBox ID="RadTextBox6" runat="server" MaxLength="175" Text=''  Width="285px" ToolTip="Enter Commodity"/>                 
+                 </td>
+                 
+            </tr>
+             <tr>
+                 <td style="text-align:right">
+                     City                     
+                 </td>
+                 <td style="width:1%"></td>
+                  <td>   
+                      <table>
+                          <tr>
+                              <td>
+                                  <telerik:RadTextBox ID="txtCity" runat="server" MaxLength="75" Text=''  Width="150px" ToolTip="Enter City"/>  
+                              </td>
+                              <td></td>
+                               <td>
+                                  State
+                              </td>
+                              <td>
+                                  <telerik:RadTextBox ID="txtState" runat="server" MaxLength="75" Text=''  Width="50px" ToolTip="Enter State"/>  
+                              </td>
+                              <td></td>
+                              <td>
+                                    Zip 
+                                </td>
+                                <td></td>
+                                <td>
+                                    <telerik:RadTextBox ID="RadTextBox5" runat="server" MaxLength="75" Text=''  Width="70px" ToolTip="Enter Zip"/> 
+                                </td>
+                              <td></td>
+                               <td>
+                                    Country 
+                                </td>
+                                <td></td>
+                                <td>
+                                    <telerik:RadTextBox ID="txtCountry" runat="server" MaxLength="75" Text=''  Width="100px" ToolTip="Enter Country"/> 
+                                </td>
+                          </tr>
+                      </table>                                         
+                 </td>
+                 <td style="width:1%"></td>
+                 <td></td>   
+                 <td style="width:1%"></td>
+                <td></td>
+                 <td style="width:1%"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="9" style="height:35px"> </td>
+            </tr>
+                <tr>
+                <td style="text-align:right">
+                    IT Contact                     
+                 </td>
+                 <td style="width:1%"></td>
+                <td rowspan="2">
+                    <table border="0">
+                        <tr>
+                            <td>
+                                  Name
+                              </td>
+                              <td></td>
+                              <td>
+                                  <telerik:RadTextBox ID="RadTextBox7" runat="server" MaxLength="75" Text=''  Width="250px" ToolTip="Enter Contact Name"/>  
+                              </td>
+                              <td></td>
+                              <td>
+                                  Title
+                              </td>
+                              <td></td>
+                              <td>
+                                  <telerik:RadTextBox ID="RadTextBox8" runat="server" MaxLength="75" Text=''  Width="170px" ToolTip="Enter Contact Email"/>  
+                              </td>
+                            
+                         </tr>
+                         <tr>
+                              <td>
+                                  Email
+                              </td>
+                              <td></td>
+                              <td>
+                                  <telerik:RadTextBox ID="RadTextBox9" runat="server" MaxLength="75" Text=''  Width="250px" ToolTip="Enter Contact Title"/>  
+                              </td>
+                              <td></td>
+                              <td>
+                                  Phone
+                              </td>
+                              <td></td>
+                              <td>
+                                  <telerik:RadTextBox ID="RadTextBox10" runat="server" MaxLength="75" Text=''  Width="170px" ToolTip="Enter Contact Phone"/>  
+                              </td>
+                        </tr>
+                    </table>
+                </td>
+                <td colspan="6"></td>               
+             </tr>
+             <tr>
+                <td colspan="9" style="height:75px"></td>
+            </tr>
+            <tr>
+                <td style="text-align:right">
+                                         
+                 </td>
+                 <td style="width:1%"></td>
+                <td rowspan="3" colspan="7">
+                    <table border="0">
+                        <tr>
+                            
+                            <td>Services</td>
+                            <td style="width:10px"></td>
+                            <td >
+                                 LTL <telerik:RadButton ID="RadButton1" runat="server" ToggleType="CheckBox" ButtonType="LinkButton" AutoPostBack="false" Checked=''>
+                    <ToggleStates>
+                        <telerik:RadButtonToggleState Text="Yes" PrimaryIconCssClass="rbToggleCheckboxChecked" />
+                        <telerik:RadButtonToggleState Text="No" PrimaryIconCssClass="rbToggleCheckbox" />
+                    </ToggleStates>
+                </telerik:RadButton>      
+                              </td>
+                              <td style="width:10px"></td>
+                              <td >
+                                  CPC <telerik:RadButton ID="RadButton2" runat="server" ToggleType="CheckBox" ButtonType="LinkButton" AutoPostBack="false" Checked=''>
+                    <ToggleStates>
+                        <telerik:RadButtonToggleState Text="Yes" PrimaryIconCssClass="rbToggleCheckboxChecked" />
+                        <telerik:RadButtonToggleState Text="No" PrimaryIconCssClass="rbToggleCheckbox" />
+                    </ToggleStates>
+                </telerik:RadButton>      
+                              </td>
+                              <td style="width:10px"></td>
+                              <td >
+                                  Courier <telerik:RadButton ID="RadButton3" runat="server" ToggleType="CheckBox" ButtonType="LinkButton" AutoPostBack="false" Checked=''>
+                    <ToggleStates>
+                        <telerik:RadButtonToggleState Text="Yes" PrimaryIconCssClass="rbToggleCheckboxChecked" />
+                        <telerik:RadButtonToggleState Text="No" PrimaryIconCssClass="rbToggleCheckbox" />
+                    </ToggleStates>
+                </telerik:RadButton>      
+                              </td>
+                              <td style="width:10px"></td>
+                              <td >
+                                  PuroPost <telerik:RadButton ID="RadButton4" runat="server" ToggleType="CheckBox" ButtonType="LinkButton" AutoPostBack="false" Checked=''>
+                    <ToggleStates>
+                        <telerik:RadButtonToggleState Text="Yes" PrimaryIconCssClass="rbToggleCheckboxChecked" />
+                        <telerik:RadButtonToggleState Text="No" PrimaryIconCssClass="rbToggleCheckbox" />
+                    </ToggleStates>
+                </telerik:RadButton>      
+                              </td>
+                            <td style="width:10px"></td>
+                              <td s>
+                                  Returns <telerik:RadButton ID="RadButton5" runat="server" ToggleType="CheckBox" ButtonType="LinkButton" AutoPostBack="false" Checked=''>
+                    <ToggleStates>
+                        <telerik:RadButtonToggleState Text="Yes" PrimaryIconCssClass="rbToggleCheckboxChecked" />
+                        <telerik:RadButtonToggleState Text="No" PrimaryIconCssClass="rbToggleCheckbox" />
+                    </ToggleStates>
+                </telerik:RadButton>      
+                              </td>
+                             <td style="width:50px"></td>
+                            <td>
+                                Proposed Customs Solution
+                            </td>
+                         </tr>
+                        <tr>
+                           
+                       
+                         <td> Volumes</td>
+                            <td></td>
+                        <td style="text-align:right">
+                            <telerik:RadTextBox ID="RadTextBox1" runat="server" MaxLength="75" Text=''  Width="75px" ToolTip="Enter State"/>
+                        </td>
+                         <td></td>
+                        <td style="text-align:right">
+                            <telerik:RadTextBox ID="RadTextBox2" runat="server" MaxLength="75" Text=''  Width="75px" ToolTip="Enter State"/>
+                        </td>
+                         <td></td>
+                        <td style="text-align:right">
+                            <telerik:RadTextBox ID="RadTextBox3" runat="server" MaxLength="75" Text=''  Width="75px" ToolTip="Enter State"/>
+                        </td>
+                         <td></td>
+                        <td style="text-align:right">
+                            <telerik:RadTextBox ID="RadTextBox4" runat="server" MaxLength="75" Text=''  Width="75px" ToolTip="Enter State"/>
+                        </td>
+                         <td></td>
+                        <td style="text-align:right">
+                            <telerik:RadTextBox ID="RadTextBox11" runat="server" MaxLength="75" Text=''  Width="75px" ToolTip="Enter State"/>
+                        </td>
+                             <td></td>
+                            <td>
+                               <telerik:RadTextBox ID="RadTextBox12" runat="server" MaxLength="200" Text=''  Width="300px" ToolTip="Enter Proposed Customs"/>
+                            </td>
+                             </tr>
+                        
+                    </table>
+                </td>
+                
+                      
+             </tr>
+               
+            
+            
+        </table>   
+         <hr /> 
+        <table>
+            <tr>
+                <td colspan="7" style="height:30px"></td>
+            </tr>
+            <tr>
+                <td>
+                    Current Solution
+                </td>
+                <td></td>
+                <td>
+                    <textarea name="textarea" style="width:450px;height:100px;"></textarea>
+                </td>
+                <td style="width:20px"></td>
+                <td>
+                    Proposed Solution
+                </td>
+                <td></td>
+                <td>
+                    <textarea name="textarea" style="width:400px;height:100px;"></textarea>
+                </td>
+            </tr>
+        </table>
+        <table>
+             <tr>
+                <td colspan="7" style="height:30px"></td>
+            </tr>
+            <tr>
+                <td>
+                    Potential Discovery Call Dates
+                </td>
+                <td></td>
+                <td>
+                    <telerik:RadDatePicker RenderMode="Lightweight" ID="StartDate" runat="server" AutoPostBack="true" Enabled="true"> </telerik:RadDatePicker>
+                </td>
+                  <td></td>
+                <td>
+                    <telerik:RadDatePicker RenderMode="Lightweight" ID="RadDatePicker1" runat="server" AutoPostBack="true" visible="false"> </telerik:RadDatePicker>
+                </td>
+                  <td></td>
+                <td>
+                    <telerik:RadDatePicker RenderMode="Lightweight" ID="RadDatePicker2" runat="server" AutoPostBack="true" Visible="false"> </telerik:RadDatePicker>
+                </td>
+            </tr>
+        </table>
+        <hr />
+         <asp:Button ID="btnSubmit" causesValidation ="true" ValidationGroup="salesInfo" CssClass="btn btn-primary" runat="server" Text ="Submit"/>
+                    &nbsp;
+        <asp:Button ID="btnCancel" CssClass="btn btn-primary" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" /><p></p>
+    </div>
+   <style>
+    div.right {
+            float:right;
+            height: 60px;
+            width: 260px;
+            font-style:italic;
+            font-size:small;
+            color:blue;
+        }
+</style>
+</asp:Content>
+

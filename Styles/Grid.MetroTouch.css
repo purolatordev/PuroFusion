@@ -1,0 +1,591 @@
+﻿.RadGrid_MetroTouch {
+  border: 1px solid #cdcdcd;
+  color: #000000;
+  background-color: #ffffff;
+  /*header*/
+  /*rows*/ }
+  .RadGrid_MetroTouch,
+  .RadGrid_MetroTouch .rgMasterTable,
+  .RadGrid_MetroTouch .rgDetailTable,
+  .RadGrid_MetroTouch .rgGroupPanel table,
+  .RadGrid_MetroTouch .rgCommandRow table,
+  .RadGrid_MetroTouch .rgEditForm table,
+  .RadGrid_MetroTouch .rgPager table {
+    /*font: $font-weight 16px/34px $font-family;*/
+    font-weight: 100;
+    font-size: 16px;
+    line-height: 34px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif; }
+  .RadGrid_MetroTouch .rgInput {
+    background-color: #ffffff;
+    border: 1px solid #cdcdcd;
+    color: #000000; }
+  .RadGrid_MetroTouch .rgHeader:first-child,
+  .RadGrid_MetroTouch th.rgResizeCol:first-child,
+  .RadGrid_MetroTouch .rgFilterRow > td:first-child,
+  .RadGrid_MetroTouch .rgRow > td:first-child,
+  .RadGrid_MetroTouch .rgAltRow > td:first-child {
+    border-left-width: 0;
+    padding-left: 8px; }
+  .RadGrid_MetroTouch .rgSave,
+  .RadGrid_MetroTouch .rgUpdate,
+  .RadGrid_MetroTouch .rgCancel,
+  .RadGrid_MetroTouch .rgEdit,
+  .RadGrid_MetroTouch .rgDel,
+  .RadGrid_MetroTouch .rgExpand,
+  .RadGrid_MetroTouch .rgCollapse,
+  .RadGrid_MetroTouch .rgFilter,
+  .RadGrid_MetroTouch .rgAdd,
+  .RadGrid_MetroTouch .rgRefresh,
+  .RadGrid_MetroTouch .rgSortAsc,
+  .RadGrid_MetroTouch .rgSortDesc,
+  .RadGrid_MetroTouch .rgUngroup,
+  .RadGrid_MetroTouch .rgPagePrev,
+  .RadGrid_MetroTouch .rgPageNext,
+  .RadGrid_MetroTouch .rgPageFirst,
+  .RadGrid_MetroTouch .rgPageLast,
+  .RadGrid_MetroTouch .rgPrev span,
+  .RadGrid_MetroTouch .rgNext span {
+    background-image: url('Common/radActionsSprite.png');
+    width: 21px;
+    height: 21px; }
+  .RadGrid_MetroTouch .rgHeader,
+  .RadGrid_MetroTouch th.rgResizeCol,
+  .RadGrid_MetroTouch .rgHeaderWrapper,
+  .RadGrid_MetroTouch .rgMultiHeaderRow th.rgHeader,
+  .RadGrid_MetroTouch .rgMultiHeaderRow th.rgResizeCol {
+    border: 0;
+    border-bottom: 1px solid #cdcdcd;
+    border-left: 1px solid #cdcdcd; }
+  .RadGrid_MetroTouch .rgHeader,
+  .RadGrid_MetroTouch th.rgResizeCol,
+  .RadGrid_MetroTouch .rgHeaderWrapper {
+    background-color: #f5f5f5; }
+  .RadGrid_MetroTouch .rgHeaderDiv {
+    border-right: 1px solid #cdcdcd; }
+  .RadGrid_MetroTouch .rgHeaderWrapper {
+    border-bottom: 1px solid #cdcdcd; }
+  .RadGrid_MetroTouch th.rgSorted {
+    background-color: #25a0da; }
+  .RadGrid_MetroTouch .rgHeader,
+  .RadGrid_MetroTouch .rgHeader a {
+    color: #555; }
+  .RadGrid_MetroTouch th.rgSorted,
+  .RadGrid_MetroTouch th.rgSorted a {
+    color: #ffffff; }
+  .RadGrid_MetroTouch .rgRow > td,
+  .RadGrid_MetroTouch .rgAltRow > td {
+    border: 1px solid #ffffff; }
+  .RadGrid_MetroTouch .rgFooter > td {
+    border: 0; }
+  .RadGrid_MetroTouch .rgEditRow > td {
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #e8e8e8; }
+  .RadGrid_MetroTouch .rgAltRow {
+    background: #f5f5f5; }
+  .RadGrid_MetroTouch .rgAltRow > td {
+    border-color: #f5f5f5; }
+  .RadGrid_MetroTouch td.rgSorted {
+    background-color: #f0f0f0;
+    border-color: #f0f0f0; }
+  .RadGrid_MetroTouch .rgAltRow td.rgSorted {
+    background-color: #e9e9e9;
+    border-color: #e9e9e9; }
+  .RadGrid_MetroTouch .rgSelectedRow .rgSorted,
+  .RadGrid_MetroTouch .rgActiveRow .rgSorted,
+  .RadGrid_MetroTouch .rgHoveredRow .rgSorted,
+  .RadGrid_MetroTouch .rgEditRow .rgSorted {
+    background-color: transparent;
+    border-color: transparent; }
+  .RadGrid_MetroTouch .rgRow a,
+  .RadGrid_MetroTouch .rgAltRow a,
+  .RadGrid_MetroTouch tr.rgEditRow a,
+  .RadGrid_MetroTouch .rgFooter a,
+  .RadGrid_MetroTouch .rgEditForm a {
+    color: #000000; }
+  .RadGrid_MetroTouch .rgHoveredRow {
+    background: #e8e8e8;
+    border-color: #e8e8e8; }
+  .RadGrid_MetroTouch .rgMasterTable .rgSelectedCell,
+  .RadGrid_MetroTouch .rgSelectedRow,
+  .RadGrid_MetroTouch td.rgEditRow .rgSelectedRow,
+  .RadGrid_MetroTouch .rgSelectedRow td.rgSorted {
+    color: #ffffff;
+    background: #25a0da;
+    border-color: #25a0da; }
+  .RadGrid_MetroTouch .rgSelectedCell a,
+  .RadGrid_MetroTouch .rgSelectedRow a {
+    color: #ffffff; }
+  .RadGrid_MetroTouch .rgMasterTable .rgActiveCell {
+    background: #fff;
+    color: #000000; }
+  .RadGrid_MetroTouch .rgMasterTable .rgActiveCell {
+    border-color: #25a0da;
+    border-right-width: 1px; }
+  .RadGrid_MetroTouch .rgActiveCell a,
+  .RadGrid_MetroTouch .rgActiveRow input {
+    color: #000000; }
+  * + html .RadGrid_MetroTouch .rgSelectedRow .rgSorted {
+    background-color: #25a0da; }
+  * html .RadGrid_MetroTouch .rgSelectedRow .rgSorted {
+    background-color: #25a0da; }
+  * + html .RadGrid_MetroTouch .rgActiveRow .rgSorted, * + html .RadGrid_MetroTouch .rgHoveredRow .rgSorted {
+    background-color: #e8e8e8; }
+  * html .RadGrid_MetroTouch .rgActiveRow .rgSorted, * html .RadGrid_MetroTouch .rgHoveredRow .rgSorted {
+    background-color: #e8e8e8; }
+  .RadGrid_MetroTouch .rgEditRow {
+    background: #cdcdcd; }
+  * + html .RadGrid_MetroTouch .rgEditRow .rgSorted {
+    background-color: #cdcdcd; }
+  * html .RadGrid_MetroTouch .rgEditRow .rgSorted {
+    background-color: #cdcdcd; }
+  .RadGrid_MetroTouch .rgHoveredRow > td,
+  .RadGrid_MetroTouch .rgHoveredRow td.rgSorted {
+    border-color: #e8e8e8; }
+  .RadGrid_MetroTouch .rgActiveRow > td,
+  .RadGrid_MetroTouch .rgActiveRow td.rgSorted,
+  .RadGrid_MetroTouch .rgSelectedRow > td,
+  .RadGrid_MetroTouch .rgSelectedRow td.rgSorted {
+    border-color: #25a0da; }
+  .RadGrid_MetroTouch .rgEditRow > td,
+  .RadGrid_MetroTouch .rgEditRow td.rgSorted {
+    border-color: #cdcdcd; }
+  .RadGrid_MetroTouch .rgDrag {
+    background-image: url('Grid/rgDrag.gif');
+    width: 25px;
+    height: 25px; }
+  .RadGrid_MetroTouch .rgFooterDiv,
+  .RadGrid_MetroTouch .rgFooter {
+    background: #ffffff; }
+  .RadGrid_MetroTouch .rgFooter > td,
+  .RadGrid_MetroTouch .rgFooterWrapper {
+    border-top: 1px solid;
+    border-color: #999 #e4e4e4; }
+  .RadGrid_MetroTouch .rgPager .rgStatus {
+    border: solid;
+    border-color: #cdcdcd;
+    border-width: 1px 0 0 0; }
+  .RadGrid_MetroTouch .rgStatus div {
+    background-image: url('Common/loading_small.gif');
+    width: 40px; }
+  .RadGrid_MetroTouch td.rgPagerCell {
+    border: solid;
+    border-color: #cdcdcd;
+    border-width: 1px 0 0 1px; }
+  .RadGrid_MetroTouch .rgPager > td > table {
+    height: 50px; }
+  .RadGrid_MetroTouch .rgPager .riTextBox, * + html .RadGrid_MetroTouch .rgPager .riSingle .riTextBox, * + html .RadForm.RadForm_MetroTouch .RadGrid_MetroTouch .rgPager .riSingle input[type='text'].rfdDecorated {
+    height: 29px;
+    line-height: 29px; }
+  .RadGrid_MetroTouch .rgPager .riSingle .riTextBox {
+    height: 36px; }
+  .RadGrid_MetroTouch .rgInfoPart {
+    color: #777; }
+  .RadGrid_MetroTouch .rgInfoPart strong {
+    color: #000000; }
+  .RadGrid_MetroTouch .rgWrap {
+    line-height: 34px; }
+  .RadGrid_MetroTouch .rgPagePrev,
+  .RadGrid_MetroTouch .rgPageNext,
+  .RadGrid_MetroTouch .rgPageFirst,
+  .RadGrid_MetroTouch .rgPageLast {
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #cdcdcd;
+    background-color: #f9f9f9; }
+    .RadGrid_MetroTouch .rgPagePrev:hover,
+    .RadGrid_MetroTouch .rgPageNext:hover,
+    .RadGrid_MetroTouch .rgPageFirst:hover,
+    .RadGrid_MetroTouch .rgPageLast:hover {
+      background-color: #e8e8e8; }
+    .RadGrid_MetroTouch .rgPagePrev:active,
+    .RadGrid_MetroTouch .rgPageNext:active,
+    .RadGrid_MetroTouch .rgPageFirst:active,
+    .RadGrid_MetroTouch .rgPageLast:active {
+      border-coor: #25a0da;
+      color: #000000;
+      background-color: #25a0da; }
+  .RadGrid_MetroTouch .rgPageFirst {
+    background-position: -11px -711px; }
+    .RadGrid_MetroTouch .rgPageFirst:active {
+      background-position: -111px -711px; }
+  .RadGrid_MetroTouch .rgPagePrev {
+    background-position: -11px -111px; }
+    .RadGrid_MetroTouch .rgPagePrev:active {
+      background-position: -111px -111px; }
+  .RadGrid_MetroTouch .rgPageNext {
+    background-position: -11px -161px; }
+    .RadGrid_MetroTouch .rgPageNext:active {
+      background-position: -111px -161px; }
+  .RadGrid_MetroTouch .rgPageLast {
+    background-position: -11px -761px; }
+    .RadGrid_MetroTouch .rgPageLast:active {
+      background-position: -111px -761px; }
+  .RadGrid_MetroTouch .rgPager .rgPagerButton {
+    border-color: #25a0da;
+    background: #25a0da;
+    color: #ffffff;
+    height: 36px;
+    font-weight: 100;
+    font-size: 16px;
+    line-height: 34px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif; }
+  .RadGrid_MetroTouch .rgNumPart a {
+    border: 1px solid #ffffff;
+    line-height: 28px;
+    min-width: 28px;
+    padding: 0;
+    color: #000000;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    text-align: center; }
+  .RadGrid_MetroTouch .rgNumPart span {
+    float: none;
+    padding: 0; }
+  .RadGrid_MetroTouch .rgNumPart a:hover {
+    background-color: #f9f9f9;
+    border-color: #cdcdcd; }
+  .RadGrid_MetroTouch .rgNumPart a.rgCurrentPage,
+  .RadGrid_MetroTouch .rgNumPart a.rgCurrentPage:hover {
+    background-color: #25a0da;
+    border: 1px solid #25a0da;
+    color: #ffffff; }
+  .RadGrid_MetroTouch .rgPager .riTextBox {
+    vertical-align: top; }
+  .RadGrid_MetroTouch .rgHeader .rgSortAsc,
+  .RadGrid_MetroTouch .rgHeader .rgSortDesc {
+    height: 10px;
+    float: left;
+    margin: 12px 2px 0 0; }
+  .RadGrid_MetroTouch .rgHeader .rgSortAsc {
+    background-position: -120px -20px; }
+  .RadGrid_MetroTouch .rgHeader .rgSortDesc {
+    background-position: -120px -70px; }
+  .RadGrid_MetroTouch .rgCommandRow .rgPrev,
+  .RadGrid_MetroTouch .rgCommandRow .rgNext {
+    padding: 7px 15px;
+    line-height: 20px;
+    border-color: #cdcdcd;
+    color: #000000;
+    background-color: #f9f9f9;
+    margin-right: 10px; }
+    .RadGrid_MetroTouch .rgCommandRow .rgPrev span,
+    .RadGrid_MetroTouch .rgCommandRow .rgNext span {
+      width: 10px;
+      height: 10px; }
+    .RadGrid_MetroTouch .rgCommandRow .rgPrev.rgDisabled:hover,
+    .RadGrid_MetroTouch .rgCommandRow .rgNext.rgDisabled:hover {
+      border-color: #cdcdcd;
+      color: #000000;
+      background-color: #f9f9f9; }
+    .RadGrid_MetroTouch .rgCommandRow .rgPrev:hover,
+    .RadGrid_MetroTouch .rgCommandRow .rgNext:hover {
+      border-color: #cdcdcd;
+      color: #000000;
+      background-color: #e8e8e8; }
+  .RadGrid_MetroTouch .rgPrev span {
+    margin-right: 15px;
+    background-position: -20px -120px; }
+  .RadGrid_MetroTouch .rgNext span {
+    margin-left: 15px;
+    background-position: -20px -170px; }
+  .RadGrid_MetroTouch .rgFilterRow > td {
+    border-bottom: 1px solid #cdcdcd; }
+  .RadGrid_MetroTouch .rgFilter {
+    width: 36px;
+    height: 36px;
+    background-position: -8px -4508px;
+    border: 1px solid #cdcdcd; }
+    .RadGrid_MetroTouch .rgFilter:hover {
+      background-color: #e8e8e8; }
+  .RadGrid_MetroTouch .rgFiltered,
+  .RadGrid_MetroTouch .rgFiltered:hover {
+    background-position: -58px -4508px; }
+  .RadGrid_MetroTouch .rgFilterActive,
+  .RadGrid_MetroTouch .rgFilterActive:hover {
+    background-color: #25a0da;
+    border-color: #25a0da;
+    background-position: -108px -4508px; }
+  .RadGrid_MetroTouch .rgFilterBox {
+    border-color: #cdcdcd;
+    font-weight: 100;
+    font-size: 16px;
+    line-height: 34px;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    color: #000000;
+    height: 29px; }
+  .RadGrid_MetroTouch .rgFilterRow .riSingle .riTextBox {
+    height: 36px;
+    vertical-align: top; }
+  .RadGrid_MetroTouch .rgGroupPanel {
+    border: 0;
+    border-bottom: 1px solid #ffffff;
+    padding: 10px;
+    height: 34px; }
+    .RadGrid_MetroTouch .rgGroupPanel,
+    .RadGrid_MetroTouch .rgGroupPanel caption {
+      background: #25a0da;
+      color: #ffffff; }
+  .RadGrid_MetroTouch .rgGroupPanel td {
+    border: 0;
+    padding: 3px 4px; }
+  .RadGrid_MetroTouch .rgGroupPanel td td {
+    padding: 0;
+    color: #ffffff;
+    line-height: 1px; }
+  * + html .RadGrid_MetroTouch .rgGroupPanel td td {
+    line-height: 20px; }
+  .RadGrid_MetroTouch .rgGroupPanel .rgSortAsc {
+    background-position: -114.5px -14.5px; }
+  .RadGrid_MetroTouch .rgGroupPanel .rgSortDesc {
+    background-position: -114.5px -64.5px; }
+  .RadGrid_MetroTouch .rgUngroup {
+    background-position: -114.5px -3364.5px; }
+  .RadGrid_MetroTouch .rgGroupItem {
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 0 5px 1px 10px; }
+  .RadGrid_MetroTouch .rgMasterTable td.rgGroupCol,
+  .RadGrid_MetroTouch .rgMasterTable td.rgExpandCol {
+    border-color: #e8e8e8;
+    background: #e8e8e8 none; }
+  .RadGrid_MetroTouch .rgGroupHeader {
+    background: #e8e8e8;
+    font-size: 1.1em;
+    line-height: 34px;
+    color: #000000; }
+  .RadGrid_MetroTouch .rgGroupHeader > td {
+    padding-left: 8px;
+    padding-bottom: 2px;
+    border-top: 1px solid #ffffff; }
+  .RadGrid_MetroTouch .rgExpand {
+    background-position: -12px -168px; }
+  .RadGrid_MetroTouch .rgCollapse {
+    background-position: -62px -68px; }
+  .RadGrid_MetroTouch .rgEditForm {
+    border-bottom: 1px solid #cdcdcd; }
+  .RadGrid_MetroTouch .rgUpdate {
+    background-position: -12px -2612px; }
+    .RadGrid_MetroTouch .rgUpdate:active {
+      background-position: -112px -2612px; }
+  .RadGrid_MetroTouch .rgCancel {
+    background-position: -12px -2812px; }
+    .RadGrid_MetroTouch .rgCancel:active {
+      background-position: -112px -2812px; }
+  .RadGrid_MetroTouch .rgDetailTable {
+    border-color: #cdcdcd; }
+  .RadGrid_MetroTouch .rgCommandRow {
+    background-color: #000; }
+  .RadGrid_MetroTouch .rgCommandRow,
+  .RadGrid_MetroTouch .rgCommandRow a {
+    color: #ffffff;
+    text-decoration: none; }
+  .RadGrid_MetroTouch .rgCommandCell {
+    border: 0;
+    border-bottom: 1px solid #cdcdcd;
+    padding: 0; }
+  .RadGrid_MetroTouch tfoot .rgCommandCell,
+  .RadGrid_MetroTouch .rgMasterTable > tbody > tr.rgCommandRow .rgCommandCell {
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 0; }
+  .RadGrid_MetroTouch .rgCommandTable td {
+    border: 0;
+    padding: 2px 7px; }
+  .RadGrid_MetroTouch .rgCommandTable {
+    border: 0; }
+  .RadGrid_MetroTouch .rgAdd,
+  .RadGrid_MetroTouch .rgRefresh {
+    vertical-align: middle; }
+  .RadGrid_MetroTouch input.rgAdd,
+  .RadGrid_MetroTouch input.rgRefresh,
+  .RadGrid_MetroTouch .rgSave,
+  .RadGrid_MetroTouch .rgCommandRow .rgCancel {
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
+    border: 1px solid #000;
+    margin-right: 3px;
+    width: 28px;
+    height: 28px; }
+    .RadGrid_MetroTouch input.rgAdd:hover, .RadGrid_MetroTouch input.rgAdd:active,
+    .RadGrid_MetroTouch input.rgRefresh:hover,
+    .RadGrid_MetroTouch input.rgRefresh:active,
+    .RadGrid_MetroTouch .rgSave:hover,
+    .RadGrid_MetroTouch .rgSave:active,
+    .RadGrid_MetroTouch .rgCommandRow .rgCancel:hover,
+    .RadGrid_MetroTouch .rgCommandRow .rgCancel:active {
+      border: 1px solid #ffffff; }
+  .RadGrid_MetroTouch input.rgAdd {
+    background-position: -112px -3012px; }
+    .RadGrid_MetroTouch input.rgAdd:hover, .RadGrid_MetroTouch input.rgAdd:active {
+      background-position: -62px -3012px; }
+  .RadGrid_MetroTouch input.rgRefresh {
+    background-position: -112px -1312px; }
+    .RadGrid_MetroTouch input.rgRefresh:hover, .RadGrid_MetroTouch input.rgRefresh:active {
+      background-position: -62px -1312px; }
+  .RadGrid_MetroTouch .rgSave {
+    background-position: -112px -4962px; }
+    .RadGrid_MetroTouch .rgSave:hover, .RadGrid_MetroTouch .rgSave:active {
+      background-position: -62px -4962px; }
+  .RadGrid_MetroTouch .rgCommandRow .rgCancel {
+    background-position: -112px -2812px; }
+    .RadGrid_MetroTouch .rgCommandRow .rgCancel:hover, .RadGrid_MetroTouch .rgCommandRow .rgCancel:active {
+      background-position: -62px -2812px; }
+  .RadGrid_MetroTouch .rgEdit {
+    margin-right: 3px;
+    background-position: -12px -3112px; }
+    .RadGrid_MetroTouch .rgEdit:active {
+      background-position: -112px -3112px; }
+  .RadGrid_MetroTouch .rgDel {
+    margin-right: 3px;
+    background-position: -12px -3312px; }
+    .RadGrid_MetroTouch .rgDel:active {
+      background-position: -12px -3312px; }
+  .RadGrid_MetroTouch .rgExpXLS,
+  .RadGrid_MetroTouch .rgExpDOC,
+  .RadGrid_MetroTouch .rgExpPDF,
+  .RadGrid_MetroTouch .rgExpCSV {
+    background-image: url('../Common/Grid/export.gif'); }
+  .RadGrid_MetroTouch .rgExpXLS {
+    background-position: 0 0; }
+  .RadGrid_MetroTouch .rgExpDOC {
+    background-position: 0 -50px; }
+  .RadGrid_MetroTouch .rgExpPDF {
+    background-position: 0 -100px; }
+  .RadGrid_MetroTouch .rgExpCSV {
+    background-position: 0 -150px; }
+
+.RadMenu_MetroTouch .rgHCMClear,
+.RadMenu_MetroTouch .rgHCMFilter {
+  border-color: #7e7e7e;
+  background: #25a0da;
+  color: #000000;
+  font-family: "segoe ui",arial,sans-serif;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0; }
+
+.RadMenu_MetroTouch .rgHCMClear:hover,
+.RadMenu_MetroTouch .rgHCMFilter:hover {
+  border-color: #c98400;
+  background-color: #ffe79c;
+  color: #882501; }
+
+.RadMenu_MetroTouch_Context .rgFilterApply,
+.RadMenu_MetroTouch_Context .rgFilterCancel {
+  border-color: #cdcdcd;
+  color: #000000;
+  background-color: #f9f9f9;
+  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  height: 36px; }
+
+.RadMenu_MetroTouch_Context .rlbCheck {
+  margin-top: 10px; }
+
+div.RadMenu_MetroTouch_Context .rlbGroup {
+  border-color: #cdcdcd; }
+
+.GridContextMenu_MetroTouch .rmLeftImage {
+  background-image: url('../Common/Grid/contextMenu.gif'); }
+.GridContextMenu_MetroTouch .rgHCMSortAsc .rmLeftImage {
+  background-position: 0 0; }
+.GridContextMenu_MetroTouch .rgHCMSortDesc .rmLeftImage {
+  background-position: 0 -40px; }
+.GridContextMenu_MetroTouch .rgHCMUnsort .rmLeftImage {
+  background-position: 0 -80px; }
+.GridContextMenu_MetroTouch .rgHCMGroup .rmLeftImage {
+  background-position: 0 -120px; }
+.GridContextMenu_MetroTouch .rgHCMUngroup .rmLeftImage {
+  background-position: 0 -160px; }
+.GridContextMenu_MetroTouch .rgHCMCols .rmLeftImage {
+  background-position: 0 -200px; }
+.GridContextMenu_MetroTouch .rgHCMFilter .rmLeftImage {
+  background-position: 0 -240px; }
+.GridContextMenu_MetroTouch .rgHCMUnfilter .rmLeftImage {
+  background-position: 0 -280px; }
+
+.GridReorderTop_MetroTouch,
+.GridReorderBottom_MetroTouch {
+  width: 1px;
+  height: 30px;
+  margin: 24px 0 0 -2px;
+  border-right: 1px solid #808080;
+  border-left: 1px solid #808080;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: #000 !important; }
+
+.GridReorderBottom_MetroTouch {
+  margin: -24px 0 0 -2px; }
+
+.GridReorderBottom_MetroTouch:after,
+.GridReorderTop_MetroTouch:before {
+  content: "";
+  display: block;
+  width: 9px;
+  height: 9px;
+  margin-left: -5px;
+  margin-top: -6px;
+  background: #000;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  border-radius: 16px;
+  border: 1px solid #808080;
+  border-bottom-width: 0;
+  border-color: rgba(255, 255, 255, 0.5); }
+
+.GridReorderBottom_MetroTouch:after {
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  margin-top: 29px; }
+
+/*multirow select*/
+.rgCellSelectorArea_MetroTouch,
+.GridRowSelector_MetroTouch {
+  background: #4c4e54; }
+
+/*row drag n drop*/
+.GridItemDropIndicator_MetroTouch {
+  border-top: 1px dashed #666; }
+
+/*tooltip*/
+.GridToolTip_MetroTouch {
+  border: 1px solid #c98400;
+  padding: 3px;
+  background: #ffefbd;
+  color: #333; }
+
+/*rtl*/
+.RadGridRTL_MetroTouch .rgHeader:first-child,
+.RadGridRTL_MetroTouch th.rgResizeCol:first-child,
+.RadGridRTL_MetroTouch .rgFilterRow > td:first-child,
+.RadGridRTL_MetroTouch .rgRow > td:first-child,
+.RadGridRTL_MetroTouch .rgAltRow > td:first-child {
+  border-left-width: 1px;
+  padding-left: 7px; }
+.RadGridRTL_MetroTouch .rgPageFirst {
+  background-position: -11px -761px; }
+.RadGridRTL_MetroTouch .rgPageFirst:active {
+  background-position: -111px -761px; }
+.RadGridRTL_MetroTouch .rgPagePrev {
+  background-position: -11px -161px; }
+.RadGridRTL_MetroTouch .rgPagePrev:active {
+  background-position: -111px -161px; }
+.RadGridRTL_MetroTouch .rgPageNext {
+  background-position: -11px -111px; }
+.RadGridRTL_MetroTouch .rgPageNext:active {
+  background-position: -111px -111px; }
+.RadGridRTL_MetroTouch .rgPageLast {
+  background-position: -11px -711px; }
+.RadGridRTL_MetroTouch .rgPageLast:active {
+  background-position: -111px -711px; }
+.RadGridRTL_MetroTouch .rgExpand {
+  background-position: -12px -112px; }

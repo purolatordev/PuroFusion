@@ -1,0 +1,178 @@
+﻿//using PuroTouch.App_Code;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Telerik.Web.UI;
+
+public partial class Home : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            if (Session["userName"] != null && Session["appName"] != null)
+            {
+                loadHomeGrid1();
+                lblGridtitle.Text = "Requests ";
+                try
+                {
+                    //getAgingChartData();
+                    //getAgingPieChrtData();
+                    //getPieChartData();
+                    //getAgingLables();
+                    //getEsignLabels();
+                    getITBAs();
+                }
+                catch (Exception ex)
+                {
+
+                }
+              
+            }
+            else
+            {
+                Response.Redirect("Default.aspx");
+            }
+             //Role Based Viewing
+            string userRole = Session["userRole"].ToString().ToLower();
+            if (userRole == "sales" || userRole == "salesdm" || userRole == "itadmin")
+            {
+                btnNewRequest.Visible = true;
+                btnITBA.Visible = false;
+            }
+            if (userRole == "itba" || userRole == "itadmin")
+            {
+                btnNewRequest.Visible = false;
+                btnITBA.Visible = true;
+            }
+            if (userRole == "itmanager" || userRole == "itadmin")
+            {
+                lblMGR.Text = "ABC Company Submitted by Salesperson.Name - $100,000 annualized revenue.  Assign To: ";
+                lblMGR.Visible = true;
+                rddlITBA.Visible = true;
+                btnNewRequest.Visible = false;
+                btnITBA.Visible = false;
+                btnAssign.Visible = true;
+                lblGridtitle.Text = "";
+            }
+            
+        }
+    }
+
+    protected void getITBAs()
+    {
+        //ClsITBA ba = new ClsITBA();
+        PuroTouchRepository rep = new PuroTouchRepository();
+        List<ClsITBA> balist = rep.GetITBAs();
+        rddlITBA.DataSource = balist;
+        rddlITBA.DataTextField = "ITBA";
+        rddlITBA.DataValueField = "ITBA";
+        rddlITBA.DataBind();
+    }
+    
+    private void loadHomeGrid1(bool doBind=false)
+    {
+
+
+        try
+        {
+            //DataSet dt = ClsInvoiceDetails.getInvByVendor();
+            //rgHomeGrid1.DataSource = dt;
+            //if (doBind == true)
+            //{
+            //    rgHomeGrid1.DataBind();
+            //}
+            //lblGridtitle.Text = "Invoices";
+        }
+
+        catch (Exception ex)
+        {
+
+        }
+
+       
+    }
+
+    private void getPieChartData()
+    {
+        //ClsPieChart pc = new ClsPieChart();
+        //List<ClsPieChart> pieChartdata = pc.getTotalsByGLDesc();
+        //PieChart1.DataSource = pieChartdata;
+        //PieChart1.DataBind();
+    }
+
+    private void getColumnData()
+    {
+        //List<ClsAgingChart> agingChartList = ClsAgingChart.getInvAgingChartList();
+        //ColumnChart.DataSource = agingChartList;
+        //ColumnChart.DataBind();
+        List<clsColumnChart> colChart = clsColumnChart.getSPColumnChartDataList();
+        ColumnChart.DataSource = colChart;
+        ColumnChart.DataBind();
+
+    }
+
+    private void getAgingPieChrtData()
+    {
+        //List<ClsAgingChart> agingChartList = ClsAgingChart.getInvAgingChartList();
+        //decimal total = agingChartList.Sum(x => x.invoiceAmt);
+        //foreach (ClsAgingChart item in agingChartList)
+        //{
+        //    item.invoiceAmt = Math.Round(((item.invoiceAmt / total) * 100), 2);
+        //}
+        //PieChart1.DataSource = agingChartList;
+        //PieChart1.DataBind();
+    }
+   
+    protected void rgHomeGrid1_ItemCommand(object sender, GridCommandEventArgs e)
+    {
+        if (e.CommandName == RadGrid.ExportToExcelCommandName)
+        {
+            //rgHomeGrid1.ExportSettings.FileName = "InvoicesByVendor";
+            //rgHomeGrid1.AllowFilteringByColumn = false;
+        }
+    }
+    protected void rgHomeGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        //loadHomeGrid1();
+    }
+
+    private void getAgingLables()
+    {
+        //ClsAgingChart oAgingChart = ClsAgingChart.getTotalSumNCount();
+        //lblInvTotCount.Text = oAgingChart.invoiceCount.ToString();
+        //lblInvTotAmt.Text = string.Format("{0:C}",oAgingChart.invoiceAmt);
+    }
+
+    private void getEsignLabels()
+    {
+        //ClsInvoice oInvoice = new ClsInvoice();
+        //List<ClsInvoice> esignLastUpdateList = oInvoice.getEfileLastUpdateVW();
+        //lblPInvByEsign.Text = esignLastUpdateList.Count().ToString();
+        //oInvoice = esignLastUpdateList.ElementAtOrDefault<ClsInvoice>(0);
+        //lblEfileUpdatedBy.Text = oInvoice.Updatedby;
+        //lblEfileUpdatedOn.Text = string.Format("{0:MM/dd/yyyy}", oInvoice.Submitted);
+    }
+
+    protected void btnNewRequest_Click(object sender, System.EventArgs e)
+    {
+        Response.Redirect("DiscoveryRequestForm.aspx");
+    }
+
+
+    protected void btnAssign_Click(object sender, System.EventArgs e)
+    {        
+
+       
+            windowManager.RadAlert("Assign this Request to " + rddlITBA.SelectedText + "?", 350, 200, "Assign", "assignCallBackFn", "Please confirm");
+        
+
+    }
+    
+}

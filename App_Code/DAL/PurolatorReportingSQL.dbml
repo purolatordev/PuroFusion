@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PurolatorReporting" Class="PurolatorReportingSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PICER-DEV-APP01\PICERDEVAPP01;Initial Catalog=PurolatorReporting;User ID=puroIT" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PurolatorReportingConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tblPI_ApplicationUserRole" Member="tblPI_ApplicationUserRoles">
+    <Type Name="tblPI_ApplicationUserRole">
+      <Column Name="idPI_ApplicationUserRole" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idPI_ApplicationUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idPI_ApplicationRole" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tblPI_ApplicationUser_tblPI_ApplicationUserRole" Member="tblPI_ApplicationUser" ThisKey="idPI_ApplicationUser" OtherKey="idPI_ApplicationUser" Type="tblPI_ApplicationUser" IsForeignKey="true" />
+      <Association Name="tblPI_ApplicationRole_tblPI_ApplicationUserRole" Member="tblPI_ApplicationRole" ThisKey="idPI_ApplicationRole" OtherKey="idPI_ApplicationRole" Type="tblPI_ApplicationRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPI_ApplicationUser" Member="tblPI_ApplicationUsers">
+    <Type Name="tblPI_ApplicationUser">
+      <Column Name="idPI_ApplicationUser" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idPI_Application" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tblPI_ApplicationUser_tblPI_ApplicationUserRole" Member="tblPI_ApplicationUserRoles" ThisKey="idPI_ApplicationUser" OtherKey="idPI_ApplicationUser" Type="tblPI_ApplicationUserRole" />
+      <Association Name="tblPI_Application_tblPI_ApplicationUser" Member="tblPI_Application" ThisKey="idPI_Application" OtherKey="idPI_Application" Type="tblPI_Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_PI_ApplicationUsers" Member="vw_PI_ApplicationUsers">
+    <Type Name="vw_PI_ApplicationUser">
+      <Column Name="idPI_Application" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="idEmployee" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ActiveDirectoryName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="idPI_ApplicationUserRole" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPI_ApplicationUser" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPI_ApplicationRole" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoleName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="RoleCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="role_UpdatedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="role_UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPI_ApplicationRoles" Member="tblPI_ApplicationRoles">
+    <Type Name="tblPI_ApplicationRole">
+      <Column Name="idPI_ApplicationRole" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idPI_Application" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="RoleCode" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tblPI_ApplicationRole_tblPI_ApplicationUserRole" Member="tblPI_ApplicationUserRoles" ThisKey="idPI_ApplicationRole" OtherKey="idPI_ApplicationRole" Type="tblPI_ApplicationUserRole" />
+      <Association Name="tblPI_Application_tblPI_ApplicationRole" Member="tblPI_Application" ThisKey="idPI_Application" OtherKey="idPI_Application" Type="tblPI_Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEmployee" Member="tblEmployees">
+    <Type Name="tblEmployee">
+      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PI_EmployeeId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="DateHired" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveDirectoryName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="idEmployeeFunction" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPI_Applications" Member="tblPI_Applications">
+    <Type Name="tblPI_Application">
+      <Column Name="idPI_Application" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplicationName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="tblPI_Application_tblPI_ApplicationUser" Member="tblPI_ApplicationUsers" ThisKey="idPI_Application" OtherKey="idPI_Application" Type="tblPI_ApplicationUser" />
+      <Association Name="tblPI_Application_tblPI_ApplicationRole" Member="tblPI_ApplicationRoles" ThisKey="idPI_Application" OtherKey="idPI_Application" Type="tblPI_ApplicationRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblPI_ApplicationDistrictRestriction" Member="tblPI_ApplicationDistrictRestrictions">
+    <Type Name="tblPI_ApplicationDistrictRestriction">
+      <Column Name="idPI_ApplicationDistrictRestriction" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idPI_ApplicationUser" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="District" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

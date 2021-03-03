@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PuroFusion(1)", ".", "{DAA21008-135F-4766-8EBF-BFFEBF6E2504}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_58973"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\PIDevelopmentArea\PuroFusion\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58973\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_58973"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\PIDevelopmentArea\PuroFusion\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58973\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58973"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAA21008-135F-4766-8EBF-BFFEBF6E2504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA21008-135F-4766-8EBF-BFFEBF6E2504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E0F00AF-97E0-4B50-9551-949C987DC97F}
+	EndGlobalSection
+EndGlobal

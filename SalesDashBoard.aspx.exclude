@@ -1,0 +1,221 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="SalesDashBoard.aspx.cs" Inherits="Home" %>
+
+<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <div>
+    <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+        <ClientEvents OnRequestStart="onRequestStart" />
+        <AjaxSettings>
+            <telerik:AjaxSetting AjaxControlID="rgHomeGrid1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="rgHomeGrid1" LoadingPanelID="RadAjaxLoadingPanel1" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlSuccess" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlWarning" />
+                    <telerik:AjaxUpdatedControl ControlID="pnlDanger" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+             <telerik:AjaxSetting AjaxControlID="btnAssign">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="btnAssign" LoadingPanelID="RadAjaxLoadingPanel1" />                
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+        </AjaxSettings>
+    </telerik:RadAjaxManager>
+    <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
+                <script type="text/javascript">
+                    function onRequestStart(sender, args) {
+                        if (args.get_eventTarget().indexOf("ExportToExcelButton") >= 0
+                                ) {
+                            args.set_enableAjax(false);
+                        }
+                    }
+                    function assignCallBackFn(arg) {
+                    }
+                </script>
+            </telerik:RadCodeBlock>
+    <telerik:RadWindowManager ID="windowManager" runat="server">
+    </telerik:RadWindowManager>
+    </div>
+    <div style="width: 853px">
+
+        <asp:Panel ID="pnlsuccess" runat="server" Visible="false">
+            <div class="alert alert-success" role="alert">
+                <asp:Label ID="lblSuccess" CssClass="alert-link" runat="server"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlInfo" runat="server" Visible="false">
+            <div class="alert alert-info" role="alert">
+                <asp:Label ID="lblInfo" CssClass="alert-link" runat="server"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlwarning" runat="server" Visible="false">
+            <div class="alert alert-warning" role="alert">
+                <asp:Label ID="lblWarning" CssClass="alert-link" runat="server"></asp:Label>
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="pnlDanger" runat="server" Visible="false">
+            <div class="alert alert-danger" role="alert">
+                <asp:Label ID="lblDanger" runat="server" CssClass="alert-link"></asp:Label>
+
+            </div>
+
+        </asp:Panel>
+    </div>
+    <br />
+   
+ 
+    <div class="container">
+    
+    <div class="left">
+            <telerik:RadHtmlChart runat="server" ID="ColumnChart" Width="500" Height="450" Transitions="true" >
+                <PlotArea>
+                    <Series>
+                        <telerik:ColumnSeries Name="Legend" Stacked="false" Gap="1.0" Spacing="0.4" DataFieldY="invoiceCount">
+                            <LabelsAppearance DataFormatString="{0} " Position="OutsideEnd" >
+                            </LabelsAppearance>
+                            <TooltipsAppearance DataFormatString="{0}" Color="White">
+                                
+                            </TooltipsAppearance>
+
+                        </telerik:ColumnSeries>
+                        
+                    </Series>
+                    <XAxis AxisCrossingValue="0" DataLabelsField="timePeriod" Color="Black" MajorTickType="Outside" MinorTickType="Outside"
+                        Reversed="false">
+
+                        <LabelsAppearance DataFormatString="{0}" RotationAngle="0" Skip="0" Step="1" Color="Black" >
+                            <TextStyle  FontSize="9" />
+                        </LabelsAppearance>
+                        <TitleAppearance Position="Center" RotationAngle="0" Text="Y axis label">
+                        </TitleAppearance>
+                    </XAxis>
+                    <YAxis AxisCrossingValue="0" Color="Black" MajorTickSize="1" MajorTickType="Outside"
+                        MinorTickType="None" Reversed="false" >
+                        <LabelsAppearance DataFormatString="{0}" RotationAngle="0" Skip="0" Step="1" Color="Black" >
+                        </LabelsAppearance>
+                        
+                        <TitleAppearance Position="Center" RotationAngle="0" Text="X axis label">
+                        </TitleAppearance>
+                    </YAxis>
+                </PlotArea>
+                <ChartTitle Text="Bar Chart">
+                    <Appearance Align="Center" BackgroundColor="Transparent" Position="Bottom">
+                        <TextStyle Color="#4b6c9e" Bold="true"  />
+                    </Appearance>
+                </ChartTitle>
+            </telerik:RadHtmlChart>
+
+        </div>
+        
+        <div class="right">
+            <telerik:RadHtmlChart runat="server" ID="PieChart1" Width="500" Height="450" Transitions="true"  >
+
+                <ChartTitle Text="Pie Chart">
+                    <Appearance Align="Center" BackgroundColor="Transparent" Position="Bottom">
+                        <TextStyle Color="#4b6c9e" Bold="true"  />
+                    </Appearance>
+                </ChartTitle>
+
+                <PlotArea>
+
+                    <Series>
+
+                        <telerik:PieSeries DataFieldY="itemAmount" NameField="GLDesc" ExplodeField="IsExploded">
+
+                            <LabelsAppearance Position="OutsideEnd" DataFormatString="{0:$#,###,###}">
+                            </LabelsAppearance>
+                           
+
+                            <TooltipsAppearance Color="White" DataFormatString="{0:C}"></TooltipsAppearance>
+
+                        </telerik:PieSeries>
+
+                    </Series>
+
+                </PlotArea>
+               <Legend>
+                   <Appearance Position="Right" Width="100">   
+                  </Appearance>  
+
+               </Legend>
+            </telerik:RadHtmlChart>
+        </div>
+
+        </div>
+
+    <telerik:RadButton  ID="btnNewRequest" causesValidation ="true" runat="server" Text ="New Discovery Request" OnClick="btnNewRequest_Click" />
+
+     <telerik:RadButton  ID="btnITBA" causesValidation ="true" runat="server" Text ="ABC Company Has Been Assigned To You" OnClick="btnNewRequest_Click" />
+
+   
+
+    <table>
+        <tr>
+            <td>
+               <asp:Label ID="lblMGR" runat="server" ForeColor ="#4b6c9e" Font-Bold="true" Font-Size="Medium" Visible="false"></asp:Label>
+            </td>
+            <td>
+               <telerik:RadDropDownList ID="rddlITBA" runat="server" DefaultMessage="Select Onboarding Specialist" ToolTip="Select Onboarding Specialist" Visible="false"></telerik:RadDropDownList>
+            </td>
+            <td>
+               <telerik:RadButton  ID="btnAssign" causesValidation ="true" runat="server" Text ="Assign" OnClick="btnAssign_Click" Visible="false"/>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+         
+    <h5><asp:Label ID="lblGridtitle" runat="server" ForeColor ="#4b6c9e" Font-Bold="true" Font-Size="Medium"></asp:Label></h5>
+    <div>
+        <telerik:RadGrid ID="rgHomeGrid1" runat="server" CellSpacing="-1" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" OnNeedDataSource="rgHomeGrid1_NeedDataSource" OnItemCommand="rgHomeGrid1_ItemCommand"  >
+            <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
+            <ExportSettings ExportOnlyData="True" IgnorePaging="True" OpenInNewWindow="True">
+            </ExportSettings>
+            <MasterTableView AutoGenerateColumns="False" AllowPaging="True" CommandItemDisplay="Top" >
+                <CommandItemSettings ShowAddNewRecordButton="False" ShowRefreshButton="False" ShowExportToExcelButton="True"></CommandItemSettings>
+                <Columns>
+                    <telerik:GridBoundColumn DataField="VendorName" FilterControlAltText="Filter VendorName column" HeaderText="VendorName" SortExpression="VendorName" UniqueName="VendorName">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="Account" FilterControlAltText="Filter Account column" HeaderText="Account" SortExpression="Account" UniqueName="Account">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="ServiceDesc" FilterControlAltText="Filter ServiceDesc column" HeaderText="ServiceDesc" SortExpression="ServiceDesc" UniqueName="ServiceDesc">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="InvoiceAmt" DataFormatString="{0:$#,###,###.00}" DataType="System.Decimal"  FilterControlAltText="Filter InvoiceAmt column" HeaderText="InvoiceAmt" SortExpression="InvoiceAmt" UniqueName="InvoiceAmt">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="ItemAmountTotal" DataFormatString="{0:$#,###,###.00}" AllowFiltering="false" DataType="System.Decimal" FilterControlAltText="Filter ItemAmountTotal column" HeaderText="ItemAmountTotal" SortExpression="ItemAmountTotal" UniqueName="ItemAmountTotal">
+                    </telerik:GridBoundColumn>                   
+                </Columns>
+                <PagerStyle AlwaysVisible="True"></PagerStyle>
+            </MasterTableView>
+        </telerik:RadGrid>
+    </div>
+    
+    
+        
+    <br />
+    <style>
+        div.left {
+            float: left;
+            padding-left:initial;
+            height: 400px;
+            width: 500px;
+            padding-top:40px;
+        }
+
+        div.right {
+            float: right;
+            padding-right:30px;
+            height: 400px;
+            width: 550px;
+            padding-top:40px;
+        }
+
+        .container {
+            height: 500px;
+            width: 1200px;
+        }
+    </style>
+</asp:Content>
+
