@@ -23,7 +23,11 @@ public partial class _Default : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-      
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtUser.Text = "Scott.Cardinale";
+            txtPasswrd.Text = "*";
+        }
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -33,7 +37,13 @@ public partial class _Default : Page
             string username = txtUser.Text;
             m_sUserName = username;
             string password = txtPasswrd.Text;
-            var isOk = validateLDAP(m_sUserName, password);
+
+            bool isOk;
+            if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+                isOk = true;
+            else
+                isOk = validateLDAP(m_sUserName, password);
+
             if (isOk)
             {
                 string userrole = getUserRole(m_sUserName, m_appid);

@@ -120,6 +120,12 @@ namespace DAL
     partial void InserttblDiscoveryRequest(tblDiscoveryRequest instance);
     partial void UpdatetblDiscoveryRequest(tblDiscoveryRequest instance);
     partial void DeletetblDiscoveryRequest(tblDiscoveryRequest instance);
+    partial void InserttblContactType(tblContactType instance);
+    partial void UpdatetblContactType(tblContactType instance);
+    partial void DeletetblContactType(tblContactType instance);
+    partial void InserttblContact(tblContact instance);
+    partial void UpdatetblContact(tblContact instance);
+    partial void DeletetblContact(tblContact instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -477,6 +483,14 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblContactType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblContact> tblContacts
+		{
+			get
+			{
+				return this.GetTable<tblContact>();
 			}
 		}
 	}
@@ -13286,8 +13300,10 @@ namespace DAL
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblContactType")]
-	public partial class tblContactType
+	public partial class tblContactType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _idContactType;
 		
@@ -13303,11 +13319,35 @@ namespace DAL
 		
 		private System.Nullable<bool> _ActiveFlag;
 		
+		private EntitySet<tblContact> _tblContacts;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidContactTypeChanging(int value);
+    partial void OnidContactTypeChanged();
+    partial void OnContactTypeChanging(string value);
+    partial void OnContactTypeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
 		public tblContactType()
 		{
+			this._tblContacts = new EntitySet<tblContact>(new Action<tblContact>(this.attach_tblContacts), new Action<tblContact>(this.detach_tblContacts));
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idContactType", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idContactType", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int idContactType
 		{
 			get
@@ -13318,7 +13358,11 @@ namespace DAL
 			{
 				if ((this._idContactType != value))
 				{
+					this.OnidContactTypeChanging(value);
+					this.SendPropertyChanging();
 					this._idContactType = value;
+					this.SendPropertyChanged("idContactType");
+					this.OnidContactTypeChanged();
 				}
 			}
 		}
@@ -13334,7 +13378,11 @@ namespace DAL
 			{
 				if ((this._ContactType != value))
 				{
+					this.OnContactTypeChanging(value);
+					this.SendPropertyChanging();
 					this._ContactType = value;
+					this.SendPropertyChanged("ContactType");
+					this.OnContactTypeChanged();
 				}
 			}
 		}
@@ -13350,7 +13398,11 @@ namespace DAL
 			{
 				if ((this._UpdatedBy != value))
 				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
 					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
 				}
 			}
 		}
@@ -13366,7 +13418,11 @@ namespace DAL
 			{
 				if ((this._UpdatedOn != value))
 				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
 					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
 				}
 			}
 		}
@@ -13382,7 +13438,11 @@ namespace DAL
 			{
 				if ((this._CreatedBy != value))
 				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
 					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
 				}
 			}
 		}
@@ -13398,7 +13458,11 @@ namespace DAL
 			{
 				if ((this._CreatedOn != value))
 				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
 					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
 				}
 			}
 		}
@@ -13414,8 +13478,400 @@ namespace DAL
 			{
 				if ((this._ActiveFlag != value))
 				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
 					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblContactType_tblContact", Storage="_tblContacts", ThisKey="idContactType", OtherKey="idContactType")]
+		public EntitySet<tblContact> tblContacts
+		{
+			get
+			{
+				return this._tblContacts;
+			}
+			set
+			{
+				this._tblContacts.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblContacts(tblContact entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblContactType = this;
+		}
+		
+		private void detach_tblContacts(tblContact entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblContactType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblContact")]
+	public partial class tblContact : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idContact;
+		
+		private int _idRequest;
+		
+		private int _idContactType;
+		
+		private string _Name;
+		
+		private string _Title;
+		
+		private string _Phone;
+		
+		private string _Email;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private EntityRef<tblContactType> _tblContactType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidContactChanging(int value);
+    partial void OnidContactChanged();
+    partial void OnidRequestChanging(int value);
+    partial void OnidRequestChanged();
+    partial void OnidContactTypeChanging(int value);
+    partial void OnidContactTypeChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    #endregion
+		
+		public tblContact()
+		{
+			this._tblContactType = default(EntityRef<tblContactType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idContact", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idContact
+		{
+			get
+			{
+				return this._idContact;
+			}
+			set
+			{
+				if ((this._idContact != value))
+				{
+					this.OnidContactChanging(value);
+					this.SendPropertyChanging();
+					this._idContact = value;
+					this.SendPropertyChanged("idContact");
+					this.OnidContactChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					this.OnidRequestChanging(value);
+					this.SendPropertyChanging();
+					this._idRequest = value;
+					this.SendPropertyChanged("idRequest");
+					this.OnidRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idContactType", DbType="Int NOT NULL")]
+		public int idContactType
+		{
+			get
+			{
+				return this._idContactType;
+			}
+			set
+			{
+				if ((this._idContactType != value))
+				{
+					if (this._tblContactType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidContactTypeChanging(value);
+					this.SendPropertyChanging();
+					this._idContactType = value;
+					this.SendPropertyChanged("idContactType");
+					this.OnidContactTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(100)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(100)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(20)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(100)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(50)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="NVarChar(50)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblContactType_tblContact", Storage="_tblContactType", ThisKey="idContactType", OtherKey="idContactType", IsForeignKey=true)]
+		public tblContactType tblContactType
+		{
+			get
+			{
+				return this._tblContactType.Entity;
+			}
+			set
+			{
+				tblContactType previousValue = this._tblContactType.Entity;
+				if (((previousValue != value) 
+							|| (this._tblContactType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblContactType.Entity = null;
+						previousValue.tblContacts.Remove(this);
+					}
+					this._tblContactType.Entity = value;
+					if ((value != null))
+					{
+						value.tblContacts.Add(this);
+						this._idContactType = value.idContactType;
+					}
+					else
+					{
+						this._idContactType = default(int);
+					}
+					this.SendPropertyChanged("tblContactType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

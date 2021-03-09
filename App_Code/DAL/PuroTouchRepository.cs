@@ -1574,7 +1574,11 @@ using System.Configuration;
                                         }).ToList<ClsContactType>();
         return otypes;
     }
-
+    public List<clsContact> GetContacts(int idRequest)
+    {
+        List<clsContact> oEquip = SrvContact.GetContactsByRequestID(idRequest);
+        return oEquip;
+    }
     public List<ClsRequestType> GetRequestTypes()
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();

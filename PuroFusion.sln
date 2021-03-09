@@ -3,24 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PuroFusion(1)", ".", "{DAA21008-135F-4766-8EBF-BFFEBF6E2504}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PuroFusion", ".", "{DAA21008-135F-4766-8EBF-BFFEBF6E2504}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_58973"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\..\..\..\PIDevelopmentArea\PuroFusion\"
+		Debug.AspNetCompiler.PhysicalPath = "..\PuroFusion\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58973\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_58973"
-		Release.AspNetCompiler.PhysicalPath = "..\..\..\..\..\PIDevelopmentArea\PuroFusion\"
+		Release.AspNetCompiler.PhysicalPath = "..\PuroFusion\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58973\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "58973"
+		SlnRelativePath = "..\PuroFusion\"
 	EndProjectSection
 EndProject
 Global
