@@ -10,8 +10,6 @@ using DAL;
 public class ClsDiscoveryRequest
 {
     public int idRequest { get; set; }
-
-    
     public bool flagNewRequest { get; set; }
     public string SalesRepName { get; set; }
     public string SalesRepEmail { get; set; }
@@ -120,7 +118,7 @@ public class ClsDiscoveryRequest
     public DateTime? CurrentGoLive { get; set; }
     public DateTime? PhaseChangeDate { get; set; }
     public int? idRequestType { get; set; }
-    public int idSolutionType { get; set; }
+    public int? idSolutionType { get; set; }
     public string RequestType { get; set; }
     public bool? CurrentlyShippingFlag { get; set; }
     public int? idShippingVendor { get; set; }
@@ -263,7 +261,7 @@ public class ClsDiscoveryRequest
                                                    CurrentGoLive = (DateTime?)data.CurrentGoLive,
                                                    PhaseChangeDate = (DateTime?)data.PhaseChangeDate,
                                                    idRequestType = (int?)data.idRequestType,
-                                                   idSolutionType = (int)data.idSolutionType,
+                                                   idSolutionType = (int?)data.idSolutionType,
                                                    CurrentlyShippingFlag = (bool?)data.CurrentlyShippingFlag,
                                                    idShippingVendor = (int?)data.idShippingVendor,
                                                    OtherVendorName = data.OtherVendorName,

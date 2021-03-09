@@ -678,13 +678,30 @@
   </Table>
   <Table Name="dbo.tblContactType" Member="tblContactTypes">
     <Type Name="tblContactType">
-      <Column Name="idContactType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idContactType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ContactType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblContactType_tblContact" Member="tblContacts" ThisKey="idContactType" OtherKey="idContactType" Type="tblContact" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblContact" Member="tblContacts">
+    <Type Name="tblContact">
+      <Column Name="idContact" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idContactType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tblContactType_tblContact" Member="tblContactType" ThisKey="idContactType" OtherKey="idContactType" Type="tblContactType" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
