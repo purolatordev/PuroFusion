@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 30.5, 34" name="PuroTouchSQL">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 31.625, 34" name="PuroTouchSQL">
   <DataContextMoniker Name="/PuroTouchSQLDataContext" />
   <nestedChildShapes>
     <classShape Id="9e3c9d02-921d-44f1-95e5-e0927bbd872c" absoluteBounds="0.75, 0.75, 2, 1.0016910807291666">
@@ -248,17 +248,17 @@
         <elementListCompartment Id="abe27efd-7f99-4c8f-9220-4c9289d492ec" absoluteBounds="26.515, 8.835, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="affb8665-d750-4188-b12d-f5ae8d35dfba" absoluteBounds="28.25, 12.25, 2, 2.9247054036458331">
+    <classShape Id="f8dadb10-6393-4b65-abdf-50d73e1180ce" absoluteBounds="29.375, 10.125, 2, 3.1170068359375">
       <DataClassMoniker Name="/PuroTouchSQLDataContext/tblContact" />
       <nestedChildShapes>
-        <elementListCompartment Id="7ab64d5b-c747-43bf-b508-e2ea3ecb8884" absoluteBounds="28.265, 12.71, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="71c392fc-b925-4e5e-a112-071860d1f423" absoluteBounds="29.39, 10.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(27.3749995 : 10.5304996744792); (27.3749995 : 13.7123527018229); (28.25 : 13.7123527018229)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(28.5 : 10.3277498372396); (29.375 : 10.3277498372396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PuroTouchSQLDataContext/tblContactType/tblContactType_tblContact" />
       <nodes>
         <classShapeMoniker Id="656ad2cb-9146-470c-bae0-44e14e7ba201" />
-        <classShapeMoniker Id="affb8665-d750-4188-b12d-f5ae8d35dfba" />
+        <classShapeMoniker Id="f8dadb10-6393-4b65-abdf-50d73e1180ce" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

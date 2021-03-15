@@ -563,11 +563,10 @@
             </telerik:RadPageView>
 
             <%--  CONTACT INFORMATION  --%>
-
             <telerik:RadPageView runat="server" ID="contact">
                 <hr />
                 <table style="padding-top: 2px; width: 100%;" border="0">
-                    <tr>
+                   <%-- <tr>
                         <td style="text-align: right; vertical-align: top">
                             <asp:Label ID="Label6" runat="server" Text="Contact Type"></asp:Label>
                         </td>
@@ -625,115 +624,109 @@
                     </tr>
                      <tr>
                         <td colspan="7" style="height: 20px"></td>
-                    </tr>
+                    </tr>--%>
                     <tr>
-                        <td style="text-align: right; width: 160px"></td>
-                        <td colspan="5">
-                            <telerik:RadGrid ID="contactGrid" runat="server" AllowPaging="True" AllowSorting="false" AllowFilteringByColumn="false" OnNeedDataSource="contactGrid_NeedDataSource" OnDeleteCommand="contactGrid_DeleteCommand">
-                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idContact">
+                        <td colspan="2">
+                            <telerik:RadGrid ID="contactGrid" runat="server" AllowPaging="True" 
+                                AllowSorting="false" AllowFilteringByColumn="false" 
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false" 
+                                OnNeedDataSource="contactGrid_NeedDataSource" OnDeleteCommand="contactGrid_DeleteCommand"
+                                OnItemDataBound="contactGrid_ItemDataBound"  OnUpdateCommand="contactGrid_UpdateCommand"
+                                OnItemCommand="contactGrid_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idContact" CommandItemDisplay="Top">
                                     <Columns>
+                                        <telerik:GridEditCommandColumn ButtonType="ImageButton" EditImageUrl="~/Images/Grid/Edit.gif" HeaderText="Edit" UniqueName="Edit">
+                                            <HeaderStyle Width="36px"></HeaderStyle>
+                                        </telerik:GridEditCommandColumn>
                                         <telerik:GridBoundColumn DataField="ContactTypeName" FilterControlAltText="ContactTypeName" SortExpression="Team" HeaderText="Contact Type" UniqueName="ContactTypeName">
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="idContact" DataType="System.Int32" HeaderText="OrderID" ReadOnly="True" UniqueName="idContact" Display="false" >
+                                        <telerik:GridBoundColumn DataField="idContact" DataType="System.Int32" HeaderText="OrderID" ReadOnly="True" UniqueName="idContact" Display="false"  >
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Name" FilterControlAltText="Filter Name column" SortExpression="Name" HeaderText="Name" UniqueName="Name">
+                                        <telerik:GridBoundColumn DataField="Name" FilterControlAltText="Filter Name column" SortExpression="Name" HeaderText="Name" UniqueName="Name" >
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridDateTimeColumn DataField="Title"  FilterControlAltText="Title" SortExpression="Title" HeaderText="Title" UniqueName="Title">
-                                        </telerik:GridDateTimeColumn>
-                                        <telerik:GridDateTimeColumn DataField="Phone"  FilterControlAltText="Phone" SortExpression="Phone" HeaderText="Phone" UniqueName="Phone">
-                                        </telerik:GridDateTimeColumn>
-                                        <telerik:GridDateTimeColumn DataField="Email"  FilterControlAltText="Email" SortExpression="Email" HeaderText="Email" UniqueName="Email">
-                                        </telerik:GridDateTimeColumn>
+                                        <telerik:GridBoundColumn DataField="Title"  FilterControlAltText="Title" SortExpression="Title" HeaderText="Title" UniqueName="Title">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Phone"  FilterControlAltText="Phone" SortExpression="Phone" HeaderText="Phone" UniqueName="Phone">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Email"  FilterControlAltText="Email" SortExpression="Email" HeaderText="Email" UniqueName="Email">
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
                                         </telerik:GridButtonColumn>
                                     </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left:50px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px;vertical-align: top">Contact Type</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadDropDownList ID="radListContactType" runat="server" OnSelectedIndexChanged="radListContactTypeIdxChanged" DefaultMessage="Select Contact Type" AutoPostBack="true" ToolTip="Select Your Contact Type" Visible="true" Width="280px">
+                                                        </telerik:RadDropDownList>
+                                                        <%--<asp:RequiredFieldValidator runat="server" ValidationGroup="custInfo" ControlToValidate="rddlContactType2" ErrorMessage="Contact Type is required" Style="color: red"></asp:RequiredFieldValidator>--%>
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px">Contact Name:</td>
+                                                    <td style="color: red; text-align: left; width: 2px">*</td>
+                                                    <td>
+                                                        <telerik:RadTextBox ID="txtBxContactName2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px">Contact Title:</td>
+                                                    <td style="color: red; text-align: left; width: 2px">*</td>
+                                                    <td>
+                                                        <telerik:RadTextBox ID="txtBxContactTitle2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px">Contact Email:</td>
+                                                    <td style="color: red; text-align: left; width: 2px">*</td>
+                                                    <td style="width: 160px">
+                                                        <telerik:RadTextBox ID="txtBxContactEmail2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px">Contact Phone:</td>
+                                                    <td style="color: red; text-align: left; width: 2px">*</td>
+                                                    <td style="width: 160px">
+                                                        <telerik:RadTextBox ID="txtBxContactPhone2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center" ">
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                    <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CommandName="Cancel">
+                                                    </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
                                 </MasterTableView>
                             </telerik:RadGrid>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="text-align: right; width: 160px">Business Contact Name
-                        </td>
-                        <td style="color: red; text-align: left; width: 20px">*</td>
-                        <td style="width: 200px">
-                            <telerik:RadTextBox ID="txtContactName" runat="server" MaxLength="75" Text='' Width="300px" ToolTip="Enter Contact Name" />
-                        </td>
-                        <td style="width: 50px"></td>
-                        <td style="text-align: right; width: 130px">IT Contact Name
-                        </td>
-                        <td style="color: red; text-align: left; width: 20px">*</td>
-                        <td style="width: 200px">
-                            <telerik:RadTextBox ID="txtContactName2" runat="server" MaxLength="75" Text='' Width="300px" ToolTip="Enter Contact Name" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td style="height: 20px" colspan="4"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right">Title
-                        </td>
-                        <td></td>
-                        <td>
-                            <telerik:RadTextBox ID="txtContactTitle" runat="server" MaxLength="75" Text='' Width="200px" ToolTip="Enter Contact Title" />
-                        </td>
-                        <td></td>
-                        <td style="text-align: right">Title
-                        </td>
-                        <td></td>
-                        <td>
-                            <telerik:RadTextBox ID="txtContactTitle2" runat="server" MaxLength="75" Text='' Width="200px" ToolTip="Enter Contact Title" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" style="height: 20px"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right; vertical-align: top">Email
-                        </td>
-                        <td style="color: red; text-align: left; vertical-align: top">*</td>
-                        <td>
-                            <telerik:RadTextBox ID="txtContactEmail" runat="server" MaxLength="75" Text='' Width="200px" ToolTip="Enter Contact Email" /><div style="color: red">
-                                <asp:RegularExpressionValidator ID="rev_Email1" runat="server" ControlToValidate="txtContactEmail" ValidationExpression="[^<>]*$" ErrorMessage="Invalid Characters Found" />
-                            </div>
-
-                        </td>
-                        <td style="color: red; text-align: left"></td>
-                        <td style="text-align: right; vertical-align: top">Email
-                        </td>
-                        <td style="color: red; text-align: left; vertical-align: top">*</td>
-                        <td>
-                            <telerik:RadTextBox ID="txtContactEmail2" runat="server" MaxLength="75" Text='' Width="200px" ToolTip="Enter Contact Email" />
-                            <div style="color: red">
-                                <asp:RegularExpressionValidator ID="rev_Email2" runat="server" ControlToValidate="txtContactEmail2" ValidationExpression="[^<>]*$" ErrorMessage="Invalid Characters Found" />
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td style="height: 20px" colspan="4"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right">Phone
-                        </td>
-                        <td style="color: red; text-align: left; vertical-align: top">*</td>
-                        <td>
-                            <telerik:RadTextBox ID="txtContactPhone" runat="server" MaxLength="75" Text='' Width="170px" ToolTip="Enter Contact Phone" />
-
-                        </td>
-                        <td></td>
-                        <td style="text-align: right">Phone
-                        </td>
-                        <td style="color: red; text-align: left">*</td>
-                        <td>
-                            <telerik:RadTextBox ID="txtContactPhone2" runat="server" MaxLength="75" Text='' Width="170px" ToolTip="Enter Contact Phone" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"></td>
-                        <td style="height: 20px" colspan="4"></td>
-                    </tr>
-
                     <tr>
                         <td colspan="7">
                             <p style="color: red"><i>*Required Fields - At least one contact must be supplied</i></p>

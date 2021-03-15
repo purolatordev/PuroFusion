@@ -11,6 +11,8 @@ using Telerik.Web.UI;
 using DAL;
 using System.Net.Mail;
 using System.Net;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 {
@@ -22,6 +24,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     Int16 ClosedID = Convert.ToInt16(ConfigurationManager.AppSettings["ClosedID"]);
     Int16 OnHoldID = Convert.ToInt16(ConfigurationManager.AppSettings["OnHoldID"]);
 
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["userName"] == null)
@@ -58,7 +61,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getRequestTypes();
                 getVendorTypes();
                 getSolutionTypes();
-                getContactTypes();
+                //getContactTypes();
 
                 dpNoteDate.SelectedDate = DateTime.Now;
                 //Start with blank lists
@@ -83,8 +86,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     //If Existing Request, populate form
                     lblRequestID.Text = requestID;
                     displayExistingRequest(Convert.ToInt32(requestID));
-                    //Session["newFlag"] = false;
-                    //Session["requestID"] = Convert.ToInt32(requestID);
                     btnNextTab1.Visible = false;
                     btnNextTab2.Visible = false;
                     btnNextTab3.Visible = false;
@@ -96,7 +97,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 else
                 {
                     //If New, disable tabs initially
-                    //Session["newFlag"] = true;
                     lblRequestID.Text = "0";
                     txtEmail.Text = username + "@purolator.com";
                     txtSalesProfessional.Text = username.Replace(".", " ");
@@ -116,13 +116,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     hideshowbars();
                 }
             }
-
         }
         else
         {
             Response.Redirect("Default.aspx");
         }
-
 
         //Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
@@ -640,24 +638,24 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = msg;
         }
     }
-    protected void getContactTypes()
-    {
-        try
-        {
-            List<ClsContactType> solutionlist = repository.GetContactTypes();
-            rddlContactType.DataSource = solutionlist;
-            rddlContactType.DataTextField = "ContactType";
-            rddlContactType.DataValueField = "idContactType";
-            rddlContactType.DataBind();
-            rddlContactType.SelectedIndex = -1;
-        }
-        catch (Exception ex)
-        {
-            var msg = ex.Message;
-            pnlDanger.Visible = true;
-            lblDanger.Text = msg;
-        }
-    }
+    //protected void getContactTypes()
+    //{
+    //    try
+    //    {
+    //        List<ClsContactType> solutionlist = repository.GetContactTypes();
+    //        rddlContactType.DataSource = solutionlist;
+    //        rddlContactType.DataTextField = "ContactType";
+    //        rddlContactType.DataValueField = "idContactType";
+    //        rddlContactType.DataBind();
+    //        rddlContactType.SelectedIndex = -1;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        var msg = ex.Message;
+    //        pnlDanger.Visible = true;
+    //        lblDanger.Text = msg;
+    //    }
+    //}
     protected void getRequestTypes()
     {
         try
@@ -1391,13 +1389,72 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = msg;
         }
     }
-    #region Grid Testing
+    #region contactGrid
     protected void contactGrid_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
-        int requestID = 0;
-        int.TryParse(Request.QueryString["requestID"], out requestID);
-        
-        (sender as RadGrid).DataSource = SrvContact.GetContactsByRequestID(requestID);
+        try
+        {
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            (sender as RadGrid).DataSource = SrvContact.GetContactsByRequestID(requestID);
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void contactGrid_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadTextBox txtBxContactName2 = (RadTextBox)edit.FindControl("txtBxContactName2");
+                RadTextBox txtBxContactTitle2 = (RadTextBox)edit.FindControl("txtBxContactTitle2");
+                RadTextBox txtBxContactEmail2 = (RadTextBox)edit.FindControl("txtBxContactEmail2");
+                RadTextBox txtBxContactPhone2 = (RadTextBox)edit.FindControl("txtBxContactPhone2");
+
+                List<ClsContactType> solutionlist = repository.GetContactTypes();
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListContactType");
+                radlist.DataSource = solutionlist;
+                radlist.DataTextField = "ContactType";
+                radlist.DataValueField = "idContactType";
+                radlist.DataBind();
+                radlist.SelectedIndex = -1;
+
+                List<clsContact> contactList = (List<clsContact>)Session["contactList"];
+                int rownum = e.Item.ItemIndex;
+                if (rownum >= 0)
+                {
+                    clsContact contact = contactList[rownum];
+                    txtBxContactName2.Text = contact.Name;
+                    txtBxContactTitle2.Text = contact.Title;
+                    txtBxContactEmail2.Text = contact.Email;
+                    txtBxContactPhone2.Text = contact.Phone;
+
+                    if (contact.idContactType - 1 > -1)
+                    {
+                        radlist.SelectedIndex = contact.idContactType - 1;
+                        radlist.Enabled = false;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public string GetCurrentMethod()
+    {
+        var st = new StackTrace();
+        var sf = st.GetFrame(1);
+        return sf.GetMethod().Name;
     }
     protected void contactGrid_DeleteCommand(object sender, GridCommandEventArgs e)
     {
@@ -1417,12 +1474,101 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
+
+    protected void contactGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+    {
+        try
+        {
+            if( e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListContactType");
+                RadTextBox txtBxContactName2 = (RadTextBox)edit.FindControl("txtBxContactName2");
+                RadTextBox txtBxContactTitle2 = (RadTextBox)edit.FindControl("txtBxContactTitle2");
+                RadTextBox txtBxContactEmail2 = (RadTextBox)edit.FindControl("txtBxContactEmail2");
+                RadTextBox txtBxContactPhone2 = (RadTextBox)edit.FindControl("txtBxContactPhone2");
+
+                int requestID = 0;
+                int.TryParse(Request.QueryString["requestID"], out requestID);
+
+                // && !String.IsNullOrEmpty(txtBxContactTitle2.Text)
+                if ( !String.IsNullOrEmpty(radlist.SelectedText) && !String.IsNullOrEmpty(txtBxContactName2.Text)  && !String.IsNullOrEmpty(txtBxContactEmail2.Text) && !String.IsNullOrEmpty(txtBxContactPhone2.Text))
+                {
+                    txtBxContactEmail2.Text = txtBxContactEmail2.Text.Replace("<", "");
+                    clsContact contact = new clsContact()
+                    {
+                        idContactType = Convert.ToInt16(radlist.SelectedValue),
+                        idRequest = requestID,
+                        Name = txtBxContactName2.Text,
+                        Title = txtBxContactTitle2.Text,
+                        Email = txtBxContactEmail2.Text,
+                        Phone = txtBxContactPhone2.Text,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    int inewID = 0;
+                    SrvContact.Insert(contact, out inewID);
+                    List<clsContact> contactList = repository.GetContacts(requestID);
+                    Session["contactList"] = contactList;
+                    contactGrid.DataSource = contactList;
+                    contactGrid.DataBind();
+                }
+                else
+                    e.Canceled = true;
+            }
+            RadMultiPage1.SelectedIndex = 1;
+            RadTabStrip1.Tabs[1].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void contactGrid_UpdateCommand(object source, GridCommandEventArgs e)
+    {
+        if (e.CommandName == RadGrid.UpdateCommandName)
+        {
+            if (e.Item is GridEditFormItem)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+                int id = Convert.ToInt32(item.GetDataKeyValue("idContact"));
+                if (id != 0)
+                {
+                    RadTextBox txtBxContactName2 = (RadTextBox)item.FindControl("txtBxContactName2");
+                    RadTextBox txtBxContactTitle2 = (RadTextBox)item.FindControl("txtBxContactTitle2");
+                    RadTextBox txtBxContactEmail2 = (RadTextBox)item.FindControl("txtBxContactEmail2");
+                    RadTextBox txtBxContactPhone2 = (RadTextBox)item.FindControl("txtBxContactPhone2");
+
+                    txtBxContactEmail2.Text = txtBxContactEmail2.Text.Replace("<", "");
+
+                    List<clsContact> contactList = (List<clsContact>)Session["contactList"];
+                    int itemIndex = e.Item.ItemIndex;
+                    contactList[itemIndex].Name = txtBxContactName2.Text;
+                    contactList[itemIndex].Title = txtBxContactTitle2.Text;
+                    contactList[itemIndex].Email = txtBxContactEmail2.Text;
+                    contactList[itemIndex].Phone = txtBxContactPhone2.Text;
+                    Session["contactList"] = contactList;
+
+                    SrvContact.Update(contactList[itemIndex]);
+                    contactGrid.DataSource = contactList;
+                    contactGrid.Rebind();
+                }
+            }
+        }
+    }
+    protected void radListContactTypeIdxChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 1;
+        RadTabStrip1.Tabs[1].Selected = true;
+    }
     #endregion
-    
+
     protected void displayExistingRequest(Int32 requestID)
     {
         try
@@ -1432,6 +1578,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             ClsDiscoveryRequest request = dr.GetDiscoveryRequest(requestID);
             ClsDiscoveryRequestDetails drd = new ClsDiscoveryRequestDetails();
             ClsDiscoveryRequestDetails details = drd.GetDiscoveryRequestDetails(requestID, "");
+            clsContact contact = SrvContact.GetContactsByRequestID(requestID).FirstOrDefault();
             //Existing Request may not have Details entered yet
             if (details == null)
             {
@@ -1487,15 +1634,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
 
             //Tab2 - Contact Information
-            txtContactName.Text = request.CustomerBusContact;
-            txtContactTitle.Text = request.CustomerBusTitle;
-            txtContactEmail.Text = request.CustomerBusEmail;
-            txtContactPhone.Text = request.CustomerBusPhone;
-            txtContactName2.Text = request.CustomerITContact;
-            txtContactTitle2.Text = request.CustomerITTitle;
-            txtContactEmail2.Text = request.CustomerITEmail;
-            txtContactPhone2.Text = request.CustomerITPhone;
-
+       
             //Tab3 - Current Solution
             txtareaCurrentSolution.Text = request.CurrentSolution;
 
@@ -1841,14 +1980,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
             if (userRole == "sales" || userRole == "salesdm" || userRole == "salesmanager")
             {
-
                 //Do  not show Profile to Sales
                 RadTabStrip1.Tabs[4].Visible = false;
                 //Do not show File Uploads to Sales
                 RadTabStrip1.Tabs[6].Visible = false;
 
                 rfvTaskType.Enabled = false;
-
             }
             if (userRole != "itmanager" && userRole != "admin" && userRole != "itadmin")
             {
@@ -1860,9 +1997,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 //get total minutes, turn into hours / minutes and display
                 UpdateTimeSpent(requestID);
-
             }
-
         }
         catch (Exception ex)
         {
@@ -1870,12 +2005,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             pnlDanger.Visible = true;
             lblDanger.Text = msg;
         }
-
     }
 
     protected void UpdateTimeSpent(int requestID)
     {
-        //ClsNotes cn = new ClsNotes();
         Int32 totalMinutes = repository.GetTotalTimeSpent(requestID);
         int hrs;
         int mins;
@@ -1927,7 +2060,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             pnlDanger.Visible = true;
             lblDanger.Text = msg;
         }
-
     }
 
     protected void CustomValidatorNew_ServerValidate(object source, ServerValidateEventArgs args)
@@ -1949,12 +2081,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             pnlDanger.Visible = true;
             lblDanger.Text = msg;
         }
-
     }
 
     public string sharedValidator()
     {
-
         string ErrorMessage = "";
         //header
         if (rddlDistrict.SelectedIndex < 0)
@@ -1996,27 +2126,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             ErrorMessage = ErrorMessage + "<br>Annualized Revenue must be numeric";
         }
         //checked tab2
-        bool contact1 = false;
-        bool contact2 = false;
-        //for the message you get about dangerous data
-        //txtContactEmail.Text = txtContactEmail.Text.Replace("<","");
-        //txtContactEmail.Text = txtContactEmail.Text.Replace(">", "");
-        //txtContactEmail2.Text = txtContactEmail2.Text.Replace("<", "");
-        //txtContactEmail2.Text = txtContactEmail2.Text.Replace(">", "");
-
-        if (txtContactName.Text != "" && txtContactEmail.Text != "" && txtContactPhone.Text != "")
+        List<clsContact> contactList = (List<clsContact>)Session["contactList"];
+        if (contactList.Count() == 0)
         {
-            contact1 = true;
-        }
-        if (txtContactName2.Text != "" && txtContactEmail2.Text != "" && txtContactPhone2.Text != "")
-        {
-            contact2 = true;
-        }
-        if (contact1 == false && contact2 == false)
-        {
-
             ErrorMessage = ErrorMessage + "<br>At Least One Contact Must Be Supplied";
         }
+
         //check tab3
         string strFromTextArea = txtareaCurrentSolution.Text;
         if (strFromTextArea == "")
@@ -2039,34 +2154,29 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
         return ErrorMessage;
     }
-
-
-
     protected void CustomValidatorContact_ServerValidate(object source, ServerValidateEventArgs args)
     {
         args.IsValid = true;
         CustomValidatorContact.ErrorMessage = "";
         bool contact1 = false;
-        bool contact2 = false;
+        //bool contact2 = false;
 
-        if (txtContactName.Text != "" && txtContactEmail.Text != "" && txtContactPhone.Text != "")
-        {
-            contact1 = true;
-        }
+        //if (txtBxContactName.Text != "" && txtBxContactEmail.Text != "" && txtBxContactPhone.Text != "")
+        //{
+        //    contact1 = true;
+        //}
 
-        if (txtContactName2.Text != "" && txtContactEmail2.Text != "" && txtContactPhone2.Text != "")
-        {
-            contact2 = true;
-        }
+        //if (txtContactName2.Text != "" && txtContactEmail2.Text != "" && txtContactPhone2.Text != "")
+        //{
+        //    contact2 = true;
+        //}
 
-        if (contact1 == false && contact2 == false)
-        {
-            args.IsValid = false;
-            CustomValidatorContact.ErrorMessage = CustomValidatorContact.ErrorMessage + "Please enter contact name, email and phone";
-        }
-
+        //if (contact1 == false)
+        //{
+        //    args.IsValid = false;
+        //    CustomValidatorContact.ErrorMessage = CustomValidatorContact.ErrorMessage + "Please enter contact name, email and phone";
+        //}
     }
-
 
     protected void CustomValidatorCustomer_ServerValidate(object source, ServerValidateEventArgs args)
     {
@@ -2570,52 +2680,54 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
 
     }
-    protected void btnAddContact_Click(object sender, System.EventArgs e)
-    {
-        try
-        {
-            if (Page.IsValid)
-            {
-                int requestID = 0;
-                int.TryParse(Request.QueryString["requestID"], out requestID);
+    //protected void btnUpdateContact_Click(object sender, System.EventArgs e)
+    //{
+    //    try
+    //    {
+    //        if (Page.IsValid)
+    //        {
+    //            int requestID = 0;
+    //            int.TryParse(Request.QueryString["requestID"], out requestID);
 
-                RadMultiPage1.SelectedIndex = 1;
-                RadTabStrip1.Tabs[1].Selected = true;
+    //            RadMultiPage1.SelectedIndex = 1;
+    //            RadTabStrip1.Tabs[1].Selected = true;
+    //            if ( !String.IsNullOrEmpty(lblHiddenContactID.ToString()) && !String.IsNullOrEmpty(txtBxContactName.Text) && !String.IsNullOrEmpty(txtBxContactTitle.Text) && !String.IsNullOrEmpty(txtBxContactEmail.Text) && !String.IsNullOrEmpty(txtBxContactPhone.Text))
+    //            {
+    //                clsContact contact = new clsContact()
+    //                {
+    //                    idContact = int.Parse(lblHiddenContactID.Text),
+    //                    idContactType = Convert.ToInt16(rddlContactType.SelectedValue),
+    //                    idRequest = requestID,
+    //                    Name = txtBxContactName.Text,
+    //                    Title = txtBxContactTitle.Text,
+    //                    Email = txtBxContactEmail.Text,
+    //                    Phone = txtBxContactPhone.Text,
+    //                    UpdatedBy = (string)(Session["userName"]),
+    //                    UpdatedOn = DateTime.Now
+    //                };
 
-                clsContact contact = new clsContact()
-                {
-                    idContactType = Convert.ToInt16(rddlContactType.SelectedValue),
-                    idRequest = requestID,
-                    Name = txtBxContactName.Text,
-                    Title = txtBxContactTitle.Text,
-                    Email = txtBxContactEmail.Text,
-                    Phone = txtBxContactPhone.Text,
-                    CreatedOn = DateTime.Now,
-                    CreatedBy = (string)(Session["userName"])
-                };
+    //                SrvContact.Update(contact);
+    //                List<clsContact> contactList = repository.GetContacts(requestID);
+    //                Session["contactList"] = contactList;
+    //                contactGrid.DataSource = contactList;
+    //                contactGrid.DataBind();
+    //                int er = 0;
+    //                er++;
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        lblWarning.Text = ex.Message;
+    //        lblWarning.Visible = true;
+    //        pnlwarning.Visible = true;
+    //    }
+    //}
 
-                int inewID = 0;
-                SrvContact.Insert(contact, out inewID);
-                List<clsContact> contactList = repository.GetContacts(requestID);
-                Session["contactList"] = contactList;
-                contactGrid.DataSource = contactList;
-                contactGrid.DataBind();
-                int er = 0;
-                er++;
-            }
-        }
-        catch (Exception ex)
-        {
-            lblWarning.Text = ex.Message;
-            lblWarning.Visible = true;
-            pnlwarning.Visible = true;
-        }
-    }
     protected void btnSubmitChanges_Click(object sender, System.EventArgs e)
     {
         try
         {
-
             if (Page.IsValid)
             {
                 doSubmit();
@@ -2627,9 +2739,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
-
     }
-
 
     protected void doSubmit()
     {
@@ -2638,7 +2748,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Response.Redirect("Default.aspx");
 
         //FOR EAST WEST SPLITS, THERE ARE TWO DETAIL RECORDS - ShipRecordType is "West" for second record
-
 
         //DO SUBMIT
         //bool newFlag = (bool)Session["newFlag"];
@@ -3265,14 +3374,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             txtRev = txtRev.Replace("$", "");
             objDiscoveryRequest.ProjectedRevenue = Convert.ToDecimal(txtRev);
             //CONTACT INFO
-            objDiscoveryRequest.CustomerBusContact = txtContactName.Text;
-            objDiscoveryRequest.CustomerBusTitle = txtContactTitle.Text;
-            objDiscoveryRequest.CustomerBusEmail = txtContactEmail.Text;
-            objDiscoveryRequest.CustomerBusPhone = txtContactPhone.Text;
-            objDiscoveryRequest.CustomerITContact = txtContactName2.Text;
-            objDiscoveryRequest.CustomerITTitle = txtContactTitle2.Text;
-            objDiscoveryRequest.CustomerITEmail = txtContactEmail2.Text;
-            objDiscoveryRequest.CustomerITPhone = txtContactPhone2.Text;
+            //objDiscoveryRequest.CustomerBusContact = txtContactName.Text;
+            //objDiscoveryRequest.CustomerBusTitle = txtContactTitle.Text;
+            //objDiscoveryRequest.CustomerBusEmail = txtContactEmail.Text;
+            //objDiscoveryRequest.CustomerBusPhone = txtContactPhone.Text;
+            //objDiscoveryRequest.CustomerITContact = txtContactName2.Text;
+            //objDiscoveryRequest.CustomerITTitle = txtContactTitle2.Text;
+            //objDiscoveryRequest.CustomerITEmail = txtContactEmail2.Text;
+            //objDiscoveryRequest.CustomerITPhone = txtContactPhone2.Text;
             //CURRENT SOLUTION
             objDiscoveryRequest.CurrentSolution = txtareaCurrentSolution.Text;
             bool curshipflag = true;

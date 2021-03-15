@@ -25,9 +25,9 @@ public class clsContact
     public string Email { get; set; }
 
     public string CreatedBy { get; set; }
-    public string _UpdatedBy { get; set; }
+    public string UpdatedBy { get; set; }
 
-    public System.Nullable<System.DateTime> _UpdatedOn { get; set; }
+    public System.Nullable<System.DateTime> UpdatedOn { get; set; }
 
     public System.Nullable<System.DateTime> CreatedOn { get; set; }
 
@@ -83,6 +83,30 @@ public static class SrvContact
             errMsg = ex.Message.ToString();
         }
         return errMsg; 
+    }
+    public static string Update(clsContact data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        try
+        {
+            var contact = puroTouchContext.GetTable<tblContact>().Where(f=>f.idContact == data.idContact).FirstOrDefault();
+            if(contact != null)
+            {
+                contact.Name = data.Name;
+                contact.Title = data.Title;
+                contact.Phone = data.Phone;
+                contact.Email = data.Email;
+                contact.UpdatedBy = data.UpdatedBy;
+                contact.UpdatedOn = data.UpdatedOn;
+            }
+            puroTouchContext.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
     }
     public static string Remove(int idContact)
     {
