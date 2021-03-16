@@ -264,7 +264,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         try
         {
-
             List<ClsCurrency> currencylist = repository.GetCurrency();
             rddlCurrency.DataSource = currencylist;
             rddlCurrency.DataTextField = "Currency";
@@ -273,18 +272,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getDataEntryMethods()
     {
         try
         {
-
             List<ClsDataEntryMethods> methodlist = repository.GetDataEntryMethodsInactiveNoted();
             rddlDataEntry.DataSource = methodlist;
             rddlDataEntry.DataTextField = "DataEntry";
@@ -293,11 +289,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getShippingProducts()
@@ -319,17 +313,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
     protected void getShippingProductsAll()
     {
         try
         {
-
             List<ClsShippingProducts> prodlist = repository.GetShippingProducts();
             rddlProducts.DataSource = prodlist;
             rddlProducts.DataTextField = "ShippingProduct";
@@ -338,18 +329,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getThirdPartyVendors()
     {
         try
         {
-
             List<ClsThirdPartyVendor> vendorlist = repository.GetThirdPartyVendorsInactiveNoted();
             rddlThirdPartyVendor.DataSource = vendorlist;
             rddlThirdPartyVendor.DataTextField = "VendorName";
@@ -358,18 +346,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getShippingVendors()
     {
         try
         {
-
             List<ClsShippingVendor> vendorlist = repository.GetShippingVendors();
             rddlShippingVendor.DataSource = vendorlist;
             rddlShippingVendor.DataTextField = "VendorName";
@@ -378,18 +363,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getBrokers()
     {
         try
         {
-
             List<ClsBroker> brokerlist = repository.GetActiveBrokers();
             rddlCustomsBroker.DataSource = brokerlist;
             rddlCustomsBroker.DataTextField = "Broker";
@@ -398,18 +380,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getEquipmentList()
     {
         try
         {
-
             List<ClsEquipment> equiplist = repository.GetEquipmentList();
             rddlEquipment.DataSource = equiplist;
             rddlEquipment.DataTextField = "Equipment";
@@ -418,18 +397,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getInvoiceTypes()
     {
         try
         {
-
             List<ClsInvoiceType> invlist = repository.GetInvoiceType();
             rddlInvoiceType.DataSource = invlist;
             rddlInvoiceType.DataTextField = "InvoiceType";
@@ -438,18 +414,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getFileTypes()
     {
         try
         {
-
             List<ClsFileType> filelist = repository.GetFileTypes();
             rddlFileFormat.DataSource = filelist;
             rddlFileFormat.DataTextField = "FileType";
@@ -458,18 +431,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getCommunicationMethods()
     {
         try
         {
-
             List<ClsCommunicationMethod> commlist = repository.GetCommunicationMethods();
             rddlCommunicationMethod.DataSource = commlist;
             rddlCommunicationMethod.DataTextField = "CommunicationMethod";
@@ -478,17 +448,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
     protected void getEDISolutions()
     {
         try
         {
-
             List<ClsEDISolution> edilist = repository.GetEDISolutions();
             rddlEDISolution.DataSource = edilist;
             rddlEDISolution.DataTextField = "Solution";
@@ -497,11 +464,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getInductionPoints()
@@ -548,18 +513,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getInductionPointsPuroPost()
     {
         try
         {
-
             List<ClsInductionPoint> inductionlist = repository.GetInductionPointsPuroPost();
             rddlCourierInduction.DataSource = inductionlist;
             rddlCourierInduction.DataTextField = "Description";
@@ -573,31 +535,25 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getDistricts()
     {
         try
         {
-            //ClsDistrict district = new ClsDistrict();
-            // PuroTouchRepository rep = new PuroTouchRepository();
             List<ClsDistrict> districtlist = repository.GetDistricts();
             rddlDistrict.DataSource = districtlist;
             rddlDistrict.DataTextField = "District";
             rddlDistrict.DataValueField = "District";
-            //rddlDistrict.SelectedText = "UNKNOWN";
             rddlDistrict.DataBind();
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -614,9 +570,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -633,29 +588,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-    //protected void getContactTypes()
-    //{
-    //    try
-    //    {
-    //        List<ClsContactType> solutionlist = repository.GetContactTypes();
-    //        rddlContactType.DataSource = solutionlist;
-    //        rddlContactType.DataTextField = "ContactType";
-    //        rddlContactType.DataValueField = "idContactType";
-    //        rddlContactType.DataBind();
-    //        rddlContactType.SelectedIndex = -1;
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        var msg = ex.Message;
-    //        pnlDanger.Visible = true;
-    //        lblDanger.Text = msg;
-    //    }
-    //}
     protected void getRequestTypes()
     {
         try
@@ -669,9 +605,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -688,9 +623,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -700,7 +634,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             //Check for Existing Request
             ClsDiscoveryRequest dr = new ClsDiscoveryRequest();
-            //Int32 RequestID = (Int32)Session["requestID"];
             Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
             if (RequestID != 0)
             {
@@ -714,37 +647,28 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                         txtTargetChangeReason.Visible = true;
                     }
                 }
-
             }
-
         }
-
         catch (Exception ex)
         {
         }
-
-
     }
 
     protected void getCloseReasons()
     {
         try
         {
-
             List<ClsCloseReason> reasonlist = repository.GetCloseReasonsInactiveNoted();
             rddlCloseReason.DataSource = reasonlist;
             rddlCloseReason.DataTextField = "CloseReason";
             rddlCloseReason.DataValueField = "CloseReason";
             rddlCloseReason.DataBind();
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getBranches()
@@ -764,18 +688,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlRequestType_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             int selectedind = Convert.ToInt32(rddlRequestType.SelectedValue);
             if (selectedind == 3)
             {
@@ -789,38 +710,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 rddlCurrentCA.SelectedText = "Yes";
                 chkNewBus.Checked = true;
             }
-
-            //MK not using Relationship Drop Down for now - previous entries were entered free form and may not match our list
-            //if (newrelationship == false)
-            //{
-            //chkNewBus.Checked = false;
-            //rddlRelationships.Visible = true;
-            //txtCustomerName.Visible = false;
-            //lblCustomerName.Text = "Select Relationship";
-            //}
-            //else
-            //{
-            //chkNewBus.Checked = true;
-            //rddlRelationships.Visible = false;
-            //txtCustomerName.Visible = true;
-            //lblCustomerName.Text = "Enter Customer Name";
-            //}
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlInternalType_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             int selectedind = Convert.ToInt32(rddlInternalType.SelectedValue);
             if (selectedind == 1014)
             {
@@ -836,22 +737,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 rfvNotes.Enabled = true;
                 rfvNotes2.Enabled = false;
             }
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
-
     protected void rddlShippingVendor_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             string vendor = rddlShippingVendor.SelectedText;
             if (vendor.ToLower() == "other")
             {
@@ -866,39 +762,32 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlCurrentCA_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             string shipflag = rddlCurrentCA.SelectedText;
             if (shipflag.ToLower() == "no")
             {
                 rddlShippingVendor.SelectedText = "None";
             }
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlCustomsList_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             string customsval = rddlCustomsList.SelectedText.ToLower().Trim();
             if (customsval != "none" && customsval != "tbd")
             {
@@ -918,22 +807,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 lblOtherBroker.Visible = false;
                 txtCustomsBroker.Visible = false;
             }
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlCustomsBroker_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             string customsbroker = rddlCustomsBroker.SelectedText.ToLower().Trim();
             if (customsbroker == "other")
             {
@@ -945,22 +830,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 lblOtherBroker.Visible = false;
                 txtCustomsBroker.Visible = false;
             }
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlVendorType_IndexChanged(object sender, System.EventArgs e)
     {
         try
         {
-
             int vendorTypeID = Convert.ToInt32(rddlVendorType.SelectedValue);
             if (vendorTypeID == 1)
             {
@@ -974,15 +855,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 rddlThirdPartyVendor.Visible = false;
                 lbl3pv.Visible = false;
             }
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlDistrict_IndexChanged(object sender, System.EventArgs e)
@@ -999,11 +877,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rddlPhase_IndexChanged(object sender, System.EventArgs e)
@@ -1023,11 +899,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void CourierInduction_IndexChanged(object sender, System.EventArgs e)
@@ -1041,16 +915,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             courierIstate.Text = inductionAddress.State;
             courierIzip.Text = inductionAddress.Zip;
             courierIcountry.Text = inductionAddress.Country;
-
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void CourierInductionWest_IndexChanged(object sender, System.EventArgs e)
@@ -1064,16 +934,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             courierIstateWest.Text = inductionAddress.State;
             courierIzipWest.Text = inductionAddress.Zip;
             courierIcountryWest.Text = inductionAddress.Country;
-
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void PuroPostInduction_IndexChanged(object sender, System.EventArgs e)
@@ -1090,11 +956,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void PuroPostInductionWest_IndexChanged(object sender, System.EventArgs e)
@@ -1111,11 +975,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void PuroPostPlusInduction_IndexChanged(object sender, System.EventArgs e)
@@ -1132,11 +994,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void PuroPostPlusInductionWest_IndexChanged(object sender, System.EventArgs e)
@@ -1153,21 +1013,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
-
-
     protected void chkMartinGrove_Clicked(object sender, System.EventArgs e)
     {
         try
         {
-            //put Martin Grove ID into web.config
-            //if (chkMartinGrove.Checked == true)
-            //{
             Int16 idInduction = 108;
             ClsInductionPoint inductionAddress = repository.GetInductionPointDetails(idInduction);
             txtReturnsAddress.Text = inductionAddress.Address;
@@ -1175,31 +1028,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             txtReturnsState.Text = inductionAddress.State;
             txtReturnsZip.Text = inductionAddress.Zip;
             txtReturnsCountry.Text = inductionAddress.Country;
-            //}
-            //else
-            //{
-            //    txtReturnsAddress.Text = "";
-            //    txtReturnsCity.Text = "";
-            //    txtReturnsState.Text = "";
-            //    txtReturnsZip.Text = "";
-            //    txtReturnsCountry.Text = "";
-            //}
-
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getRelationships()
     {
         try
         {
-
             List<ClsRelationshipName> relatiobnshiplist = repository.GetRelationships();
             rddlRelationships.DataSource = relatiobnshiplist;
             rddlRelationships.DataTextField = "RelationshipName";
@@ -1208,11 +1048,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getITBAs()
@@ -1227,11 +1065,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getShippingChannels()
@@ -1246,11 +1082,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void getOnboardingPhases()
@@ -1266,9 +1100,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -1284,9 +1117,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -1302,9 +1134,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -1323,11 +1154,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected void rgSolutionsGrid_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
@@ -1344,9 +1173,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -1364,9 +1192,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -1384,9 +1211,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
     #region contactGrid
@@ -2001,9 +1827,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
+            //var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2056,9 +1882,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2077,9 +1902,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            var msg = ex.Message;
             pnlDanger.Visible = true;
-            lblDanger.Text = msg;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2089,12 +1913,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         //header
         if (rddlDistrict.SelectedIndex < 0)
         {
-
             ErrorMessage = ErrorMessage + "<br>Please Select District";
         }
         if (rddlBranch.SelectedIndex < 0)
         {
-
             ErrorMessage = ErrorMessage + "<br>Please Select Branch";
         }
         //check tab1
@@ -2131,18 +1953,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             ErrorMessage = ErrorMessage + "<br>At Least One Contact Must Be Supplied";
         }
-
-        //check tab3
-        string strFromTextArea = txtareaCurrentSolution.Text;
-        if (strFromTextArea == "")
+        if ((rddlSolutionType.SelectedIndex == 0 || rddlSolutionType.SelectedIndex == 2) && string.IsNullOrEmpty(txtareaCurrentSolution.Text))
         {
-
             ErrorMessage = ErrorMessage + "<br>Current Solution Description is Missing";
         }
         //check tab4
         string snumSvcs = rgSvcGrid.MasterTableView.Items.Count.ToString();
         Int16 numSvcs = Convert.ToInt16(snumSvcs);
-        if (numSvcs < 1)
+        if ( (rddlSolutionType.SelectedIndex == 0 || rddlSolutionType.SelectedIndex == 2) && (numSvcs < 1) )
         {
             ErrorMessage = ErrorMessage + "<br>Must Choose At Least One Service";
         }
@@ -2158,24 +1976,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         args.IsValid = true;
         CustomValidatorContact.ErrorMessage = "";
-        bool contact1 = false;
-        //bool contact2 = false;
-
-        //if (txtBxContactName.Text != "" && txtBxContactEmail.Text != "" && txtBxContactPhone.Text != "")
-        //{
-        //    contact1 = true;
-        //}
-
-        //if (txtContactName2.Text != "" && txtContactEmail2.Text != "" && txtContactPhone2.Text != "")
-        //{
-        //    contact2 = true;
-        //}
-
-        //if (contact1 == false)
-        //{
-        //    args.IsValid = false;
-        //    CustomValidatorContact.ErrorMessage = CustomValidatorContact.ErrorMessage + "Please enter contact name, email and phone";
-        //}
+        //bool contact1 = false;
     }
 
     protected void CustomValidatorCustomer_ServerValidate(object source, ServerValidateEventArgs args)
@@ -2247,8 +2048,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
-
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2280,7 +2080,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -2312,8 +2112,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
-
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2332,7 +2131,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -2363,8 +2162,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
-
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2394,8 +2192,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
-
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -2414,7 +2211,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -2462,7 +2259,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -2495,13 +2292,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 cn.deActivateNote(noteID);
                 rgNotesGrid.Rebind();
             }
-
-
         }
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -2572,7 +2367,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -2670,60 +2465,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 btnSubmit.Enabled = false;
                 doSubmit();
             }
-
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
-
     }
-    //protected void btnUpdateContact_Click(object sender, System.EventArgs e)
-    //{
-    //    try
-    //    {
-    //        if (Page.IsValid)
-    //        {
-    //            int requestID = 0;
-    //            int.TryParse(Request.QueryString["requestID"], out requestID);
-
-    //            RadMultiPage1.SelectedIndex = 1;
-    //            RadTabStrip1.Tabs[1].Selected = true;
-    //            if ( !String.IsNullOrEmpty(lblHiddenContactID.ToString()) && !String.IsNullOrEmpty(txtBxContactName.Text) && !String.IsNullOrEmpty(txtBxContactTitle.Text) && !String.IsNullOrEmpty(txtBxContactEmail.Text) && !String.IsNullOrEmpty(txtBxContactPhone.Text))
-    //            {
-    //                clsContact contact = new clsContact()
-    //                {
-    //                    idContact = int.Parse(lblHiddenContactID.Text),
-    //                    idContactType = Convert.ToInt16(rddlContactType.SelectedValue),
-    //                    idRequest = requestID,
-    //                    Name = txtBxContactName.Text,
-    //                    Title = txtBxContactTitle.Text,
-    //                    Email = txtBxContactEmail.Text,
-    //                    Phone = txtBxContactPhone.Text,
-    //                    UpdatedBy = (string)(Session["userName"]),
-    //                    UpdatedOn = DateTime.Now
-    //                };
-
-    //                SrvContact.Update(contact);
-    //                List<clsContact> contactList = repository.GetContacts(requestID);
-    //                Session["contactList"] = contactList;
-    //                contactGrid.DataSource = contactList;
-    //                contactGrid.DataBind();
-    //                int er = 0;
-    //                er++;
-    //            }
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        lblWarning.Text = ex.Message;
-    //        lblWarning.Visible = true;
-    //        pnlwarning.Visible = true;
-    //    }
-    //}
-
     protected void btnSubmitChanges_Click(object sender, System.EventArgs e)
     {
         try
@@ -2735,7 +2484,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
@@ -2747,10 +2496,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         if (Session["userName"] == null)
             Response.Redirect("Default.aspx");
 
-        //FOR EAST WEST SPLITS, THERE ARE TWO DETAIL RECORDS - ShipRecordType is "West" for second record
-
         //DO SUBMIT
-        //bool newFlag = (bool)Session["newFlag"];
         bool newFlag = false;
         if (lblRequestID.Text == "0" || lblRequestID.Text == "")
             newFlag = true;
@@ -2764,9 +2510,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
         if (newFlag == true)
         {
-            //Disable Submit Button so they can't keep submitting duplicates
-            //btnSubmit.Enabled = false;
-
             //DO INSERT    
             int newID;
             int newDID;
@@ -2779,10 +2522,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             else
             {
                 //GET REQUEST ID
-                //objDiscoveryRequest.idRequest = newID;
                 Int32 requestID = newID;
                 objDiscoveryRequest.idRequest = requestID;
-                //Session["requestID"] = Convert.ToInt32(requestID);
                 lblReqID.Visible = true;
                 lblRequestID.Visible = true;
                 lblRequestID.Text = requestID.ToString();
@@ -2800,14 +2541,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
                 btnSubmit.Visible = false;
                 btnSubmitChanges.Visible = true;
-
             }
-
         }
         else
         {
             //DO UPDATE  
-            //Int32 RequestID = (Int32)Session["requestID"];
             Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
             msg = dr.UpdateDiscoveryRequest(objDiscoveryRequest, RequestID);
             msg = msg + drd.UpdateDiscoveryRequestDetails(objDiscoveryRequestDetails, RequestID);
@@ -2870,7 +2608,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                lblWarning.Text = ex.Message;
+                lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
                 lblWarning.Visible = true;
                 pnlwarning.Visible = true;
             }
@@ -2976,9 +2714,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 }
             }
         }
-
-
-
         //SEND EMAIL TO ITBA IF NEW OR CHANGED
         string OrigITBA = Session["ITBA"].ToString();
         string CurrentITBA = objDiscoveryRequest.idITBA.ToString();
@@ -2989,14 +2724,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             int idITBA = (int)objDiscoveryRequest.idITBA;
             sendITBAEmail(objDiscoveryRequest);
             emailmsg = "Email sent to ITBA.";
-            //IF NEW ASSIGNMENT, CHANGE STATUS
-            //Better way to do this?
-            //if (objDiscoveryRequest.idOnboardingPhase == 8)
-            //{
-            //    objDiscoveryRequest.idOnboardingPhase = 1;
-            //}
         }
-
 
         //FINAL STEP
         if (msg == "")
@@ -3004,10 +2732,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //SHOW LAST UPDATED
             lblUpdatedBy.Text = objDiscoveryRequest.UpdatedBy;
             lblUpdatedOn.Text = objDiscoveryRequest.UpdatedOn.ToString();
-
-            //AFTER SAVE, SET TO EXISTING
-            //Session["newFlag"] = false;        
-
 
             string alertmsg = "";
             if (newFlag)
@@ -3029,13 +2753,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     //Notes were entered, do checks and then save
                     saveNotes();
                 }
-
-
             }
-            //windowManager.RadAlert(alertmsg, 350, 200, "Request Submitted", "submitCallBackFn", "Please confirm");
-            //Response.Redirect("Home.aspx");
-
-
         }
     }
 
@@ -3067,65 +2785,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     protected void btnSaveNotes_Click(object sender, System.EventArgs e)
     {
         saveNotes();
-        //try
-        //{
-        //     //MK - check if time is numeric
-        //     int min;
-        //     string txtMin = txtInternalTimeSpent.Text;       
-        //     bool isNumeric = int.TryParse(txtMin, out min);
-        //     if (isNumeric != true)
-        //     {
-        //         lblTimeWarning.Text = "Time must be numeric";
-        //     }
-        //     else
-        //     {
-        //         lblTimeWarning.Text = "";
-        //     }
-
-
-        //     bool newNoteflag = true;
-        //     ClsNotes noteObj = new ClsNotes();           
-        //     noteObj=populateNoteObj(newNoteflag);
-        //     int newID;
-        //     String msg = noteObj.InsertNote(noteObj, out newID);
-        //    if (msg != "" || isNumeric != true)
-        //    {
-        //        lblWarning.Text = msg;
-        //        lblWarning.Visible = true;
-        //        pnlwarning.Visible = true;
-        //    }
-        //    else
-        //    {
-        //    RadTabStrip1.Tabs[5].Visible = true;
-        //    RadTabStrip1.Tabs[5].Selected = true;
-        //    RadMultiPage1.SelectedIndex = 5;
-        //        txtNotes.Text = "";
-        //        txtInternalTimeSpent.Text = "0";
-        //        rddlInternalType.SelectedIndex = -1;
-
-        //        int DRID = Convert.ToInt32(lblRequestID.Text);
-        //        //ClsNotes cn = new ClsNotes();
-        //        List<ClsNotes> allnotes = repository.GetNotes(DRID);
-        //        rgNotesGrid.DataSource = allnotes;
-        //        rgNotesGrid.DataBind();
-        //        if (Session["userRole"].ToString().ToLower() == "sales" || Session["userRole"].ToString().ToLower() == "salesdm")
-        //        {
-        //            rgNotesGrid.MasterTableView.GetColumn("timeSpent").Visible = false;
-        //            rgNotesGrid.MasterTableView.GetColumn("TaskType").Visible = false;
-        //            rgNotesGrid.MasterTableView.GetColumn("privateNote").Visible = false;
-        //        }
-        //        rgNotesGrid.Visible = true;
-        //        UpdateTimeSpent(DRID);
-        //    }
-        //}
-
-        //catch (Exception ex)
-        //{
-        //    lblWarning.Text = ex.Message;
-        //    lblWarning.Visible = true;
-        //    pnlwarning.Visible = true;
-        //}
-
     }
 
     protected void saveNotes()
@@ -3181,7 +2840,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 //end required check
             }
 
-
             if (warningtxt != "")
             {
                 lblWarning.Text = warningtxt;
@@ -3234,7 +2892,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
@@ -3242,15 +2900,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     protected void btnCancel_Click(object sender, System.EventArgs e)
     {
-        //string userRole = Session["userRole"].ToString().ToLower();
-        //if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
-        //{
-        //    Response.Redirect("DiscoveryTracker.aspx");
-        //}
-        //else
-        //{
-        //    Response.Redirect("Home.aspx");
-        //}
         string referrer = Request.QueryString["from"];
         if (!String.IsNullOrEmpty(referrer))
         {
@@ -3267,13 +2916,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         try
         {
-            //bool newflag = (bool)Session["newFlag"];
             bool newFlag = false;
             if (lblRequestID.Text == "0" || lblRequestID.Text == "")
                 newFlag = true;
             if (newFlag != true)
             {
-                //Int32 requestID = Convert.ToInt32(Request.QueryString["requestID"]);
                 Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
                 // ClsNotes cn = new ClsNotes();
                 List<ClsNotes> allnotes = repository.GetNotes(RequestID);
@@ -3287,11 +2934,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     rgNotesGrid.MasterTableView.GetColumn("privateNote").Visible = false;
                 }
             }
-
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
@@ -3550,7 +3196,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
@@ -3670,13 +3316,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
-
         return objDiscoveryRequestDetails;
-
     }
 
     private ClsDiscoveryRequestDetails populateDiscoveryRequestDetailsWest(bool newflag)
@@ -3783,13 +3427,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
-
         return objDiscoveryRequestDetails;
-
     }
 
     private ClsNotes populateNoteObj(bool newflag)
@@ -3797,11 +3439,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         ClsNotes objNote = new ClsNotes();
         try
         {
-
             objNote.idRequest = Convert.ToInt32(lblRequestID.Text);
             objNote.noteDate = dpNoteDate.SelectedDate;
             objNote.publicNote = txtNotes.Text;
-
 
             if (rddlInternalType.Visible == true)
             {
@@ -3829,31 +3469,23 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 objNote.privateNote = "";
             }
 
-
             //Need to make sure these three are not overwritten on update
             if (newflag == true)
             {
                 objNote.CreatedBy = (string)Session["userName"];
                 objNote.CreatedOn = Convert.ToDateTime(DateTime.Now);
                 objNote.ActiveFlag = true;
-
             }
             else
             {
-                //maintain original values
-                //objNote.CreatedBy = editRequest.CreatedBy;
-                //objNote.CreatedOn = editRequest.CreatedOn;
                 objNote.UpdatedBy = (string)Session["userName"];
                 objNote.UpdatedOn = Convert.ToDateTime(DateTime.Now);
                 objNote.ActiveFlag = true;
             }
-
-
-
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
@@ -3882,7 +3514,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                lblWarning.Text = ex.Message;
+                lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
                 lblWarning.Visible = true;
                 pnlwarning.Visible = true;
             }
@@ -3914,15 +3546,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     rfvNotesEdit.Enabled = true;
                     rfvNotes2Edit.Enabled = false;
                 }
-
             }
             catch (Exception ex)
             {
-                lblWarning.Text = ex.Message;
+                lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
                 lblWarning.Visible = true;
                 pnlwarning.Visible = true;
             }
-
         }
     }
 
@@ -3946,13 +3576,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 fhLink.ForeColor = System.Drawing.Color.Blue;
                 ClsFileUpload row = (ClsFileUpload)fileitem.DataItem;
                 fhLink.Attributes["onclick"] = "OpenWin('" + row.FilePath + "');";
-
             }
-
         }
         catch (Exception ex)
         {
-            lblWarning.Text = ex.Message;
+            lblWarning.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             lblWarning.Visible = true;
             pnlwarning.Visible = true;
         }
@@ -3961,7 +3589,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     protected void rgUpload_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
         getUploads();
-
     }
 
     protected void getUploads()
@@ -4007,7 +3634,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
             e.Canceled = true;
         }
     }
@@ -4072,48 +3699,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
-    //protected void sendManagerEmail(ClsDiscoveryRequest objDiscoveryRequest)
-    //{
-    //    try
-    //    {
-    //        string subject = "Discovery Request Notification";
-    //        //string msgBody = "New Request Submitted by: " + SubmittedBy + " \n For Customer: " + Customer + " \nSubmitted On " + DateTime.Now.ToString("MM-dd-yyyy");
-    //        string msgBody = composeEmail(objDiscoveryRequest);
-
-    //        string host = ConfigurationManager.AppSettings["host"].ToString();
-    //        int port = int.Parse(ConfigurationManager.AppSettings["port"]);
-    //        string userName = ConfigurationManager.AppSettings["userName"];
-    //        string password = ConfigurationManager.AppSettings["password"];
-
-    //        string fromEmail = ConfigurationManager.AppSettings["fromEmail"];
-    //        //string toEmail = ConfigurationManager.AppSettings["ManagerEmail"];
-
-    //        string toEmail = repository.GetNewReqEmailList();
-
-    //        SmtpClient client = new SmtpClient(host, port);
-    //        client.EnableSsl = true;
-    //        client.DeliveryMethod = SmtpDeliveryMethod.Network;
-    //        client.UseDefaultCredentials = false;
-    //        client.Credentials = new NetworkCredential(userName, password);
-
-    //        string errorMsg = "Error Sending Email";
-    //        MailMessage message = new MailMessage(fromEmail, toEmail, subject, errorMsg);
-
-    //        message.Body = msgBody;
-
-    //        client.Send(message);
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        pnlDanger.Visible = true;
-    //        lblDanger.Text = ex.Message.ToString();
-    //    }
-
-    //}
 
     protected void sendManagerEmail(ClsDiscoveryRequest objDiscoveryRequest)
     {
@@ -4159,9 +3747,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 
     protected string composeEmail(ClsDiscoveryRequest objDiscoveryRequest)
@@ -4210,21 +3797,21 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             msgBody = msgBody + "\n*New Business";
 
         //contact info
-        if (objDiscoveryRequest.CustomerBusContact != "")
-        {
-            msgBody = msgBody + "\n\nBusiness Contact:";
-            msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusContact + " " + objDiscoveryRequest.CustomerBusTitle;
-            msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusEmail;
-            msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusPhone;
-        }
+        //if (objDiscoveryRequest.CustomerBusContact != "")
+        //{
+        //    msgBody = msgBody + "\n\nBusiness Contact:";
+        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusContact + " " + objDiscoveryRequest.CustomerBusTitle;
+        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusEmail;
+        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusPhone;
+        //}
 
-        if (objDiscoveryRequest.CustomerITContact != "")
-        {
-            msgBody = msgBody + "\n\nIT Contact:";
-            msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITContact + " " + objDiscoveryRequest.CustomerITTitle;
-            msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITEmail;
-            msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITPhone;
-        }
+        //if (objDiscoveryRequest.CustomerITContact != "")
+        //{
+        //    msgBody = msgBody + "\n\nIT Contact:";
+        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITContact + " " + objDiscoveryRequest.CustomerITTitle;
+        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITEmail;
+        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITPhone;
+        //}
 
         return msgBody;
     }
@@ -4266,33 +3853,19 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
-
     }
 
     protected void cbxWPK_Click(object sender, System.EventArgs e)
     {
         bool wpk = cbxWPK.Checked;
-        //MK - This part is not in use for now
-        //if (wpk == true)
-        //{
-        //    RadPanelBar1.FindItemByValue("WorldPak").Visible = true;
-        //}
-        //else
-        //{
-        //    RadPanelBar1.FindItemByValue("WorldPak").Visible = false;
-        //}        
-
     }
-
 
     protected void cbxEquipment_Click(object sender, System.EventArgs e)
     {
         bool flag = cbxEquipment.Checked;
         showhideEquipmentBar(flag);
-
     }
 
     protected void showhideEquipmentBar(bool flag)

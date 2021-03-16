@@ -78,14 +78,14 @@ public partial class View : System.Web.UI.Page
         
 
         //CONTACT INFO
-        lblBusContactName.Text = request.CustomerBusContact;
-        lblITContactName.Text = request.CustomerITContact;
-        lblBusTitle.Text = request.CustomerBusTitle;
-        lblITtitle.Text = request.CustomerITTitle;
-        lblBusPhone.Text = request.CustomerBusPhone;
-        lblITPhone.Text = request.CustomerITPhone;
-        lblBusEmail.Text = request.CustomerBusEmail;
-        lblITEmail.Text = request.CustomerITEmail;
+        //lblBusContactName.Text = request.CustomerBusContact;
+        //lblITContactName.Text = request.CustomerITContact;
+        //lblBusTitle.Text = request.CustomerBusTitle;
+        //lblITtitle.Text = request.CustomerITTitle;
+        //lblBusPhone.Text = request.CustomerBusPhone;
+        //lblITPhone.Text = request.CustomerITPhone;
+        //lblBusEmail.Text = request.CustomerBusEmail;
+        //lblITEmail.Text = request.CustomerITEmail;
 
         //CURRENT SOLUTION
         lblCurrentSolution.Text = request.CurrentSolution;

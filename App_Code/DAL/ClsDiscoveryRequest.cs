@@ -23,14 +23,14 @@ public class ClsDiscoveryRequest
     public string Country { get; set; }
     public string Commodity { get; set; }
     public decimal ProjectedRevenue { get; set; }
-    public string CustomerBusContact { get; set; }
-    public string CustomerBusTitle { get; set; }
-    public string CustomerBusEmail { get; set; }
-    public string CustomerBusPhone { get; set; }
-    public string CustomerITContact { get; set; }
-    public string CustomerITTitle { get; set; }
-    public string CustomerITEmail { get; set; }
-    public string CustomerITPhone { get; set; }
+    //public string CustomerBusContact { get; set; }
+    //public string CustomerBusTitle { get; set; }
+    //public string CustomerBusEmail { get; set; }
+    //public string CustomerBusPhone { get; set; }
+    //public string CustomerITContact { get; set; }
+    //public string CustomerITTitle { get; set; }
+    //public string CustomerITEmail { get; set; }
+    //public string CustomerITPhone { get; set; }
     public string CurrentSolution { get; set; }
     public string CustomerWebsite { get; set; }
     public string ProposedCustoms { get; set; }
@@ -169,14 +169,14 @@ public class ClsDiscoveryRequest
                                                    Country = data.Country,
                                                    Commodity = data.Commodity,
                                                    ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                   CustomerBusContact = data.CustomerBusContact,
-                                                   CustomerBusTitle = data.CustomerBusTitle,
-                                                   CustomerBusEmail = data.CustomerBusEmail,
-                                                   CustomerBusPhone = data.CustomerBusPhone,
-                                                   CustomerITContact = data.CustomerITContact,
-                                                   CustomerITTitle = data.CustomerITTitle,
-                                                   CustomerITEmail = data.CustomerITEmail,
-                                                   CustomerITPhone = data.CustomerITPhone,
+                                                   //CustomerBusContact = data.CustomerBusContact,
+                                                   //CustomerBusTitle = data.CustomerBusTitle,
+                                                   //CustomerBusEmail = data.CustomerBusEmail,
+                                                   //CustomerBusPhone = data.CustomerBusPhone,
+                                                   //CustomerITContact = data.CustomerITContact,
+                                                   //CustomerITTitle = data.CustomerITTitle,
+                                                   //CustomerITEmail = data.CustomerITEmail,
+                                                   //CustomerITPhone = data.CustomerITPhone,
                                                    CurrentSolution = data.CurrentSolution,
                                                    ProposedCustoms = data.ProposedCustoms,
                                                    CallDate1 = (DateTime?)data.CallDate1,
@@ -300,14 +300,6 @@ public class ClsDiscoveryRequest
                 Country = data.Country,
                 Commodity = data.Commodity,
                 ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                CustomerBusContact = data.CustomerBusContact,
-                CustomerBusTitle = data.CustomerBusTitle,
-                CustomerBusEmail = data.CustomerBusEmail,
-                CustomerBusPhone = data.CustomerBusPhone,
-                CustomerITContact = data.CustomerITContact,
-                CustomerITTitle = data.CustomerITTitle,
-                CustomerITEmail = data.CustomerITEmail,
-                CustomerITPhone = data.CustomerITPhone,
                 CurrentSolution = data.CurrentSolution,
                 ProposedCustoms = data.ProposedCustoms,
                 CallDate1 = (DateTime?)data.CallDate1,
@@ -447,14 +439,6 @@ public class ClsDiscoveryRequest
                     updRow.Country = data.Country;
                     updRow.Commodity = data.Commodity;
                     updRow.ProjectedRevenue = (decimal)data.ProjectedRevenue;
-                    updRow.CustomerBusContact = data.CustomerBusContact;
-                    updRow.CustomerBusTitle = data.CustomerBusTitle;
-                    updRow.CustomerBusEmail = data.CustomerBusEmail;
-                    updRow.CustomerBusPhone = data.CustomerBusPhone;
-                    updRow.CustomerITContact = data.CustomerITContact;
-                    updRow.CustomerITTitle = data.CustomerITTitle;
-                    updRow.CustomerITEmail = data.CustomerITEmail;
-                    updRow.CustomerITPhone = data.CustomerITPhone;
                     updRow.CurrentSolution = data.CurrentSolution;
                     updRow.ProposedCustoms = data.ProposedCustoms;
                     updRow.CallDate1 = (DateTime?)(data.CallDate1);

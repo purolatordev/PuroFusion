@@ -566,65 +566,6 @@
             <telerik:RadPageView runat="server" ID="contact">
                 <hr />
                 <table style="padding-top: 2px; width: 100%;" border="0">
-                   <%-- <tr>
-                        <td style="text-align: right; vertical-align: top">
-                            <asp:Label ID="Label6" runat="server" Text="Contact Type"></asp:Label>
-                        </td>
-                        <td style="color: red; width: 1%; text-align: left; vertical-align: top">
-                            <asp:Label ID="Label7" runat="server" Text="*"></asp:Label></td>
-                        <td>
-                            <telerik:RadDropDownList ID="rddlContactType" runat="server" DefaultMessage="Select Contact Type" AutoPostBack="true" ToolTip="Select Your Contact Type" Visible="true" Width="280px">
-                            </telerik:RadDropDownList>
-                            <asp:RequiredFieldValidator runat="server" ValidationGroup="custInfo" ControlToValidate="rddlContactType" ErrorMessage="Contact Type is required" Style="color: red"></asp:RequiredFieldValidator>
-                        </td>
-                        <td>
-                            <telerik:RadButton ID="radBtnAddContact" Style="margin-top: -20px;" runat="server" Text="Add" OnClick="btnAddContact_Click" AutoPostBack="true" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right; width: 160px">Contact Name
-                        </td>
-                        <td style="color: red; text-align: left; width: 20px">*</td>
-                        <td style="width: 200px">
-                            <telerik:RadTextBox ID="txtBxContactName" runat="server" MaxLength="75" Text='' Width="300px" ToolTip="Enter Contact Name" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" style="height: 20px"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right; width: 160px">Contact Title
-                        </td>
-                        <td></td>
-                        <td style="width: 200px">
-                            <telerik:RadTextBox ID="txtBxContactTitle" runat="server" MaxLength="75" Text='' Width="300px" ToolTip="Enter Contact Title" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" style="height: 20px"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right; width: 160px">Contact Email
-                        </td>
-                        <td style="color: red; text-align: left; width: 20px">*</td>
-                        <td style="width: 200px">
-                            <telerik:RadTextBox ID="txtBxContactEmail" runat="server" MaxLength="75" Text='' Width="300px" ToolTip="Enter Contact Email" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="7" style="height: 20px"></td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right; width: 160px">Contact Phone
-                        </td>
-                        <td style="color: red; text-align: left; width: 20px">*</td>
-                        <td style="width: 200px">
-                            <telerik:RadTextBox ID="txtBxContactPhone" runat="server" MaxLength="75" Text='' Width="300px" ToolTip="Enter Contact Phone" />
-                        </td>
-                    </tr>
-                     <tr>
-                        <td colspan="7" style="height: 20px"></td>
-                    </tr>--%>
                     <tr>
                         <td colspan="2">
                             <telerik:RadGrid ID="contactGrid" runat="server" AllowPaging="True" 

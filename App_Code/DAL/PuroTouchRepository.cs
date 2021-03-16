@@ -414,34 +414,29 @@ using System.Configuration;
         public List<ClsEDISolution> GetEDISolutions()
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
-            List<ClsEDISolution> oList = (from data in puroTouchContext.GetTable<tblEDISolution>()
-                                          //where data.ActiveFlag != false
-                                          orderby data.Solution
-                                          select new ClsEDISolution
-                                       {
-                                           idSolution = Convert.ToInt16(data.idSolution),
-                                           //Solution = data.Solution,
-                                           Solution = Convert.ToBoolean(data.ActiveFlag) == false ? data.Solution + " (Inactive)" : data.Solution.ToUpper(),
-                                           CreatedBy = data.CreatedBy,
-                                           CreatedOn = data.CreatedOn,
-                                           UpdatedBy = data.UpdatedBy,
-                                           UpdatedOn = data.UpdatedOn,
-                                           ActiveFlag = data.ActiveFlag
-
-                                       }).ToList<ClsEDISolution>();
-            return oList;
+        List<ClsEDISolution> oList = (from data in puroTouchContext.GetTable<tblEDISolution>()
+                                      orderby data.Solution
+                                      select new ClsEDISolution
+                                      {
+                                          idSolution = Convert.ToInt16(data.idSolution),
+                                          Solution = Convert.ToBoolean(data.ActiveFlag) == false ? data.Solution + " (Inactive)" : data.Solution.ToUpper(),
+                                          CreatedBy = data.CreatedBy,
+                                          CreatedOn = data.CreatedOn,
+                                          UpdatedBy = data.UpdatedBy,
+                                          UpdatedOn = data.UpdatedOn,
+                                          ActiveFlag = data.ActiveFlag
+                                      }).ToList<ClsEDISolution>();
+        return oList;
         }
 
         public List<ClsInductionPoint> GetInductionPoints()
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsInductionPoint> oList = (from data in puroTouchContext.GetTable<tblInductionPoint>()
-                                             //where data.ActiveFlag != false
                                           orderby data.Description
                                           select new ClsInductionPoint
                                           {
                                               idInduction = Convert.ToInt16(data.idInduction),
-                                              //Description = data.Description,
                                               Description = Convert.ToBoolean(data.ActiveFlag) == false ? data.Description + " (Inactive)" : data.Description.ToUpper(),
                                               Address = data.Address,
                                               City = data.City,
@@ -463,13 +458,10 @@ using System.Configuration;
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             ClsInductionPoint oList = (from data in puroTouchContext.GetTable<tblInductionPoint>()
-                                       //where data.ActiveFlag != false
                                              where data.idInduction == idInduction
-
                                              select new ClsInductionPoint
                                              {
                                                  idInduction = Convert.ToInt16(data.idInduction),
-                                                 //Description = data.Description,
                                                  Description = Convert.ToBoolean(data.ActiveFlag) == false ? data.Description + " (Inactive)" : data.Description.ToUpper(),
                                                  Address = data.Address,
                                                  City = data.City,
@@ -492,12 +484,10 @@ using System.Configuration;
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsInductionPoint> oList = (from data in puroTouchContext.GetTable<tblInductionPoint>()
                                              where data.PuroPostFlag == true
-                                             //where data.ActiveFlag != false
                                              orderby data.Description
                                              select new ClsInductionPoint
                                              {
                                                  idInduction = Convert.ToInt16(data.idInduction),
-                                                 //Description = data.Description,
                                                  Description = Convert.ToBoolean(data.ActiveFlag) == false ? data.Description + " (Inactive)" : data.Description.ToUpper(),
                                                  Address = data.Address,
                                                  City = data.City,
@@ -520,12 +510,10 @@ using System.Configuration;
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsInductionPoint> oList = (from data in puroTouchContext.GetTable<tblInductionPoint>()
                                              where data.PuroPostFlag == false || data.PuroPostFlag == null
-                                             //where data.ActiveFlag != false
                                              orderby data.Description
                                              select new ClsInductionPoint
                                              {
                                                  idInduction = Convert.ToInt16(data.idInduction),
-                                                 //Description = data.Description,
                                                  Description = Convert.ToBoolean(data.ActiveFlag) == false ? data.Description + " (Inactive)" : data.Description.ToUpper(),
                                                  Address = data.Address,
                                                  City = data.City,
@@ -548,7 +536,6 @@ using System.Configuration;
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsShippingProducts> oProducts = (from data in puroTouchContext.GetTable<tblShippingProduct>()
                                                    join svc in puroTouchContext.GetTable<tblShippingService>() on data.idShippingSvc equals svc.idShippingSvc
-                                                   //where data.ActiveFlag != false
                                                   orderby data.ShippingProduct
                                                    select new ClsShippingProducts
                                                   {
@@ -570,13 +557,11 @@ using System.Configuration;
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsShippingProducts> oProducts = (from data in puroTouchContext.GetTable<tblShippingProduct>()
                                                    join svc in puroTouchContext.GetTable<tblShippingService>() on data.idShippingSvc equals svc.idShippingSvc
-                                                   //where data.ActiveFlag != false
                                                    orderby data.ShippingProduct
                                                    select new ClsShippingProducts
                                                    {
                                                        idShippingProduct = Convert.ToInt16(data.idShippingProduct),
                                                        idShippingSvc = Convert.ToInt16(data.idShippingSvc),
-                                                       //ShippingProduct = data.ShippingProduct,
                                                        ShippingProduct = Convert.ToBoolean(data.ActiveFlag) == false ? data.ShippingProduct + " (Inactive)" : data.ShippingProduct.ToUpper(),
                                                        ShippingService = svc.serviceDesc,
                                                        CreatedBy = data.CreatedBy,
@@ -584,7 +569,6 @@ using System.Configuration;
                                                        UpdatedBy = data.UpdatedBy,
                                                        UpdatedOn = data.UpdatedOn,
                                                        ActiveFlag = data.ActiveFlag
-
                                                    }).ToList<ClsShippingProducts>();
             return oProducts;
         }
@@ -612,7 +596,6 @@ using System.Configuration;
                 cmd.CommandTimeout = 10800;
                 da.SelectCommand = cmd;
                 da.Fill(dt);
-
             }
             catch (Exception ex)
             {
@@ -645,38 +628,34 @@ using System.Configuration;
                                        idEmployee = data.idEmployee,
                                        ReceiveNewReqEmail = data.ReceiveNewReqEmail,
                                        login = data.login
-
                                    }).ToList<ClsITBA>();
             return oITBA;
         }
 
-        public string GetNewReqEmailList()
+    public string GetNewReqEmailList()
+    {
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        string emailList = "";
+        List<ClsITBA> oITBA = (from data in puroTouchContext.GetTable<tblITBA>()
+                               where data.ReceiveNewReqEmail == true
+                               where data.ActiveFlag != false
+                               orderby data.ITBAemail
+                               select new ClsITBA
+                               {
+                                   ITBAEmail = data.ITBAemail
+                               }).ToList<ClsITBA>();
+
+        //put into string
+        foreach (ClsITBA itba in oITBA)
         {
-            PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
-            string emailList = "";
-            List<ClsITBA> oITBA = (from data in puroTouchContext.GetTable<tblITBA>()
-                                   where data.ReceiveNewReqEmail == true
-                                   where data.ActiveFlag != false
-                                   orderby data.ITBAemail
-                                   select new ClsITBA
-                                   {
-                                      
-                                       ITBAEmail = data.ITBAemail
-                                       
-
-                                   }).ToList<ClsITBA>();
-
-                                    //put into string
-                                    foreach (ClsITBA itba in oITBA)
-                                    {
-                                        if (emailList != "")
-                                            emailList = emailList + ",";
-                                        emailList = emailList + itba.ITBAEmail;
-                                    }
-            return emailList;
+            if (emailList != "")
+                emailList = emailList + ",";
+            emailList = emailList + itba.ITBAEmail;
         }
+        return emailList;
+    }
 
-        public List<ClsDiscoveryRequest> GetAllDiscoveryRequests()
+    public List<ClsDiscoveryRequest> GetAllDiscoveryRequests()
         {
              //orderby CreatedOn descending
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
@@ -699,14 +678,6 @@ using System.Configuration;
                                                   Country = data.Country,
                                                   Commodity = data.Commodity,
                                                   ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                  CustomerBusContact = data.CustomerBusContact,
-                                                  CustomerBusTitle = data.CustomerBusTitle,
-                                                  CustomerBusEmail = data.CustomerBusEmail,
-                                                  CustomerBusPhone = data.CustomerBusPhone,
-                                                  CustomerITContact = data.CustomerITContact,
-                                                  CustomerITTitle = data.CustomerITTitle,
-                                                  CustomerITEmail = data.CustomerITEmail,
-                                                  CustomerITPhone = data.CustomerITPhone,
                                                   CurrentSolution = data.CurrentSolution,
                                                   ProposedCustoms = data.ProposedCustoms,
                                                   CallDate1 = (DateTime?)data.CallDate1,
@@ -717,10 +688,6 @@ using System.Configuration;
                                                   CreatedBy = data.CreatedBy,
                                                   CreatedOn = (DateTime?)data.CreatedOn,
                                                   ActiveFlag = Convert.ToBoolean(data.ActiveFlag),
-                                                 // SalesComments = data.SalesComments,
-                                                 // idITBA = (int?)data.idITBA,
-                                                 // idShippingChannel = (int?)data.idShippingChannel,
-                                                  //SolutionSummary = data.SolutionSummary,
                                                   CurrentGoLive = (DateTime?)data.CurrentGoLive,
                                                   TargetGoLive = (DateTime?)data.TargetGoLive,
                                                   ActualGoLive = (DateTime?)data.ActualGoLive,
@@ -728,8 +695,6 @@ using System.Configuration;
                                                   ShippingChannel = data.ShippingChannel,
                                                   ITBA = data.ITBA,
                                                   TotalTimeSpent = data.TotalTimeSpent,
-                                                  //CustomerWebsite = data.CustomerWebsite,
-                                                  //Branch = data.Branch,
                                                   worldpakFlag = data.worldpakFlag,
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
@@ -740,70 +705,6 @@ using System.Configuration;
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
         }
-
-        //public List<ClsDiscoveryRequest> GetAllDiscoveryRequests(string itbaLogin)
-        //{
-        //    //orderby CreatedOn descending
-        //    PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
-        //    List<ClsDiscoveryRequest> oReq = (from data in puroTouchContext.GetTable<tblDiscoveryRequest>()
-        //                                      join phase in puroTouchContext.GetTable<tblOnboardingPhase>() on data.idOnboardingPhase equals phase.idOnboardingPhase into tmpphase
-        //                                      join channel in puroTouchContext.GetTable<tblShippingChannel>() on data.idShippingChannel equals channel.idShippingChannel into tmpchannel
-        //                                      join vwitba in puroTouchContext.GetTable<vw_ITBA>() on data.idITBA equals vwitba.idITBA into tmpitba
-        //                                      from phase in tmpphase.DefaultIfEmpty()
-        //                                      from channel in tmpchannel.DefaultIfEmpty()
-        //                                      from vwitba in tmpitba.DefaultIfEmpty()
-        //                                      where data.ActiveFlag != false
-        //                                      where vwitba.ActiveDirectoryName == itbaLogin
-
-        //                                      select new ClsDiscoveryRequest
-        //                                      {
-        //                                          idRequest = data.idRequest,
-        //                                          flagNewRequest = Convert.ToBoolean(data.isNewRequest),
-        //                                          SalesRepName = data.SalesRepName,
-        //                                          SalesRepEmail = data.SalesRepEmail,
-        //                                          idOnboardingPhase = (int?)data.idOnboardingPhase,
-        //                                          District = data.District,
-        //                                          CustomerName = data.CustomerName,
-        //                                          Address = data.Address,
-        //                                          City = data.City,
-        //                                          State = data.State,
-        //                                          Zipcode = data.Zipcode,
-        //                                          Country = data.Country,
-        //                                          Commodity = data.Commodity,
-        //                                          ProjectedRevenue = (decimal)data.ProjectedRevenue,
-        //                                          CustomerBusContact = data.CustomerBusContact,
-        //                                          CustomerBusTitle = data.CustomerBusTitle,
-        //                                          CustomerBusEmail = data.CustomerBusEmail,
-        //                                          CustomerBusPhone = data.CustomerBusPhone,
-        //                                          CustomerITContact = data.CustomerITContact,
-        //                                          CustomerITTitle = data.CustomerITTitle,
-        //                                          CustomerITEmail = data.CustomerITEmail,
-        //                                          CustomerITPhone = data.CustomerITPhone,
-        //                                          CurrentSolution = data.CurrentSolution,
-        //                                          ProposedCustoms = data.ProposedCustoms,
-        //                                          CallDate1 = (DateTime?)data.CallDate1,
-        //                                          CallDate2 = (DateTime?)data.CallDate2,
-        //                                          CallDate3 = (DateTime?)data.CallDate3,
-        //                                          UpdatedBy = data.UpdatedBy,
-        //                                          UpdatedOn = (DateTime?)data.UpdatedOn,
-        //                                          CreatedBy = data.CreatedBy,
-        //                                          CreatedOn = (DateTime?)data.CreatedOn,
-        //                                          ActiveFlag = Convert.ToBoolean(data.ActiveFlag),
-        //                                          SalesComments = data.SalesComments,
-        //                                          idITBA = (int?)data.idITBA,
-        //                                          idShippingChannel = (int?)data.idShippingChannel,
-        //                                          SolutionSummary = data.SolutionSummary,
-        //                                          TargetGoLive = (DateTime?)data.TargetGoLive,
-        //                                          ActualGoLive = (DateTime?)data.ActualGoLive,
-        //                                          OnboardingPhase = phase.OnboardingPhase,
-        //                                          ShippingChannel = channel.ShippingChannel,
-        //                                          ITBA = vwitba.ITBA,
-        //                                          CustomerWebsite = data.CustomerWebsite,
-        //                                          Branch = data.Branch
-        //                                      }).ToList<ClsDiscoveryRequest>();
-        //    var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
-        //    return newoReq;
-        //}
 
         public List<ClsDiscoveryRequest> GetAllDiscoveryRequests(string itbaLogin)
         {
@@ -829,14 +730,6 @@ using System.Configuration;
                                                   Country = data.Country,
                                                   Commodity = data.Commodity,
                                                   ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                  CustomerBusContact = data.CustomerBusContact,
-                                                  CustomerBusTitle = data.CustomerBusTitle,
-                                                  CustomerBusEmail = data.CustomerBusEmail,
-                                                  CustomerBusPhone = data.CustomerBusPhone,
-                                                  CustomerITContact = data.CustomerITContact,
-                                                  CustomerITTitle = data.CustomerITTitle,
-                                                  CustomerITEmail = data.CustomerITEmail,
-                                                  CustomerITPhone = data.CustomerITPhone,
                                                   CurrentSolution = data.CurrentSolution,
                                                   ProposedCustoms = data.ProposedCustoms,
                                                   CallDate1 = (DateTime?)data.CallDate1,
@@ -868,14 +761,7 @@ using System.Configuration;
             //orderby CreatedOn descending
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsDiscoveryRequest> oReq = (from data in puroTouchContext.GetTable<vw_DiscoveryRequestSummary>()
-                                              //join phase in puroTouchContext.GetTable<tblOnboardingPhase>() on data.idOnboardingPhase equals phase.idOnboardingPhase into tmpphase
-                                              //join channel in puroTouchContext.GetTable<tblShippingChannel>() on data.idShippingChannel equals channel.idShippingChannel into tmpchannel
-                                              //join vwitba in puroTouchContext.GetTable<vw_ITBA>() on data.idITBA equals vwitba.idITBA into tmpitba
-                                              //from phase in tmpphase.DefaultIfEmpty()
-                                              //from channel in tmpchannel.DefaultIfEmpty()
-                                              //from vwitba in tmpitba.DefaultIfEmpty()
                                               where data.ActiveFlag != false
-                                              //where data.idOnboardingPhase == 8
                                               where data.idITBA == null
 
                                               select new ClsDiscoveryRequest
@@ -894,14 +780,6 @@ using System.Configuration;
                                                   Country = data.Country,
                                                   Commodity = data.Commodity,
                                                   ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                  CustomerBusContact = data.CustomerBusContact,
-                                                  CustomerBusTitle = data.CustomerBusTitle,
-                                                  CustomerBusEmail = data.CustomerBusEmail,
-                                                  CustomerBusPhone = data.CustomerBusPhone,
-                                                  CustomerITContact = data.CustomerITContact,
-                                                  CustomerITTitle = data.CustomerITTitle,
-                                                  CustomerITEmail = data.CustomerITEmail,
-                                                  CustomerITPhone = data.CustomerITPhone,
                                                   CurrentSolution = data.CurrentSolution,
                                                   ProposedCustoms = data.ProposedCustoms,
                                                   CallDate1 = (DateTime?)data.CallDate1,
@@ -912,10 +790,7 @@ using System.Configuration;
                                                   CreatedBy = data.CreatedBy,
                                                   CreatedOn = (DateTime?)data.CreatedOn,
                                                   ActiveFlag = Convert.ToBoolean(data.ActiveFlag),
-                                                  //SalesComments = data.SalesComments,
                                                   idITBA = (int?)data.idITBA,
-                                                  //idShippingChannel = (int?)data.idShippingChannel,
-                                                  //SolutionSummary = data.SolutionSummary,
                                                   TargetGoLive = (DateTime?)data.TargetGoLive,
                                                   ActualGoLive = (DateTime?)data.ActualGoLive,
                                                   CurrentGoLive = (DateTime?)data.CurrentGoLive,
@@ -926,8 +801,6 @@ using System.Configuration;
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType
-                                                  //CustomerWebsite = data.CustomerWebsite,
-                                                  //Branch = data.Branch
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
@@ -938,12 +811,6 @@ using System.Configuration;
             //orderby CreatedOn descending
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsDiscoveryRequest> oReq = (from data in puroTouchContext.GetTable<vw_DiscoveryRequestSummary>()
-                                              //join phase in puroTouchContext.GetTable<tblOnboardingPhase>() on data.idOnboardingPhase equals phase.idOnboardingPhase into tmpphase
-                                              //join channel in puroTouchContext.GetTable<tblShippingChannel>() on data.idShippingChannel equals channel.idShippingChannel into tmpchannel
-                                              //join vwitba in puroTouchContext.GetTable<vw_ITBA>() on data.idITBA equals vwitba.idITBA into tmpitba
-                                              //from phase in tmpphase.DefaultIfEmpty()
-                                              //from channel in tmpchannel.DefaultIfEmpty()
-                                              //from vwitba in tmpitba.DefaultIfEmpty()
                                               where data.ActiveFlag != false
                                               where data.CreatedBy == spLogin
 
@@ -963,14 +830,6 @@ using System.Configuration;
                                                   Country = data.Country,
                                                   Commodity = data.Commodity,
                                                   ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                  CustomerBusContact = data.CustomerBusContact,
-                                                  CustomerBusTitle = data.CustomerBusTitle,
-                                                  CustomerBusEmail = data.CustomerBusEmail,
-                                                  CustomerBusPhone = data.CustomerBusPhone,
-                                                  CustomerITContact = data.CustomerITContact,
-                                                  CustomerITTitle = data.CustomerITTitle,
-                                                  CustomerITEmail = data.CustomerITEmail,
-                                                  CustomerITPhone = data.CustomerITPhone,
                                                   CurrentSolution = data.CurrentSolution,
                                                   ProposedCustoms = data.ProposedCustoms,
                                                   CallDate1 = (DateTime?)data.CallDate1,
@@ -981,10 +840,7 @@ using System.Configuration;
                                                   CreatedBy = data.CreatedBy,
                                                   CreatedOn = (DateTime?)data.CreatedOn,
                                                   ActiveFlag = Convert.ToBoolean(data.ActiveFlag),
-                                                  //SalesComments = data.SalesComments,
                                                   idITBA = (int?)data.idITBA,
-                                                  //idShippingChannel = (int?)data.idShippingChannel,
-                                                  //SolutionSummary = data.SolutionSummary,
                                                   TargetGoLive = (DateTime?)data.TargetGoLive,
                                                   ActualGoLive = (DateTime?)data.ActualGoLive,
                                                   CurrentGoLive = (DateTime?)data.CurrentGoLive,
@@ -995,8 +851,6 @@ using System.Configuration;
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType
-                                                  //CustomerWebsite = data.CustomerWebsite,
-                                                  //Branch = data.Branch
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
@@ -1007,12 +861,6 @@ using System.Configuration;
             //orderby CreatedOn descending
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsDiscoveryRequest> oReq = (from data in puroTouchContext.GetTable<vw_DiscoveryRequestSummary>()
-                                              //join phase in puroTouchContext.GetTable<tblOnboardingPhase>() on data.idOnboardingPhase equals phase.idOnboardingPhase into tmpphase
-                                              //join channel in puroTouchContext.GetTable<tblShippingChannel>() on data.idShippingChannel equals channel.idShippingChannel into tmpchannel
-                                              //join vwitba in puroTouchContext.GetTable<vw_ITBA>() on data.idITBA equals vwitba.idITBA into tmpitba
-                                              //from phase in tmpphase.DefaultIfEmpty()
-                                              //from channel in tmpchannel.DefaultIfEmpty()
-                                              //from vwitba in tmpitba.DefaultIfEmpty()
                                               where data.ActiveFlag != false
                                               where data.District == district
 
@@ -1032,14 +880,6 @@ using System.Configuration;
                                                   Country = data.Country,
                                                   Commodity = data.Commodity,
                                                   ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                  CustomerBusContact = data.CustomerBusContact,
-                                                  CustomerBusTitle = data.CustomerBusTitle,
-                                                  CustomerBusEmail = data.CustomerBusEmail,
-                                                  CustomerBusPhone = data.CustomerBusPhone,
-                                                  CustomerITContact = data.CustomerITContact,
-                                                  CustomerITTitle = data.CustomerITTitle,
-                                                  CustomerITEmail = data.CustomerITEmail,
-                                                  CustomerITPhone = data.CustomerITPhone,
                                                   CurrentSolution = data.CurrentSolution,
                                                   ProposedCustoms = data.ProposedCustoms,
                                                   CallDate1 = (DateTime?)data.CallDate1,
@@ -1050,10 +890,7 @@ using System.Configuration;
                                                   CreatedBy = data.CreatedBy,
                                                   CreatedOn = (DateTime?)data.CreatedOn,
                                                   ActiveFlag = Convert.ToBoolean(data.ActiveFlag),
-                                                  //SalesComments = data.SalesComments,
                                                   idITBA = (int?)data.idITBA,
-                                                  //idShippingChannel = (int?)data.idShippingChannel,
-                                                  //SolutionSummary = data.SolutionSummary,
                                                   TargetGoLive = (DateTime?)data.TargetGoLive,
                                                   ActualGoLive = (DateTime?)data.ActualGoLive,
                                                   OnboardingPhase = data.OnboardingPhase,
@@ -1063,8 +900,6 @@ using System.Configuration;
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType
-                                                  //CustomerWebsite = data.CustomerWebsite,
-                                                  //Branch = data.Branch
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
@@ -1090,7 +925,6 @@ using System.Configuration;
                                                   role_UpdatedOn = data.role_UpdatedOn,
                                                   idEmployee = data.idEmployee,
                                                   idPI_ApplicationRole = data.idPI_ApplicationRole
-
                                               }).ToList();
             return oAppUserlist;
         }

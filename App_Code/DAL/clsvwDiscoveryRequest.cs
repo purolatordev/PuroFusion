@@ -23,14 +23,6 @@ public class clsvwDiscoveryRequest
     public string Country { get; set; }
     public string Commodity { get; set; }
     public decimal ProjectedRevenue { get; set; }
-    public string CustomerBusContact { get; set; }
-    public string CustomerBusTitle { get; set; }
-    public string CustomerBusEmail { get; set; }
-    public string CustomerBusPhone { get; set; }
-    public string CustomerITContact { get; set; }
-    public string CustomerITTitle { get; set; }
-    public string CustomerITEmail { get; set; }
-    public string CustomerITPhone { get; set; }
     public string CurrentSolution { get; set; }
     public string ProposedCustoms { get; set; }
     public DateTime? CallDate1 { get; set; }
@@ -56,10 +48,6 @@ public class clsvwDiscoveryRequest
 
 	public clsvwDiscoveryRequest()
 	{
-		//
-		// TODO: Add constructor logic here
-		//
-
     }
 
     public List<clsvwDiscoveryRequest> getallRequests()
@@ -70,8 +58,8 @@ public class clsvwDiscoveryRequest
         lst = (from d in puroDB.vw_DiscoveryRequests
                select new clsvwDiscoveryRequest
                {
-                   idRequest  = d.idRequest,
-SalesRepName= d.SalesRepName
+                   idRequest = d.idRequest,
+                   SalesRepName = d.SalesRepName
                }).ToList();
         return lst;
     }
