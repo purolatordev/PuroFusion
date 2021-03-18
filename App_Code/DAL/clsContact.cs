@@ -116,22 +116,6 @@ public static class SrvContact
         {
             var q = puroTouchContext.GetTable<tblContact>().Where(f => f.idContact == idContact).FirstOrDefault();
             puroTouchContext.GetTable<tblContact>().DeleteOnSubmit(q);
-            //var qContact = (from data in puroTouchContext.GetTable<tblContact>()
-            //                           where data.idContact == idContact
-            //select new clsContact
-            //{
-            //    idContact = data.idContact,
-            //    idContactType = data.idContactType,
-            //    ContactTypeName = data.tblContactType.ContactType,
-            //    idRequest = data.idRequest,
-            //    Name = data.Name,
-            //    Title = data.Title,
-            //    Phone = data.Phone,
-            //    Email = data.Email,
-            //    CreatedBy = data.CreatedBy,
-            //    CreatedOn = data.CreatedOn
-            //}).FirstOrDefault();
-            //puroTouchContext.GetTable<tblContact>().InsertOnSubmit(oNewRow);
             puroTouchContext.SubmitChanges();
         }
         catch (Exception ex)

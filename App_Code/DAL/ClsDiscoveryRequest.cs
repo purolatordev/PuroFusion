@@ -23,14 +23,6 @@ public class ClsDiscoveryRequest
     public string Country { get; set; }
     public string Commodity { get; set; }
     public decimal ProjectedRevenue { get; set; }
-    //public string CustomerBusContact { get; set; }
-    //public string CustomerBusTitle { get; set; }
-    //public string CustomerBusEmail { get; set; }
-    //public string CustomerBusPhone { get; set; }
-    //public string CustomerITContact { get; set; }
-    //public string CustomerITTitle { get; set; }
-    //public string CustomerITEmail { get; set; }
-    //public string CustomerITPhone { get; set; }
     public string CurrentSolution { get; set; }
     public string CustomerWebsite { get; set; }
     public string ProposedCustoms { get; set; }
@@ -130,6 +122,7 @@ public class ClsDiscoveryRequest
     public string VendorType { get; set; }
 
     public string VendorName { get; set; }
+    public System.Nullable<bool> FreightAuditor { get; set; }
 
     public ClsDiscoveryRequest()
 	{
@@ -169,14 +162,6 @@ public class ClsDiscoveryRequest
                                                    Country = data.Country,
                                                    Commodity = data.Commodity,
                                                    ProjectedRevenue = (decimal)data.ProjectedRevenue,
-                                                   //CustomerBusContact = data.CustomerBusContact,
-                                                   //CustomerBusTitle = data.CustomerBusTitle,
-                                                   //CustomerBusEmail = data.CustomerBusEmail,
-                                                   //CustomerBusPhone = data.CustomerBusPhone,
-                                                   //CustomerITContact = data.CustomerITContact,
-                                                   //CustomerITTitle = data.CustomerITTitle,
-                                                   //CustomerITEmail = data.CustomerITEmail,
-                                                   //CustomerITPhone = data.CustomerITPhone,
                                                    CurrentSolution = data.CurrentSolution,
                                                    ProposedCustoms = data.ProposedCustoms,
                                                    CallDate1 = (DateTime?)data.CallDate1,
@@ -268,23 +253,19 @@ public class ClsDiscoveryRequest
                                                    idBroker = (int?)data.idBroker,
                                                    OtherBrokerName = data.OtherBrokerName,
                                                    idVendorType = (int?)data.idVendorType,
+                                                   FreightAuditor = (bool?)data.FreightAuditor,
                                                    Route = data.Route
                                                }).FirstOrDefault();
         return oReq;
     }
-
-    
     //INSERT A NEW REQUEST 
     public string InsertDiscoveryRequest(ClsDiscoveryRequest data, out Int32 newID)
     {
         string errMsg = "";
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
         newID = -1;
-        //DateTime localDate = DateTime.Now;
-
         try
         {
-
             tblDiscoveryRequest oNewRow = new tblDiscoveryRequest()
             {
                 isNewRequest = data.flagNewRequest,
@@ -383,17 +364,14 @@ public class ClsDiscoveryRequest
                 idBroker = (int?)data.idBroker,
                 OtherBrokerName = data.OtherBrokerName,
                 idVendorType = (int?)data.idVendorType,
+                FreightAuditor = (bool?)data.FreightAuditor,
                 Route = data.Route
-                
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
             puroTouchContext.SubmitChanges();
             newID = oNewRow.idRequest;
             data.idRequest = newID;            
-            
-           
-
         }
         catch (Exception ex)
         {
@@ -401,9 +379,6 @@ public class ClsDiscoveryRequest
         }
         return errMsg;
     }
- 
-    
-
     //UPDATE A REQUEST
     public string UpdateDiscoveryRequest(ClsDiscoveryRequest data, Int32 RequestID)
     {
@@ -526,19 +501,16 @@ public class ClsDiscoveryRequest
                     updRow.idBroker = (int?)data.idBroker;
                     updRow.OtherBrokerName = data.OtherBrokerName;
                     updRow.idVendorType = (int?)data.idVendorType;
+                    updRow.FreightAuditor = (bool?)data.FreightAuditor;
                     updRow.Route = data.Route;
                 }
-
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();
-
             }
             else
             {
                 errMsg = "There is No Discovery Request with idRequest = " + "'" + data.idRequest + "'";
             }
-
-
         }
         catch (Exception ex)
         {
@@ -547,7 +519,6 @@ public class ClsDiscoveryRequest
         return errMsg;
     }
 
-
     //DELETE A REQUEST (set ActiveFlag to false)
     public string deActivateDiscoveryRequest(Int32 requestID, string userName)
     {
@@ -555,7 +526,6 @@ public class ClsDiscoveryRequest
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
         try
         {
-            
             if (requestID > 0)
             {
                 // Query the database for the row to be updated. 
@@ -568,24 +538,17 @@ public class ClsDiscoveryRequest
                 // you want to change. 
                 foreach (tblDiscoveryRequest updRow in query)
                 {
-
                     updRow.ActiveFlag = false;
                     updRow.UpdatedBy = userName;
                     updRow.UpdatedOn=DateTime.Now;
-
                 }
-
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();
-
-
             }
             else
             {
                 errMsg = "There is No Discovery Request with idRequest = " + "'" + requestID + "'";
             }
-
-
         }
         catch (Exception ex)
         {

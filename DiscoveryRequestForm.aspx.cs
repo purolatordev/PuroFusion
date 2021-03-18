@@ -61,7 +61,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getRequestTypes();
                 getVendorTypes();
                 getSolutionTypes();
-                //getContactTypes();
 
                 dpNoteDate.SelectedDate = DateTime.Now;
                 //Start with blank lists
@@ -76,6 +75,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 Session["equipmentList"] = equipList;
                 List<clsContact> contactList = new List<clsContact>();
                 Session["contactList"] = contactList;
+                List<clsEDIShipMethod> EDIShipMethList = new List<clsEDIShipMethod>();
+                Session["EDIShipMethList"] = EDIShipMethList;
+                List<clsEDITransaction> EDITransList = new List<clsEDITransaction>();
+                Session["EDITransList"] = EDITransList;
 
                 //save Original ITBA, later send email if changed
                 Session["ITBA"] = "";
@@ -138,7 +141,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[4].Selected = true;
             RadTabStrip1.Tabs[6].Visible = true;
             RadMultiPage1.SelectedIndex = 4;
-
         }
     }
 
@@ -166,98 +168,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         RadPanelBar1.FindItemByValue("AccountSupport").Visible = false;
         RadPanelBar1.FindItemByValue("Migration").Visible = false;
 
-
-        //Int32 requestID = Convert.ToInt32(Request.QueryString["requestID"]);
-        //List<ClsDiscoveryRequestSvcs> svcList = repository.GetProposedServices(requestID);
         //Go by what's in proposedSvcList in case they have just added services before saving
         List<ClsDiscoveryRequestSvcs> svcList = (List<ClsDiscoveryRequestSvcs>)Session["proposedSvcList"];
 
-
         foreach (ClsDiscoveryRequestSvcs svc in svcList)
         {
-
-            //SAVE FOR NEXT PHASE
-            //switch (svc.serviceDesc)
-            //{
-            //    case "CPC":
-            //        RadPanelBar1.FindItemByValue("CPC").Visible = true;
-            //        break;
-            //    case "LTL":
-            //        RadPanelBar1.FindItemByValue("LTL").Visible = true;
-            //        break;
-            //    case "Courier":
-            //        RadPanelBar1.FindItemByValue("Courier").Visible = true;
-            //        break;
-            //    case "PuroPost":
-            //        RadPanelBar1.FindItemByValue("PuroPost").Visible = true;
-            //        break;
-            //    case "PuroPost Plus":
-            //        RadPanelBar1.FindItemByValue("PuroPostPlus").Visible = true;
-            //        break;
-            //    case "Returns":
-            //        RadPanelBar1.FindItemByValue("Returns").Visible = true;
-            //        break;                   
-            //}
         }
-
-        //East West Splits
-        //bool flag = cbxSplit.Checked;
-        //if (flag == true)
-        //{
-        //    if (RadPanelBar1.FindItemByValue("Courier").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("Courier").Text = "Courier East";
-        //        RadPanelBar1.FindItemByValue("CourierWest").Visible = true;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("LTL").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("LTL").Text = "LTL East";
-        //        RadPanelBar1.FindItemByValue("LTLWest").Visible = true;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("PuroPost").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("PuroPost").Text = "PuroPost East";
-        //        RadPanelBar1.FindItemByValue("PuroPostWest").Visible = true;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("PuroPostPlus").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("PuroPostPlus").Text = "PuroPost Plus East";
-        //        RadPanelBar1.FindItemByValue("PuroPostPlusWest").Visible = true;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("CPC").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("CPC").Text = "CPC East";
-        //        RadPanelBar1.FindItemByValue("CPCWest").Visible = true;
-        //    }
-        //}
-        //else
-        //{
-        //    if (RadPanelBar1.FindItemByValue("Courier").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("Courier").Text = "Courier";
-        //        RadPanelBar1.FindItemByValue("CourierWest").Visible = false;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("LTL").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("LTL").Text = "LTL";
-        //        RadPanelBar1.FindItemByValue("LTLWest").Visible = false;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("PuroPost").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("PuroPost").Text = "PuroPost";
-        //        RadPanelBar1.FindItemByValue("PuroPostWest").Visible = false;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("PuroPostPlus").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("PuroPostPlus").Text = "PuroPost Plus";
-        //        RadPanelBar1.FindItemByValue("PuroPostPlusWest").Visible = false;
-        //    }
-        //    if (RadPanelBar1.FindItemByValue("CPC").Visible == true)
-        //    {
-        //        RadPanelBar1.FindItemByValue("CPC").Text = "CPC";
-        //        RadPanelBar1.FindItemByValue("CPCWest").Visible = false;
-        //    }
-        //}
     }
 
     protected void getCurrency()
@@ -298,8 +214,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         try
         {
-
-            //List<ClsShippingProducts> prodlist = repository.GetShippingProducts();
             List<ClsDiscoveryRequestSvcs> svcList = new List<ClsDiscoveryRequestSvcs>();
             if (Session["proposedSvcList"] != null)
             {
@@ -1215,6 +1129,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public string GetCurrentMethod()
+    {
+        var st = new StackTrace();
+        var sf = st.GetFrame(1);
+        return sf.GetMethod().Name;
+    }
     #region contactGrid
     protected void contactGrid_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
@@ -1275,13 +1196,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public string GetCurrentMethod()
-    {
-        var st = new StackTrace();
-        var sf = st.GetFrame(1);
-        return sf.GetMethod().Name;
-    }
     protected void contactGrid_DeleteCommand(object sender, GridCommandEventArgs e)
     {
         try
@@ -1304,7 +1218,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             e.Canceled = true;
         }
     }
-
     protected void contactGrid_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
     {
         try
@@ -1394,6 +1307,247 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         RadTabStrip1.Tabs[1].Selected = true;
     }
     #endregion
+    #region  ShipmentMethods grid
+    protected void gridShipmentMethods_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        try
+        {
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            (sender as RadGrid).DataSource = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridShipmentMethods_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+
+                List<clsEDIShipMethodType> solutionlist = SrvEDIShipMethodType.GetEDIShipMethodTypes();
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListEDIShipMethod");
+                radlist.DataSource = solutionlist;
+                radlist.DataTextField = "MethodType";
+                radlist.DataValueField = "idEDIShipMethod";
+                radlist.DataBind();
+                radlist.SelectedIndex = -1;
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridShipmentMethods_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListEDIShipMethod");
+
+                int requestID = 0;
+                int.TryParse(Request.QueryString["requestID"], out requestID);
+
+                if (!String.IsNullOrEmpty(radlist.SelectedText)  )
+                {
+                    clsEDIShipMethod contact = new clsEDIShipMethod()
+                    {
+                        idEDIShipMethodType = Convert.ToInt16(radlist.SelectedValue),
+                        idRequest = requestID,
+                        MethodType = radlist.SelectedText,
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    int inewID = 0;
+                    SrvEDIShipMethod.Insert(contact, out inewID);
+                    List<clsEDIShipMethod> EDIShipMethList = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+                    Session["EDIShipMethList"] = EDIShipMethList;
+                    gridShipmentMethods.DataSource = EDIShipMethList;
+                    gridShipmentMethods.DataBind();
+                }
+                else
+                    e.Canceled = true;
+            }
+            RadMultiPage1.SelectedIndex = 3;
+            RadTabStrip1.Tabs[3].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void gridShipmentMethods_UpdateCommand(object source, GridCommandEventArgs e)
+    {
+        if (e.CommandName == RadGrid.UpdateCommandName)
+        {
+            if (e.Item is GridEditFormItem)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+            }
+        }
+    }
+    protected void gridShipmentMethods_DeleteCommand(object sender, GridCommandEventArgs e)
+    {
+        try
+        {
+            List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+            int rownum = e.Item.ItemIndex;
+            clsEDIShipMethod currentrow = EDIShipMethList[rownum];
+            SrvEDIShipMethod.Remove(currentrow.idEDIShipMethod);
+            EDIShipMethList.Remove(currentrow);
+            Session["EDIShipMethList"] = EDIShipMethList;
+            gridShipmentMethods.DataSource = EDIShipMethList;
+            gridShipmentMethods.Rebind();
+            RadMultiPage1.SelectedIndex = 3;
+            RadTabStrip1.Tabs[3].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void radListEDIShipMethodIdxChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 3;
+        RadTabStrip1.Tabs[3].Selected = true;
+    }
+
+    #endregion
+    #region  EDITransactions grid
+    protected void gridEDITransactions_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        try
+        {
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            (sender as RadGrid).DataSource = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridEDITransactions_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+
+                List<clsEDITransactionType> qTransType = SrvEDITransactionType.GetEDITransactionTypes();
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListEDITransList");
+                radlist.DataSource = qTransType;
+                radlist.DataTextField = "EDITranscationType";
+                radlist.DataValueField = "idEDITranscationType";
+                radlist.DataBind();
+                radlist.SelectedIndex = -1;
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridEDITransactions_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListEDITransList");
+
+                int requestID = 0;
+                int.TryParse(Request.QueryString["requestID"], out requestID);
+
+                if (!String.IsNullOrEmpty(radlist.SelectedText))
+                {
+                    clsEDITransaction EDITrans = new clsEDITransaction()
+                    {
+                        idEDITranscationType = Convert.ToInt16(radlist.SelectedValue),
+                        idRequest = requestID,
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    int inewID = 0;
+                    SrvEDITransaction.Insert(EDITrans, out inewID);
+                    List<clsEDITransaction> EDITransList = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+                    Session["EDITransList"] = EDITransList;
+                    gridEDITransactions.DataSource = EDITransList;
+                    gridEDITransactions.DataBind();
+                }
+                else
+                    e.Canceled = true;
+            }
+            RadMultiPage1.SelectedIndex = 3;
+            RadTabStrip1.Tabs[3].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void gridEDITransactions_UpdateCommand(object source, GridCommandEventArgs e)
+    {
+        if (e.CommandName == RadGrid.UpdateCommandName)
+        {
+            if (e.Item is GridEditFormItem)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+            }
+        }
+    }
+    protected void gridEDITransactions_DeleteCommand(object sender, GridCommandEventArgs e)
+    {
+        try
+        {
+            List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
+            int rownum = e.Item.ItemIndex;
+            clsEDITransaction currentrow = EDITransList[rownum];
+            SrvEDITransaction.Remove(currentrow.idEDITranscation);
+            EDITransList.Remove(currentrow);
+            Session["EDITransList"] = EDITransList;
+            gridEDITransactions.DataSource = EDITransList;
+            gridEDITransactions.Rebind();
+            RadMultiPage1.SelectedIndex = 3;
+            RadTabStrip1.Tabs[3].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void radListEDITransIdxChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 3;
+        RadTabStrip1.Tabs[3].Selected = true;
+    }
+
+    #endregion
 
     protected void displayExistingRequest(Int32 requestID)
     {
@@ -1410,9 +1564,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 details = new ClsDiscoveryRequestDetails();
             }
+            //< td > Strategic ? &nbsp;
             string userRole = ((string)Session["userRole"]).ToLower();
-            //if (request.StrategicFlag == null) request.StrategicFlag = false;
-            //chkStrategic.Checked = (Boolean)request.StrategicFlag;
             if (request.StrategicFlag == false || request.StrategicFlag == null)
             {
                 rddlStrategic.SelectedText = "No";
@@ -1460,9 +1613,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
 
             //Tab2 - Contact Information
-       
+
             //Tab3 - Current Solution
             txtareaCurrentSolution.Text = request.CurrentSolution;
+
+            //Tab - EDI Services
+            if (request.FreightAuditor == false || request.FreightAuditor == null)
+                comboxFreightAuditor.SelectedText = "No";
+            else
+                comboxFreightAuditor.SelectedText = "Yes";
 
             //Tab4 - Shipping Services
             //services
@@ -1803,6 +1962,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Session["contactList"] = contactList;
             contactGrid.DataSource = contactList;
             contactGrid.DataBind();
+
+            // EDI Shipment Methods List
+            List<clsEDIShipMethod> EDIShipMethList = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+            Session["EDIShipMethList"] = EDIShipMethList;
+            gridShipmentMethods.DataSource = EDIShipMethList;
+            gridShipmentMethods.DataBind();
+
+            List<clsEDITransaction> EDITransList = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+            Session["EDITransList"] = EDITransList;
+            gridEDITransactions.DataSource = EDITransList;
+            gridEDITransactions.DataBind();
 
             if (userRole == "sales" || userRole == "salesdm" || userRole == "salesmanager")
             {
@@ -2965,7 +3135,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 //Get Existing Request
                 ClsDiscoveryRequest dr = new ClsDiscoveryRequest();
-                //Int32 RequestID = (Int32)Session["requestID"];
                 Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
                 editRequest = dr.GetDiscoveryRequest(RequestID);
                 priorGoLive = editRequest.CurrentGoLive;
@@ -2978,7 +3147,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     string AssignedPhase = ConfigurationManager.AppSettings["AssignedPhase"].ToString();
                     rddlPhase.SelectedValue = AssignedPhase;
                 }
-
             }
             //HEADING
             objDiscoveryRequest.flagNewRequest = newbus;
@@ -2989,16 +3157,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //CUSTOMER INFO
             //if new relationship, use text box othewise use drop down selection
             objDiscoveryRequest.flagNewRequest = chkNewBus.Checked;
-            //if (chkNewBus.Checked == true)
-            //{                
             objDiscoveryRequest.CustomerName = txtCustomerName.Text;
 
-            //}
-            //else
-            //{
-            //    objDiscoveryRequest.CustomerName=rddlRelationships.SelectedValue;
-            //}
-            //objDiscoveryRequest.StrategicFlag = chkStrategic.Checked;
             if (rddlSolutionType.SelectedValue != "")
                 objDiscoveryRequest.idSolutionType = Convert.ToInt32(rddlSolutionType.SelectedValue);
             if (rddlRequestType.SelectedValue != "")
@@ -3020,14 +3180,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             txtRev = txtRev.Replace("$", "");
             objDiscoveryRequest.ProjectedRevenue = Convert.ToDecimal(txtRev);
             //CONTACT INFO
-            //objDiscoveryRequest.CustomerBusContact = txtContactName.Text;
-            //objDiscoveryRequest.CustomerBusTitle = txtContactTitle.Text;
-            //objDiscoveryRequest.CustomerBusEmail = txtContactEmail.Text;
-            //objDiscoveryRequest.CustomerBusPhone = txtContactPhone.Text;
-            //objDiscoveryRequest.CustomerITContact = txtContactName2.Text;
-            //objDiscoveryRequest.CustomerITTitle = txtContactTitle2.Text;
-            //objDiscoveryRequest.CustomerITEmail = txtContactEmail2.Text;
-            //objDiscoveryRequest.CustomerITPhone = txtContactPhone2.Text;
             //CURRENT SOLUTION
             objDiscoveryRequest.CurrentSolution = txtareaCurrentSolution.Text;
             bool curshipflag = true;
@@ -3087,12 +3239,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 targetRecord.ChangeReason = txtTargetChangeReason.Text;
                 targetRecord.CreatedBy = (string)Session["userName"];
                 targetRecord.CreatedOn = Convert.ToDateTime(DateTime.Now);
-                //if (targetRecord.idRequest != 0)
-                //{
                 targetRecord.InsertTargetDate(targetRecord);
-                //}
             }
-
 
             //WORLDPAK
 
@@ -3109,6 +3257,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             objDiscoveryRequest.FTPUsername = txtFTPLogin.Text;
             objDiscoveryRequest.FTPPassword = txtFTPpwd.Text;
             objDiscoveryRequest.EDICustomizedFlag = cbxCustomEDI.Checked;
+            if (comboxFreightAuditor.SelectedText == "Yes")
+                objDiscoveryRequest.FreightAuditor = true;
+            else
+                objDiscoveryRequest.FreightAuditor = false;
 
             //CUSTOMS
             objDiscoveryRequest.customsFlag = chkCustoms.Checked;
@@ -3170,14 +3322,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             objDiscoveryRequest.EWSortDetails = txtEWsorting.Text;
             objDiscoveryRequest.EWMissortDetails = txtEWmissort.Text;
 
-
             //Need to make sure these values are not overwritten on update
             if (newflag == true)
             {
                 objDiscoveryRequest.CreatedBy = (string)Session["userName"];
                 objDiscoveryRequest.CreatedOn = Convert.ToDateTime(DateTime.Now);
                 objDiscoveryRequest.ActiveFlag = true;
-
             }
             else
             {
@@ -3190,9 +3340,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 objDiscoveryRequest.UpdatedOn = Convert.ToDateTime(DateTime.Now);
                 objDiscoveryRequest.ActiveFlag = true;
             }
-
-
-
         }
         catch (Exception ex)
         {
@@ -3202,7 +3349,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
 
         return objDiscoveryRequest;
-
     }
 
     private ClsDiscoveryRequestDetails populateDiscoveryRequestDetails(bool newflag)

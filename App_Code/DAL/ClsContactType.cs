@@ -18,9 +18,6 @@ public class ClsContactType
     public bool? ActiveFlag { get; set; }
     public ClsContactType()
     {
-        //
-        // TODO: Add constructor logic here
-        //
     }
     public string InsertContactType(ClsContactType data)
     {
@@ -29,25 +26,16 @@ public class ClsContactType
 
         try
         {
-
             ClsContactType oNewRow = new ClsContactType()
             {
-
                 ContactType = data.ContactType,
                 CreatedBy = data.CreatedBy,
                 CreatedOn = (DateTime?)data.CreatedOn,
-                //UpdatedBy = data.UpdatedBy,
-                //UpdatedOn = (DateTime?)data.UpdatedOn,
                 ActiveFlag = data.ActiveFlag
             };
-
-
-
             puroTouchContext.GetTable<ClsContactType>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
             puroTouchContext.SubmitChanges();
-
-
         }
         catch (Exception ex)
         {
@@ -63,7 +51,6 @@ public class ClsContactType
 
         try
         {
-
             if (data.idContactType > 0)
             {
                 // Query the database for the row to be updated. 
@@ -76,26 +63,20 @@ public class ClsContactType
                 // you want to change. 
                 foreach (tblContactType updRow in query)
                 {
-
                     updRow.ContactType = data.ContactType;
                     updRow.ActiveFlag = data.ActiveFlag;
                     updRow.idContactType = data.idContactType;
                     updRow.UpdatedBy = data.UpdatedBy;
                     updRow.UpdatedOn = data.UpdatedOn;
-
                 }
 
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();
-
-
             }
             else
             {
                 errMsg = "There is No Contact Type with ID = " + "'" + data.idContactType + "'";
             }
-
-
         }
         catch (Exception ex)
         {
