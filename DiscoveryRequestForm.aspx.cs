@@ -1618,6 +1618,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             txtareaCurrentSolution.Text = request.CurrentSolution;
 
             //Tab - EDI Services
+            txtBxCustomerEDIDetails.Text = request.EDIDetails;
             if (request.FreightAuditor == false || request.FreightAuditor == null)
                 comboxFreightAuditor.SelectedText = "No";
             else
@@ -2139,7 +2140,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             ErrorMessage = ErrorMessage + "<br>Please Fill in Current Go-Live Date Change Reason";
         }
-
+        //check EDI Services Tab
+        List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+        if (EDIShipMethList.Count() == 0)
+        {
+            ErrorMessage = ErrorMessage + "<br>At Least One EDI shipment method Must Be Supplied";
+        }
+        List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
+        if (EDITransList.Count() == 0)
+        {
+            ErrorMessage = ErrorMessage + "<br>At Least One EDI transaction method Must Be Supplied";
+        }
         return ErrorMessage;
     }
     protected void CustomValidatorContact_ServerValidate(object source, ServerValidateEventArgs args)
@@ -3262,6 +3273,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             else
                 objDiscoveryRequest.FreightAuditor = false;
 
+            objDiscoveryRequest.EDIDetails = txtBxCustomerEDIDetails.Text;
+
             //CUSTOMS
             objDiscoveryRequest.customsFlag = chkCustoms.Checked;
             objDiscoveryRequest.elinkFlag = chkElink.Checked;
@@ -3710,7 +3723,21 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             rgNotesGrid.MasterTableView.GetColumn("DeleteLink").Visible = false;
         }
     }
+    
+    #region  File Uploads Tab with File Grid
+    protected void rgUpload_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        getUploads();
+    }
 
+    protected void getUploads()
+    {
+        //Int32 RequestID = Convert.ToInt32(Request.QueryString["requestID"]);
+        Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+        List<ClsFileUpload> alluploads = repository.GetFileList(RequestID);
+        rgUpload.DataSource = alluploads;
+        rgUpload.Visible = true;
+    }
     protected void rgUpload_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
     {
         try
@@ -3731,21 +3758,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             pnlwarning.Visible = true;
         }
     }
-
-    protected void rgUpload_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
-    {
-        getUploads();
-    }
-
-    protected void getUploads()
-    {
-        //Int32 RequestID = Convert.ToInt32(Request.QueryString["requestID"]);
-        Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
-        List<ClsFileUpload> alluploads = repository.GetFileList(RequestID);
-        rgUpload.DataSource = alluploads;
-        rgUpload.Visible = true;
-    }
-
     protected void rgUpload_DeleteCommand(object sender, GridCommandEventArgs e)
     {
     }
@@ -3788,24 +3800,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     protected void rgUpload_InsertCommand(object sender, GridCommandEventArgs e)
     {
     }
-
-
-
-    protected void RadAsyncUpload1_FileUploaded(object sender, FileUploadedEventArgs e)
-    {
-
-        try
-        {
-
-        }
-
-        catch (Exception ex)
-        {
-
-        }
-
-    }
-
     protected void btnSaveUpload_Click(object sender, EventArgs e)
     {
         try
@@ -3813,7 +3807,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             string errmsg;
             int fileID;
             string FilePath = ConfigurationManager.AppSettings["FileUploadPath"].ToString();
-            //Int32 RequestID = Convert.ToInt32(Request.QueryString["requestID"]);
             Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
 
             foreach (UploadedFile f in RadAsyncUpload1.UploadedFiles)
@@ -3839,13 +3832,78 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getUploads();
                 rgUpload.Rebind();
             }
-
-
         }
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    #endregion
+    #region  EDI Services Tab For File Grid
+    protected void getEDIServicesFilesUpload()
+    {
+        Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+        string FilePath = ConfigurationManager.AppSettings["FileEDIServicesUploadPath"].ToString();
+        List<ClsFileUpload> alluploads = repository.GetFileList(RequestID, FilePath);
+        gridEDIServicesUpload.DataSource = alluploads;
+        gridEDIServicesUpload.Visible = true;
+    }
+    protected void gridEDIServiesUpload_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        getEDIServicesFilesUpload();
+    }
+    protected void btnSaveEDIServicesUpload_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            string errmsg;
+            int fileID;
+            string FilePath = ConfigurationManager.AppSettings["FileEDIServicesUploadPath"].ToString();
+            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+
+            foreach (UploadedFile f in RadAsynEDIServicesUpload.UploadedFiles)
+            {
+                string fileName = f.GetName();
+                string title = f.GetFieldValue("TextBox");
+                ClsFileUpload filedata = new ClsFileUpload();
+                filedata.idRequest = RequestID;
+                filedata.FilePath = FilePath + fileName;
+                filedata.Description = title;
+                filedata.ActiveFlag = true;
+                filedata.CreatedBy = (string)(Session["userName"]);
+                filedata.CreatedOn = Convert.ToDateTime(DateTime.Now);
+                filedata.UploadDate = Convert.ToDateTime(DateTime.Now);
+
+                errmsg = filedata.InsertFileUpload(filedata, out fileID);
+                if (errmsg != "")
+                {
+                    pnlDanger.Visible = true;
+                    lblDanger.Text = errmsg;
+                }
+
+                getEDIServicesFilesUpload();
+                gridEDIServicesUpload.Rebind();
+            }
+            RadMultiPage1.SelectedIndex = 3;
+            RadTabStrip1.Tabs[3].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    #endregion
+    protected void RadAsyncUpload1_FileUploaded(object sender, FileUploadedEventArgs e)
+    {
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+
         }
     }
 

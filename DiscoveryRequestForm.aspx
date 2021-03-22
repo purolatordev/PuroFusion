@@ -130,7 +130,6 @@
                     <telerik:AjaxUpdatedControl ControlID="rgNotesGrid" />
                     <telerik:AjaxUpdatedControl ControlID="lblTotalTime" />
                     <telerik:AjaxUpdatedControl ControlID="rddlInternalTypeEdit" />
-
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="btnSaveUpload">
@@ -779,8 +778,9 @@
                         <td>
                             <asp:Label ID="Label7" runat="server" Text="Ship methods in scope for EDI - Add all that apply" Visible="true"></asp:Label>
                         </td>
-                        <td style="color: red; text-align: left">*</td>
+                        <td style="color: red; text-align: left"></td>
                         <td>
+                            <asp:Label ID="Label11" runat="server" Text="*" Visible="true" style="color: red; text-align: right"></asp:Label>
                             <asp:Label ID="Label8" runat="server" Text="Does customer use a freight auditor?" Visible="true"></asp:Label>
                             &nbsp;
                             <telerik:RadDropDownList ID="comboxFreightAuditor" runat="server" Visible="true" Width="70px">
@@ -910,9 +910,11 @@
                                 </MasterTableView>
                             </telerik:RadGrid>
                         </td>
-                        <td></td>
+                        <td width="5%">
+                            
+                        </td>
                         <td>
-                            <asp:TextBox ID="TextBox1" TextMode="multiline" Columns="100" Rows="5" runat="server" />
+                            <asp:TextBox ID="txtBxCustomerEDIDetails" TextMode="multiline" Columns="100" Rows="5" runat="server" />
                         </td>
                     </tr>
                      <tr>
@@ -923,15 +925,63 @@
                 </table>
                 <table border="0">
                     <tr>
+                    </tr>
+                    <tr>
                         <td>
-                            <asp:Label ID="Label10" runat="server" Text="Supply EDI documentation received, e.g. Specification documents, Letter of Authorization, etc." Visible="true"></asp:Label></td>
-                        <td >
-                            <telerik:RadAsyncUpload RenderMode="Lightweight" runat="server" ID="RadAsyncUpload2" HideFileInput="true"
-                                AllowedFileExtensions=".jpeg,.jpg,.png,.doc,.docx,.xls,.xlsx,.pdf,.txt,.gif,.csv,.msg" OnFileUploaded="RadAsyncUpload1_FileUploaded" TargetFolder="~/FileUploads" Localization-Select="Browse"
+                            <telerik:RadAsyncUpload RenderMode="Lightweight" runat="server" ID="RadAsynEDIServicesUpload" HideFileInput="true"
+                                AllowedFileExtensions=".jpeg,.jpg,.png,.doc,.docx,.xls,.xlsx,.pdf,.txt,.gif,.csv,.msg" OnFileUploaded="RadAsyncUpload1_FileUploaded" TargetFolder="~/FileUploads/EDIServices" Localization-Select="Browse"
                                 OnClientFileUploaded="onClientFileUploaded" />
                         </td>
+                        <td>
+                            <asp:Label ID="Label10" runat="server" Text="Supply EDI documentation received, e.g. Specification documents, Letter of Authorization, etc." Visible="true"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
                         <td >
-                            <telerik:RadButton ID="RadButton1"  Text="Save Files" runat="server" OnClick="btnSaveUpload_Click" Visible="true"></telerik:RadButton>
+                            <telerik:RadButton ID="btnEDISerivesSaveFile"  Text="Save Files" runat="server" OnClick="btnSaveEDIServicesUpload_Click" Visible="true"></telerik:RadButton>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <telerik:RadGrid ID="gridEDIServicesUpload" runat="server" CellSpacing="-1" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" 
+                                OnNeedDataSource="gridEDIServiesUpload_NeedDataSource" 
+                                OnUpdateCommand="rgUpload_UpdateCommand" 
+                                OnItemDataBound="rgUpload_ItemDataBound">
+                                <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
+                                <ExportSettings ExportOnlyData="True" IgnorePaging="True" OpenInNewWindow="True">
+                                </ExportSettings>
+                                <MasterTableView AutoGenerateColumns="False" AllowPaging="True" CommandItemDisplay="Top" EditMode="PopUp">
+                                    <CommandItemSettings ShowAddNewRecordButton="False" ShowRefreshButton="False" ShowExportToWordButton="False" ShowExportToExcelButton="False"></CommandItemSettings>
+                                    <EditFormSettings UserControlName="EditFileUpload.ascx" EditFormType="WebUserControl" PopUpSettings-Height="250px" PopUpSettings-Width="550px">
+                                        <FormStyle Height="500px"></FormStyle>
+                                        <PopUpSettings Modal="true" />
+                                    </EditFormSettings>
+                                    <Columns>
+                                        <telerik:GridEditCommandColumn ButtonType="ImageButton" EditImageUrl="~/Images/Grid/Edit.gif" HeaderText="Edit" UniqueName="EditLink">
+                                            <HeaderStyle Width="36px"></HeaderStyle>
+                                        </telerik:GridEditCommandColumn>
+                                        <telerik:GridBoundColumn DataField="idFileUpload" FilterControlAltText="Filter idFileUpload column" HeaderText="idFileUpload" SortExpression="idFileUpload" UniqueName="idFileUpload" Visible="true" Display="false">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="idRequest" FilterControlAltText="Filter idRequest column" HeaderText="idRequest" SortExpression="idRequest" UniqueName="idRequest" Visible="false">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="UploadDate" DataType="System.DateTime" DataFormatString="{0:MM/dd/yyyy}" FilterControlAltText="Filter UploadDate column" HeaderText="Upload Date" SortExpression="UploadDate" UniqueName="UploadDate" HeaderStyle-Width="10%">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Createdby" AllowFiltering="true" FilterControlAltText="Filter Createdby column" HeaderText="Uploaded By" SortExpression="Createdby" UniqueName="Createdby" HeaderStyle-Width="10%">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="Description" AllowFiltering="true" FilterControlAltText="Filter Description column" HeaderText="Description" SortExpression="Description" UniqueName="Description">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="ActiveFlag" AllowFiltering="true" FilterControlAltText="Filter ActiveFlag column" HeaderText="ActiveFlag" SortExpression="ActiveFlag" UniqueName="ActiveFlag" Visible="false">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridHyperLinkColumn DataTextField="FilePath" Target="_parent" NavigateUrl="javascript:void(0);"
+                                            AllowFiltering="true" FilterControlAltText="Filter FilePath column" HeaderText="File Path" SortExpression="FilePath" UniqueName="FilePath" ItemStyle-ForeColor="Blue">
+                                        </telerik:GridHyperLinkColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" HeaderText="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false" ConfirmDialogType="RadWindow" ConfirmText="Delete?" Visible="false">
+                                            <HeaderStyle Width="36px"></HeaderStyle>
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <PagerStyle AlwaysVisible="True"></PagerStyle>
+                                </MasterTableView>
+                            </telerik:RadGrid>
                         </td>
                     </tr>
                 </table>
@@ -2211,7 +2261,6 @@
                                 </ContentTemplate>
                             </telerik:RadPanelItem>
 
-
                             <%-- RETURNS --%>
                             <telerik:RadPanelItem Text="Returns" Value="Returns">
                                 <ContentTemplate>
@@ -2241,9 +2290,7 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 10px"></td>
-
                                             <td>
-
                                                 <telerik:RadButton ID="chkMartinGrove" Text="Fill in Martin Grove Address" runat="server" OnClick="chkMartinGrove_Clicked" SingleClick="true" AutoPostBack="true">
                                                     <ToggleStates>
                                                         <telerik:RadButtonToggleState Text="" PrimaryIconCssClass="rbToggleCheckboxChecked" />
@@ -2275,7 +2322,6 @@
                                                 <telerik:RadTextBox ID="txtReturnsCountry" runat="server" MaxLength="25" Text='' Width="75px" ToolTip="Enter Country" />
                                             </td>
                                         </tr>
-
                                     </table>
                                 </ContentTemplate>
                             </telerik:RadPanelItem>
@@ -2344,29 +2390,19 @@
                                             <td>
                                                 <telerik:RadTextBox ID="txtOtherBroker" runat="server" MaxLength="130" Text='' Width="300px" ToolTip="Enter Broker" />
                                             </td>
-
                                             <td style="width: 10px"></td>
                                             <td>Broker#</td>
                                             <td style="width: 10px"></td>
                                             <td>
                                                 <telerik:RadTextBox ID="txtBrokerNumber" runat="server" MaxLength="50" Text='' Width="100px" ToolTip="Enter Broker Number" /></td>
                                         </tr>
-
                                     </table>
-
                                 </ContentTemplate>
                             </telerik:RadPanelItem>
-
-
-
-
-
-
 
                             <%-- BILLING INFORMATION --%>
 
                             <telerik:RadPanelItem Text="Billing and EDI" Value="BillingandEDI">
-
                                 <ContentTemplate>
                                     <table>
 
@@ -2391,7 +2427,6 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td>EDI Solution
@@ -2418,7 +2453,6 @@
                                             <td style="width: 10px"></td>
                                             <td></td>
                                             <td style="width: 10px"></td>
-
                                             <td colspan="4">
                                                 <telerik:RadGrid ID="rgSolutionsGrid" runat="server" CellSpacing="-1" GridLines="None" GroupPanelPosition="Top" AllowFilteringByColumn="false" OnNeedDataSource="rgSolutionsGrid_NeedDataSource" OnDeleteCommand="rgSolutionsGrid_DeleteCommand">
                                                     <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
@@ -2427,7 +2461,6 @@
                                                     <MasterTableView AutoGenerateColumns="False" AllowPaging="False" CommandItemDisplay="Top">
                                                         <CommandItemSettings ShowAddNewRecordButton="False" ShowRefreshButton="False" ShowExportToExcelButton="False"></CommandItemSettings>
                                                         <Columns>
-                                                            <%--<telerik:GridBoundColumn DataField="idService" HeaderText="Proposed ServiceID" UniqueName="ServiceID" Visible="false"></telerik:GridBoundColumn>--%>
                                                             <telerik:GridBoundColumn DataField="Solution" HeaderText="Solution" UniqueName="Solution">
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn DataField="FileFormat" HeaderText="File Format" UniqueName="FileFormat">
@@ -2452,7 +2485,6 @@
                                             <td>
                                                 <telerik:RadTextBox ID="txtFTPLogin" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter FTP Login" />
                                             </td>
-
                                             <td>FTP Password</td>
                                             <td>
                                                 <telerik:RadTextBox ID="txtFTPpwd" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter FTP Password" /></td>
@@ -2460,7 +2492,6 @@
                                             <td></td>
                                             <td></td>
                                         </tr>
-
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td>Billto Account
@@ -2469,7 +2500,6 @@
                                             <td>
                                                 <telerik:RadTextBox ID="txtBillto" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Billto Account" />
                                             </td>
-
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -2477,13 +2507,8 @@
                                             <td></td>
                                         </tr>
                                     </table>
-
-
                                 </ContentTemplate>
-
                             </telerik:RadPanelItem>
-
-
 
                             <%--  EQUPMENT --%>
 
@@ -2547,7 +2572,7 @@
                                                         <CommandItemSettings ShowAddNewRecordButton="False" ShowRefreshButton="False" ShowExportToExcelButton="False"></CommandItemSettings>
                                                         <Columns>
                                                             <%-- <telerik:GridBoundColumn DataField="idService" HeaderText="Proposed ServiceID" UniqueName="ServiceID" Visible="false">
-                            </telerik:GridBoundColumn>--%>
+                                                            </telerik:GridBoundColumn>--%>
                                                             <telerik:GridBoundColumn DataField="EquipmentDesc" HeaderText="Equipment" UniqueName="Equipment">
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn DataField="Number" HeaderText="Number Needed" UniqueName="Number">
@@ -2875,8 +2900,10 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <telerik:RadGrid ID="rgUpload" runat="server" CellSpacing="-1" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" OnNeedDataSource="rgUpload_NeedDataSource"
-                                OnDeleteCommand="rgUpload_DeleteCommand" OnInsertCommand="rgUpload_InsertCommand" OnUpdateCommand="rgUpload_UpdateCommand" OnItemDataBound="rgUpload_ItemDataBound">
+                            <telerik:RadGrid ID="rgUpload" runat="server" CellSpacing="-1" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" 
+                                OnNeedDataSource="rgUpload_NeedDataSource" OnDeleteCommand="rgUpload_DeleteCommand" 
+                                OnInsertCommand="rgUpload_InsertCommand" OnUpdateCommand="rgUpload_UpdateCommand" 
+                                OnItemDataBound="rgUpload_ItemDataBound">
                                 <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
                                 <ExportSettings ExportOnlyData="True" IgnorePaging="True" OpenInNewWindow="True">
                                 </ExportSettings>

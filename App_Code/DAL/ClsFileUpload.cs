@@ -41,20 +41,15 @@ public class ClsFileUpload
         return oNote;
     }
 
-
-
     public string InsertFileUpload(ClsFileUpload data, out Int32 newID)
     {
         string errMsg = "";
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
         newID = -1;
-
         try
         {
-
             tblDiscoveryRequestUpload oNewRow = new tblDiscoveryRequestUpload()
             {
-                //idFileUpload = (Int32)data.idFileUpload,
                 idRequest = (Int32)data.idRequest,
                 UploadDate = data.UploadDate,
                 Description = data.Description,
@@ -64,14 +59,10 @@ public class ClsFileUpload
                 
                 ActiveFlag = data.ActiveFlag
             };
-
-
-
             puroTouchContext.GetTable<tblDiscoveryRequestUpload>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
             puroTouchContext.SubmitChanges();
             newID = oNewRow.idFileUpload;
-
         }
         catch (Exception ex)
         {
@@ -84,10 +75,8 @@ public class ClsFileUpload
     {
         string errMsg = "";
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
-
         try
         {
-
             if (data.idFileUpload > 0)
             {
                 // Query the database for the row to be updated. 
@@ -100,7 +89,6 @@ public class ClsFileUpload
                 // you want to change. 
                 foreach (tblDiscoveryRequestUpload updRow in query)
                 {
-
                     updRow.UploadDate = data.UploadDate;
                     updRow.Description = data.Description;
                     updRow.FilePath = data.FilePath;
@@ -108,18 +96,13 @@ public class ClsFileUpload
                     updRow.UpdatedOn = data.UpdatedOn;
                     updRow.ActiveFlag = data.ActiveFlag;
                 }
-
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();
-
-
             }
             else
             {
                 errMsg = "There is No File Upload with ID = " + "'" + data.idFileUpload + "'";
             }
-
-
         }
         catch (Exception ex)
         {

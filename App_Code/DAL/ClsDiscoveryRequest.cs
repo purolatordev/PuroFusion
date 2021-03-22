@@ -123,6 +123,7 @@ public class ClsDiscoveryRequest
 
     public string VendorName { get; set; }
     public System.Nullable<bool> FreightAuditor { get; set; }
+    public string EDIDetails { get; set; }
 
     public ClsDiscoveryRequest()
 	{
@@ -254,7 +255,8 @@ public class ClsDiscoveryRequest
                                                    OtherBrokerName = data.OtherBrokerName,
                                                    idVendorType = (int?)data.idVendorType,
                                                    FreightAuditor = (bool?)data.FreightAuditor,
-                                                   Route = data.Route
+                                                   Route = data.Route,
+                                                   EDIDetails = data.EDIDetails
                                                }).FirstOrDefault();
         return oReq;
     }
@@ -365,7 +367,8 @@ public class ClsDiscoveryRequest
                 OtherBrokerName = data.OtherBrokerName,
                 idVendorType = (int?)data.idVendorType,
                 FreightAuditor = (bool?)data.FreightAuditor,
-                Route = data.Route
+                Route = data.Route,
+                EDIDetails = data.EDIDetails
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
@@ -501,8 +504,9 @@ public class ClsDiscoveryRequest
                     updRow.idBroker = (int?)data.idBroker;
                     updRow.OtherBrokerName = data.OtherBrokerName;
                     updRow.idVendorType = (int?)data.idVendorType;
-                    updRow.FreightAuditor = (bool?)data.FreightAuditor;
                     updRow.Route = data.Route;
+                    updRow.FreightAuditor = (bool?)data.FreightAuditor;
+                    updRow.EDIDetails = data.EDIDetails;
                 }
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();

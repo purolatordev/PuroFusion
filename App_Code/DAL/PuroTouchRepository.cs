@@ -1163,8 +1163,19 @@ using System.Configuration;
                                     }).ToList<ClsFileUpload>();
             return oFiles;
         }
+    public List<ClsFileUpload> GetFileList(int DRid, string strDir)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
 
-        public int GetTotalTimeSpent(int requestID)
+        List<ClsFileUpload> qFiles = o.GetTable<tblDiscoveryRequestUpload>()
+                                    .Where(d => d.idRequest == DRid && d.ActiveFlag != false && d.FilePath.Contains(strDir))
+                                    .OrderByDescending(f => f.UpdatedBy)
+                                    .ThenByDescending(f => f.idFileUpload)
+                                    .Select(data => new ClsFileUpload() { idFileUpload = data.idFileUpload,idRequest = data.idRequest,UploadDate = data.UploadDate,Description = data.Description,FilePath = data.FilePath,CreatedBy = data.CreatedBy,CreatedOn = (DateTime)data.CreatedOn,UpdatedBy = data.UpdatedBy,UpdatedOn = data.UpdatedOn,ActiveFlag = (bool)data.ActiveFlag}).ToList();
+        
+        return qFiles;
+    }
+    public int GetTotalTimeSpent(int requestID)
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsNotes> oNote = (from data in puroTouchContext.GetTable<tblDiscoveryRequestNote>()
