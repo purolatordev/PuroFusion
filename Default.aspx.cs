@@ -25,7 +25,7 @@ public partial class _Default : Page
     {
         if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
         {
-            txtUser.Text = "Scott.Cardinale";
+            txtUser.Text = ConfigurationManager.AppSettings["debugUser"];
             txtPasswrd.Text = "*";
         }
     }

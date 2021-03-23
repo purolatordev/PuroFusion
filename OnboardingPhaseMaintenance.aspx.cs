@@ -36,7 +36,7 @@ public partial class OnboardingPhaseMaintenance : System.Web.UI.Page
 
     private void getDataList()
     {
-        List<ClsOnboardingPhase> dataList = rep.GetOnboardingPhases();
+        List<ClsOnboardingPhase> dataList = rep.GetOnboardingPhasesAll();
         rgGrid.DataSource = dataList;
     }
 

@@ -179,7 +179,7 @@ public partial class TaskTypeMaintenance : System.Web.UI.Page
 
                 RadComboBox cbxOnboardingPhase = userControl.FindControl("cbxOnboardingPhase") as RadComboBox;
 
-                List<ClsOnboardingPhase> listOnboardingPhases = rep.GetOnboardingPhases();
+                List<ClsOnboardingPhase> listOnboardingPhases = rep.GetOnboardingPhasesAll();
                 cbxOnboardingPhase.DataTextField = "OnboardingPhase";
                 cbxOnboardingPhase.DataValueField = "idOnboardingPhase";
                 cbxOnboardingPhase.DataSource = listOnboardingPhases;
@@ -204,7 +204,7 @@ public partial class TaskTypeMaintenance : System.Web.UI.Page
 
                 RadComboBox cbxOnboardingPhase = userControl.FindControl("cbxOnboardingPhase") as RadComboBox;
 
-                List<ClsOnboardingPhase> listOnboardingPhases = rep.GetOnboardingPhases();
+                List<ClsOnboardingPhase> listOnboardingPhases = rep.GetOnboardingPhasesAll();
                 cbxOnboardingPhase.DataTextField = "OnboardingPhase";
                 cbxOnboardingPhase.DataValueField = "idOnboardingPhase";
                 cbxOnboardingPhase.DataSource = listOnboardingPhases;

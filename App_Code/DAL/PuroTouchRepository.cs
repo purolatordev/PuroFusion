@@ -1193,11 +1193,11 @@ using System.Configuration;
             }
             return sum;
         }
-        public List<ClsOnboardingPhase> GetOnboardingPhases()
+        public List<ClsOnboardingPhase> GetOnboardingPhasesOnlyActive()
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsOnboardingPhase> oPhase = (from data in puroTouchContext.GetTable<tblOnboardingPhase>()
-                                               //where data.ActiveFlag != false
+                                               where data.ActiveFlag != false
                                                orderby data.SortValue,data.OnboardingPhase
                                                select new ClsOnboardingPhase
                                                {
@@ -1212,7 +1212,25 @@ using System.Configuration;
                                                }).ToList<ClsOnboardingPhase>();
             return oPhase;
         }
-        public List<ClsOnboardingPhase> GetOnboardingPhasesInactiveNoted()
+    public List<ClsOnboardingPhase> GetOnboardingPhasesAll()
+    {
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        List<ClsOnboardingPhase> oPhase = (from data in puroTouchContext.GetTable<tblOnboardingPhase>()
+                                           orderby data.SortValue, data.OnboardingPhase
+                                           select new ClsOnboardingPhase
+                                           {
+                                               idOnboardingPhase = data.idOnboardingPhase,
+                                               OnboardingPhase = data.OnboardingPhase,
+                                               CreatedOn = data.CreatedOn,
+                                               UpdatedBy = data.UpdatedBy,
+                                               UpdatedOn = data.UpdatedOn,
+                                               ActiveFlag = data.ActiveFlag,
+                                               SortValue = data.SortValue
+
+                                           }).ToList<ClsOnboardingPhase>();
+        return oPhase;
+    }
+    public List<ClsOnboardingPhase> GetOnboardingPhasesInactiveNoted()
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsOnboardingPhase> oPhase = (from data in puroTouchContext.GetTable<tblOnboardingPhase>()

@@ -179,7 +179,6 @@ public partial class SiteMaster : MasterPage
                 RadMenuItem maintItem17 = new RadMenuItem();
                 maintItem17.Text = "Communications Methods";
                 maintItem17.NavigateUrl = "~/CommunicationMethodsMaintenance.aspx";
-                //repItem.Items.Add(maintItem17);
                 RadMenuItem maintItem16 = new RadMenuItem();
                 maintItem16.Text = "Customs Solutions";
                 maintItem16.NavigateUrl = "~/CustomsTypeMaintenance.aspx";
@@ -191,33 +190,25 @@ public partial class SiteMaster : MasterPage
                 RadMenuItem maintItem10 = new RadMenuItem();
                 maintItem10.Text = "Data Entry Methods";
                 maintItem10.NavigateUrl = "~/DataEntryMethodsMaintenance.aspx";
-                //repItem.Items.Add(maintItem10);
                 RadMenuItem maintItem14 = new RadMenuItem();
                 maintItem14.Text = "EDI Solutions";
                 maintItem14.NavigateUrl = "~/EDISolutionsMaintenance.aspx";
-                //repItem.Items.Add(maintItem14);
                 RadMenuItem maintItem3 = new RadMenuItem();
                 maintItem3.Text = "Equipment";
                 maintItem3.NavigateUrl = "~/EquipmentMaintenance.aspx";
-                //repItem.Items.Add(maintItem3);
-                //RadMenuItem maintItem15 = new RadMenuItem();
-                //maintItem15.Text = "File Types";
-                //maintItem15.NavigateUrl = "~/FileTypeMaintenance.aspx";
-                //maintItem15.Enabled = false;
-                //repItem.Items.Add(maintItem15);
                 RadMenuItem maintItem11 = new RadMenuItem();
                 maintItem11.Text = "Induction Points";
                 maintItem11.NavigateUrl = "~/InductionPointMaintenance.aspx";
-                //repItem.Items.Add(maintItem11);
-                //RadMenuItem maintItem12 = new RadMenuItem();
-                //maintItem12.Text = "Invoice Types";
-                //maintItem12.NavigateUrl = "~/InvoiceTypeMaintenance.aspx";
-                //maintItem12.Enabled = false;
-                //repItem.Items.Add(maintItem12);
                 RadMenuItem maintItem13 = new RadMenuItem();
                 maintItem13.Text = "Onboarding Specialist Maintenance";
                 maintItem13.NavigateUrl = "~/ITBAMaintenance.aspx";
-               
+                RadMenuItem maintItem18 = new RadMenuItem();
+                maintItem18.Text = "EDI Specialist Maintenance";
+                maintItem18.NavigateUrl = "~/EDISpecialistMaint.aspx";
+                RadMenuItem maintItem19 = new RadMenuItem();
+                maintItem19.Text = "Billing Specialist Maintenance";
+                maintItem19.NavigateUrl = "~/BillingSpecialistMaint.aspx";
+
                 RadMenuItem maintItem5 = new RadMenuItem();
                 maintItem5.Text = "Onboarding Phases";
                 maintItem5.NavigateUrl = "~/OnboardingPhaseMaintenance.aspx";
@@ -276,7 +267,8 @@ public partial class SiteMaster : MasterPage
                 repItem.Items.Add(sep);
                 repItem.Items.Add(maintItem13);
                 repItem.Items.Add(maintItem15);
-             
+                repItem.Items.Add(maintItem18);
+                repItem.Items.Add(maintItem19);
             }       
 
         }

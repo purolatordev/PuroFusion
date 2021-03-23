@@ -124,7 +124,8 @@ public class ClsDiscoveryRequest
     public string VendorName { get; set; }
     public System.Nullable<bool> FreightAuditor { get; set; }
     public string EDIDetails { get; set; }
-
+    public System.Nullable<int> idEDISpecialist { get; set; }
+    public System.Nullable<int> idBillingSpecialist { get; set; }
     public ClsDiscoveryRequest()
 	{
 		//
@@ -256,7 +257,9 @@ public class ClsDiscoveryRequest
                                                    idVendorType = (int?)data.idVendorType,
                                                    FreightAuditor = (bool?)data.FreightAuditor,
                                                    Route = data.Route,
-                                                   EDIDetails = data.EDIDetails
+                                                   EDIDetails = data.EDIDetails,
+                                                   idEDISpecialist = data.idEDISpecialist,
+                                                   idBillingSpecialist = data.idBillingSpecialist
                                                }).FirstOrDefault();
         return oReq;
     }
@@ -368,7 +371,9 @@ public class ClsDiscoveryRequest
                 idVendorType = (int?)data.idVendorType,
                 FreightAuditor = (bool?)data.FreightAuditor,
                 Route = data.Route,
-                EDIDetails = data.EDIDetails
+                EDIDetails = data.EDIDetails,
+                idEDISpecialist = (int?)data.idEDISpecialist,
+                idBillingSpecialist = (int?)data.idBillingSpecialist
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
@@ -507,6 +512,8 @@ public class ClsDiscoveryRequest
                     updRow.Route = data.Route;
                     updRow.FreightAuditor = (bool?)data.FreightAuditor;
                     updRow.EDIDetails = data.EDIDetails;
+                    updRow.idEDISpecialist = (int?)data.idEDISpecialist;
+                    updRow.idBillingSpecialist = (int?)data.idBillingSpecialist;
                 }
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();

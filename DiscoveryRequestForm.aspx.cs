@@ -42,6 +42,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getCurrency();
                 getRelationships();
                 getITBAs();
+                getEDISpecialists();
+                getBillingSpecialists();
                 getShippingChannels();
                 getOnboardingPhases();
                 getTaskTypes();
@@ -541,7 +543,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
+    
     protected void rdCurrentTarget_SelectedDateChanged(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
     {
         try
@@ -801,6 +803,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         try
         {
             int phase = Convert.ToInt16(rddlPhase.SelectedValue);
+
+            if(cmboxOnboardingPhase.SelectedValue != rddlPhase.SelectedValue)
+                cmboxOnboardingPhase.SelectedValue = rddlPhase.SelectedValue;
+
             if (phase == ClosedID || phase == OnHoldID)
             {
                 rddlCloseReason.Visible = true;
@@ -817,7 +823,31 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
+    
+    protected void cmboxOnboardingPhase_IndexChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+            if (cmboxOnboardingPhase.SelectedValue != rddlPhase.SelectedValue)
+            {
+                rddlPhase.SelectedValue = cmboxOnboardingPhase.SelectedValue;
+                int phase = Convert.ToInt16(rddlPhase.SelectedValue);
+                if (phase == ClosedID || phase == OnHoldID)
+                {
+                    rddlCloseReason.Visible = true;
+                }
+                else
+                {
+                    rddlCloseReason.Visible = false;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
     protected void CourierInduction_IndexChanged(object sender, System.EventArgs e)
     {
         try
@@ -983,7 +1013,38 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
+    protected void getEDISpecialists()
+    {
+        try
+        {
+            List<clsEDISpecialist> qEDISpecialist = SrvEDISpecialist.GetEDISpecialistView();
+            cmboxEDISpecialist.DataSource = qEDISpecialist;
+            cmboxEDISpecialist.DataTextField = "Name";
+            cmboxEDISpecialist.DataValueField = "idEDISpecialist";
+            cmboxEDISpecialist.DataBind();
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void getBillingSpecialists()
+    {
+        try
+        {
+            List<clsBillingSpecialist> qBillingSpecialist = SrvBillingSpecialist.GetBillingSpecialistView();
+            cmboxBillingSpecialist.DataSource = qBillingSpecialist;
+            cmboxBillingSpecialist.DataTextField = "Name";
+            cmboxBillingSpecialist.DataValueField = "idBillingSpecialist";
+            cmboxBillingSpecialist.DataBind();
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
     protected void getShippingChannels()
     {
         try
@@ -1005,12 +1066,16 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         try
         {
-
             List<ClsOnboardingPhase> phaselist = repository.GetOnboardingPhasesInactiveNoted();
-            rddlPhase.DataSource = phaselist;
-            rddlPhase.DataTextField = "OnboardingPhase";
+            rddlPhase.DataSource     =  phaselist;
+            rddlPhase.DataTextField  = "OnboardingPhase";
             rddlPhase.DataValueField = "idOnboardingPhase";
             rddlPhase.DataBind();
+
+            cmboxOnboardingPhase.DataSource = phaselist;
+            cmboxOnboardingPhase.DataTextField = "OnboardingPhase";
+            cmboxOnboardingPhase.DataValueField ="idOnboardingPhase";
+            cmboxOnboardingPhase.DataBind();
         }
         catch (Exception ex)
         {
@@ -1655,9 +1720,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //Solution Summary
             rddlITBA.SelectedValue = request.idITBA.ToString();
             Session["ITBA"] = request.idITBA.ToString();
+            cmboxEDISpecialist.SelectedValue = request.idEDISpecialist.ToString();
+            cmboxBillingSpecialist.SelectedValue = request.idBillingSpecialist.ToString();
             if (request.idVendorType != null)
                 rddlVendorType.SelectedValue = request.idVendorType.ToString();
             rddlPhase.SelectedValue = request.idOnboardingPhase.ToString();
+            cmboxOnboardingPhase.SelectedValue = request.idOnboardingPhase.ToString();
             int phase = Convert.ToInt16(rddlPhase.SelectedValue);
             if (phase == ClosedID || phase == OnHoldID)
             {
@@ -3215,6 +3283,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //SOLUTION SUMMARY
             if (rddlITBA.SelectedValue != "")
                 objDiscoveryRequest.idITBA = Convert.ToInt32(rddlITBA.SelectedValue);
+            if (cmboxEDISpecialist.SelectedValue != "")
+                objDiscoveryRequest.idEDISpecialist = Convert.ToInt32(cmboxEDISpecialist.SelectedValue);
+            if (cmboxBillingSpecialist.SelectedValue != "")
+                objDiscoveryRequest.idBillingSpecialist = Convert.ToInt32(cmboxBillingSpecialist.SelectedValue);
             if (rddlShippingChannel.SelectedValue != "")
                 objDiscoveryRequest.idShippingChannel = Convert.ToInt32(rddlShippingChannel.SelectedValue);
             if (rddlPhase.SelectedValue != "")
