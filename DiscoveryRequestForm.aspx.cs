@@ -1700,6 +1700,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             txtareaCurrentSolution.Text = request.CurrentSolution;
 
             //Tab - EDI Services
+            txtBxEDISolutionSummary.Text = request.EDIDetails;
             txtBxCustomerEDIDetails.Text = request.EDIDetails;
             if (request.FreightAuditor == false || request.FreightAuditor == null)
                 comboxFreightAuditor.SelectedText = "No";
@@ -1740,6 +1741,30 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             cmboxEDISpecialist.SelectedValue = request.idEDISpecialist.ToString();
             cmboxBillingSpecialist.SelectedValue = request.idBillingSpecialist.ToString();
             cmboxCollectionSpecialist.SelectedValue = request.idCollectionSpecialist.ToString();
+            if (request.FreightAuditor == false || request.FreightAuditor == null)
+                comboxFreightAuditorInvolved.SelectedText = "No";
+            else
+                comboxFreightAuditorInvolved.SelectedText = "Yes";
+            bool bSetAuditorPortal = false;
+            if (request.AuditorPortal == false || request.AuditorPortal == null)
+            {
+                comboxCustAuditPortal.SelectedText = "No";
+            }
+            else
+            {
+                comboxCustAuditPortal.SelectedText = "Yes";
+                bSetAuditorPortal = true;
+            }
+            txtBxAuditoURL.Visible = bSetAuditorPortal;
+            txtBxAuditoUserName.Visible = bSetAuditorPortal;
+            txtBxAuditoPassword.Visible = bSetAuditorPortal;
+            lblCustAuditPortalYes.Visible = bSetAuditorPortal;
+            lblCustAuditPortalURL.Visible = bSetAuditorPortal;
+            lblCustAuditPortalUserName.Visible = bSetAuditorPortal;
+            lblCustAuditPortalPassword.Visible = bSetAuditorPortal;
+            lblCustAuditPortalStar.Visible = bSetAuditorPortal;
+
+
             if (request.idVendorType != null)
                 rddlVendorType.SelectedValue = request.idVendorType.ToString();
             rddlPhase.SelectedValue = request.idOnboardingPhase.ToString();
@@ -1761,6 +1786,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             rdActual.SelectedDate = request.ActualGoLive;
             txtSolutionSummary.Text = request.SolutionSummary;
             txtRoute.Text = request.Route;
+            txtBxAuditoURL.Text = request.AuditorURL;
+            txtBxAuditoUserName.Text = request.AuditorUserName;
+            txtBxAuditoPassword.Text = request.AuditorPassword;
 
             if (request.worldpakFlag == null) request.worldpakFlag = false;
             if (request.thirdpartyFlag == null) request.thirdpartyFlag = false;
@@ -3320,6 +3348,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 objDiscoveryRequest.idVendor = Convert.ToInt32(rddlThirdPartyVendor.SelectedValue);
             if (rddlCloseReason.SelectedValue != "")
                 objDiscoveryRequest.CloseReason = rddlCloseReason.SelectedText;
+            if (comboxCustAuditPortal.SelectedText == "Yes")
+                objDiscoveryRequest.AuditorPortal = true;
+            else
+                objDiscoveryRequest.AuditorPortal = false;
+
             objDiscoveryRequest.CurrentGoLive = rdCurrentTarget.SelectedDate;
             objDiscoveryRequest.TargetGoLive = rdTarget.SelectedDate;
             objDiscoveryRequest.ActualGoLive = rdActual.SelectedDate;
@@ -3331,6 +3364,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             objDiscoveryRequest.customFlag = Convert.ToBoolean(cbxCustom.Checked);
             objDiscoveryRequest.DataScrubFlag = Convert.ToBoolean(cbxDataScrub.Checked);
             objDiscoveryRequest.Route = txtRoute.Text;
+            objDiscoveryRequest.AuditorURL = txtBxAuditoURL.Text;
+            objDiscoveryRequest.AuditorUserName = txtBxAuditoUserName.Text;
+            objDiscoveryRequest.AuditorPassword = txtBxAuditoPassword.Text;
 
             //CHECK FOR CHANGE IN CURRENT TARGET DATE
             if (priorGoLive != null && objDiscoveryRequest.CurrentGoLive != priorGoLive)
@@ -3365,7 +3401,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             else
                 objDiscoveryRequest.FreightAuditor = false;
 
-            objDiscoveryRequest.EDIDetails = txtBxCustomerEDIDetails.Text;
+            objDiscoveryRequest.EDIDetails = txtBxEDISolutionSummary.Text;
 
             //CUSTOMS
             objDiscoveryRequest.customsFlag = chkCustoms.Checked;
@@ -4310,5 +4346,4 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
 
     }
-
 }

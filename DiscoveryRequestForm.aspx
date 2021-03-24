@@ -4,6 +4,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
     <script type="text/javascript" src="~/Scripts/telerikEditorScript.js"></script>
+    
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
 
@@ -49,9 +50,37 @@
                 var label = '<label for=' + forArrt + '>Enter Description: </label>';
                 return label;
             }
+            function testFunct(sender, eventArgs) {
+                var lblCustAuditPortalYes = document.getElementById("<%=lblCustAuditPortalYes.ClientID%>");
+                var lblCustAuditPortalStar = document.getElementById("<%=lblCustAuditPortalStar.ClientID%>");
+                var lblCustAuditPortalURL = document.getElementById("<%=lblCustAuditPortalURL.ClientID%>");
+                var txtBxAuditoURL = document.getElementById("<%=txtBxAuditoURL.ClientID%>");
+                var lblCustAuditPortalUserName = document.getElementById("<%=lblCustAuditPortalUserName.ClientID%>");
+                var txtBxAuditoUserName = document.getElementById("<%=txtBxAuditoUserName.ClientID%>");
+                var lblCustAuditPortalPassword = document.getElementById("<%=lblCustAuditPortalPassword.ClientID%>");
+                var txtBxAuditoPassword = document.getElementById("<%=txtBxAuditoPassword.ClientID%>");
 
+                if (eventArgs.get_index() == 0) {
+                    lblCustAuditPortalYes.style.display = 'none';
+                    lblCustAuditPortalStar.style.display = 'none';
+                    lblCustAuditPortalURL.style.display = 'none';
+                    txtBxAuditoURL.style.display = 'none';
+                    lblCustAuditPortalUserName.style.display = 'none';
+                    txtBxAuditoUserName.style.display = 'none';
+                    lblCustAuditPortalPassword.style.display = 'none';
+                    txtBxAuditoPassword.style.display = 'none';
+                } else {
+                    lblCustAuditPortalYes.style.display = 'inherit';
+                    lblCustAuditPortalStar.style.display = 'inherit';
+                    lblCustAuditPortalURL.style.display = 'inherit';
+                    txtBxAuditoURL.style.display = 'inherit';
+                    lblCustAuditPortalUserName.style.display = 'inherit';
+                    txtBxAuditoUserName.style.display = 'inherit';
+                    lblCustAuditPortalPassword.style.display = 'inherit';
+                    txtBxAuditoPassword.style.display = 'inherit';
+                }
+            }
         </script>
-
     </telerik:RadCodeBlock>
     <telerik:RadWindowManager ID="windowManager" runat="server">
     </telerik:RadWindowManager>
@@ -1557,8 +1586,8 @@
                                             <td style="width: 140px">Customer/Auditor Portal</td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadDropDownList ID="RadDropDownList1" runat="server" Visible="true" Width="70px">
-                                                    <Items>
+                                                 <telerik:RadDropDownList ID="comboxCustAuditPortal" runat="server" Visible="true" Width="70px" OnClientSelectedIndexChanged="testFunct">
+                                                   <Items>
                                                         <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
                                                         <telerik:DropDownListItem Value="yes" Text="Yes" />
                                                     </Items>
@@ -1570,8 +1599,10 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 10px"></td>
-                                            <td style="width: 140px">*If Yes, then:</td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label ID="lblCustAuditPortalStar" runat="server" Text="*" Visible="true"></asp:Label></td>
+                                            <td style="width: 140px;">
+                                                <asp:Label ID="lblCustAuditPortalYes" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                                            </td>
                                             <td></td>
                                             <td></td>
                                             <td style="width: 10px"></td>
@@ -1581,10 +1612,12 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 10px"></td>
-                                            <td style="width: 140px">URL</td>
+                                            <td style="width: 140px">
+                                                <asp:Label ID="lblCustAuditPortalURL" runat="server" Text="URL" Visible="true"></asp:Label>
+                                            </td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadTextBox ID="RadTextBox1" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Sandbox Username" />
+                                                <telerik:RadTextBox ID="txtBxAuditoURL" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter URL" />
                                             </td>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px"></td>
@@ -1593,10 +1626,12 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 10px"></td>
-                                            <td style="width: 140px">User Name</td>
+                                            <td style="width: 140px">
+                                                <asp:Label ID="lblCustAuditPortalUserName" runat="server" Text="User Name" Visible="true"></asp:Label>
+                                            </td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadTextBox ID="RadTextBox2" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Sandbox Username" />
+                                                <telerik:RadTextBox ID="txtBxAuditoUserName" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Username" />
                                             </td>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px"></td>
@@ -1605,10 +1640,12 @@
                                         </tr>
                                         <tr>
                                             <td style="width: 10px"></td>
-                                            <td style="width: 140px">Password</td>
+                                            <td style="width: 140px">
+                                                <asp:Label ID="lblCustAuditPortalPassword" runat="server" Text="Password" Visible="true"></asp:Label>
+                                            </td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadTextBox ID="RadTextBox3" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Sandbox Username" />
+                                                <telerik:RadTextBox ID="txtBxAuditoPassword" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Password" />
                                             </td>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px"></td>

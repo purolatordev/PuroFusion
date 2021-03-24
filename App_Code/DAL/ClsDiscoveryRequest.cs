@@ -111,6 +111,7 @@ public class ClsDiscoveryRequest
     public DateTime? PhaseChangeDate { get; set; }
     public int? idRequestType { get; set; }
     public int? idSolutionType { get; set; }
+
     public string RequestType { get; set; }
     public bool? CurrentlyShippingFlag { get; set; }
     public int? idShippingVendor { get; set; }
@@ -122,11 +123,31 @@ public class ClsDiscoveryRequest
     public string VendorType { get; set; }
 
     public string VendorName { get; set; }
+
     public System.Nullable<bool> FreightAuditor { get; set; }
+
     public string EDIDetails { get; set; }
+
     public System.Nullable<int> idEDISpecialist { get; set; }
+
     public System.Nullable<int> idBillingSpecialist { get; set; }
+
     public System.Nullable<int> idCollectionSpecialist { get; set; }
+
+    public System.Nullable<bool> AuditorPortal { get; set; }
+
+    public string AuditorURL { get; set; }
+
+    public string AuditorUserName { get; set; }
+
+    public string AuditorPassword { get; set; }
+
+    public System.Nullable<System.DateTime> EDITargetGoLive { get; set; }
+
+    public System.Nullable<System.DateTime> EDICurrentGoLive { get; set; }
+
+    public System.Nullable<System.DateTime> EDIActualGoLive { get; set; }
+
     public ClsDiscoveryRequest()
 	{
 		//
@@ -261,7 +282,14 @@ public class ClsDiscoveryRequest
                                                    EDIDetails = data.EDIDetails,
                                                    idEDISpecialist = data.idEDISpecialist,
                                                    idBillingSpecialist = data.idBillingSpecialist,
-                                                   idCollectionSpecialist = data.idCollectionSpecialist
+                                                   idCollectionSpecialist = data.idCollectionSpecialist,
+                                                   AuditorPortal = (bool?)data.AuditorPortal,
+                                                   AuditorURL = data.AuditorURL,
+                                                   AuditorUserName = data.AuditorUserName,
+                                                   AuditorPassword = data.AuditorPassword,
+                                                   EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                                   EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                                   EDIActualGoLive = (DateTime?)data.EDIActualGoLive
                                                }).FirstOrDefault();
         return oReq;
     }
@@ -376,7 +404,14 @@ public class ClsDiscoveryRequest
                 EDIDetails = data.EDIDetails,
                 idEDISpecialist = (int?)data.idEDISpecialist,
                 idBillingSpecialist = (int?)data.idBillingSpecialist,
-                idCollectionSpecialist = (int?)data.idCollectionSpecialist
+                idCollectionSpecialist = (int?)data.idCollectionSpecialist,
+                AuditorPortal = (bool?)data.AuditorPortal,
+                AuditorURL = data.AuditorURL,
+                AuditorUserName = data.AuditorUserName,
+                AuditorPassword = data.AuditorPassword,
+                EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                EDIActualGoLive = (DateTime?)data.EDIActualGoLive
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
@@ -518,6 +553,13 @@ public class ClsDiscoveryRequest
                     updRow.idEDISpecialist = (int?)data.idEDISpecialist;
                     updRow.idBillingSpecialist = (int?)data.idBillingSpecialist;
                     updRow.idCollectionSpecialist = (int?)data.idCollectionSpecialist;
+                    updRow.AuditorPortal = (bool?)data.AuditorPortal;
+                    updRow.AuditorURL = data.AuditorURL;
+                    updRow.AuditorUserName = data.AuditorUserName;
+                    updRow.AuditorPassword = data.AuditorPassword;
+                    updRow.EDITargetGoLive = (DateTime?)data.EDITargetGoLive;
+                    updRow.EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive;
+                    updRow.EDIActualGoLive = (DateTime?)data.EDIActualGoLive;
                 }
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();
