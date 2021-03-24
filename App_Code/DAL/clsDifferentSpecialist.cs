@@ -210,3 +210,104 @@ public static class SrvBillingSpecialist
         return errMsg;
     }
 }
+public class clsCollectionSpecialist
+{
+    public int idCollectionSpecialist { get; set; }
+    public int idEmployee { get; set; }
+    public string ActiveDirectoryName { get; set; }
+    public string Name { get; set; }
+    public string email { get; set; }
+    public string UpdatedBy { get; set; }
+    public DateTime? UpdatedOn { get; set; }
+    public string CreatedBy { get; set; }
+    public DateTime? CreatedOn { get; set; }
+    public bool? ActiveFlag { get; set; }
+    public bool? ReceiveNewReqEmail { get; set; }
+    public string login { get; set; }
+}
+public static class SrvCollectionSpecialist
+{
+    public static List<clsCollectionSpecialist> GetCollectionSpecialist()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsCollectionSpecialist> qEDISpecialisth = o.GetTable<tblCollectionSpecialist>()
+                                            .Select(p => new clsCollectionSpecialist() { idCollectionSpecialist = p.idCollectionSpecialist, idEmployee = p.idEmployee, login = p.login, email = p.email, ReceiveNewReqEmail = p.ReceiveNewReqEmail, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .ToList();
+
+        return qEDISpecialisth;
+    }
+    public static List<clsCollectionSpecialist> GetCollectionSpecialistView()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsCollectionSpecialist> qEDISpecialisth = o.GetTable<vw_CollectionSpecialist>()
+                                            .Select(p => new clsCollectionSpecialist() { ActiveDirectoryName = p.ActiveDirectoryName, Name = p.Name, idCollectionSpecialist = p.idCollectionSpecialist, idEmployee = p.idEmployee, login = p.login, email = p.email, ReceiveNewReqEmail = p.ReceiveNewReqEmail, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .ToList();
+
+        return qEDISpecialisth;
+    }
+    public static string InsertCollectionSpecialist(clsCollectionSpecialist data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        try
+        {
+            tblCollectionSpecialist oNewRow = new tblCollectionSpecialist()
+            {
+                email = data.email,
+                idEmployee = data.idEmployee,
+                CreatedBy = data.CreatedBy,
+                CreatedOn = DateTime.Now,
+                //UpdatedBy = data.UpdatedBy,
+                //UpdatedOn = (DateTime?)data.UpdatedOn,
+                ActiveFlag = data.ActiveFlag,
+                ReceiveNewReqEmail = data.ReceiveNewReqEmail,
+                login = data.login
+            };
+
+            o.GetTable<tblCollectionSpecialist>().InsertOnSubmit(oNewRow);
+            o.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+    public static string UpdateCollectionSpecialist(clsCollectionSpecialist data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        try
+        {
+            if (data.idEmployee > 0)
+            {
+                var query = from qdata in o.GetTable<tblCollectionSpecialist>()
+                            where qdata.idEmployee == data.idEmployee
+                            select qdata;
+
+                foreach (tblCollectionSpecialist updRow in query)
+                {
+                    updRow.email = data.email;
+                    updRow.idEmployee = data.idEmployee;
+                    updRow.ActiveFlag = data.ActiveFlag;
+                    updRow.UpdatedBy = data.UpdatedBy;
+                    updRow.UpdatedOn = DateTime.Now;
+                    updRow.ReceiveNewReqEmail = data.ReceiveNewReqEmail;
+                    updRow.login = data.login;
+                }
+
+                // Submit the changes to the database. 
+                o.SubmitChanges();
+            }
+            else
+            {
+                errMsg = "There is No Shipping Product with ID = " + "'" + data.idEmployee + "'";
+            }
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+}

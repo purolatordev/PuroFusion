@@ -126,6 +126,7 @@ public class ClsDiscoveryRequest
     public string EDIDetails { get; set; }
     public System.Nullable<int> idEDISpecialist { get; set; }
     public System.Nullable<int> idBillingSpecialist { get; set; }
+    public System.Nullable<int> idCollectionSpecialist { get; set; }
     public ClsDiscoveryRequest()
 	{
 		//
@@ -259,7 +260,8 @@ public class ClsDiscoveryRequest
                                                    Route = data.Route,
                                                    EDIDetails = data.EDIDetails,
                                                    idEDISpecialist = data.idEDISpecialist,
-                                                   idBillingSpecialist = data.idBillingSpecialist
+                                                   idBillingSpecialist = data.idBillingSpecialist,
+                                                   idCollectionSpecialist = data.idCollectionSpecialist
                                                }).FirstOrDefault();
         return oReq;
     }
@@ -373,7 +375,8 @@ public class ClsDiscoveryRequest
                 Route = data.Route,
                 EDIDetails = data.EDIDetails,
                 idEDISpecialist = (int?)data.idEDISpecialist,
-                idBillingSpecialist = (int?)data.idBillingSpecialist
+                idBillingSpecialist = (int?)data.idBillingSpecialist,
+                idCollectionSpecialist = (int?)data.idCollectionSpecialist
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
@@ -514,6 +517,7 @@ public class ClsDiscoveryRequest
                     updRow.EDIDetails = data.EDIDetails;
                     updRow.idEDISpecialist = (int?)data.idEDISpecialist;
                     updRow.idBillingSpecialist = (int?)data.idBillingSpecialist;
+                    updRow.idCollectionSpecialist = (int?)data.idCollectionSpecialist;
                 }
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();

@@ -208,6 +208,9 @@ public partial class SiteMaster : MasterPage
                 RadMenuItem maintItem19 = new RadMenuItem();
                 maintItem19.Text = "Billing Specialist Maintenance";
                 maintItem19.NavigateUrl = "~/BillingSpecialistMaint.aspx";
+                RadMenuItem maintItem20 = new RadMenuItem();
+                maintItem20.Text = "Collection Specialist Maintenance";
+                maintItem20.NavigateUrl = "~/CollectionSpecialistMaint.aspx";
 
                 RadMenuItem maintItem5 = new RadMenuItem();
                 maintItem5.Text = "Onboarding Phases";

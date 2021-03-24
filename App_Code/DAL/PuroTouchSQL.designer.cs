@@ -144,6 +144,9 @@ namespace DAL
     partial void InserttblDiscoveryRequest(tblDiscoveryRequest instance);
     partial void UpdatetblDiscoveryRequest(tblDiscoveryRequest instance);
     partial void DeletetblDiscoveryRequest(tblDiscoveryRequest instance);
+    partial void InserttblCollectionSpecialist(tblCollectionSpecialist instance);
+    partial void UpdatetblCollectionSpecialist(tblCollectionSpecialist instance);
+    partial void DeletetblCollectionSpecialist(tblCollectionSpecialist instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -560,6 +563,14 @@ namespace DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<vw_BillingSpecialist> vw_BillingSpecialists
+		{
+			get
+			{
+				return this.GetTable<vw_BillingSpecialist>();
+			}
+		}
+		
 		public System.Data.Linq.Table<tblDiscoveryRequest> tblDiscoveryRequests
 		{
 			get
@@ -568,11 +579,19 @@ namespace DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_BillingSpecialist> vw_BillingSpecialists
+		public System.Data.Linq.Table<tblCollectionSpecialist> tblCollectionSpecialists
 		{
 			get
 			{
-				return this.GetTable<vw_BillingSpecialist>();
+				return this.GetTable<tblCollectionSpecialist>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_CollectionSpecialist> vw_CollectionSpecialists
+		{
+			get
+			{
+				return this.GetTable<vw_CollectionSpecialist>();
 			}
 		}
 	}
@@ -12917,6 +12936,231 @@ namespace DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_BillingSpecialist")]
+	public partial class vw_BillingSpecialist
+	{
+		
+		private int _idBillingSpecialist;
+		
+		private string _Name;
+		
+		private string _ActiveDirectoryName;
+		
+		private string _email;
+		
+		private int _idEmployee;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private System.Nullable<bool> _ReceiveNewReqEmail;
+		
+		private string _login;
+		
+		public vw_BillingSpecialist()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idBillingSpecialist", DbType="Int NOT NULL")]
+		public int idBillingSpecialist
+		{
+			get
+			{
+				return this._idBillingSpecialist;
+			}
+			set
+			{
+				if ((this._idBillingSpecialist != value))
+				{
+					this._idBillingSpecialist = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveDirectoryName", DbType="VarChar(MAX)")]
+		public string ActiveDirectoryName
+		{
+			get
+			{
+				return this._ActiveDirectoryName;
+			}
+			set
+			{
+				if ((this._ActiveDirectoryName != value))
+				{
+					this._ActiveDirectoryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(255)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this._email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
+		public int idEmployee
+		{
+			get
+			{
+				return this._idEmployee;
+			}
+			set
+			{
+				if ((this._idEmployee != value))
+				{
+					this._idEmployee = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this._UpdatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this._UpdatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this._CreatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this._CreatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this._ActiveFlag = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
+		public System.Nullable<bool> ReceiveNewReqEmail
+		{
+			get
+			{
+				return this._ReceiveNewReqEmail;
+			}
+			set
+			{
+				if ((this._ReceiveNewReqEmail != value))
+				{
+					this._ReceiveNewReqEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this._login = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblDiscoveryRequest")]
 	public partial class tblDiscoveryRequest : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -13134,6 +13378,8 @@ namespace DAL
 		private System.Nullable<int> _idEDISpecialist;
 		
 		private System.Nullable<int> _idBillingSpecialist;
+		
+		private System.Nullable<int> _idCollectionSpecialist;
 		
 		private EntitySet<tblEDIShipMethod> _tblEDIShipMethods;
 		
@@ -13357,6 +13603,8 @@ namespace DAL
     partial void OnidEDISpecialistChanged();
     partial void OnidBillingSpecialistChanging(System.Nullable<int> value);
     partial void OnidBillingSpecialistChanged();
+    partial void OnidCollectionSpecialistChanging(System.Nullable<int> value);
+    partial void OnidCollectionSpecialistChanged();
     #endregion
 		
 		public tblDiscoveryRequest()
@@ -15491,6 +15739,26 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idCollectionSpecialist", DbType="Int")]
+		public System.Nullable<int> idCollectionSpecialist
+		{
+			get
+			{
+				return this._idCollectionSpecialist;
+			}
+			set
+			{
+				if ((this._idCollectionSpecialist != value))
+				{
+					this.OnidCollectionSpecialistChanging(value);
+					this.SendPropertyChanging();
+					this._idCollectionSpecialist = value;
+					this.SendPropertyChanged("idCollectionSpecialist");
+					this.OnidCollectionSpecialistChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblDiscoveryRequest_tblEDIShipMethod", Storage="_tblEDIShipMethods", ThisKey="idRequest", OtherKey="idRequest")]
 		public EntitySet<tblEDIShipMethod> tblEDIShipMethods
 		{
@@ -15596,11 +15864,289 @@ namespace DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_BillingSpecialist")]
-	public partial class vw_BillingSpecialist
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblCollectionSpecialist")]
+	public partial class tblCollectionSpecialist : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private int _idBillingSpecialist;
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idCollectionSpecialist;
+		
+		private int _idEmployee;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private string _email;
+		
+		private System.Nullable<bool> _ReceiveNewReqEmail;
+		
+		private string _login;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidCollectionSpecialistChanging(int value);
+    partial void OnidCollectionSpecialistChanged();
+    partial void OnidEmployeeChanging(int value);
+    partial void OnidEmployeeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    partial void OnemailChanging(string value);
+    partial void OnemailChanged();
+    partial void OnReceiveNewReqEmailChanging(System.Nullable<bool> value);
+    partial void OnReceiveNewReqEmailChanged();
+    partial void OnloginChanging(string value);
+    partial void OnloginChanged();
+    #endregion
+		
+		public tblCollectionSpecialist()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idCollectionSpecialist", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idCollectionSpecialist
+		{
+			get
+			{
+				return this._idCollectionSpecialist;
+			}
+			set
+			{
+				if ((this._idCollectionSpecialist != value))
+				{
+					this.OnidCollectionSpecialistChanging(value);
+					this.SendPropertyChanging();
+					this._idCollectionSpecialist = value;
+					this.SendPropertyChanged("idCollectionSpecialist");
+					this.OnidCollectionSpecialistChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
+		public int idEmployee
+		{
+			get
+			{
+				return this._idEmployee;
+			}
+			set
+			{
+				if ((this._idEmployee != value))
+				{
+					this.OnidEmployeeChanging(value);
+					this.SendPropertyChanging();
+					this._idEmployee = value;
+					this.SendPropertyChanged("idEmployee");
+					this.OnidEmployeeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(255)")]
+		public string email
+		{
+			get
+			{
+				return this._email;
+			}
+			set
+			{
+				if ((this._email != value))
+				{
+					this.OnemailChanging(value);
+					this.SendPropertyChanging();
+					this._email = value;
+					this.SendPropertyChanged("email");
+					this.OnemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
+		public System.Nullable<bool> ReceiveNewReqEmail
+		{
+			get
+			{
+				return this._ReceiveNewReqEmail;
+			}
+			set
+			{
+				if ((this._ReceiveNewReqEmail != value))
+				{
+					this.OnReceiveNewReqEmailChanging(value);
+					this.SendPropertyChanging();
+					this._ReceiveNewReqEmail = value;
+					this.SendPropertyChanged("ReceiveNewReqEmail");
+					this.OnReceiveNewReqEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this.OnloginChanging(value);
+					this.SendPropertyChanging();
+					this._login = value;
+					this.SendPropertyChanged("login");
+					this.OnloginChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_CollectionSpecialist")]
+	public partial class vw_CollectionSpecialist
+	{
+		
+		private int _idCollectionSpecialist;
 		
 		private string _Name;
 		
@@ -15624,22 +16170,22 @@ namespace DAL
 		
 		private string _login;
 		
-		public vw_BillingSpecialist()
+		public vw_CollectionSpecialist()
 		{
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idBillingSpecialist", DbType="Int NOT NULL")]
-		public int idBillingSpecialist
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idCollectionSpecialist", DbType="Int NOT NULL")]
+		public int idCollectionSpecialist
 		{
 			get
 			{
-				return this._idBillingSpecialist;
+				return this._idCollectionSpecialist;
 			}
 			set
 			{
-				if ((this._idBillingSpecialist != value))
+				if ((this._idCollectionSpecialist != value))
 				{
-					this._idBillingSpecialist = value;
+					this._idCollectionSpecialist = value;
 				}
 			}
 		}
