@@ -44,6 +44,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getITBAs();
                 getEDISpecialists();
                 getBillingSpecialists();
+                getCollectionSpecialists();
                 getShippingChannels();
                 getOnboardingPhases();
                 getTaskTypes();
@@ -1045,6 +1046,22 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
+    protected void getCollectionSpecialists()
+    {
+        try
+        {
+            List<clsCollectionSpecialist> qCollectionSpecialist = SrvCollectionSpecialist.GetCollectionSpecialistView();
+            cmboxCollectionSpecialist.DataSource = qCollectionSpecialist;
+            cmboxCollectionSpecialist.DataTextField = "Name";
+            cmboxCollectionSpecialist.DataValueField = "idCollectionSpecialist";
+            cmboxCollectionSpecialist.DataBind();
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
     protected void getShippingChannels()
     {
         try
@@ -1722,6 +1739,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Session["ITBA"] = request.idITBA.ToString();
             cmboxEDISpecialist.SelectedValue = request.idEDISpecialist.ToString();
             cmboxBillingSpecialist.SelectedValue = request.idBillingSpecialist.ToString();
+            cmboxCollectionSpecialist.SelectedValue = request.idCollectionSpecialist.ToString();
             if (request.idVendorType != null)
                 rddlVendorType.SelectedValue = request.idVendorType.ToString();
             rddlPhase.SelectedValue = request.idOnboardingPhase.ToString();
@@ -3287,6 +3305,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 objDiscoveryRequest.idEDISpecialist = Convert.ToInt32(cmboxEDISpecialist.SelectedValue);
             if (cmboxBillingSpecialist.SelectedValue != "")
                 objDiscoveryRequest.idBillingSpecialist = Convert.ToInt32(cmboxBillingSpecialist.SelectedValue);
+            if (cmboxCollectionSpecialist.SelectedValue != "")
+                objDiscoveryRequest.idCollectionSpecialist = Convert.ToInt32(cmboxCollectionSpecialist.SelectedValue);
             if (rddlShippingChannel.SelectedValue != "")
                 objDiscoveryRequest.idShippingChannel = Convert.ToInt32(rddlShippingChannel.SelectedValue);
             if (rddlPhase.SelectedValue != "")
