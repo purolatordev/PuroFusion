@@ -6,7 +6,7 @@
     <script type="text/javascript" src="~/Scripts/telerikEditorScript.js"></script>
     
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
-        <script type="text/javascript">
+        <script type="text/javascript" >
 
             function submitCallBackFn(arg) {
                 window.location.href = "Home.aspx";
@@ -1567,7 +1567,7 @@
                                             </td>
                                         </tr>
                                         <tr><td></td></tr>
-                                         <tr>
+                                       <%--  <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Proposed Transactions</td>
                                             <td></td>
@@ -1580,7 +1580,7 @@
                                             <td>
                                                 <asp:TextBox ID="TextBox2" TextMode="multiline" Columns="50" Rows="3" runat="server" Visible="true" />
                                             </td>
-                                        </tr>
+                                        </tr>--%>
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 140px">Customer/Auditor Portal</td>

@@ -1741,6 +1741,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             cmboxEDISpecialist.SelectedValue = request.idEDISpecialist.ToString();
             cmboxBillingSpecialist.SelectedValue = request.idBillingSpecialist.ToString();
             cmboxCollectionSpecialist.SelectedValue = request.idCollectionSpecialist.ToString();
+            dateTargetGoLive.SelectedDate = request.EDITargetGoLive;
+            dateCurrentGoLive.SelectedDate = request.EDICurrentGoLive;
+            dateActualGoLive.SelectedDate = request.EDIActualGoLive;
+
             if (request.FreightAuditor == false || request.FreightAuditor == null)
                 comboxFreightAuditorInvolved.SelectedText = "No";
             else
@@ -3367,6 +3371,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             objDiscoveryRequest.AuditorURL = txtBxAuditoURL.Text;
             objDiscoveryRequest.AuditorUserName = txtBxAuditoUserName.Text;
             objDiscoveryRequest.AuditorPassword = txtBxAuditoPassword.Text;
+            objDiscoveryRequest.EDITargetGoLive = dateTargetGoLive.SelectedDate;
+            objDiscoveryRequest.EDICurrentGoLive = dateCurrentGoLive.SelectedDate;
+            objDiscoveryRequest.EDIActualGoLive = dateActualGoLive.SelectedDate;
 
             //CHECK FOR CHANGE IN CURRENT TARGET DATE
             if (priorGoLive != null && objDiscoveryRequest.CurrentGoLive != priorGoLive)
