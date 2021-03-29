@@ -147,6 +147,9 @@ namespace DAL
     partial void InserttblDiscoveryRequest(tblDiscoveryRequest instance);
     partial void UpdatetblDiscoveryRequest(tblDiscoveryRequest instance);
     partial void DeletetblDiscoveryRequest(tblDiscoveryRequest instance);
+    partial void InserttblEDIOnboardingPhase(tblEDIOnboardingPhase instance);
+    partial void UpdatetblEDIOnboardingPhase(tblEDIOnboardingPhase instance);
+    partial void DeletetblEDIOnboardingPhase(tblEDIOnboardingPhase instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -592,6 +595,14 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblDiscoveryRequest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblEDIOnboardingPhase> tblEDIOnboardingPhases
+		{
+			get
+			{
+				return this.GetTable<tblEDIOnboardingPhase>();
 			}
 		}
 	}
@@ -13898,11 +13909,15 @@ namespace DAL
 		
 		private System.Nullable<System.DateTime> _EDIActualGoLive;
 		
+		private int _idEDIOnboardingPhase;
+		
 		private EntitySet<tblEDIShipMethod> _tblEDIShipMethods;
 		
 		private EntitySet<tblEDITranscation> _tblEDITranscations;
 		
 		private EntityRef<tblOnboardingPhase> _tblOnboardingPhase;
+		
+		private EntityRef<tblEDIOnboardingPhase> _tblEDIOnboardingPhase;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -14136,6 +14151,8 @@ namespace DAL
     partial void OnEDICurrentGoLiveChanged();
     partial void OnEDIActualGoLiveChanging(System.Nullable<System.DateTime> value);
     partial void OnEDIActualGoLiveChanged();
+    partial void OnidEDIOnboardingPhaseChanging(int value);
+    partial void OnidEDIOnboardingPhaseChanged();
     #endregion
 		
 		public tblDiscoveryRequest()
@@ -14143,6 +14160,7 @@ namespace DAL
 			this._tblEDIShipMethods = new EntitySet<tblEDIShipMethod>(new Action<tblEDIShipMethod>(this.attach_tblEDIShipMethods), new Action<tblEDIShipMethod>(this.detach_tblEDIShipMethods));
 			this._tblEDITranscations = new EntitySet<tblEDITranscation>(new Action<tblEDITranscation>(this.attach_tblEDITranscations), new Action<tblEDITranscation>(this.detach_tblEDITranscations));
 			this._tblOnboardingPhase = default(EntityRef<tblOnboardingPhase>);
+			this._tblEDIOnboardingPhase = default(EntityRef<tblEDIOnboardingPhase>);
 			OnCreated();
 		}
 		
@@ -16430,6 +16448,30 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDIOnboardingPhase", DbType="Int NOT NULL")]
+		public int idEDIOnboardingPhase
+		{
+			get
+			{
+				return this._idEDIOnboardingPhase;
+			}
+			set
+			{
+				if ((this._idEDIOnboardingPhase != value))
+				{
+					if (this._tblEDIOnboardingPhase.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEDIOnboardingPhaseChanging(value);
+					this.SendPropertyChanging();
+					this._idEDIOnboardingPhase = value;
+					this.SendPropertyChanged("idEDIOnboardingPhase");
+					this.OnidEDIOnboardingPhaseChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblDiscoveryRequest_tblEDIShipMethod", Storage="_tblEDIShipMethods", ThisKey="idRequest", OtherKey="idRequest")]
 		public EntitySet<tblEDIShipMethod> tblEDIShipMethods
 		{
@@ -16490,6 +16532,40 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDIOnboardingPhase_tblDiscoveryRequest", Storage="_tblEDIOnboardingPhase", ThisKey="idEDIOnboardingPhase", OtherKey="idEDIOnboardingPhase", IsForeignKey=true)]
+		public tblEDIOnboardingPhase tblEDIOnboardingPhase
+		{
+			get
+			{
+				return this._tblEDIOnboardingPhase.Entity;
+			}
+			set
+			{
+				tblEDIOnboardingPhase previousValue = this._tblEDIOnboardingPhase.Entity;
+				if (((previousValue != value) 
+							|| (this._tblEDIOnboardingPhase.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblEDIOnboardingPhase.Entity = null;
+						previousValue.tblDiscoveryRequests.Remove(this);
+					}
+					this._tblEDIOnboardingPhase.Entity = value;
+					if ((value != null))
+					{
+						value.tblDiscoveryRequests.Add(this);
+						this._idEDIOnboardingPhase = value.idEDIOnboardingPhase;
+					}
+					else
+					{
+						this._idEDIOnboardingPhase = default(int);
+					}
+					this.SendPropertyChanged("tblEDIOnboardingPhase");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -16532,6 +16608,240 @@ namespace DAL
 		{
 			this.SendPropertyChanging();
 			entity.tblDiscoveryRequest = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDIOnboardingPhase")]
+	public partial class tblEDIOnboardingPhase : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idEDIOnboardingPhase;
+		
+		private string _EDIOnboardingPhaseType;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblDiscoveryRequest> _tblDiscoveryRequests;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidEDIOnboardingPhaseChanging(int value);
+    partial void OnidEDIOnboardingPhaseChanged();
+    partial void OnEDIOnboardingPhaseTypeChanging(string value);
+    partial void OnEDIOnboardingPhaseTypeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblEDIOnboardingPhase()
+		{
+			this._tblDiscoveryRequests = new EntitySet<tblDiscoveryRequest>(new Action<tblDiscoveryRequest>(this.attach_tblDiscoveryRequests), new Action<tblDiscoveryRequest>(this.detach_tblDiscoveryRequests));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDIOnboardingPhase", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idEDIOnboardingPhase
+		{
+			get
+			{
+				return this._idEDIOnboardingPhase;
+			}
+			set
+			{
+				if ((this._idEDIOnboardingPhase != value))
+				{
+					this.OnidEDIOnboardingPhaseChanging(value);
+					this.SendPropertyChanging();
+					this._idEDIOnboardingPhase = value;
+					this.SendPropertyChanged("idEDIOnboardingPhase");
+					this.OnidEDIOnboardingPhaseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDIOnboardingPhaseType", DbType="VarChar(50)")]
+		public string EDIOnboardingPhaseType
+		{
+			get
+			{
+				return this._EDIOnboardingPhaseType;
+			}
+			set
+			{
+				if ((this._EDIOnboardingPhaseType != value))
+				{
+					this.OnEDIOnboardingPhaseTypeChanging(value);
+					this.SendPropertyChanging();
+					this._EDIOnboardingPhaseType = value;
+					this.SendPropertyChanged("EDIOnboardingPhaseType");
+					this.OnEDIOnboardingPhaseTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(50)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(50)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDIOnboardingPhase_tblDiscoveryRequest", Storage="_tblDiscoveryRequests", ThisKey="idEDIOnboardingPhase", OtherKey="idEDIOnboardingPhase")]
+		public EntitySet<tblDiscoveryRequest> tblDiscoveryRequests
+		{
+			get
+			{
+				return this._tblDiscoveryRequests;
+			}
+			set
+			{
+				this._tblDiscoveryRequests.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblDiscoveryRequests(tblDiscoveryRequest entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblEDIOnboardingPhase = this;
+		}
+		
+		private void detach_tblDiscoveryRequests(tblDiscoveryRequest entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblEDIOnboardingPhase = null;
 		}
 	}
 }

@@ -23,7 +23,6 @@
                 }
             }
             function OpenWin(path) {
-                //window.open(path, 'null', 'scrollbars =1,width=900,height=800,top=200,left=600');
                 window.open(path);
                 return false;
             }
@@ -49,36 +48,6 @@
             function createLabel(forArrt) {
                 var label = '<label for=' + forArrt + '>Enter Description: </label>';
                 return label;
-            }
-            function testFunct(sender, eventArgs) {
-                var lblCustAuditPortalYes = document.getElementById("<%=lblCustAuditPortalYes.ClientID%>");
-                var lblCustAuditPortalStar = document.getElementById("<%=lblCustAuditPortalStar.ClientID%>");
-                var lblCustAuditPortalURL = document.getElementById("<%=lblCustAuditPortalURL.ClientID%>");
-                var txtBxAuditoURL = document.getElementById("<%=txtBxAuditoURL.ClientID%>");
-                var lblCustAuditPortalUserName = document.getElementById("<%=lblCustAuditPortalUserName.ClientID%>");
-                var txtBxAuditoUserName = document.getElementById("<%=txtBxAuditoUserName.ClientID%>");
-                var lblCustAuditPortalPassword = document.getElementById("<%=lblCustAuditPortalPassword.ClientID%>");
-                var txtBxAuditoPassword = document.getElementById("<%=txtBxAuditoPassword.ClientID%>");
-
-                if (eventArgs.get_index() == 0) {
-                    lblCustAuditPortalYes.style.display = 'none';
-                    lblCustAuditPortalStar.style.display = 'none';
-                    lblCustAuditPortalURL.style.display = 'none';
-                    txtBxAuditoURL.style.display = 'none';
-                    lblCustAuditPortalUserName.style.display = 'none';
-                    txtBxAuditoUserName.style.display = 'none';
-                    lblCustAuditPortalPassword.style.display = 'none';
-                    txtBxAuditoPassword.style.display = 'none';
-                } else {
-                    lblCustAuditPortalYes.style.display = 'inherit';
-                    lblCustAuditPortalStar.style.display = 'inherit';
-                    lblCustAuditPortalURL.style.display = 'inherit';
-                    txtBxAuditoURL.style.display = 'inherit';
-                    lblCustAuditPortalUserName.style.display = 'inherit';
-                    txtBxAuditoUserName.style.display = 'inherit';
-                    lblCustAuditPortalPassword.style.display = 'inherit';
-                    txtBxAuditoPassword.style.display = 'inherit';
-                }
             }
         </script>
     </telerik:RadCodeBlock>
@@ -297,7 +266,6 @@
             BorderWidth="0px" AlternateText="Loading" />
     </telerik:RadAjaxLoadingPanel>
     <div style="width: 853px">
-
         <asp:Panel ID="pnlsuccess" runat="server" Visible="false">
             <div class="alert alert-success" role="alert">
                 <asp:Label ID="lblSuccess" CssClass="alert-link" runat="server"></asp:Label>
@@ -321,6 +289,7 @@
     </div>
     <%-- <div style="width: 1120px">--%>
     <div style="width: 100%">
+        <asp:HiddenField id="hiddenShowAuditorPortal" runat="server"/>
         <table style="padding-top: 2px; width: 100%;" border="0">
             <tr>
                 <td style="color: #4b6c9e; width: 20%; font-size: medium; text-align: right;"></td>
@@ -1259,7 +1228,7 @@
                                             </td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadDropDownList ID="rddlPhase" runat="server" DefaultMessage="Select Phase" ToolTip="Select Phase" Visible="true" AutoPostBack="true" OnSelectedIndexChanged="rddlPhase_IndexChanged"></telerik:RadDropDownList>
+                                                <telerik:RadDropDownList ID="rddlPhase" runat="server" DefaultMessage="Select Phase" ToolTip="Select Phase" Visible="true" OnSelectedIndexChanged="rddlPhase_IndexChanged"></telerik:RadDropDownList>
                                             </td>
                                             <td>
                                                 <telerik:RadDropDownList ID="rddlCloseReason" Width="250px" runat="server" DefaultMessage="Select Reason" ToolTip="Select Reason" Visible="false"></telerik:RadDropDownList>
@@ -1383,7 +1352,7 @@
                                             <td style="width: 160px">Onboarding Phase</td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadDropDownList ID="cmboxOnboardingPhase" runat="server" Width="240" OnSelectedIndexChanged="cmboxOnboardingPhase_IndexChanged" DefaultMessage="Select Onboarding Phase" ToolTip="Select Onboarding Phase" AutoPostBack="true" Visible="true">
+                                                <telerik:RadDropDownList ID="cmboxOnboardingPhase" runat="server" Width="240"  DefaultMessage="Select Onboarding Phase" ToolTip="Select Onboarding Phase" Visible="true">
                                                 </telerik:RadDropDownList>
                                             </td>
                                         </tr>
@@ -1567,26 +1536,12 @@
                                             </td>
                                         </tr>
                                         <tr><td></td></tr>
-                                       <%--  <tr>
-                                            <td style="width: 10px"></td>
-                                            <td style="width: 160px">Proposed Transactions</td>
-                                            <td></td>
-                                            <td>
-                                                <asp:TextBox ID="TextBox1" TextMode="multiline" Columns="50" Rows="3" runat="server" Visible="true" />
-                                            </td>
-                                            <td style="width: 10px"></td>
-                                            <td style="width: 160px">Proposed Ship Methods</td>
-                                            <td></td>
-                                            <td>
-                                                <asp:TextBox ID="TextBox2" TextMode="multiline" Columns="50" Rows="3" runat="server" Visible="true" />
-                                            </td>
-                                        </tr>--%>
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 140px">Customer/Auditor Portal</td>
                                             <td></td>
                                             <td>
-                                                 <telerik:RadDropDownList ID="comboxCustAuditPortal" runat="server" Visible="true" Width="70px" OnClientSelectedIndexChanged="testFunct">
+                                                 <telerik:RadDropDownList ID="comboxCustAuditPortal" runat="server" Visible="true" Width="70px" OnSelectedIndexChanged="onIdxChangedCustAuditPortal" AutoPostBack="true">
                                                    <Items>
                                                         <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
                                                         <telerik:DropDownListItem Value="yes" Text="Yes" />

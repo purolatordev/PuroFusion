@@ -47,6 +47,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getCollectionSpecialists();
                 getShippingChannels();
                 getOnboardingPhases();
+                getEDIOnboardingPhases();
                 getTaskTypes();
                 getServices();
                 getDataEntryMethods();
@@ -99,7 +100,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     btnSubmit.Visible = false;
                     btnSubmitChanges.Visible = true;
                     hideshowbars();
-                }
+                   }
                 else
                 {
                     //If New, disable tabs initially
@@ -127,6 +128,31 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             Response.Redirect("Default.aspx");
         }
+
+        //if (comboxCustAuditPortal.SelectedText.ToString().ToLower().Contains("yes"))
+        //{
+        //    lblCustAuditPortalYes.Visible = true;
+        //    lblCustAuditPortalStar.Visible = true;
+        //    lblCustAuditPortalURL.Visible = true;
+        //    txtBxAuditoURL.Visible = true;
+        //    txtBxAuditoURL.Visible = true;
+        //    lblCustAuditPortalUserName.Visible = true;
+        //    txtBxAuditoUserName.Visible = true;
+        //    lblCustAuditPortalPassword.Visible = true;
+        //    txtBxAuditoPassword.Visible = true;
+        //}
+        //else
+        //{
+        //    lblCustAuditPortalYes.Visible = false;
+        //    lblCustAuditPortalStar.Visible = false;
+        //    lblCustAuditPortalURL.Visible = false;
+        //    txtBxAuditoURL.Visible = false;
+        //    txtBxAuditoURL.Visible = false;
+        //    lblCustAuditPortalUserName.Visible = false;
+        //    txtBxAuditoUserName.Visible = false;
+        //    lblCustAuditPortalPassword.Visible = false;
+        //    txtBxAuditoPassword.Visible = false;
+        //}
 
         //Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
@@ -805,9 +831,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             int phase = Convert.ToInt16(rddlPhase.SelectedValue);
 
-            if(cmboxOnboardingPhase.SelectedValue != rddlPhase.SelectedValue)
-                cmboxOnboardingPhase.SelectedValue = rddlPhase.SelectedValue;
-
             if (phase == ClosedID || phase == OnHoldID)
             {
                 rddlCloseReason.Visible = true;
@@ -825,30 +848,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
     }
     
-    protected void cmboxOnboardingPhase_IndexChanged(object sender, System.EventArgs e)
-    {
-        try
-        {
-            if (cmboxOnboardingPhase.SelectedValue != rddlPhase.SelectedValue)
-            {
-                rddlPhase.SelectedValue = cmboxOnboardingPhase.SelectedValue;
-                int phase = Convert.ToInt16(rddlPhase.SelectedValue);
-                if (phase == ClosedID || phase == OnHoldID)
-                {
-                    rddlCloseReason.Visible = true;
-                }
-                else
-                {
-                    rddlCloseReason.Visible = false;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            pnlDanger.Visible = true;
-            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
-        }
-    }
     protected void CourierInduction_IndexChanged(object sender, System.EventArgs e)
     {
         try
@@ -867,7 +866,29 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
+    protected void onIdxChangedCustAuditPortal(object sender, System.EventArgs e)
+    {
+        try
+        {
+            bool bShowAudit = false;
+            if (comboxCustAuditPortal.SelectedText.ToString().ToLower().Contains("yes"))
+                bShowAudit = true;
 
+            lblCustAuditPortalYes.Visible = bShowAudit;
+            lblCustAuditPortalStar.Visible = bShowAudit;
+            lblCustAuditPortalURL.Visible = bShowAudit;
+            txtBxAuditoURL.Visible = bShowAudit;
+            lblCustAuditPortalUserName.Visible = bShowAudit;
+            txtBxAuditoUserName.Visible = bShowAudit;
+            lblCustAuditPortalPassword.Visible = bShowAudit;
+            txtBxAuditoPassword.Visible = bShowAudit;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
     protected void CourierInductionWest_IndexChanged(object sender, System.EventArgs e)
     {
         try
@@ -1088,10 +1109,22 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             rddlPhase.DataTextField  = "OnboardingPhase";
             rddlPhase.DataValueField = "idOnboardingPhase";
             rddlPhase.DataBind();
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void getEDIOnboardingPhases()
+    {
+        try
+        {
+            List<ClsEDIOnboardingPhase> phaselist = SrvEDIOnboardingPhase.GetEDIOnboardingPhase();
 
             cmboxOnboardingPhase.DataSource = phaselist;
-            cmboxOnboardingPhase.DataTextField = "OnboardingPhase";
-            cmboxOnboardingPhase.DataValueField ="idOnboardingPhase";
+            cmboxOnboardingPhase.DataTextField = "EDIOnboardingPhaseType";
+            cmboxOnboardingPhase.DataValueField = "idEDIOnboardingPhase";
             cmboxOnboardingPhase.DataBind();
         }
         catch (Exception ex)
@@ -1100,7 +1133,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
     protected void getTaskTypes()
     {
         try
@@ -1749,30 +1781,31 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 comboxFreightAuditorInvolved.SelectedText = "No";
             else
                 comboxFreightAuditorInvolved.SelectedText = "Yes";
-            bool bSetAuditorPortal = false;
+            bool bShowAudit = false;
             if (request.AuditorPortal == false || request.AuditorPortal == null)
             {
                 comboxCustAuditPortal.SelectedText = "No";
+                hiddenShowAuditorPortal.Value = "false";
             }
             else
             {
                 comboxCustAuditPortal.SelectedText = "Yes";
-                bSetAuditorPortal = true;
+                hiddenShowAuditorPortal.Value = "true";
+                bShowAudit = true;
             }
-            txtBxAuditoURL.Visible = bSetAuditorPortal;
-            txtBxAuditoUserName.Visible = bSetAuditorPortal;
-            txtBxAuditoPassword.Visible = bSetAuditorPortal;
-            lblCustAuditPortalYes.Visible = bSetAuditorPortal;
-            lblCustAuditPortalURL.Visible = bSetAuditorPortal;
-            lblCustAuditPortalUserName.Visible = bSetAuditorPortal;
-            lblCustAuditPortalPassword.Visible = bSetAuditorPortal;
-            lblCustAuditPortalStar.Visible = bSetAuditorPortal;
-
+            lblCustAuditPortalYes.Visible = bShowAudit;
+            lblCustAuditPortalStar.Visible = bShowAudit;
+            lblCustAuditPortalURL.Visible = bShowAudit;
+            txtBxAuditoURL.Visible = bShowAudit;
+            lblCustAuditPortalUserName.Visible = bShowAudit;
+            txtBxAuditoUserName.Visible = bShowAudit;
+            lblCustAuditPortalPassword.Visible = bShowAudit;
+            txtBxAuditoPassword.Visible = bShowAudit;
 
             if (request.idVendorType != null)
                 rddlVendorType.SelectedValue = request.idVendorType.ToString();
             rddlPhase.SelectedValue = request.idOnboardingPhase.ToString();
-            cmboxOnboardingPhase.SelectedValue = request.idOnboardingPhase.ToString();
+            cmboxOnboardingPhase.SelectedValue = request.idEDIOnboardingPhase.ToString();
             int phase = Convert.ToInt16(rddlPhase.SelectedValue);
             if (phase == ClosedID || phase == OnHoldID)
             {
@@ -2791,7 +2824,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     protected void doSubmit()
     {
-
         if (Session["userName"] == null)
             Response.Redirect("Default.aspx");
 
@@ -3352,6 +3384,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 objDiscoveryRequest.idVendor = Convert.ToInt32(rddlThirdPartyVendor.SelectedValue);
             if (rddlCloseReason.SelectedValue != "")
                 objDiscoveryRequest.CloseReason = rddlCloseReason.SelectedText;
+            if (cmboxOnboardingPhase.SelectedValue != "")
+                objDiscoveryRequest.idEDIOnboardingPhase = Convert.ToInt32(cmboxOnboardingPhase.SelectedValue);
             if (comboxCustAuditPortal.SelectedText == "Yes")
                 objDiscoveryRequest.AuditorPortal = true;
             else

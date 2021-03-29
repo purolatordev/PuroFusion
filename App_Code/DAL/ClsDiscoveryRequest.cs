@@ -147,6 +147,7 @@ public class ClsDiscoveryRequest
     public System.Nullable<System.DateTime> EDICurrentGoLive { get; set; }
 
     public System.Nullable<System.DateTime> EDIActualGoLive { get; set; }
+    public int idEDIOnboardingPhase { get; set; }
 
     public ClsDiscoveryRequest()
 	{
@@ -289,7 +290,8 @@ public class ClsDiscoveryRequest
                                                    AuditorPassword = data.AuditorPassword,
                                                    EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
                                                    EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
-                                                   EDIActualGoLive = (DateTime?)data.EDIActualGoLive
+                                                   EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                                   idEDIOnboardingPhase = data.idEDIOnboardingPhase
                                                }).FirstOrDefault();
         return oReq;
     }
@@ -411,7 +413,8 @@ public class ClsDiscoveryRequest
                 AuditorPassword = data.AuditorPassword,
                 EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
                 EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
-                EDIActualGoLive = (DateTime?)data.EDIActualGoLive
+                EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                idEDIOnboardingPhase = (int) data.idEDIOnboardingPhase
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
@@ -560,6 +563,7 @@ public class ClsDiscoveryRequest
                     updRow.EDITargetGoLive = (DateTime?)data.EDITargetGoLive;
                     updRow.EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive;
                     updRow.EDIActualGoLive = (DateTime?)data.EDIActualGoLive;
+                    updRow.idEDIOnboardingPhase = data.idEDIOnboardingPhase;
                 }
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();

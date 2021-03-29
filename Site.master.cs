@@ -216,6 +216,10 @@ public partial class SiteMaster : MasterPage
                 maintItem5.Text = "Onboarding Phases";
                 maintItem5.NavigateUrl = "~/OnboardingPhaseMaintenance.aspx";
                 repItem.Items.Add(maintItem5);
+                RadMenuItem maintItem21 = new RadMenuItem();
+                maintItem21.Text = "EDI Onboarding Phases";
+                maintItem21.NavigateUrl = "~/EDIOnboardingPhaseMaint.aspx";
+                repItem.Items.Add(maintItem21);
                 RadMenuItem maintItemRT = new RadMenuItem();
                 maintItemRT.Text = "Request Types";
                 maintItemRT.NavigateUrl = "~/RequestTypeMaintenance.aspx";
