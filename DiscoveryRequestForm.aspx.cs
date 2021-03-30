@@ -129,31 +129,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         }
 
-        //if (comboxCustAuditPortal.SelectedText.ToString().ToLower().Contains("yes"))
-        //{
-        //    lblCustAuditPortalYes.Visible = true;
-        //    lblCustAuditPortalStar.Visible = true;
-        //    lblCustAuditPortalURL.Visible = true;
-        //    txtBxAuditoURL.Visible = true;
-        //    txtBxAuditoURL.Visible = true;
-        //    lblCustAuditPortalUserName.Visible = true;
-        //    txtBxAuditoUserName.Visible = true;
-        //    lblCustAuditPortalPassword.Visible = true;
-        //    txtBxAuditoPassword.Visible = true;
-        //}
-        //else
-        //{
-        //    lblCustAuditPortalYes.Visible = false;
-        //    lblCustAuditPortalStar.Visible = false;
-        //    lblCustAuditPortalURL.Visible = false;
-        //    txtBxAuditoURL.Visible = false;
-        //    txtBxAuditoURL.Visible = false;
-        //    lblCustAuditPortalUserName.Visible = false;
-        //    txtBxAuditoUserName.Visible = false;
-        //    lblCustAuditPortalPassword.Visible = false;
-        //    txtBxAuditoPassword.Visible = false;
-        //}
-
         //Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
         if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
@@ -2301,6 +2276,22 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         if (EDITransList.Count() == 0)
         {
             ErrorMessage = ErrorMessage + "<br>At Least One EDI transaction method Must Be Supplied";
+        }
+        if(cmboxEDISpecialist.SelectedIndex < 0)
+            ErrorMessage = ErrorMessage + "<br>At Least One EDI Specialist Assignment Must Be Supplied";
+
+        if (cmboxBillingSpecialist.SelectedIndex < 0)
+            ErrorMessage = ErrorMessage + "<br>At Least One Billing Specialist Assignment Must Be Supplied";
+
+        if (cmboxCollectionSpecialist.SelectedIndex < 0)
+            ErrorMessage = ErrorMessage + "<br>At Least One Collection Specialist Assignment Must Be Supplied";
+
+        if (comboxCustAuditPortal.SelectedText == "Yes")
+        {
+            if (string.IsNullOrEmpty(txtBxAuditoURL.Text) || string.IsNullOrEmpty(txtBxAuditoUserName.Text) || string.IsNullOrEmpty(txtBxAuditoPassword.Text))
+            {
+                ErrorMessage = ErrorMessage + "<br>Customer/Auditor Portal Information Must Be Supplied";
+            }
         }
         return ErrorMessage;
     }

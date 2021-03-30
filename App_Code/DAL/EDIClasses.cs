@@ -59,18 +59,8 @@ public static class SrvEDIOnboardingPhase
                                             .Where(p=>p.idEDIOnboardingPhase != 0)
                                             .Select(p => new ClsEDIOnboardingPhase() { idEDIOnboardingPhase = p.idEDIOnboardingPhase, EDIOnboardingPhaseType = p.EDIOnboardingPhaseType, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                                             .ToList();
-
         return qEDISpecialisth;
     }
-    //public static List<ClsEDIOnboardingPhase> GetEDIOnboardingPhaseView()
-    //{
-    //    PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
-    //    List<ClsEDIOnboardingPhase> qEDISpecialisth = o.GetTable<vw_EDISpecialist>()
-    //                                        .Select(p => new ClsEDIOnboardingPhase() { EDIOnboardingPhaseType = p.EDIOnboardingPhaseType, idEDIOnboardingPhase = p.idEDIOnboardingPhase, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
-    //                                        .ToList();
-
-    //    return qEDISpecialisth;
-    //}
     public static string InsertEDIOnboardingPhase(ClsEDIOnboardingPhase data)
     {
         string errMsg = "";
@@ -79,12 +69,9 @@ public static class SrvEDIOnboardingPhase
         {
             tblEDIOnboardingPhase oNewRow = new tblEDIOnboardingPhase()
             {
-                //idEDIOnboardingPhase = data.idEDIOnboardingPhase,
                 EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
                 CreatedBy = data.CreatedBy,
                 CreatedOn = DateTime.Now,
-                //UpdatedBy = data.UpdatedBy,
-                //UpdatedOn = (DateTime?)data.UpdatedOn,
                 ActiveFlag = data.ActiveFlag
             };
 
@@ -117,8 +104,6 @@ public static class SrvEDIOnboardingPhase
                     updRow.UpdatedBy = data.UpdatedBy;
                     updRow.UpdatedOn = DateTime.Now;
                 }
-
-                // Submit the changes to the database. 
                 o.SubmitChanges();
             }
             else

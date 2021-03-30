@@ -1344,13 +1344,13 @@
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 140px">EDI Specialist Assigned</td>
-                                            <td></td>
+                                            <td style="color: red;">*</td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxEDISpecialist" runat="server" DefaultMessage="Select EDI Specialist" ToolTip="Select EDI Specialist" Visible="true"></telerik:RadDropDownList>
                                             </td>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Onboarding Phase</td>
-                                            <td></td>
+                                            <td style="color: red;">*</td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxOnboardingPhase" runat="server" Width="240"  DefaultMessage="Select Onboarding Phase" ToolTip="Select Onboarding Phase" Visible="true">
                                                 </telerik:RadDropDownList>
@@ -1359,7 +1359,7 @@
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Billing Specialist Assigned</td>
-                                            <td></td>
+                                            <td style="color: red;">*</td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxBillingSpecialist" runat="server" DefaultMessage="Select Billing Specialist" ToolTip="Select Billing Specialist" Visible="true"></telerik:RadDropDownList>
                                             </td>
@@ -1367,7 +1367,7 @@
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Collection Specialist Assigned</td>
-                                            <td></td>
+                                            <td style="color: red;">*</td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxCollectionSpecialist" runat="server" DefaultMessage="Select Collection Specialist" ToolTip="Select Collection Specialist" Visible="true"></telerik:RadDropDownList>
                                             </td>
@@ -1403,9 +1403,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 10px"></td>
-                                            <td>EDI Solution Summary
-                                            </td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
+                                            <td>EDI Solution Summary</td>
                                             <td></td>
                                             <td colspan="7">
                                                 <asp:TextBox ID="txtBxEDISolutionSummary" TextMode="multiline" Columns="100" Rows="3" runat="server" Visible="true" />
@@ -1431,7 +1430,7 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 10px"></td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
                                             <td style="width: 140px">EDI Transactions</td>
                                             <td></td>
                                             <td >
@@ -1483,7 +1482,7 @@
                                                     </MasterTableView>
                                                 </telerik:RadGrid>
                                             </td>
-                                            <td style="width: 10px;"></td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
                                             <td style="width: 160px">Ship Methods in Scope</td>
                                             <td></td>
                                             <td>
