@@ -146,6 +146,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[6].Visible = true;
             RadMultiPage1.SelectedIndex = 4;
         }
+
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            RadMultiPage1.SelectedIndex = 6;
+            RadTabStrip1.Tabs[6].Selected = true;
+        }
     }
 
     protected void hideshowbars()

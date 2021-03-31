@@ -407,11 +407,11 @@
                 <telerik:RadTab runat="server" Text="EDI Services" Width="150px" PageViewID="edi"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Shipping Services" Width="150px" PageViewID="services"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Profile" Width="140px" PageViewID="profile"></telerik:RadTab>
+                <telerik:RadTab runat="server" Text="Courier EDI" Width="140px" PageViewID="courierEDI"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Add'l Notes" Width="150px" PageViewID="notes"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="File Uploads" Width="140px" PageViewID="uploads"></telerik:RadTab>
             </Tabs>
         </telerik:RadTabStrip>
-
         
         <telerik:RadMultiPage runat="server" ID="RadMultiPage1" SelectedIndex="0">
             <%--  CUSTOMER INFORMATION  --%>
@@ -996,7 +996,6 @@
             <%--  SHIPPING SERVICES  --%>
             <telerik:RadPageView runat="server" ID="services">
                 <hr />
-
                 <table>
                     <tr>
                         <td style="height: 30px; text-align: right">Shipping Services - 
@@ -1150,6 +1149,7 @@
                     <%--  SOLUTION SUMMARY  --%>
                     <telerik:RadPanelBar RenderMode="Lightweight" ID="RadPanelBar1" runat="server" Visible="true" Width="100%">
                         <Items>
+                            <%--    Solution Summary    --%>
                             <telerik:RadPanelItem Text="Solution Summary" Expanded="True">
                                 <ContentTemplate>
                                     <table border="0">
@@ -1338,6 +1338,7 @@
                                     </table>
                                 </ContentTemplate>
                             </telerik:RadPanelItem>
+                            <%--    EDI Summary    --%>
                             <telerik:RadPanelItem Text="EDI Summary" Expanded="True">
                                 <ContentTemplate>
                                     <table border="0">
@@ -2991,6 +2992,326 @@
                         </Items>
                     </telerik:RadPanelBar>
                 </div>
+            </telerik:RadPageView>
+            
+            <%--  Courier EDI  --%>
+            <telerik:RadPageView runat="server" ID="courierEDI">
+                <hr />
+                <table border="0">
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px;text-align:right">EDI 210</td>
+                        <td></td>
+                        <td style="width: 140px; text-align:left">
+                            <telerik:RadDropDownList ID="comboBxCourierEDI210" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td style="width: 140px; text-align:right">EDI 214</td>
+                        <td></td>
+                        <td style="width: 140px; text-align:left">
+                            <telerik:RadDropDownList ID="comboBxCourierEDI214" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px; text-align: right;">
+                            <asp:Label ID="Label18" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="Label17" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td></td>
+                        <td style="width: 140px;text-align:right">
+                            <asp:Label ID="Label20" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                        </td>
+                       <td style="width: 10px; color: red; text-align: left;">
+                            <asp:Label ID="Label19" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px; text-align: right;">
+                            <asp:Label ID="Label12" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="Label13" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td style="width: 220px; text-align:left">
+                            <telerik:RadGrid ID="RadGrid3" runat="server" AllowPaging="True"
+                                AllowSorting="false" AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
+                                OnNeedDataSource="gridEDITransactions_NeedDataSource" OnDeleteCommand="gridEDITransactions_DeleteCommand"
+                                OnItemDataBound="gridEDITransactions_ItemDataBound" OnUpdateCommand="gridEDITransactions_UpdateCommand"
+                                OnItemCommand="gridEDITransactions_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDITranscation" CommandItemDisplay="Top">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="EDITranscationType" FilterControlAltText="EDITranscationType" SortExpression="Team" HeaderText="Account Number" UniqueName="EDITranscationType">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 50px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Transaction Requested</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadDropDownList ID="radListEDITransList" runat="server" OnSelectedIndexChanged="radListEDITransIdxChanged" DefaultMessage="Select EDI Trans Req" AutoPostBack="true" ToolTip="Select Your Ship Method" Visible="true" Width="280px">
+                                                        </telerik:RadDropDownList>
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center">
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                        <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                            CommandName="Cancel">
+                                                        </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                        <td style="width: 140px; text-align: right;">Account Numbers</td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td style="width: 220px; text-align:left">
+                            <telerik:RadGrid ID="RadGrid4" runat="server" AllowPaging="True"
+                                AllowSorting="false" AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
+                                OnNeedDataSource="gridShipmentMethods_NeedDataSource" OnDeleteCommand="gridShipmentMethods_DeleteCommand"
+                                OnItemDataBound="gridShipmentMethods_ItemDataBound" OnUpdateCommand="gridShipmentMethods_UpdateCommand"
+                                OnItemCommand="gridShipmentMethods_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIShipMethod" CommandItemDisplay="Top">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="MethodType" FilterControlAltText="MethodType" SortExpression="Team" HeaderText="Account Number" UniqueName="MethodType">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 50px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Shipment Method</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadDropDownList ID="radListEDIShipMethod" runat="server" OnSelectedIndexChanged="radListEDIShipMethodIdxChanged" DefaultMessage="Select EDI Ship Method" AutoPostBack="true" ToolTip="Select Your Ship Method" Visible="true" Width="280px">
+                                                        </telerik:RadDropDownList>
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center">
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                                            <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
+                                                                            </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="width: 220px; text-align: right">Combine payer/bill to accounts?</td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="RadDropDownList1" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td style="width: 220px; text-align: right">Combine payer/bill to accounts?</td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="RadDropDownList2" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">Batch invoices</td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="comboBoxBatchInvoices" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">Number of Invoice Recipients Requested</td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadTextBox ID="RadTextBox1" runat="server" MaxLength="50" Text='' Width="50px" ToolTip="Enter Number of Invoice Recipients Requested" />
+                        </td>
+                        <td style="width: 220px; text-align: right">Number of Shipment Status Recipients Requested</td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadTextBox ID="RadTextBox2" runat="server" MaxLength="50" Text='' Width="50px" ToolTip="Enter Number of Invoice Recipients Requested" />
+                        </td>
+                    </tr>
+                   <%--    
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px">Current Go-Live Date</td>
+                        <td></td>
+                        <td>
+                            <telerik:RadDatePicker RenderMode="Lightweight" ID="RadDatePicker2" runat="server" AutoPostBack="true" OnSelectedDateChanged="rdCurrentTarget_SelectedDateChanged" Visible="true"></telerik:RadDatePicker>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px">Actual Go-Live Date</td>
+                        <td></td>
+                        <td>
+                            <telerik:RadDatePicker RenderMode="Lightweight" ID="RadDatePicker3" runat="server" AutoPostBack="true" OnSelectedDateChanged="rdCurrentTarget_SelectedDateChanged" Visible="true"></telerik:RadDatePicker>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px">Freight Auditor Involved</td>
+                        <td></td>
+                        <td>
+                            <telerik:RadDropDownList ID="RadDropDownList5" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px">Customer/Auditor Portal</td>
+                        <td></td>
+                        <td>
+                            <telerik:RadDropDownList ID="RadDropDownList6" runat="server" Visible="true" Width="70px" OnSelectedIndexChanged="onIdxChangedCustAuditPortal" AutoPostBack="true">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="Label12" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td style="width: 140px;">
+                            <asp:Label ID="Label13" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px">
+                            <asp:Label ID="Label14" runat="server" Text="URL" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td>
+                            <telerik:RadTextBox ID="RadTextBox1" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter URL" />
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px">
+                            <asp:Label ID="Label15" runat="server" Text="User Name" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td>
+                            <telerik:RadTextBox ID="RadTextBox2" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Username" />
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px">
+                            <asp:Label ID="Label16" runat="server" Text="Password" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td>
+                            <telerik:RadTextBox ID="RadTextBox3" runat="server" MaxLength="50" Text='' Width="150px" ToolTip="Enter Password" />
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>--%>
+                </table>
             </telerik:RadPageView>
 
             <%--  NOTES  --%>
