@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="DiscoveryRequestForm.aspx.cs" Inherits="DiscoveryRequestForm2" %>
+<%@ Register Src="EDI210.ascx" TagName="EDI210" TagPrefix="uc1" %>
+<%@ Register Src="EDI214.ascx" TagName="EDI214" TagPrefix="uc2" %>
 
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 
@@ -3186,14 +3188,32 @@
                         <td style="width: 220px; text-align: right">Number of Invoice Recipients Requested</td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadTextBox ID="RadTextBox1" runat="server" MaxLength="50" Text='' Width="50px" ToolTip="Enter Number of Invoice Recipients Requested" />
+                            <%--                            <telerik:RadTextBox ID="txtBxNumberRecipients210" runat="server" MaxLength="10" Text='0' Width="50px" OnTextChanged="txtBxNumberRecipients210_TextChanged" AutoPostBack="true" ToolTip="Enter Number of Invoice Recipients Requested" />--%>
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="RadNumericTextBox1" Width="50px" Value="1" OnTextChanged="txtBxNumberRecipients210_TextChanged" AutoPostBack="true" MinValue="0" ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadButton ID="btnAdd210" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
+<%--                            <telerik:RadTextBox ID="RadTextBox1" runat="server" MaxLength="10" Text='' Width="50px" />--%>
                         </td>
                         <td style="width: 220px; text-align: right">Number of Shipment Status Recipients Requested</td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadTextBox ID="RadTextBox2" runat="server" MaxLength="50" Text='' Width="50px" ToolTip="Enter Number of Invoice Recipients Requested" />
+                            <telerik:RadTextBox ID="txtBxNumberRecipients214" runat="server" MaxLength="10" Text='0' Width="50px" ToolTip="Enter Number of Invoice Recipients Requested" />
                         </td>
                     </tr>
+                     <tr>
+                        <td colspan="4" style="vertical-align:top">
+                            <asp:PlaceHolder ID="ph1" runat="server" />
+<%--                            <asp:Button ID="btnAdd" runat="server" Text="Add" />--%>
+                        </td>
+                        <td colspan="4" style="text-align: center;vertical-align:top">
+                            <asp:PlaceHolder ID="ph2" runat="server" />
+                        </td>
+                         <asp:Literal ID="ltlValues" runat="server" />
+                         <asp:Literal ID="ltlValues2" runat="server" />
+                         <asp:Literal ID="ltlCount" runat="server" Text="0" Visible="false" />
+                         <asp:Literal ID="ltlRemoved" runat="server" Visible="false" />
+                         <asp:Literal ID="ltlCount2" runat="server" Text="0" Visible="false" />
+                         <asp:Literal ID="ltlRemoved2" runat="server" Visible="false" />
+                     </tr>
                    <%--    
                     <tr>
                         <td style="width: 10px"></td>

@@ -27,6 +27,24 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            Session["userName"] = "Scott.Cardinale";
+            Session["appName"] = "PuroTouch";
+            Session["userRole"] = "ITAdmin";
+        }
+        //p.xTimes.Add(101);
+        //p.xTimes.Add(102);
+        //p.xNames.Add("Jack and Jill");
+        //p.xNames.Add("Tom and Jerry");
+        //p.yNames.Add("First control");
+        //p.yNames.Add("Second control");
+        //RadTextBox1.Text = RadNumericTextBox1.Text;
+        UserControlParams p = new UserControlParams(int.Parse(RadNumericTextBox1.Text.ToString()));
+        AddAndRemoveDynamicControls(p);
+        AddAndRemoveDynamicControls2(3);
+
+
         if (Session["userName"] == null)
             Response.Redirect("Default.aspx");
 
@@ -4384,4 +4402,175 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
 
     }
+
+    private void AddAndRemoveDynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+                //ltlCount.Text = (p.xTimes.Count + 1).ToString();
+                p.xNames.Add((p.xTimes.Count + 1).ToString());
+                p.yNames.Add((p.xTimes.Count + 1).ToString());
+                p.xTimes.Add(p.xTimes.Count + 1);
+            }
+        }
+
+        ltlCount.Text = p.xTimes.Count.ToString();
+
+        ph1.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCount.Text) - 1); i++)
+        {
+            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
+
+            while (InDeletedList("uc1" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc1" + ControlID;
+            DynamicUserControl.FirstName = ControlID.ToString();
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            DynamicUserControl.Params.idRequest = requestID;
+            //DynamicUserControl.Params.FirstName = p.xNames[i];
+            //DynamicUserControl.Params.Heading = p.yNames[i];
+            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
+            ph1.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+    private void AddAndRemoveDynamicControls2(int xTimes)
+    {
+        Control c = GetPostBackControl(Page);
+
+        ltlCount2.Text = xTimes.ToString();
+
+        ph2.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCount2.Text) - 1); i++)
+        {
+            EDI214 DynamicUserControl = (EDI214)LoadControl("EDI214.ascx");
+
+            while (InDeletedList2("uc" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc" + ControlID;
+            DynamicUserControl.FirstName = ControlID.ToString();
+            DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
+            ph2.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+    private bool InDeletedList(string ControlID)
+    {
+        string[] DeletedList = ltlRemoved.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool InDeletedList2(string ControlID)
+    {
+        string[] DeletedList = ltlRemoved2.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void HandleRemoveUserControl(object sender, EventArgs e)
+    {
+        Button remove = (sender as Button);
+        UserControl DynamicUserControl = (UserControl)remove.Parent;
+        ph1.Controls.Remove((UserControl)remove.Parent);
+        ltlRemoved.Text += DynamicUserControl.ID + "|";
+        ltlCount.Text = (Convert.ToInt16(ltlCount.Text) - 1).ToString();
+    }
+    public void HandleRemoveUserControl2(object sender, EventArgs e)
+    {
+        Button remove = (sender as Button);
+        UserControl DynamicUserControl = (UserControl)remove.Parent;
+        ph2.Controls.Remove((UserControl)remove.Parent);
+        ltlRemoved2.Text += DynamicUserControl.ID + "|";
+        ltlCount2.Text = (Convert.ToInt16(ltlCount2.Text) - 1).ToString();
+    }
+    protected void btnDisplayValues_Click(object sender, System.EventArgs e)
+    {
+        ltlValues.Text = "";
+        foreach (Control c in ph1.Controls)
+        {
+            if (c.GetType().Name.ToLower().Contains("usercontrol_ascx"))
+            {
+                UserControl uc = (UserControl)c;
+                TextBox tbx1 = uc.FindControl("txtName") as TextBox;
+                DropDownList ddl1 = uc.FindControl("ddlCountry") as DropDownList;
+                CheckBoxList cbx1 = uc.FindControl("cblEducation") as CheckBoxList;
+
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append("Name: " + tbx1.Text + "<br />");
+                sb.Append("Country: " + ddl1.SelectedValue + "<br />");
+                sb.AppendLine("Education: ");
+                foreach (ListItem li in cbx1.Items)
+                {
+                    if (li.Selected == true)
+                    {
+                        sb.Append(li.Value + "<br />");
+                    }
+                }
+                sb.Append("<hr />");
+                ltlValues.Text += sb.ToString();
+            }
+        }
+    }
+
+    //Find the control that caused the postback.
+    public Control GetPostBackControl(Page page)
+    {
+        Control control = null;
+
+        string ctrlname = page.Request.Params.Get("__EVENTTARGET");
+        if ((ctrlname != null) & ctrlname != string.Empty)
+        {
+            control = page.FindControl(ctrlname);
+        }
+        else
+        {
+            foreach (string ctl in page.Request.Form)
+            {
+                Control c = page.FindControl(ctl);
+                if (c is System.Web.UI.WebControls.Button)
+                {
+                    control = c;
+                    break;
+                }
+            }
+        }
+        return control;
+    }
+
+    protected void txtBxNumberRecipients210_TextChanged(object sender, EventArgs e)
+    {
+        //string s = RadNumericTextBox1.Text;
+        //int er = 0;
+        //er++;
+    }
+
+    //protected void btnAdd210_Click(object sender, EventArgs e)
+    //{
+    //    string s = RadNumericTextBox1.Text;
+    //    int er = 0;
+    //    er++;
+    //}
 }
