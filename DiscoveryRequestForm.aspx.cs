@@ -33,17 +33,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Session["appName"] = "PuroTouch";
             Session["userRole"] = "ITAdmin";
         }
-        //p.xTimes.Add(101);
-        //p.xTimes.Add(102);
-        //p.xNames.Add("Jack and Jill");
-        //p.xNames.Add("Tom and Jerry");
-        //p.yNames.Add("First control");
-        //p.yNames.Add("Second control");
-        //RadTextBox1.Text = RadNumericTextBox1.Text;
         UserControlParams p = new UserControlParams(int.Parse(RadNumericTextBox1.Text.ToString()));
+        UserControlParams p2 = new UserControlParams(int.Parse(txtBxNumberRecipients214.Text.ToString()));
         AddAndRemoveDynamicControls(p);
-        AddAndRemoveDynamicControls2(3);
-
+        AddAndRemoveDynamicControls2(p2);
+        SetCourierEDI210Controls();
+        SetCourierEDI214Controls();
 
         if (Session["userName"] == null)
             Response.Redirect("Default.aspx");
@@ -4431,10 +4426,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
 
             DynamicUserControl.ID = "uc1" + ControlID;
-            DynamicUserControl.FirstName = ControlID.ToString();
+            //DynamicUserControl.FirstName = ControlID.ToString();
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
             DynamicUserControl.Params.idRequest = requestID;
+            DynamicUserControl.Params.iRecordID = i;
             //DynamicUserControl.Params.FirstName = p.xNames[i];
             //DynamicUserControl.Params.Heading = p.yNames[i];
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
@@ -4442,11 +4438,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             ControlID += 1;
         }
     }
-    private void AddAndRemoveDynamicControls2(int xTimes)
+    private void AddAndRemoveDynamicControls2(UserControlParams p)
     {
         Control c = GetPostBackControl(Page);
 
-        ltlCount2.Text = xTimes.ToString();
+        ltlCount2.Text = p.xTimes.Count.ToString();
 
         ph2.Controls.Clear();
         int ControlID = 0;
@@ -4460,7 +4456,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
 
             DynamicUserControl.ID = "uc" + ControlID;
-            DynamicUserControl.FirstName = ControlID.ToString();
+            //DynamicUserControl.FirstName = ControlID.ToString();
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            DynamicUserControl.Params.idRequest = requestID;
+            DynamicUserControl.Params.iRecordID = i;
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
             ph2.Controls.Add(DynamicUserControl);
             ControlID += 1;
@@ -4562,15 +4562,75 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     protected void txtBxNumberRecipients210_TextChanged(object sender, EventArgs e)
     {
-        //string s = RadNumericTextBox1.Text;
-        //int er = 0;
-        //er++;
+    }
+    protected void txtBxNumberRecipients214_TextChanged(object sender, EventArgs e)
+    {
     }
 
-    //protected void btnAdd210_Click(object sender, EventArgs e)
-    //{
-    //    string s = RadNumericTextBox1.Text;
-    //    int er = 0;
-    //    er++;
-    //}
+
+    protected void comboBxCourierEDI210_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierEDI210Controls(); 
+    }
+    protected void comboBxCourierEDI214_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierEDI214Controls();
+    }
+    private void SetCourierEDI210Controls()
+    {
+        if (comboBxCourierEDI210.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lbl210Accounnts.Visible = true;
+            gridEDI210Accounts.Visible = true;
+            lbl210AccounntStar.Visible = true;
+            comboxCombinepayer.Visible = true;
+            lblCombinepayer.Visible = true;
+            comboBoxBatchInvoices.Visible = true;
+            lblBatchInvoices.Visible = true;
+            RadNumericTextBox1.Visible = true;
+            lbl210InvoiceRecipients.Visible = true;
+            btnAdd210.Visible = true;
+            ph1.Visible = true;
+        }
+        else
+        {
+            lbl210Accounnts.Visible = false;
+            gridEDI210Accounts.Visible = false;
+            lbl210AccounntStar.Visible = false;
+            comboxCombinepayer.Visible = false;
+            lblCombinepayer.Visible = false;
+            comboBoxBatchInvoices.Visible = false;
+            lblBatchInvoices.Visible = false;
+            RadNumericTextBox1.Visible = false;
+            lbl210InvoiceRecipients.Visible = false;
+            btnAdd210.Visible = false;
+            ph1.Visible = false;
+
+        }
+    }
+    private void SetCourierEDI214Controls()
+    {
+        if (comboBxCourierEDI214.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lbl214Accounnts.Visible = true;
+            gridEDI214Accounts.Visible = true;
+            lbl214AccounntStar.Visible = true;
+            lbl214InvoiceRecipients.Visible = true;
+            txtBxNumberRecipients214.Visible = true;
+            btnAdd214.Visible = true;
+            ph2.Visible = true;
+        }
+        else
+        {
+            lbl214Accounnts.Visible = false;
+            gridEDI214Accounts.Visible = false;
+            lbl214AccounntStar.Visible = false;
+            lbl214InvoiceRecipients.Visible = false;
+            txtBxNumberRecipients214.Visible = false;
+            btnAdd214.Visible = false;
+            ph2.Visible = false;
+
+        }
+    }
+
 }

@@ -5,69 +5,22 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public class UserControlParams
-{
-    public int idRequest { get; set; }
-    public string FirstName { get; set; }
-    public string Heading { get; set; }
-    public int iRecords { get; set; }
-
-    public IList<int> xTimes;
-    public IList<string> xNames;
-    public IList<string> yNames;
-
-    public UserControlParams()
-    {
-        xTimes = new List<int>();
-        xNames = new List<string>();
-        yNames = new List<string>();
-    }
-    public UserControlParams(int iCount)
-    {
-        xTimes = new List<int>();
-        xNames = new List<string>();
-        yNames = new List<string>();
-        iRecords = iCount;
-        for(int i = 0; i < iCount; i++) 
-        {
-            xTimes.Add(100+i);
-            xNames.Add("xNames: " + (100 + i).ToString());
-            yNames.Add("yNames: " + (100 + i).ToString());
-        }
-    }
-}
-
 public partial class EDI210 : System.Web.UI.UserControl
 {
     public event EventHandler RemoveUserControl; 
     public event EventHandler buttonClick;
     public UserControlParams Params = new UserControlParams();
-    private string m_FirstName = string.Empty;
-    public string FirstName
-    {
-        get { return m_FirstName; }
-        set { m_FirstName = value; }
-    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //txtBoxTestValue.Text = (!string.IsNullOrEmpty(Params.FirstName) ? Params.FirstName :"nothing");
-        //txtName.Text = (!string.IsNullOrEmpty(Params.Heading) ? Params.Heading : "nothing");
-    }
-    protected void Page_Init(object sender, EventArgs e)
-    {
-        //this. += new DetailsViewCommandEventHandler(RoomForm_ItemCommand);
-    }
-    void RoomForm_ItemCommand(object sender, DetailsViewCommandEventArgs e)
-    {
-        if (e.CommandName == "Cancel")
-        {
-            int er = 0;
-            er++;
-        }
+        SetFileFormatControls();
+        SetCommunicationMethodControls();
+        //lblHeading.Text = "Invoice Recipient num: " + (Params.iRecordID+1).ToString();
+        RadPanelBar1.Items[0].Text = "Record num: " + (Params.iRecordID + 1).ToString();
+        RadPanelBar1.Items[0].Expanded = false;
     }
 
-    protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+    private void SetFileFormatControls()
     {
         if (comboBxFileFormat.SelectedValue.ToString().Contains("X12"))
         {
@@ -88,7 +41,30 @@ public partial class EDI210 : System.Web.UI.UserControl
             txtBoxQualifier.Visible = false;
         }
     }
+
+    protected void Page_Init(object sender, EventArgs e)
+    {
+        //this. += new DetailsViewCommandEventHandler(RoomForm_ItemCommand);
+    }
+    void RoomForm_ItemCommand(object sender, DetailsViewCommandEventArgs e)
+    {
+        if (e.CommandName == "Cancel")
+        {
+            int er = 0;
+            er++;
+        }
+    }
+
+    protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SetFileFormatControls();
+    }
     protected void CommunicationMethod_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SetCommunicationMethodControls();
+    }
+
+    private void SetCommunicationMethodControls()
     {
         if (comboxCommunicationMethod.SelectedValue.ToString().ToLower().Contains("ftp"))
         {
@@ -120,6 +96,7 @@ public partial class EDI210 : System.Web.UI.UserControl
             }
         }
     }
+
     protected void btnfirst_Click(object sender, EventArgs e)
     {
         //txtBoxTestValue.Text = "Button was pressed";

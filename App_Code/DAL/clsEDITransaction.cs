@@ -31,7 +31,7 @@ public static class SrvEDITransaction
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDITransaction> qShipMeth = o.GetTable<tblEDITranscation>()
-                                            .Where(p => p.idRequest == idRequest)
+                                            .Where(p => p.idRequest == idRequest && p.tblEDITranscationType.CategoryID == 0)
                                             .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                                             .ToList();
 

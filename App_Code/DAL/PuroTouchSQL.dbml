@@ -612,20 +612,8 @@
       <Column Name="UpdatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscationType" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscationType" IsForeignKey="true" />
       <Association Name="tblDiscoveryRequest_tblEDITranscation" Member="tblDiscoveryRequest" ThisKey="idRequest" OtherKey="idRequest" Type="tblDiscoveryRequest" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblEDITranscationType" Member="tblEDITranscationTypes">
-    <Type Name="tblEDITranscationType">
-      <Column Name="idEDITranscationType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="EDITranscationType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscations" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscation" />
+      <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscationType" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscationType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tblEDISpecialist" Member="tblEDISpecialists">
@@ -851,6 +839,20 @@
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="tblEDIOnboardingPhase_tblDiscoveryRequest" Member="tblDiscoveryRequests" ThisKey="idEDIOnboardingPhase" OtherKey="idEDIOnboardingPhase" Type="tblDiscoveryRequest" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEDITranscationType" Member="tblEDITranscationTypes">
+    <Type Name="tblEDITranscationType">
+      <Column Name="idEDITranscationType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EDITranscationType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscations" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscation" />
     </Type>
   </Table>
 </Database>

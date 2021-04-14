@@ -13,8 +13,11 @@ public class clsEDITransactionType
 	public int idEDITranscationType { get; set; }
 
     public string EDITranscationType { get; set; }
+    public int CategoryID { get; set; }
 
-	public string CreatedBy { get; set; }
+    public string Category { get; set; }
+
+    public string CreatedBy { get; set; }
 
 	public System.Nullable<System.DateTime> CreatedOn { get; set; }
 
@@ -30,9 +33,9 @@ public static class SrvEDITransactionType
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDITransactionType> qShipMeth = o.GetTable<tblEDITranscationType>()
-                                            .Select(p => new clsEDITransactionType() { idEDITranscationType = p.idEDITranscationType, EDITranscationType = p.EDITranscationType, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Select(p => new clsEDITransactionType() { idEDITranscationType = p.idEDITranscationType, EDITranscationType = p.EDITranscationType, Category = p.Category, CategoryID = p.CategoryID, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Where(f=> f.CategoryID == 0 && f.ActiveFlag == true)
                                             .ToList();
-
         return qShipMeth;
     }
 }
