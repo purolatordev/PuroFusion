@@ -129,9 +129,6 @@ namespace DAL
     partial void InserttblEDIShipMethod(tblEDIShipMethod instance);
     partial void UpdatetblEDIShipMethod(tblEDIShipMethod instance);
     partial void DeletetblEDIShipMethod(tblEDIShipMethod instance);
-    partial void InserttblEDITranscation(tblEDITranscation instance);
-    partial void UpdatetblEDITranscation(tblEDITranscation instance);
-    partial void DeletetblEDITranscation(tblEDITranscation instance);
     partial void InserttblEDISpecialist(tblEDISpecialist instance);
     partial void UpdatetblEDISpecialist(tblEDISpecialist instance);
     partial void DeletetblEDISpecialist(tblEDISpecialist instance);
@@ -147,9 +144,27 @@ namespace DAL
     partial void InserttblEDIOnboardingPhase(tblEDIOnboardingPhase instance);
     partial void UpdatetblEDIOnboardingPhase(tblEDIOnboardingPhase instance);
     partial void DeletetblEDIOnboardingPhase(tblEDIOnboardingPhase instance);
+    partial void InserttblExceptionLogging(tblExceptionLogging instance);
+    partial void UpdatetblExceptionLogging(tblExceptionLogging instance);
+    partial void DeletetblExceptionLogging(tblExceptionLogging instance);
+    partial void InserttblEDIAccount(tblEDIAccount instance);
+    partial void UpdatetblEDIAccount(tblEDIAccount instance);
+    partial void DeletetblEDIAccount(tblEDIAccount instance);
+    partial void InserttblEDITranscation(tblEDITranscation instance);
+    partial void UpdatetblEDITranscation(tblEDITranscation instance);
+    partial void DeletetblEDITranscation(tblEDITranscation instance);
     partial void InserttblEDITranscationType(tblEDITranscationType instance);
     partial void UpdatetblEDITranscationType(tblEDITranscationType instance);
     partial void DeletetblEDITranscationType(tblEDITranscationType instance);
+    partial void InserttblTriggerMechanism(tblTriggerMechanism instance);
+    partial void UpdatetblTriggerMechanism(tblTriggerMechanism instance);
+    partial void DeletetblTriggerMechanism(tblTriggerMechanism instance);
+    partial void InserttblTiming(tblTiming instance);
+    partial void UpdatetblTiming(tblTiming instance);
+    partial void DeletetblTiming(tblTiming instance);
+    partial void InserttblEDIRecipReq(tblEDIRecipReq instance);
+    partial void UpdatetblEDIRecipReq(tblEDIRecipReq instance);
+    partial void DeletetblEDIRecipReq(tblEDIRecipReq instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -526,14 +541,6 @@ namespace DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<tblEDITranscation> tblEDITranscations
-		{
-			get
-			{
-				return this.GetTable<tblEDITranscation>();
-			}
-		}
-		
 		public System.Data.Linq.Table<tblEDISpecialist> tblEDISpecialists
 		{
 			get
@@ -598,11 +605,59 @@ namespace DAL
 			}
 		}
 		
+		public System.Data.Linq.Table<tblExceptionLogging> tblExceptionLoggings
+		{
+			get
+			{
+				return this.GetTable<tblExceptionLogging>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblEDIAccount> tblEDIAccounts
+		{
+			get
+			{
+				return this.GetTable<tblEDIAccount>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblEDITranscation> tblEDITranscations
+		{
+			get
+			{
+				return this.GetTable<tblEDITranscation>();
+			}
+		}
+		
 		public System.Data.Linq.Table<tblEDITranscationType> tblEDITranscationTypes
 		{
 			get
 			{
 				return this.GetTable<tblEDITranscationType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblTriggerMechanism> tblTriggerMechanisms
+		{
+			get
+			{
+				return this.GetTable<tblTriggerMechanism>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblTiming> tblTimings
+		{
+			get
+			{
+				return this.GetTable<tblTiming>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this.GetTable<tblEDIRecipReq>();
 			}
 		}
 	}
@@ -2974,6 +3029,8 @@ namespace DAL
 		
 		private System.Nullable<bool> _ActiveFlag;
 		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2996,6 +3053,7 @@ namespace DAL
 		
 		public tblFileType()
 		{
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
 			OnCreated();
 		}
 		
@@ -3139,6 +3197,19 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFileType_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idFileType", OtherKey="idFileType")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3157,6 +3228,18 @@ namespace DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblFileType = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblFileType = null;
 		}
 	}
 	
@@ -4440,6 +4523,8 @@ namespace DAL
 		
 		private System.Nullable<bool> _ActiveFlag;
 		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -4462,6 +4547,7 @@ namespace DAL
 		
 		public tblCommunicationMethod()
 		{
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
 			OnCreated();
 		}
 		
@@ -4605,6 +4691,19 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblCommunicationMethod_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idCommunicationMethod", OtherKey="idCommunicationMethod")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -4623,6 +4722,18 @@ namespace DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblCommunicationMethod = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblCommunicationMethod = null;
 		}
 	}
 	
@@ -11620,318 +11731,6 @@ namespace DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDITranscations")]
-	public partial class tblEDITranscation : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _idEDITranscation;
-		
-		private int _idRequest;
-		
-		private int _idEDITranscationType;
-		
-		private string _CreatedBy;
-		
-		private System.Nullable<System.DateTime> _CreatedOn;
-		
-		private string _UpdatedBy;
-		
-		private System.Nullable<System.DateTime> _UpdatedOn;
-		
-		private System.Nullable<bool> _ActiveFlag;
-		
-		private EntityRef<tblDiscoveryRequest> _tblDiscoveryRequest;
-		
-		private EntityRef<tblEDITranscationType> _tblEDITranscationType;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidEDITranscationChanging(int value);
-    partial void OnidEDITranscationChanged();
-    partial void OnidRequestChanging(int value);
-    partial void OnidRequestChanged();
-    partial void OnidEDITranscationTypeChanging(int value);
-    partial void OnidEDITranscationTypeChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedOnChanged();
-    partial void OnUpdatedByChanging(string value);
-    partial void OnUpdatedByChanged();
-    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdatedOnChanged();
-    partial void OnActiveFlagChanging(System.Nullable<bool> value);
-    partial void OnActiveFlagChanged();
-    #endregion
-		
-		public tblEDITranscation()
-		{
-			this._tblDiscoveryRequest = default(EntityRef<tblDiscoveryRequest>);
-			this._tblEDITranscationType = default(EntityRef<tblEDITranscationType>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscation", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int idEDITranscation
-		{
-			get
-			{
-				return this._idEDITranscation;
-			}
-			set
-			{
-				if ((this._idEDITranscation != value))
-				{
-					this.OnidEDITranscationChanging(value);
-					this.SendPropertyChanging();
-					this._idEDITranscation = value;
-					this.SendPropertyChanged("idEDITranscation");
-					this.OnidEDITranscationChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
-		public int idRequest
-		{
-			get
-			{
-				return this._idRequest;
-			}
-			set
-			{
-				if ((this._idRequest != value))
-				{
-					if (this._tblDiscoveryRequest.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidRequestChanging(value);
-					this.SendPropertyChanging();
-					this._idRequest = value;
-					this.SendPropertyChanged("idRequest");
-					this.OnidRequestChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscationType", DbType="Int NOT NULL")]
-		public int idEDITranscationType
-		{
-			get
-			{
-				return this._idEDITranscationType;
-			}
-			set
-			{
-				if ((this._idEDITranscationType != value))
-				{
-					if (this._tblEDITranscationType.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidEDITranscationTypeChanging(value);
-					this.SendPropertyChanging();
-					this._idEDITranscationType = value;
-					this.SendPropertyChanged("idEDITranscationType");
-					this.OnidEDITranscationTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(100)")]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedOn
-		{
-			get
-			{
-				return this._CreatedOn;
-			}
-			set
-			{
-				if ((this._CreatedOn != value))
-				{
-					this.OnCreatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedOn = value;
-					this.SendPropertyChanged("CreatedOn");
-					this.OnCreatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="NVarChar(100)")]
-		public string UpdatedBy
-		{
-			get
-			{
-				return this._UpdatedBy;
-			}
-			set
-			{
-				if ((this._UpdatedBy != value))
-				{
-					this.OnUpdatedByChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedBy = value;
-					this.SendPropertyChanged("UpdatedBy");
-					this.OnUpdatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedOn
-		{
-			get
-			{
-				return this._UpdatedOn;
-			}
-			set
-			{
-				if ((this._UpdatedOn != value))
-				{
-					this.OnUpdatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedOn = value;
-					this.SendPropertyChanged("UpdatedOn");
-					this.OnUpdatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
-		public System.Nullable<bool> ActiveFlag
-		{
-			get
-			{
-				return this._ActiveFlag;
-			}
-			set
-			{
-				if ((this._ActiveFlag != value))
-				{
-					this.OnActiveFlagChanging(value);
-					this.SendPropertyChanging();
-					this._ActiveFlag = value;
-					this.SendPropertyChanged("ActiveFlag");
-					this.OnActiveFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblDiscoveryRequest_tblEDITranscation", Storage="_tblDiscoveryRequest", ThisKey="idRequest", OtherKey="idRequest", IsForeignKey=true)]
-		public tblDiscoveryRequest tblDiscoveryRequest
-		{
-			get
-			{
-				return this._tblDiscoveryRequest.Entity;
-			}
-			set
-			{
-				tblDiscoveryRequest previousValue = this._tblDiscoveryRequest.Entity;
-				if (((previousValue != value) 
-							|| (this._tblDiscoveryRequest.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tblDiscoveryRequest.Entity = null;
-						previousValue.tblEDITranscations.Remove(this);
-					}
-					this._tblDiscoveryRequest.Entity = value;
-					if ((value != null))
-					{
-						value.tblEDITranscations.Add(this);
-						this._idRequest = value.idRequest;
-					}
-					else
-					{
-						this._idRequest = default(int);
-					}
-					this.SendPropertyChanged("tblDiscoveryRequest");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDITranscationType_tblEDITranscation", Storage="_tblEDITranscationType", ThisKey="idEDITranscationType", OtherKey="idEDITranscationType", IsForeignKey=true)]
-		public tblEDITranscationType tblEDITranscationType
-		{
-			get
-			{
-				return this._tblEDITranscationType.Entity;
-			}
-			set
-			{
-				tblEDITranscationType previousValue = this._tblEDITranscationType.Entity;
-				if (((previousValue != value) 
-							|| (this._tblEDITranscationType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tblEDITranscationType.Entity = null;
-						previousValue.tblEDITranscations.Remove(this);
-					}
-					this._tblEDITranscationType.Entity = value;
-					if ((value != null))
-					{
-						value.tblEDITranscations.Add(this);
-						this._idEDITranscationType = value.idEDITranscationType;
-					}
-					else
-					{
-						this._idEDITranscationType = default(int);
-					}
-					this.SendPropertyChanged("tblEDITranscationType");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDISpecialist")]
 	public partial class tblEDISpecialist : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -16611,6 +16410,1019 @@ namespace DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblExceptionLogging")]
+	public partial class tblExceptionLogging : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _Logid;
+		
+		private string _Method;
+		
+		private string _ExceptionMsg;
+		
+		private string _ExceptionType;
+		
+		private string _ExceptionSource;
+		
+		private string _ExceptionURL;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLogidChanging(long value);
+    partial void OnLogidChanged();
+    partial void OnMethodChanging(string value);
+    partial void OnMethodChanged();
+    partial void OnExceptionMsgChanging(string value);
+    partial void OnExceptionMsgChanged();
+    partial void OnExceptionTypeChanging(string value);
+    partial void OnExceptionTypeChanged();
+    partial void OnExceptionSourceChanging(string value);
+    partial void OnExceptionSourceChanged();
+    partial void OnExceptionURLChanging(string value);
+    partial void OnExceptionURLChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    #endregion
+		
+		public tblExceptionLogging()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Logid", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Logid
+		{
+			get
+			{
+				return this._Logid;
+			}
+			set
+			{
+				if ((this._Logid != value))
+				{
+					this.OnLogidChanging(value);
+					this.SendPropertyChanging();
+					this._Logid = value;
+					this.SendPropertyChanged("Logid");
+					this.OnLogidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Method", DbType="VarChar(100)")]
+		public string Method
+		{
+			get
+			{
+				return this._Method;
+			}
+			set
+			{
+				if ((this._Method != value))
+				{
+					this.OnMethodChanging(value);
+					this.SendPropertyChanging();
+					this._Method = value;
+					this.SendPropertyChanged("Method");
+					this.OnMethodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExceptionMsg", DbType="VarChar(100)")]
+		public string ExceptionMsg
+		{
+			get
+			{
+				return this._ExceptionMsg;
+			}
+			set
+			{
+				if ((this._ExceptionMsg != value))
+				{
+					this.OnExceptionMsgChanging(value);
+					this.SendPropertyChanging();
+					this._ExceptionMsg = value;
+					this.SendPropertyChanged("ExceptionMsg");
+					this.OnExceptionMsgChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExceptionType", DbType="VarChar(100)")]
+		public string ExceptionType
+		{
+			get
+			{
+				return this._ExceptionType;
+			}
+			set
+			{
+				if ((this._ExceptionType != value))
+				{
+					this.OnExceptionTypeChanging(value);
+					this.SendPropertyChanging();
+					this._ExceptionType = value;
+					this.SendPropertyChanged("ExceptionType");
+					this.OnExceptionTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExceptionSource", DbType="NVarChar(MAX)")]
+		public string ExceptionSource
+		{
+			get
+			{
+				return this._ExceptionSource;
+			}
+			set
+			{
+				if ((this._ExceptionSource != value))
+				{
+					this.OnExceptionSourceChanging(value);
+					this.SendPropertyChanging();
+					this._ExceptionSource = value;
+					this.SendPropertyChanged("ExceptionSource");
+					this.OnExceptionSourceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExceptionURL", DbType="VarChar(100)")]
+		public string ExceptionURL
+		{
+			get
+			{
+				return this._ExceptionURL;
+			}
+			set
+			{
+				if ((this._ExceptionURL != value))
+				{
+					this.OnExceptionURLChanging(value);
+					this.SendPropertyChanging();
+					this._ExceptionURL = value;
+					this.SendPropertyChanged("ExceptionURL");
+					this.OnExceptionURLChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDIAccounts")]
+	public partial class tblEDIAccount : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idEDIAccount;
+		
+		private string _AccountNumber;
+		
+		private int _idRequest;
+		
+		private int _idEDITranscation;
+		
+		private string _EDITranscationType;
+		
+		private string _Category;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntityRef<tblEDITranscation> _tblEDITranscation;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidEDIAccountChanging(int value);
+    partial void OnidEDIAccountChanged();
+    partial void OnAccountNumberChanging(string value);
+    partial void OnAccountNumberChanged();
+    partial void OnidRequestChanging(int value);
+    partial void OnidRequestChanged();
+    partial void OnidEDITranscationChanging(int value);
+    partial void OnidEDITranscationChanged();
+    partial void OnEDITranscationTypeChanging(string value);
+    partial void OnEDITranscationTypeChanged();
+    partial void OnCategoryChanging(string value);
+    partial void OnCategoryChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblEDIAccount()
+		{
+			this._tblEDITranscation = default(EntityRef<tblEDITranscation>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDIAccount", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idEDIAccount
+		{
+			get
+			{
+				return this._idEDIAccount;
+			}
+			set
+			{
+				if ((this._idEDIAccount != value))
+				{
+					this.OnidEDIAccountChanging(value);
+					this.SendPropertyChanging();
+					this._idEDIAccount = value;
+					this.SendPropertyChanged("idEDIAccount");
+					this.OnidEDIAccountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AccountNumber", DbType="VarChar(50)")]
+		public string AccountNumber
+		{
+			get
+			{
+				return this._AccountNumber;
+			}
+			set
+			{
+				if ((this._AccountNumber != value))
+				{
+					this.OnAccountNumberChanging(value);
+					this.SendPropertyChanging();
+					this._AccountNumber = value;
+					this.SendPropertyChanged("AccountNumber");
+					this.OnAccountNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					this.OnidRequestChanging(value);
+					this.SendPropertyChanging();
+					this._idRequest = value;
+					this.SendPropertyChanged("idRequest");
+					this.OnidRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscation", DbType="Int NOT NULL")]
+		public int idEDITranscation
+		{
+			get
+			{
+				return this._idEDITranscation;
+			}
+			set
+			{
+				if ((this._idEDITranscation != value))
+				{
+					if (this._tblEDITranscation.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEDITranscationChanging(value);
+					this.SendPropertyChanging();
+					this._idEDITranscation = value;
+					this.SendPropertyChanged("idEDITranscation");
+					this.OnidEDITranscationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDITranscationType", DbType="VarChar(50)")]
+		public string EDITranscationType
+		{
+			get
+			{
+				return this._EDITranscationType;
+			}
+			set
+			{
+				if ((this._EDITranscationType != value))
+				{
+					this.OnEDITranscationTypeChanging(value);
+					this.SendPropertyChanging();
+					this._EDITranscationType = value;
+					this.SendPropertyChanged("EDITranscationType");
+					this.OnEDITranscationTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Category
+		{
+			get
+			{
+				return this._Category;
+			}
+			set
+			{
+				if ((this._Category != value))
+				{
+					this.OnCategoryChanging(value);
+					this.SendPropertyChanging();
+					this._Category = value;
+					this.SendPropertyChanged("Category");
+					this.OnCategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="NVarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDITranscation_tblEDIAccount", Storage="_tblEDITranscation", ThisKey="idEDITranscation", OtherKey="idEDITranscation", IsForeignKey=true)]
+		public tblEDITranscation tblEDITranscation
+		{
+			get
+			{
+				return this._tblEDITranscation.Entity;
+			}
+			set
+			{
+				tblEDITranscation previousValue = this._tblEDITranscation.Entity;
+				if (((previousValue != value) 
+							|| (this._tblEDITranscation.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblEDITranscation.Entity = null;
+						previousValue.tblEDIAccounts.Remove(this);
+					}
+					this._tblEDITranscation.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIAccounts.Add(this);
+						this._idEDITranscation = value.idEDITranscation;
+					}
+					else
+					{
+						this._idEDITranscation = default(int);
+					}
+					this.SendPropertyChanged("tblEDITranscation");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDITranscations")]
+	public partial class tblEDITranscation : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idEDITranscation;
+		
+		private int _idRequest;
+		
+		private int _idEDITranscationType;
+		
+		private int _TotalRequests;
+		
+		private System.Nullable<bool> _CombinePayer;
+		
+		private System.Nullable<bool> _BatchInvoices;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblEDIAccount> _tblEDIAccounts;
+		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
+		private EntityRef<tblDiscoveryRequest> _tblDiscoveryRequest;
+		
+		private EntityRef<tblEDITranscationType> _tblEDITranscationType;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidEDITranscationChanging(int value);
+    partial void OnidEDITranscationChanged();
+    partial void OnidRequestChanging(int value);
+    partial void OnidRequestChanged();
+    partial void OnidEDITranscationTypeChanging(int value);
+    partial void OnidEDITranscationTypeChanged();
+    partial void OnTotalRequestsChanging(int value);
+    partial void OnTotalRequestsChanged();
+    partial void OnCombinePayerChanging(System.Nullable<bool> value);
+    partial void OnCombinePayerChanged();
+    partial void OnBatchInvoicesChanging(System.Nullable<bool> value);
+    partial void OnBatchInvoicesChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblEDITranscation()
+		{
+			this._tblEDIAccounts = new EntitySet<tblEDIAccount>(new Action<tblEDIAccount>(this.attach_tblEDIAccounts), new Action<tblEDIAccount>(this.detach_tblEDIAccounts));
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
+			this._tblDiscoveryRequest = default(EntityRef<tblDiscoveryRequest>);
+			this._tblEDITranscationType = default(EntityRef<tblEDITranscationType>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscation", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idEDITranscation
+		{
+			get
+			{
+				return this._idEDITranscation;
+			}
+			set
+			{
+				if ((this._idEDITranscation != value))
+				{
+					this.OnidEDITranscationChanging(value);
+					this.SendPropertyChanging();
+					this._idEDITranscation = value;
+					this.SendPropertyChanged("idEDITranscation");
+					this.OnidEDITranscationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					if (this._tblDiscoveryRequest.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidRequestChanging(value);
+					this.SendPropertyChanging();
+					this._idRequest = value;
+					this.SendPropertyChanged("idRequest");
+					this.OnidRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscationType", DbType="Int NOT NULL")]
+		public int idEDITranscationType
+		{
+			get
+			{
+				return this._idEDITranscationType;
+			}
+			set
+			{
+				if ((this._idEDITranscationType != value))
+				{
+					if (this._tblEDITranscationType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEDITranscationTypeChanging(value);
+					this.SendPropertyChanging();
+					this._idEDITranscationType = value;
+					this.SendPropertyChanged("idEDITranscationType");
+					this.OnidEDITranscationTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalRequests", DbType="Int NOT NULL")]
+		public int TotalRequests
+		{
+			get
+			{
+				return this._TotalRequests;
+			}
+			set
+			{
+				if ((this._TotalRequests != value))
+				{
+					this.OnTotalRequestsChanging(value);
+					this.SendPropertyChanging();
+					this._TotalRequests = value;
+					this.SendPropertyChanged("TotalRequests");
+					this.OnTotalRequestsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CombinePayer", DbType="Bit")]
+		public System.Nullable<bool> CombinePayer
+		{
+			get
+			{
+				return this._CombinePayer;
+			}
+			set
+			{
+				if ((this._CombinePayer != value))
+				{
+					this.OnCombinePayerChanging(value);
+					this.SendPropertyChanging();
+					this._CombinePayer = value;
+					this.SendPropertyChanged("CombinePayer");
+					this.OnCombinePayerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BatchInvoices", DbType="Bit")]
+		public System.Nullable<bool> BatchInvoices
+		{
+			get
+			{
+				return this._BatchInvoices;
+			}
+			set
+			{
+				if ((this._BatchInvoices != value))
+				{
+					this.OnBatchInvoicesChanging(value);
+					this.SendPropertyChanging();
+					this._BatchInvoices = value;
+					this.SendPropertyChanged("BatchInvoices");
+					this.OnBatchInvoicesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="NVarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDITranscation_tblEDIAccount", Storage="_tblEDIAccounts", ThisKey="idEDITranscation", OtherKey="idEDITranscation")]
+		public EntitySet<tblEDIAccount> tblEDIAccounts
+		{
+			get
+			{
+				return this._tblEDIAccounts;
+			}
+			set
+			{
+				this._tblEDIAccounts.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDITranscation_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idEDITranscation", OtherKey="idEDITranscation")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblDiscoveryRequest_tblEDITranscation", Storage="_tblDiscoveryRequest", ThisKey="idRequest", OtherKey="idRequest", IsForeignKey=true)]
+		public tblDiscoveryRequest tblDiscoveryRequest
+		{
+			get
+			{
+				return this._tblDiscoveryRequest.Entity;
+			}
+			set
+			{
+				tblDiscoveryRequest previousValue = this._tblDiscoveryRequest.Entity;
+				if (((previousValue != value) 
+							|| (this._tblDiscoveryRequest.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblDiscoveryRequest.Entity = null;
+						previousValue.tblEDITranscations.Remove(this);
+					}
+					this._tblDiscoveryRequest.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDITranscations.Add(this);
+						this._idRequest = value.idRequest;
+					}
+					else
+					{
+						this._idRequest = default(int);
+					}
+					this.SendPropertyChanged("tblDiscoveryRequest");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDITranscationType_tblEDITranscation", Storage="_tblEDITranscationType", ThisKey="idEDITranscationType", OtherKey="idEDITranscationType", IsForeignKey=true)]
+		public tblEDITranscationType tblEDITranscationType
+		{
+			get
+			{
+				return this._tblEDITranscationType.Entity;
+			}
+			set
+			{
+				tblEDITranscationType previousValue = this._tblEDITranscationType.Entity;
+				if (((previousValue != value) 
+							|| (this._tblEDITranscationType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblEDITranscationType.Entity = null;
+						previousValue.tblEDITranscations.Remove(this);
+					}
+					this._tblEDITranscationType.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDITranscations.Add(this);
+						this._idEDITranscationType = value.idEDITranscationType;
+					}
+					else
+					{
+						this._idEDITranscationType = default(int);
+					}
+					this.SendPropertyChanged("tblEDITranscationType");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblEDIAccounts(tblEDIAccount entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblEDITranscation = this;
+		}
+		
+		private void detach_tblEDIAccounts(tblEDIAccount entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblEDITranscation = null;
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblEDITranscation = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblEDITranscation = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDITranscationType")]
 	public partial class tblEDITranscationType : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -16890,6 +17702,1293 @@ namespace DAL
 		{
 			this.SendPropertyChanging();
 			entity.tblEDITranscationType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblTriggerMechanism")]
+	public partial class tblTriggerMechanism : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idTriggerMechanism;
+		
+		private string _TriggerMechanism;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidTriggerMechanismChanging(int value);
+    partial void OnidTriggerMechanismChanged();
+    partial void OnTriggerMechanismChanging(string value);
+    partial void OnTriggerMechanismChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblTriggerMechanism()
+		{
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idTriggerMechanism", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idTriggerMechanism
+		{
+			get
+			{
+				return this._idTriggerMechanism;
+			}
+			set
+			{
+				if ((this._idTriggerMechanism != value))
+				{
+					this.OnidTriggerMechanismChanging(value);
+					this.SendPropertyChanging();
+					this._idTriggerMechanism = value;
+					this.SendPropertyChanged("idTriggerMechanism");
+					this.OnidTriggerMechanismChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TriggerMechanism", DbType="VarChar(100)")]
+		public string TriggerMechanism
+		{
+			get
+			{
+				return this._TriggerMechanism;
+			}
+			set
+			{
+				if ((this._TriggerMechanism != value))
+				{
+					this.OnTriggerMechanismChanging(value);
+					this.SendPropertyChanging();
+					this._TriggerMechanism = value;
+					this.SendPropertyChanged("TriggerMechanism");
+					this.OnTriggerMechanismChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblTriggerMechanism_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idTriggerMechanism", OtherKey="idTriggerMechanism")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblTriggerMechanism = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblTriggerMechanism = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblTiming")]
+	public partial class tblTiming : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idTiming;
+		
+		private string _Timing;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidTimingChanging(int value);
+    partial void OnidTimingChanged();
+    partial void OnTimingChanging(string value);
+    partial void OnTimingChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblTiming()
+		{
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idTiming", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idTiming
+		{
+			get
+			{
+				return this._idTiming;
+			}
+			set
+			{
+				if ((this._idTiming != value))
+				{
+					this.OnidTimingChanging(value);
+					this.SendPropertyChanging();
+					this._idTiming = value;
+					this.SendPropertyChanged("idTiming");
+					this.OnidTimingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timing", DbType="VarChar(100)")]
+		public string Timing
+		{
+			get
+			{
+				return this._Timing;
+			}
+			set
+			{
+				if ((this._Timing != value))
+				{
+					this.OnTimingChanging(value);
+					this.SendPropertyChanging();
+					this._Timing = value;
+					this.SendPropertyChanged("Timing");
+					this.OnTimingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblTiming_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idTiming", OtherKey="idTiming")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblTiming = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblTiming = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDIRecipReqs")]
+	public partial class tblEDIRecipReq : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idEDIRecipReqs;
+		
+		private int _idFileType;
+		
+		private string _X12_ISA;
+		
+		private string _X12_GS;
+		
+		private string _X12_Qualifier;
+		
+		private int _idCommunicationMethod;
+		
+		private string _FTPAddress;
+		
+		private string _UserName;
+		
+		private string _Password;
+		
+		private string _FolderPath;
+		
+		private string _Email;
+		
+		private int _idTriggerMechanism;
+		
+		private int _idTiming;
+		
+		private System.Nullable<System.DateTime> _TimeOfFile;
+		
+		private int _idStatusCodes;
+		
+		private int _idRequest;
+		
+		private int _idEDITranscation;
+		
+		private string _EDITranscationType;
+		
+		private string _Category;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntityRef<tblCommunicationMethod> _tblCommunicationMethod;
+		
+		private EntityRef<tblFileType> _tblFileType;
+		
+		private EntityRef<tblTiming> _tblTiming;
+		
+		private EntityRef<tblEDITranscation> _tblEDITranscation;
+		
+		private EntityRef<tblTriggerMechanism> _tblTriggerMechanism;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidEDIRecipReqsChanging(int value);
+    partial void OnidEDIRecipReqsChanged();
+    partial void OnidFileTypeChanging(int value);
+    partial void OnidFileTypeChanged();
+    partial void OnX12_ISAChanging(string value);
+    partial void OnX12_ISAChanged();
+    partial void OnX12_GSChanging(string value);
+    partial void OnX12_GSChanged();
+    partial void OnX12_QualifierChanging(string value);
+    partial void OnX12_QualifierChanged();
+    partial void OnidCommunicationMethodChanging(int value);
+    partial void OnidCommunicationMethodChanged();
+    partial void OnFTPAddressChanging(string value);
+    partial void OnFTPAddressChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    partial void OnFolderPathChanging(string value);
+    partial void OnFolderPathChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnidTriggerMechanismChanging(int value);
+    partial void OnidTriggerMechanismChanged();
+    partial void OnidTimingChanging(int value);
+    partial void OnidTimingChanged();
+    partial void OnTimeOfFileChanging(System.Nullable<System.DateTime> value);
+    partial void OnTimeOfFileChanged();
+    partial void OnidStatusCodesChanging(int value);
+    partial void OnidStatusCodesChanged();
+    partial void OnidRequestChanging(int value);
+    partial void OnidRequestChanged();
+    partial void OnidEDITranscationChanging(int value);
+    partial void OnidEDITranscationChanged();
+    partial void OnEDITranscationTypeChanging(string value);
+    partial void OnEDITranscationTypeChanged();
+    partial void OnCategoryChanging(string value);
+    partial void OnCategoryChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblEDIRecipReq()
+		{
+			this._tblCommunicationMethod = default(EntityRef<tblCommunicationMethod>);
+			this._tblFileType = default(EntityRef<tblFileType>);
+			this._tblTiming = default(EntityRef<tblTiming>);
+			this._tblEDITranscation = default(EntityRef<tblEDITranscation>);
+			this._tblTriggerMechanism = default(EntityRef<tblTriggerMechanism>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDIRecipReqs", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idEDIRecipReqs
+		{
+			get
+			{
+				return this._idEDIRecipReqs;
+			}
+			set
+			{
+				if ((this._idEDIRecipReqs != value))
+				{
+					this.OnidEDIRecipReqsChanging(value);
+					this.SendPropertyChanging();
+					this._idEDIRecipReqs = value;
+					this.SendPropertyChanged("idEDIRecipReqs");
+					this.OnidEDIRecipReqsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idFileType", DbType="Int NOT NULL")]
+		public int idFileType
+		{
+			get
+			{
+				return this._idFileType;
+			}
+			set
+			{
+				if ((this._idFileType != value))
+				{
+					if (this._tblFileType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidFileTypeChanging(value);
+					this.SendPropertyChanging();
+					this._idFileType = value;
+					this.SendPropertyChanged("idFileType");
+					this.OnidFileTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_X12_ISA", DbType="VarChar(50)")]
+		public string X12_ISA
+		{
+			get
+			{
+				return this._X12_ISA;
+			}
+			set
+			{
+				if ((this._X12_ISA != value))
+				{
+					this.OnX12_ISAChanging(value);
+					this.SendPropertyChanging();
+					this._X12_ISA = value;
+					this.SendPropertyChanged("X12_ISA");
+					this.OnX12_ISAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_X12_GS", DbType="VarChar(50)")]
+		public string X12_GS
+		{
+			get
+			{
+				return this._X12_GS;
+			}
+			set
+			{
+				if ((this._X12_GS != value))
+				{
+					this.OnX12_GSChanging(value);
+					this.SendPropertyChanging();
+					this._X12_GS = value;
+					this.SendPropertyChanged("X12_GS");
+					this.OnX12_GSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_X12_Qualifier", DbType="VarChar(50)")]
+		public string X12_Qualifier
+		{
+			get
+			{
+				return this._X12_Qualifier;
+			}
+			set
+			{
+				if ((this._X12_Qualifier != value))
+				{
+					this.OnX12_QualifierChanging(value);
+					this.SendPropertyChanging();
+					this._X12_Qualifier = value;
+					this.SendPropertyChanged("X12_Qualifier");
+					this.OnX12_QualifierChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idCommunicationMethod", DbType="Int NOT NULL")]
+		public int idCommunicationMethod
+		{
+			get
+			{
+				return this._idCommunicationMethod;
+			}
+			set
+			{
+				if ((this._idCommunicationMethod != value))
+				{
+					if (this._tblCommunicationMethod.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidCommunicationMethodChanging(value);
+					this.SendPropertyChanging();
+					this._idCommunicationMethod = value;
+					this.SendPropertyChanged("idCommunicationMethod");
+					this.OnidCommunicationMethodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FTPAddress", DbType="NVarChar(100)")]
+		public string FTPAddress
+		{
+			get
+			{
+				return this._FTPAddress;
+			}
+			set
+			{
+				if ((this._FTPAddress != value))
+				{
+					this.OnFTPAddressChanging(value);
+					this.SendPropertyChanging();
+					this._FTPAddress = value;
+					this.SendPropertyChanged("FTPAddress");
+					this.OnFTPAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="VarChar(50)")]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(50)")]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FolderPath", DbType="NVarChar(100)")]
+		public string FolderPath
+		{
+			get
+			{
+				return this._FolderPath;
+			}
+			set
+			{
+				if ((this._FolderPath != value))
+				{
+					this.OnFolderPathChanging(value);
+					this.SendPropertyChanging();
+					this._FolderPath = value;
+					this.SendPropertyChanged("FolderPath");
+					this.OnFolderPathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(100)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idTriggerMechanism", DbType="Int NOT NULL")]
+		public int idTriggerMechanism
+		{
+			get
+			{
+				return this._idTriggerMechanism;
+			}
+			set
+			{
+				if ((this._idTriggerMechanism != value))
+				{
+					if (this._tblTriggerMechanism.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidTriggerMechanismChanging(value);
+					this.SendPropertyChanging();
+					this._idTriggerMechanism = value;
+					this.SendPropertyChanged("idTriggerMechanism");
+					this.OnidTriggerMechanismChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idTiming", DbType="Int NOT NULL")]
+		public int idTiming
+		{
+			get
+			{
+				return this._idTiming;
+			}
+			set
+			{
+				if ((this._idTiming != value))
+				{
+					if (this._tblTiming.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidTimingChanging(value);
+					this.SendPropertyChanging();
+					this._idTiming = value;
+					this.SendPropertyChanged("idTiming");
+					this.OnidTimingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeOfFile", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TimeOfFile
+		{
+			get
+			{
+				return this._TimeOfFile;
+			}
+			set
+			{
+				if ((this._TimeOfFile != value))
+				{
+					this.OnTimeOfFileChanging(value);
+					this.SendPropertyChanging();
+					this._TimeOfFile = value;
+					this.SendPropertyChanged("TimeOfFile");
+					this.OnTimeOfFileChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idStatusCodes", DbType="Int NOT NULL")]
+		public int idStatusCodes
+		{
+			get
+			{
+				return this._idStatusCodes;
+			}
+			set
+			{
+				if ((this._idStatusCodes != value))
+				{
+					this.OnidStatusCodesChanging(value);
+					this.SendPropertyChanging();
+					this._idStatusCodes = value;
+					this.SendPropertyChanged("idStatusCodes");
+					this.OnidStatusCodesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					this.OnidRequestChanging(value);
+					this.SendPropertyChanging();
+					this._idRequest = value;
+					this.SendPropertyChanged("idRequest");
+					this.OnidRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscation", DbType="Int NOT NULL")]
+		public int idEDITranscation
+		{
+			get
+			{
+				return this._idEDITranscation;
+			}
+			set
+			{
+				if ((this._idEDITranscation != value))
+				{
+					if (this._tblEDITranscation.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEDITranscationChanging(value);
+					this.SendPropertyChanging();
+					this._idEDITranscation = value;
+					this.SendPropertyChanged("idEDITranscation");
+					this.OnidEDITranscationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDITranscationType", DbType="VarChar(50)")]
+		public string EDITranscationType
+		{
+			get
+			{
+				return this._EDITranscationType;
+			}
+			set
+			{
+				if ((this._EDITranscationType != value))
+				{
+					this.OnEDITranscationTypeChanging(value);
+					this.SendPropertyChanging();
+					this._EDITranscationType = value;
+					this.SendPropertyChanged("EDITranscationType");
+					this.OnEDITranscationTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Category
+		{
+			get
+			{
+				return this._Category;
+			}
+			set
+			{
+				if ((this._Category != value))
+				{
+					this.OnCategoryChanging(value);
+					this.SendPropertyChanging();
+					this._Category = value;
+					this.SendPropertyChanged("Category");
+					this.OnCategoryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="NVarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblCommunicationMethod_tblEDIRecipReq", Storage="_tblCommunicationMethod", ThisKey="idCommunicationMethod", OtherKey="idCommunicationMethod", IsForeignKey=true)]
+		public tblCommunicationMethod tblCommunicationMethod
+		{
+			get
+			{
+				return this._tblCommunicationMethod.Entity;
+			}
+			set
+			{
+				tblCommunicationMethod previousValue = this._tblCommunicationMethod.Entity;
+				if (((previousValue != value) 
+							|| (this._tblCommunicationMethod.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblCommunicationMethod.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblCommunicationMethod.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idCommunicationMethod = value.idCommunicationMethod;
+					}
+					else
+					{
+						this._idCommunicationMethod = default(int);
+					}
+					this.SendPropertyChanged("tblCommunicationMethod");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFileType_tblEDIRecipReq", Storage="_tblFileType", ThisKey="idFileType", OtherKey="idFileType", IsForeignKey=true)]
+		public tblFileType tblFileType
+		{
+			get
+			{
+				return this._tblFileType.Entity;
+			}
+			set
+			{
+				tblFileType previousValue = this._tblFileType.Entity;
+				if (((previousValue != value) 
+							|| (this._tblFileType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblFileType.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblFileType.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idFileType = value.idFileType;
+					}
+					else
+					{
+						this._idFileType = default(int);
+					}
+					this.SendPropertyChanged("tblFileType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblTiming_tblEDIRecipReq", Storage="_tblTiming", ThisKey="idTiming", OtherKey="idTiming", IsForeignKey=true)]
+		public tblTiming tblTiming
+		{
+			get
+			{
+				return this._tblTiming.Entity;
+			}
+			set
+			{
+				tblTiming previousValue = this._tblTiming.Entity;
+				if (((previousValue != value) 
+							|| (this._tblTiming.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblTiming.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblTiming.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idTiming = value.idTiming;
+					}
+					else
+					{
+						this._idTiming = default(int);
+					}
+					this.SendPropertyChanged("tblTiming");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblEDITranscation_tblEDIRecipReq", Storage="_tblEDITranscation", ThisKey="idEDITranscation", OtherKey="idEDITranscation", IsForeignKey=true)]
+		public tblEDITranscation tblEDITranscation
+		{
+			get
+			{
+				return this._tblEDITranscation.Entity;
+			}
+			set
+			{
+				tblEDITranscation previousValue = this._tblEDITranscation.Entity;
+				if (((previousValue != value) 
+							|| (this._tblEDITranscation.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblEDITranscation.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblEDITranscation.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idEDITranscation = value.idEDITranscation;
+					}
+					else
+					{
+						this._idEDITranscation = default(int);
+					}
+					this.SendPropertyChanged("tblEDITranscation");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblTriggerMechanism_tblEDIRecipReq", Storage="_tblTriggerMechanism", ThisKey="idTriggerMechanism", OtherKey="idTriggerMechanism", IsForeignKey=true)]
+		public tblTriggerMechanism tblTriggerMechanism
+		{
+			get
+			{
+				return this._tblTriggerMechanism.Entity;
+			}
+			set
+			{
+				tblTriggerMechanism previousValue = this._tblTriggerMechanism.Entity;
+				if (((previousValue != value) 
+							|| (this._tblTriggerMechanism.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblTriggerMechanism.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblTriggerMechanism.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idTriggerMechanism = value.idTriggerMechanism;
+					}
+					else
+					{
+						this._idTriggerMechanism = default(int);
+					}
+					this.SendPropertyChanged("tblTriggerMechanism");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

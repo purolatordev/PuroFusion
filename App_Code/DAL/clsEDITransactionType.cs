@@ -38,4 +38,13 @@ public static class SrvEDITransactionType
                                             .ToList();
         return qShipMeth;
     }
+    public static List<clsEDITransactionType> GetEDITransactionTypes(int idEDITranscationType)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsEDITransactionType> qShipMeth = o.GetTable<tblEDITranscationType>()
+                                            .Select(p => new clsEDITransactionType() { idEDITranscationType = p.idEDITranscationType, EDITranscationType = p.EDITranscationType, Category = p.Category, CategoryID = p.CategoryID, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Where(f => f.idEDITranscationType == idEDITranscationType)
+                                            .ToList();
+        return qShipMeth;
+    }
 }

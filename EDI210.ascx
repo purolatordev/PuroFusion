@@ -26,14 +26,11 @@
     }
     
 </style>
-<%--<hr />--%>
 <telerik:RadPanelBar RenderMode="Lightweight" ID="RadPanelBar1" runat="server" Visible="true" Width="100%">
     <Items>
         <telerik:RadPanelItem  Expanded="True">
             <ContentTemplate>
                 <table>
-<%--                    <caption>
-                        <asp:Label ID="lblHeading" runat="server" Visible="true" ForeColor="Red"></asp:Label></caption>--%>
                     <tr>
                         <td class="Column1"></td>
                         <td class="Column2">File Format

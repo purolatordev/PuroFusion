@@ -16,7 +16,8 @@ public partial class EDI214 : System.Web.UI.UserControl
         SetFileFormatControls();
         SetCommunicationMethodControls();
         SetTimeOfFileControls();
-        lblHeading.Text = "Shipment Status Recipient num: " + (Params.iRecordID + 1).ToString();
+        RadPanelBar1.Items[0].Text = "Record num: " + (Params.iRecordID + 1).ToString();
+        RadPanelBar1.Items[0].Expanded = false;
     }
     protected void Page_Init(object sender, EventArgs e)
     {

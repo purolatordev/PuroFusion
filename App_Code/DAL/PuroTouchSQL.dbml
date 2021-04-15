@@ -150,6 +150,7 @@
       <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblFileType_tblEDIRecipReq" Member="tblEDIRecipReqs" ThisKey="idFileType" OtherKey="idFileType" Type="tblEDIRecipReq" />
     </Type>
   </Table>
   <Table Name="dbo.tblEDISolutions" Member="tblEDISolutions">
@@ -228,6 +229,7 @@
       <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblCommunicationMethod_tblEDIRecipReq" Member="tblEDIRecipReqs" ThisKey="idCommunicationMethod" OtherKey="idCommunicationMethod" Type="tblEDIRecipReq" />
     </Type>
   </Table>
   <Table Name="dbo.tblShippingServices" Member="tblShippingServices">
@@ -602,20 +604,6 @@
       <Association Name="tblDiscoveryRequest_tblEDIShipMethod" Member="tblDiscoveryRequest" ThisKey="idRequest" OtherKey="idRequest" Type="tblDiscoveryRequest" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tblEDITranscations" Member="tblEDITranscations">
-    <Type Name="tblEDITranscation">
-      <Column Name="idEDITranscation" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="idEDITranscationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="tblDiscoveryRequest_tblEDITranscation" Member="tblDiscoveryRequest" ThisKey="idRequest" OtherKey="idRequest" Type="tblDiscoveryRequest" IsForeignKey="true" />
-      <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscationType" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscationType" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tblEDISpecialist" Member="tblEDISpecialists">
     <Type Name="tblEDISpecialist">
       <Column Name="idEDISpecialist" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -841,6 +829,53 @@
       <Association Name="tblEDIOnboardingPhase_tblDiscoveryRequest" Member="tblDiscoveryRequests" ThisKey="idEDIOnboardingPhase" OtherKey="idEDIOnboardingPhase" Type="tblDiscoveryRequest" />
     </Type>
   </Table>
+  <Table Name="dbo.tblExceptionLogging" Member="tblExceptionLoggings">
+    <Type Name="tblExceptionLogging">
+      <Column Name="Logid" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Method" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ExceptionMsg" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ExceptionType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ExceptionSource" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ExceptionURL" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEDIAccounts" Member="tblEDIAccounts">
+    <Type Name="tblEDIAccount">
+      <Column Name="idEDIAccount" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idEDITranscation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EDITranscationType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblEDITranscation_tblEDIAccount" Member="tblEDITranscation" ThisKey="idEDITranscation" OtherKey="idEDITranscation" Type="tblEDITranscation" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEDITranscations" Member="tblEDITranscations">
+    <Type Name="tblEDITranscation">
+      <Column Name="idEDITranscation" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idEDITranscationType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalRequests" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CombinePayer" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="BatchInvoices" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblEDITranscation_tblEDIAccount" Member="tblEDIAccounts" ThisKey="idEDITranscation" OtherKey="idEDITranscation" Type="tblEDIAccount" />
+      <Association Name="tblEDITranscation_tblEDIRecipReq" Member="tblEDIRecipReqs" ThisKey="idEDITranscation" OtherKey="idEDITranscation" Type="tblEDIRecipReq" />
+      <Association Name="tblDiscoveryRequest_tblEDITranscation" Member="tblDiscoveryRequest" ThisKey="idRequest" OtherKey="idRequest" Type="tblDiscoveryRequest" IsForeignKey="true" />
+      <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscationType" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscationType" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.tblEDITranscationType" Member="tblEDITranscationTypes">
     <Type Name="tblEDITranscationType">
       <Column Name="idEDITranscationType" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -853,6 +888,63 @@
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="tblEDITranscationType_tblEDITranscation" Member="tblEDITranscations" ThisKey="idEDITranscationType" OtherKey="idEDITranscationType" Type="tblEDITranscation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblTriggerMechanism" Member="tblTriggerMechanisms">
+    <Type Name="tblTriggerMechanism">
+      <Column Name="idTriggerMechanism" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TriggerMechanism" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblTriggerMechanism_tblEDIRecipReq" Member="tblEDIRecipReqs" ThisKey="idTriggerMechanism" OtherKey="idTriggerMechanism" Type="tblEDIRecipReq" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblTiming" Member="tblTimings">
+    <Type Name="tblTiming">
+      <Column Name="idTiming" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Timing" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblTiming_tblEDIRecipReq" Member="tblEDIRecipReqs" ThisKey="idTiming" OtherKey="idTiming" Type="tblEDIRecipReq" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblEDIRecipReqs" Member="tblEDIRecipReqs">
+    <Type Name="tblEDIRecipReq">
+      <Column Name="idEDIRecipReqs" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idFileType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="X12_ISA" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="X12_GS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="X12_Qualifier" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="idCommunicationMethod" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FTPAddress" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FolderPath" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="idTriggerMechanism" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idTiming" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TimeOfFile" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idStatusCodes" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idEDITranscation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EDITranscationType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblCommunicationMethod_tblEDIRecipReq" Member="tblCommunicationMethod" ThisKey="idCommunicationMethod" OtherKey="idCommunicationMethod" Type="tblCommunicationMethod" IsForeignKey="true" />
+      <Association Name="tblFileType_tblEDIRecipReq" Member="tblFileType" ThisKey="idFileType" OtherKey="idFileType" Type="tblFileType" IsForeignKey="true" />
+      <Association Name="tblTiming_tblEDIRecipReq" Member="tblTiming" ThisKey="idTiming" OtherKey="idTiming" Type="tblTiming" IsForeignKey="true" />
+      <Association Name="tblEDITranscation_tblEDIRecipReq" Member="tblEDITranscation" ThisKey="idEDITranscation" OtherKey="idEDITranscation" Type="tblEDITranscation" IsForeignKey="true" />
+      <Association Name="tblTriggerMechanism_tblEDIRecipReq" Member="tblTriggerMechanism" ThisKey="idTriggerMechanism" OtherKey="idTriggerMechanism" Type="tblTriggerMechanism" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

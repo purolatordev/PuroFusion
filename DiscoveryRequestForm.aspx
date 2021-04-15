@@ -3056,12 +3056,11 @@
                             <telerik:RadGrid ID="gridEDI210Accounts" runat="server" AllowPaging="True"
                                 AllowSorting="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
-                                OnNeedDataSource="gridEDITransactions_NeedDataSource" OnDeleteCommand="gridEDITransactions_DeleteCommand"
-                                OnItemDataBound="gridEDITransactions_ItemDataBound" OnUpdateCommand="gridEDITransactions_UpdateCommand"
-                                OnItemCommand="gridEDITransactions_ItemCommand">
-                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDITranscation" CommandItemDisplay="Top">
+                                OnNeedDataSource="gridEDI210Accounts_NeedDataSource" OnDeleteCommand="gridEDI210Accounts_DeleteCommand"
+                                OnItemDataBound="gridEDI210Accounts_ItemDataBound"   OnItemCommand="gridEDI210Accounts_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIAccount" CommandItemDisplay="Top">
                                     <Columns>
-                                        <telerik:GridBoundColumn DataField="EDITranscationType" FilterControlAltText="EDITranscationType" SortExpression="Team" HeaderText="Account Number" UniqueName="EDITranscationType">
+                                        <telerik:GridBoundColumn DataField="AccountNumber" FilterControlAltText="AccountNumber" SortExpression="Team" HeaderText="Account Number" UniqueName="AccountNumber">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
                                         </telerik:GridButtonColumn>
@@ -3069,13 +3068,12 @@
                                     <EditFormSettings EditFormType="Template">
                                         <EditColumn UniqueName="EditColumn"></EditColumn>
                                         <FormTemplate>
-                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 50px" border="0">
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Transaction Requested</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
-                                                        <telerik:RadDropDownList ID="radListEDITransList" runat="server" OnSelectedIndexChanged="radListEDITransIdxChanged" DefaultMessage="Select EDI Trans Req" AutoPostBack="true" ToolTip="Select Your Ship Method" Visible="true" Width="280px">
-                                                        </telerik:RadDropDownList>
+                                                        <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
                                                     </td>
                                                     <td style="height: 20px"></td>
                                                 </tr>
@@ -3111,12 +3109,11 @@
                             <telerik:RadGrid ID="gridEDI214Accounts" runat="server" AllowPaging="True"
                                 AllowSorting="false" AllowFilteringByColumn="false"
                                 AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
-                                OnNeedDataSource="gridShipmentMethods_NeedDataSource" OnDeleteCommand="gridShipmentMethods_DeleteCommand"
-                                OnItemDataBound="gridShipmentMethods_ItemDataBound" OnUpdateCommand="gridShipmentMethods_UpdateCommand"
-                                OnItemCommand="gridShipmentMethods_ItemCommand">
-                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIShipMethod" CommandItemDisplay="Top">
+                                OnNeedDataSource="gridEDI214Accounts_NeedDataSource" OnDeleteCommand="gridEDI214Accounts_DeleteCommand"
+                                OnItemDataBound="gridEDI214Accounts_ItemDataBound"   OnItemCommand="gridEDI214Accounts_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIAccount" CommandItemDisplay="Top">
                                     <Columns>
-                                        <telerik:GridBoundColumn DataField="MethodType" FilterControlAltText="MethodType" SortExpression="Team" HeaderText="Account Number" UniqueName="MethodType">
+                                        <telerik:GridBoundColumn DataField="AccountNumber" FilterControlAltText="AccountNumber" SortExpression="Team" HeaderText="Account Number" UniqueName="AccountNumber">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
                                         </telerik:GridButtonColumn>
@@ -3124,13 +3121,12 @@
                                     <EditFormSettings EditFormType="Template">
                                         <EditColumn UniqueName="EditColumn"></EditColumn>
                                         <FormTemplate>
-                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 50px" border="0">
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Shipment Method</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
-                                                        <telerik:RadDropDownList ID="radListEDIShipMethod" runat="server" OnSelectedIndexChanged="radListEDIShipMethodIdxChanged" DefaultMessage="Select EDI Ship Method" AutoPostBack="true" ToolTip="Select Your Ship Method" Visible="true" Width="280px">
-                                                        </telerik:RadDropDownList>
+                                                        <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
                                                     </td>
                                                     <td style="height: 20px"></td>
                                                 </tr>
@@ -3197,7 +3193,7 @@
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="RadNumericTextBox1" Width="50px" Value="2" OnTextChanged="txtBxNumberRecipients210_TextChanged" AutoPostBack="true" MinValue="0" ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txtBxNumberRecipients210" Width="50px" Value="2" OnTextChanged="txtBxNumberRecipients210_TextChanged" AutoPostBack="true" MinValue="0" ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
                             <telerik:RadButton ID="btnAdd210" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
                         </td>
                         <td style="width: 10px"></td>

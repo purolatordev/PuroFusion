@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using context = System.Web.HttpContext;
 
 public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 {
@@ -23,22 +24,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     PuroTouchRepository repository = new PuroTouchRepository();
     Int16 ClosedID = Convert.ToInt16(ConfigurationManager.AppSettings["ClosedID"]);
     Int16 OnHoldID = Convert.ToInt16(ConfigurationManager.AppSettings["OnHoldID"]);
+    const int INVOICE_COURIER_EDI = 3;
+    const int SHIPMENT_STATUS_COURIER_EDI = 4;
 
-    
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]) )
         {
             Session["userName"] = "Scott.Cardinale";
             Session["appName"] = "PuroTouch";
             Session["userRole"] = "ITAdmin";
         }
-        UserControlParams p = new UserControlParams(int.Parse(RadNumericTextBox1.Text.ToString()));
-        UserControlParams p2 = new UserControlParams(int.Parse(txtBxNumberRecipients214.Text.ToString()));
-        AddAndRemoveDynamicControls(p);
-        AddAndRemoveDynamicControls2(p2);
-        SetCourierEDI210Controls();
-        SetCourierEDI214Controls();
 
         if (Session["userName"] == null)
             Response.Redirect("Default.aspx");
@@ -46,6 +42,28 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         string username = Session["userName"].ToString();
         if (username != null && Session["appName"] != null)
         {
+            string ID = Request.QueryString["requestID"];
+            if (!String.IsNullOrEmpty(ID))
+            {
+                clsEDITransaction EDIInvoiceTrans = SrvEDITransaction.GetAEDITransactionsByidRequest(Convert.ToInt32(ID), INVOICE_COURIER_EDI);
+                if (EDIInvoiceTrans != null)
+                {
+                    UserControlParams p = new UserControlParams((!IsPostBack) ? EDIInvoiceTrans.TotalRequests : int.Parse(txtBxNumberRecipients210.Text));
+                    if (!IsPostBack)
+                        txtBxNumberRecipients210.Text = EDIInvoiceTrans.TotalRequests.ToString();
+                    AddAndRemoveDynamicControls(p);
+                    SetCourierEDI210Controls();
+                }
+                clsEDITransaction EDIShipmentTrans = SrvEDITransaction.GetAEDITransactionsByidRequest(Convert.ToInt32(ID), SHIPMENT_STATUS_COURIER_EDI);
+                if (EDIShipmentTrans != null)
+                {
+                    UserControlParams p2 = new UserControlParams((!IsPostBack) ? EDIShipmentTrans.TotalRequests : int.Parse(txtBxNumberRecipients214.Text));
+                    if (!IsPostBack)
+                        txtBxNumberRecipients214.Text = EDIShipmentTrans.TotalRequests.ToString();
+                    AddAndRemoveDynamicControls2(p2);
+                    SetCourierEDI214Controls();
+                }
+            }
             if (!IsPostBack)
             {
                 //INITIAL DATA LOAD
@@ -1656,6 +1674,225 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     }
 
     #endregion
+    #region  EDI 210 Accounts grid
+    protected void gridEDI210Accounts_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        try
+        {
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            List<clsEDIAccount> EDI210AccountsList = SrvEDIAccount.GetEDIAccountByidRequest(requestID, INVOICE_COURIER_EDI);
+            if (EDI210AccountsList != null)
+            {
+                (sender as RadGrid).DataSource = EDI210AccountsList;
+                Session["EDI210AccountsList"] = EDI210AccountsList;
+            }
+            else
+                (sender as RadGrid).DataSource = new List<clsEDIAccount>();
+
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridEDI210Accounts_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+
+                //List<clsEDITransactionType> qTransType = SrvEDITransactionType.GetEDITransactionTypes();
+                //RadTextBox radTextBx = (RadTextBox)edit.FindControl("txtAccountNum");
+                //radTextBx.Text = "Hello";
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridEDI210Accounts_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadTextBox radTextBx = (RadTextBox)edit.FindControl("txtAccountNum");
+
+                int requestID = 0;
+                int.TryParse(Request.QueryString["requestID"], out requestID);
+
+                if (!String.IsNullOrEmpty(radTextBx.Text))
+                {
+                    clsEDIAccount EDIAcct = new clsEDIAccount()
+                    {
+                        AccountNumber = radTextBx.Text.ToString(),
+                        idRequest = requestID,
+                        idEDITranscationType = INVOICE_COURIER_EDI,
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    int inewID = 0;
+                    SrvEDIAccount.Insert(EDIAcct, out inewID);
+                    List<clsEDIAccount> EDI210AccountsList = SrvEDIAccount.GetEDIAccountByidRequest(requestID, INVOICE_COURIER_EDI);
+                    Session["EDI210AccountsList"] = EDI210AccountsList;
+                    gridEDI210Accounts.DataSource = EDI210AccountsList;
+                    gridEDI210Accounts.DataBind();
+                }
+                else
+                    e.Canceled = true;
+            }
+            RadMultiPage1.SelectedIndex = 6;
+            RadTabStrip1.Tabs[6].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void gridEDI210Accounts_DeleteCommand(object sender, GridCommandEventArgs e)
+    {
+        try
+        {
+            List<clsEDIAccount> EDI210AccountsList = (List<clsEDIAccount>)Session["EDI210AccountsList"];
+            int rownum = e.Item.ItemIndex;
+            clsEDIAccount currentrow = EDI210AccountsList[rownum];
+            SrvEDIAccount.Remove(currentrow.idEDIAccount);
+            EDI210AccountsList.Remove(currentrow);
+            Session["EDI210AccountsList"] = EDI210AccountsList;
+            gridEDI210Accounts.DataSource = EDI210AccountsList;
+            gridEDI210Accounts.Rebind();
+            RadMultiPage1.SelectedIndex = 6;
+            RadTabStrip1.Tabs[6].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    #endregion
+    #region  EDI 214 Accounts grid
+    protected void gridEDI214Accounts_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        try
+        {
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            List<clsEDIAccount> EDI214AccountsList = SrvEDIAccount.GetEDIAccountByidRequest(requestID, SHIPMENT_STATUS_COURIER_EDI);
+            if (EDI214AccountsList != null)
+            {
+                (sender as RadGrid).DataSource = EDI214AccountsList;
+                Session["EDI214AccountsList"] = EDI214AccountsList;
+            }
+            else
+                (sender as RadGrid).DataSource = new List<clsEDIAccount>();
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { Method = GetCurrentMethod(), ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now, CreatedBy = Session["userName"].ToString() };
+            SrvExceptionLogging.Insert(error, out lnewID);
+
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridEDI214Accounts_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+
+                //List<clsEDITransactionType> qTransType = SrvEDITransactionType.GetEDITransactionTypes();
+                //RadTextBox radTextBx = (RadTextBox)edit.FindControl("txtAccountNum");
+                //radTextBx.Text = "Hello";
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridEDI214Accounts_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadTextBox radTextBx = (RadTextBox)edit.FindControl("txtAccountNum");
+
+                int requestID = 0;
+                int.TryParse(Request.QueryString["requestID"], out requestID);
+
+                if (!String.IsNullOrEmpty(radTextBx.Text))
+                {
+                    clsEDIAccount EDIAcct = new clsEDIAccount()
+                    {
+                        AccountNumber = radTextBx.Text.ToString(),
+                        idRequest = requestID,
+                        idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI,
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    int inewID = 0;
+                    SrvEDIAccount.Insert(EDIAcct, out inewID);
+                    List<clsEDIAccount> EDI214AccountsList = SrvEDIAccount.GetEDIAccountByidRequest(requestID, SHIPMENT_STATUS_COURIER_EDI);
+                    Session["EDI214AccountsList"] = EDI214AccountsList;
+                    gridEDI214Accounts.DataSource = EDI214AccountsList;
+                    gridEDI214Accounts.DataBind();
+                }
+                else
+                    e.Canceled = true;
+            }
+            RadMultiPage1.SelectedIndex = 6;
+            RadTabStrip1.Tabs[6].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void gridEDI214Accounts_DeleteCommand(object sender, GridCommandEventArgs e)
+    {
+        try
+        {
+            List<clsEDIAccount> EDI214AccountsList = (List<clsEDIAccount>)Session["EDI214AccountsList"];
+            int rownum = e.Item.ItemIndex;
+            clsEDIAccount currentrow = EDI214AccountsList[rownum];
+            SrvEDIAccount.Remove(currentrow.idEDIAccount);
+            EDI214AccountsList.Remove(currentrow);
+            Session["EDI214AccountsList"] = EDI214AccountsList;
+            gridEDI214Accounts.DataSource = EDI214AccountsList;
+            gridEDI214Accounts.Rebind();
+            RadMultiPage1.SelectedIndex = 6;
+            RadTabStrip1.Tabs[6].Selected = true;
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    #endregion
 
     protected void displayExistingRequest(Int32 requestID)
     {
@@ -1870,6 +2107,34 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 rddlCourierInduction.SelectedText = "OTHER";
             }
+            //Courier EDI
+            clsEDITransaction EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_COURIER_EDI);
+            if (EDITrans != null)
+            {
+                comboBxCourierEDI210.SelectedText = "Yes";
+                if(EDITrans.CombinePayer.Value)
+                    comboxCombinepayer.SelectedText = "Yes";
+                else
+                    comboxCombinepayer.SelectedText = "No";
+                if (EDITrans.BatchInvoices.Value)
+                    comboBoxBatchInvoices.SelectedText = "Yes";
+                else
+                    comboBoxBatchInvoices.SelectedText = "No";
+
+                //txtBxNumberRecipients210.Text = EDITrans.TotalRequests.ToString();
+                //UserControlParams p = new UserControlParams(EDITrans.TotalRequests);
+                //AddAndRemoveDynamicControls(p);
+            }
+            else
+                comboBxCourierEDI210.SelectedText = "No";
+            SetCourierEDI210Controls();
+
+            if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, SHIPMENT_STATUS_COURIER_EDI) != null)
+                comboBxCourierEDI214.SelectedText = "Yes";
+            else
+                comboBxCourierEDI214.SelectedText = "No";
+            SetCourierEDI214Controls();
+
             //LTL
             txtLTLAccount.Text = details.LTLAcctNbr;
             txtLTLminPro.Text = details.LTLMinProNbr;
@@ -3053,6 +3318,34 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     lblDanger.Text = msg;
                     pnlDanger.Visible = true;
                 }
+            }
+        }
+        if (msg == "")
+        {
+            // INSERT or update Courier EDI
+            Int32 newEDIID = 0;
+            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+            if (comboBxCourierEDI210.SelectedText == "Yes")
+            {
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_COURIER_EDI, TotalRequests = int.Parse(txtBxNumberRecipients210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                data.CombinePayer = comboxCombinepayer.SelectedText.Contains("Yes") ? true : false;
+                data.BatchInvoices = comboBoxBatchInvoices.SelectedText.Contains("Yes") ? true : false;
+                SrvEDITransaction.Insert(data,out newEDIID);
+            }
+            else
+            {
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_COURIER_EDI, TotalRequests = int.Parse(txtBxNumberRecipients210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                SrvEDITransaction.Remove(data);
+            }
+            if (comboBxCourierEDI214.SelectedText == "Yes")
+            {
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, TotalRequests = int.Parse(txtBxNumberRecipients214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                SrvEDITransaction.Insert(data, out newEDIID);
+            }
+            else
+            {
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, TotalRequests = int.Parse(txtBxNumberRecipients214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                SrvEDITransaction.Remove(data);
             }
         }
         //SEND EMAIL TO ITBA IF NEW OR CHANGED
@@ -4587,7 +4880,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblCombinepayer.Visible = true;
             comboBoxBatchInvoices.Visible = true;
             lblBatchInvoices.Visible = true;
-            RadNumericTextBox1.Visible = true;
+            txtBxNumberRecipients210.Visible = true;
             lbl210InvoiceRecipients.Visible = true;
             btnAdd210.Visible = true;
             ph1.Visible = true;
@@ -4601,7 +4894,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblCombinepayer.Visible = false;
             comboBoxBatchInvoices.Visible = false;
             lblBatchInvoices.Visible = false;
-            RadNumericTextBox1.Visible = false;
+            txtBxNumberRecipients210.Visible = false;
             lbl210InvoiceRecipients.Visible = false;
             btnAdd210.Visible = false;
             ph1.Visible = false;
