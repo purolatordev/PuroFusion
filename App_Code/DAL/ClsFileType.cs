@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DAL;
+//using context = System.Web.HttpContext;
 
 /// <summary>
 /// Summary description for ClsFileType
@@ -15,4 +17,18 @@ public class ClsFileType
     public string CreatedBy { get; set; }
     public DateTime? CreatedOn { get; set; }
     public bool? ActiveFlag { get; set; }
+}
+public static class SrvFileType
+{
+    public static List<ClsFileType> GetFileTypes()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<ClsFileType> qFileTypes = o.GetTable<tblFileType>()
+                                            .Where(p=> p.ActiveFlag == true)
+                                            .Select(p => new ClsFileType() { idFileType = p.idFileType, FileType = p.FileType,  ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .ToList();
+
+        return qFileTypes;
+    }
+
 }

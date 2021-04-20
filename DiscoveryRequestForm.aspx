@@ -3193,7 +3193,7 @@
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadNumericTextBox RenderMode="Lightweight" runat="server" ID="txtBxNumberRecipients210" Width="50px" Value="2" OnTextChanged="txtBxNumberRecipients210_TextChanged" AutoPostBack="true" MinValue="0" ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat ="server" ID="txtBxNumberRecipients210" Width="50px" OnTextChanged="txtBxNumberRecipients210_TextChanged" AutoPostBack="true"  ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
                             <telerik:RadButton ID="btnAdd210" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
                         </td>
                         <td style="width: 10px"></td>
@@ -3202,7 +3202,7 @@
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadTextBox ID="txtBxNumberRecipients214" runat="server" MaxLength="10" Text='2' Width="50px" OnTextChanged="txtBxNumberRecipients214_TextChanged" AutoPostBack="true" ToolTip="Enter Number of Invoice Recipients Requested" />
+                            <telerik:RadTextBox ID="txtBxNumberRecipients214" MinValue="0" MaxValue="10" runat="server" MaxLength="10" Width="50px" OnTextChanged="txtBxNumberRecipients214_TextChanged" AutoPostBack="true" ToolTip="Enter Number of Invoice Recipients Requested" />
                             <telerik:RadButton ID="btnAdd214" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
                         </td>
                     </tr>

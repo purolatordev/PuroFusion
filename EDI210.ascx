@@ -38,11 +38,6 @@
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboBxFileFormat" runat="server" Visible="true" Width="110px" AutoPostBack="True" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged">
-                                <Items>
-                                    <telerik:DropDownListItem Value="CSV" Text="CSV" Selected="true" />
-                                    <telerik:DropDownListItem Value="Flat" Text="Flat" />
-                                    <telerik:DropDownListItem Value="X12" Text="X12" />
-                                </Items>
                             </telerik:RadDropDownList>
                         </td>
                     </tr>
@@ -57,7 +52,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxISA" runat="server" MaxLength="100" Text='sample isa' Width="110px" ToolTip="Enter ISA" />
+                            <telerik:RadTextBox ID="txtBoxISA" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter ISA" />
                         </td>
                     </tr>
                     <tr>
@@ -67,7 +62,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxGS" runat="server" MaxLength="100" Text='sample GS' Width="110px" ToolTip="Enter GS" />
+                            <telerik:RadTextBox ID="txtBoxGS" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter GS" />
                         </td>
                     </tr>
                     <tr>
@@ -77,7 +72,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxQualifier" runat="server" MaxLength="100" Text='sample Qualifier' Width="110px" ToolTip="Enter Qualifier" />
+                            <telerik:RadTextBox ID="txtBoxQualifier" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter Qualifier" />
                         </td>
                     </tr>
                     <tr>
@@ -86,14 +81,6 @@
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboxCommunicationMethod" runat="server" Visible="true" Width="110px" AutoPostBack="True" OnSelectedIndexChanged="CommunicationMethod_SelectedIndexChanged">
-                                <Items>
-                                    <telerik:DropDownListItem Value="Internal FTP" Text="Internal FTP" Selected="true" />
-                                    <telerik:DropDownListItem Value="External FTP" Text="External FTP" />
-                                    <telerik:DropDownListItem Value="Internal SFTP" Text="Internal SFTP" />
-                                    <telerik:DropDownListItem Value="External SFTP" Text="External SFTP" />
-                                    <telerik:DropDownListItem Value="Email" Text="Email" />
-                                    <telerik:DropDownListItem Value="AS2" Text="AS2" />
-                                </Items>
                             </telerik:RadDropDownList>
                         </td>
                     </tr>
@@ -108,7 +95,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftLargest">
-                            <telerik:RadTextBox ID="textBoxFTPAddress" runat="server" MaxLength="225" Text='sample FTP Address' Width="225px" ToolTip="Enter FTP Address" />
+                            <telerik:RadTextBox ID="textBoxFTPAddress" runat="server" MaxLength="225" Width="225px" ToolTip="Enter FTP Address" />
                         </td>
                     </tr>
                     <tr>
@@ -118,7 +105,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="textBoxUserName" runat="server" MaxLength="100" Text='sample User Name' Width="110px" ToolTip="Enter User Name" />
+                            <telerik:RadTextBox ID="textBoxUserName" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter User Name" />
                         </td>
                     </tr>
                     <tr>
@@ -128,7 +115,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="textBoxPassword" runat="server" MaxLength="100" Text='sample Password' Width="110px" ToolTip="Enter Password" />
+                            <telerik:RadTextBox ID="textBoxPassword" runat="server" MaxLength="100" Width="110px" ToolTip="Enter Password" />
                         </td>
                     </tr>
                     <tr>
@@ -138,7 +125,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftLargest">
-                            <telerik:RadTextBox ID="textBoxFolderPath" runat="server" MaxLength="225" Text='sample Folder Path' Width="225px" ToolTip="Enter Folder Path" />
+                            <telerik:RadTextBox ID="textBoxFolderPath" runat="server" MaxLength="225" Width="225px" ToolTip="Enter Folder Path" />
                         </td>
                     </tr>
                     <tr>
@@ -152,7 +139,12 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftLargest">
-                            <telerik:RadTextBox ID="textBoxEmail" runat="server" MaxLength="225" Text='sample Email' Width="225px" ToolTip="Enter Email" />
+                            <telerik:RadTextBox ID="textBoxEmail" runat="server" MaxLength="225" Width="225px" ToolTip="Enter Email" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" >
+                            <telerik:RadButton ID="btnSubmitChanges" CausesValidation="true" runat="server" Text="Save Changes" OnClick="btnSubmit210Changes_Click" AutoPostBack="true" Enabled="true" />
                         </td>
                     </tr>
                 </table>

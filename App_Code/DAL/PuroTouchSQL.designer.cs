@@ -162,6 +162,9 @@ namespace DAL
     partial void InserttblTiming(tblTiming instance);
     partial void UpdatetblTiming(tblTiming instance);
     partial void DeletetblTiming(tblTiming instance);
+    partial void InserttblStatusCode(tblStatusCode instance);
+    partial void UpdatetblStatusCode(tblStatusCode instance);
+    partial void DeletetblStatusCode(tblStatusCode instance);
     partial void InserttblEDIRecipReq(tblEDIRecipReq instance);
     partial void UpdatetblEDIRecipReq(tblEDIRecipReq instance);
     partial void DeletetblEDIRecipReq(tblEDIRecipReq instance);
@@ -650,6 +653,14 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblTiming>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblStatusCode> tblStatusCodes
+		{
+			get
+			{
+				return this.GetTable<tblStatusCode>();
 			}
 		}
 		
@@ -18173,6 +18184,240 @@ namespace DAL
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblStatusCodes")]
+	public partial class tblStatusCode : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idStatusCodes;
+		
+		private string _StatusCode;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidStatusCodesChanging(int value);
+    partial void OnidStatusCodesChanged();
+    partial void OnStatusCodeChanging(string value);
+    partial void OnStatusCodeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblStatusCode()
+		{
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idStatusCodes", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idStatusCodes
+		{
+			get
+			{
+				return this._idStatusCodes;
+			}
+			set
+			{
+				if ((this._idStatusCodes != value))
+				{
+					this.OnidStatusCodesChanging(value);
+					this.SendPropertyChanging();
+					this._idStatusCodes = value;
+					this.SendPropertyChanged("idStatusCodes");
+					this.OnidStatusCodesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusCode", DbType="VarChar(100)")]
+		public string StatusCode
+		{
+			get
+			{
+				return this._StatusCode;
+			}
+			set
+			{
+				if ((this._StatusCode != value))
+				{
+					this.OnStatusCodeChanging(value);
+					this.SendPropertyChanging();
+					this._StatusCode = value;
+					this.SendPropertyChanged("StatusCode");
+					this.OnStatusCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblStatusCode_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idStatusCodes", OtherKey="idStatusCodes")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblStatusCode = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblStatusCode = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblEDIRecipReqs")]
 	public partial class tblEDIRecipReq : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -18180,6 +18425,12 @@ namespace DAL
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _idEDIRecipReqs;
+		
+		private int _RecipReqNum;
+		
+		private int _idRequest;
+		
+		private int _idEDITranscation;
 		
 		private int _idFileType;
 		
@@ -18209,10 +18460,6 @@ namespace DAL
 		
 		private int _idStatusCodes;
 		
-		private int _idRequest;
-		
-		private int _idEDITranscation;
-		
 		private string _EDITranscationType;
 		
 		private string _Category;
@@ -18231,6 +18478,8 @@ namespace DAL
 		
 		private EntityRef<tblFileType> _tblFileType;
 		
+		private EntityRef<tblStatusCode> _tblStatusCode;
+		
 		private EntityRef<tblTiming> _tblTiming;
 		
 		private EntityRef<tblEDITranscation> _tblEDITranscation;
@@ -18243,6 +18492,12 @@ namespace DAL
     partial void OnCreated();
     partial void OnidEDIRecipReqsChanging(int value);
     partial void OnidEDIRecipReqsChanged();
+    partial void OnRecipReqNumChanging(int value);
+    partial void OnRecipReqNumChanged();
+    partial void OnidRequestChanging(int value);
+    partial void OnidRequestChanged();
+    partial void OnidEDITranscationChanging(int value);
+    partial void OnidEDITranscationChanged();
     partial void OnidFileTypeChanging(int value);
     partial void OnidFileTypeChanged();
     partial void OnX12_ISAChanging(string value);
@@ -18271,10 +18526,6 @@ namespace DAL
     partial void OnTimeOfFileChanged();
     partial void OnidStatusCodesChanging(int value);
     partial void OnidStatusCodesChanged();
-    partial void OnidRequestChanging(int value);
-    partial void OnidRequestChanged();
-    partial void OnidEDITranscationChanging(int value);
-    partial void OnidEDITranscationChanged();
     partial void OnEDITranscationTypeChanging(string value);
     partial void OnEDITranscationTypeChanged();
     partial void OnCategoryChanging(string value);
@@ -18295,6 +18546,7 @@ namespace DAL
 		{
 			this._tblCommunicationMethod = default(EntityRef<tblCommunicationMethod>);
 			this._tblFileType = default(EntityRef<tblFileType>);
+			this._tblStatusCode = default(EntityRef<tblStatusCode>);
 			this._tblTiming = default(EntityRef<tblTiming>);
 			this._tblEDITranscation = default(EntityRef<tblEDITranscation>);
 			this._tblTriggerMechanism = default(EntityRef<tblTriggerMechanism>);
@@ -18317,6 +18569,70 @@ namespace DAL
 					this._idEDIRecipReqs = value;
 					this.SendPropertyChanged("idEDIRecipReqs");
 					this.OnidEDIRecipReqsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RecipReqNum", DbType="Int NOT NULL")]
+		public int RecipReqNum
+		{
+			get
+			{
+				return this._RecipReqNum;
+			}
+			set
+			{
+				if ((this._RecipReqNum != value))
+				{
+					this.OnRecipReqNumChanging(value);
+					this.SendPropertyChanging();
+					this._RecipReqNum = value;
+					this.SendPropertyChanged("RecipReqNum");
+					this.OnRecipReqNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					this.OnidRequestChanging(value);
+					this.SendPropertyChanging();
+					this._idRequest = value;
+					this.SendPropertyChanged("idRequest");
+					this.OnidRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscation", DbType="Int NOT NULL")]
+		public int idEDITranscation
+		{
+			get
+			{
+				return this._idEDITranscation;
+			}
+			set
+			{
+				if ((this._idEDITranscation != value))
+				{
+					if (this._tblEDITranscation.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEDITranscationChanging(value);
+					this.SendPropertyChanging();
+					this._idEDITranscation = value;
+					this.SendPropertyChanged("idEDITranscation");
+					this.OnidEDITranscationChanged();
 				}
 			}
 		}
@@ -18608,55 +18924,15 @@ namespace DAL
 			{
 				if ((this._idStatusCodes != value))
 				{
+					if (this._tblStatusCode.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnidStatusCodesChanging(value);
 					this.SendPropertyChanging();
 					this._idStatusCodes = value;
 					this.SendPropertyChanged("idStatusCodes");
 					this.OnidStatusCodesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
-		public int idRequest
-		{
-			get
-			{
-				return this._idRequest;
-			}
-			set
-			{
-				if ((this._idRequest != value))
-				{
-					this.OnidRequestChanging(value);
-					this.SendPropertyChanging();
-					this._idRequest = value;
-					this.SendPropertyChanged("idRequest");
-					this.OnidRequestChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEDITranscation", DbType="Int NOT NULL")]
-		public int idEDITranscation
-		{
-			get
-			{
-				return this._idEDITranscation;
-			}
-			set
-			{
-				if ((this._idEDITranscation != value))
-				{
-					if (this._tblEDITranscation.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidEDITranscationChanging(value);
-					this.SendPropertyChanging();
-					this._idEDITranscation = value;
-					this.SendPropertyChanged("idEDITranscation");
-					this.OnidEDITranscationChanged();
 				}
 			}
 		}
@@ -18865,6 +19141,40 @@ namespace DAL
 						this._idFileType = default(int);
 					}
 					this.SendPropertyChanged("tblFileType");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblStatusCode_tblEDIRecipReq", Storage="_tblStatusCode", ThisKey="idStatusCodes", OtherKey="idStatusCodes", IsForeignKey=true)]
+		public tblStatusCode tblStatusCode
+		{
+			get
+			{
+				return this._tblStatusCode.Entity;
+			}
+			set
+			{
+				tblStatusCode previousValue = this._tblStatusCode.Entity;
+				if (((previousValue != value) 
+							|| (this._tblStatusCode.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblStatusCode.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblStatusCode.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idStatusCodes = value.idStatusCodes;
+					}
+					else
+					{
+						this._idStatusCodes = default(int);
+					}
+					this.SendPropertyChanged("tblStatusCode");
 				}
 			}
 		}

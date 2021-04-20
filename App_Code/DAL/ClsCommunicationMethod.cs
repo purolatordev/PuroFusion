@@ -99,3 +99,17 @@ public class ClsCommunicationMethod
         return errMsg;
     }
 }
+public static class SrvCommunicationMethod
+{
+    public static List<ClsCommunicationMethod> GetCommunicationMethods()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<ClsCommunicationMethod> qCommMeth = o.GetTable<tblCommunicationMethod>()
+                                            .Where(p => p.ActiveFlag == true)
+                                            .Select(p => new ClsCommunicationMethod() { idCommunicationMethod = p.idCommunicationMethod, CommunicationMethod = p.CommunicationMethod, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .ToList();
+
+        return qCommMeth;
+    }
+
+}

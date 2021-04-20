@@ -8,32 +8,43 @@ using System.Web;
 /// </summary>
 public class UserControlParams
 {
+    public int iTotalRecs { get; set; }
     public int idRequest { get; set; }
-    public string FirstName { get; set; }
-    public string Heading { get; set; }
     public int iRecordID { get; set; }
-
-    public IList<int> xTimes;
-    public IList<string> xNames;
-    public IList<string> yNames;
+    public int idEDIRecipReqs { get; set; }
+    public IList<int> EDIRecipReqs;
+    public List<SrvEDIRecipReq.PassBack> passbacks;
+    public bool bNewDialog { get; set; }
 
     public UserControlParams()
     {
-        xTimes = new List<int>();
-        xNames = new List<string>();
-        yNames = new List<string>();
+        iTotalRecs = 0;
+        idEDIRecipReqs = 0;
+        //bLoaded = false;
+        EDIRecipReqs = new List<int>();
+        passbacks = new List<SrvEDIRecipReq.PassBack>();
+        bNewDialog = false;
     }
     public UserControlParams(int iCount)
     {
-        xTimes = new List<int>();
-        xNames = new List<string>();
-        yNames = new List<string>();
-        //iRecords = iCount;
-        for (int i = 0; i < iCount; i++)
-        {
-            xTimes.Add(100 + i);
-            xNames.Add("xNames: " + (100 + i).ToString());
-            yNames.Add("yNames: " + (100 + i).ToString());
-        }
+        iTotalRecs = iCount;
+        bNewDialog = false;
+    }
+    public UserControlParams(int iCount, int Request)
+    {
+        idRequest = Request;
+        iTotalRecs = iCount;
+        EDIRecipReqs = new List<int>();
+        passbacks = new List<SrvEDIRecipReq.PassBack>();
+        idEDIRecipReqs = 0;
+        bNewDialog = false;
+    }
+    public bool CheckPassBacks(int idEDIRecipReqs, bool bNewDialog)
+    {
+        bool bRetVal = false;
+        this.bNewDialog = bNewDialog;
+        var q = passbacks.Where(p => p.idEDIRecipReqs == idEDIRecipReqs).FirstOrDefault();
+        q.bNewRecord = bNewDialog;
+        return bRetVal;
     }
 }

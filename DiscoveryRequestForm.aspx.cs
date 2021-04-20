@@ -24,6 +24,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     PuroTouchRepository repository = new PuroTouchRepository();
     Int16 ClosedID = Convert.ToInt16(ConfigurationManager.AppSettings["ClosedID"]);
     Int16 OnHoldID = Convert.ToInt16(ConfigurationManager.AppSettings["OnHoldID"]);
+    UserControlParams ParamsFor210 = new UserControlParams();
+    UserControlParams ParamsFor214 = new UserControlParams();
     const int INVOICE_COURIER_EDI = 3;
     const int SHIPMENT_STATUS_COURIER_EDI = 4;
 
@@ -45,22 +47,130 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             string ID = Request.QueryString["requestID"];
             if (!String.IsNullOrEmpty(ID))
             {
+                // Courier EDI 210
+                if (IsPostBack)
+                {
+                    clsEDITransaction EDITrans = new clsEDITransaction()
+                    {
+                        idEDITranscationType = INVOICE_COURIER_EDI,
+                        TotalRequests = string.IsNullOrEmpty(txtBxNumberRecipients210.Text) ? 0 : int.Parse(txtBxNumberRecipients210.Text),
+                        idRequest = int.Parse( ID),
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    Int32 t = 0;
+                    SrvEDITransaction.Insert(EDITrans, out t);
+                }
                 clsEDITransaction EDIInvoiceTrans = SrvEDITransaction.GetAEDITransactionsByidRequest(Convert.ToInt32(ID), INVOICE_COURIER_EDI);
                 if (EDIInvoiceTrans != null)
                 {
-                    UserControlParams p = new UserControlParams((!IsPostBack) ? EDIInvoiceTrans.TotalRequests : int.Parse(txtBxNumberRecipients210.Text));
+                    int iTotalRequest = EDIInvoiceTrans.TotalRequests;
+
+                    List<clsEDIRecipReq> qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqs(EDIInvoiceTrans.idEDITranscation);
+                    // Nothing there
+                    if(qEDIRecipReq.Count <= 0)
+                    {
+                        for (int i = 0; i < iTotalRequest; i++)
+                        {
+                            clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i+1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                            Int32 newID = 0;
+                            SrvEDIRecipReq.Insert(data, out newID);
+                        }
+                    }
+                    // Add new value
+                    else if(qEDIRecipReq.Count < iTotalRequest)
+                    {
+                        int iTotNewRecNum = iTotalRequest - qEDIRecipReq.Count;
+                        int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
+                        for (int i = 0;i< iTotNewRecNum; i++)
+                        {
+                            clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum , idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                            Int32 newID = 0;
+                            SrvEDIRecipReq.Insert(data, out newID);
+                        }
+                    }
+                    // Remove value
+                    else if (qEDIRecipReq.Count > iTotalRequest )
+                    {
+                        int iTotalRecRemove = qEDIRecipReq.Count - iTotalRequest;
+                        for (int i = 1; i < iTotalRecRemove+1; i++)
+                        {
+                            int idEDIRecipReqs = qEDIRecipReq[qEDIRecipReq.Count - i].idEDIRecipReqs;
+                            SrvEDIRecipReq.Remove(idEDIRecipReqs);
+                        }
+                    }
+                    ParamsFor210 = new UserControlParams(iTotalRequest, int.Parse(ID));
+                    List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
+                    List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
+                    ParamsFor210.EDIRecipReqs = EDIRecipReqs;
+                    ParamsFor210.passbacks = passbacks;
                     if (!IsPostBack)
                         txtBxNumberRecipients210.Text = EDIInvoiceTrans.TotalRequests.ToString();
-                    AddAndRemoveDynamicControls(p);
+                    AddAndRemoveDynamicControls(ParamsFor210);
                     SetCourierEDI210Controls();
+                }
+                // Courier EDI 214
+                if (IsPostBack)
+                {
+                    clsEDITransaction EDITrans = new clsEDITransaction()
+                    {
+                        idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI,
+                        TotalRequests = string.IsNullOrEmpty(txtBxNumberRecipients214.Text) ? 0 : int.Parse(txtBxNumberRecipients214.Text),
+                        idRequest = int.Parse(ID),
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    SrvEDITransaction.Insert(EDITrans);
                 }
                 clsEDITransaction EDIShipmentTrans = SrvEDITransaction.GetAEDITransactionsByidRequest(Convert.ToInt32(ID), SHIPMENT_STATUS_COURIER_EDI);
                 if (EDIShipmentTrans != null)
                 {
-                    UserControlParams p2 = new UserControlParams((!IsPostBack) ? EDIShipmentTrans.TotalRequests : int.Parse(txtBxNumberRecipients214.Text));
+                    int iTotalRequest = EDIShipmentTrans.TotalRequests;
+                    List<clsEDIRecipReq> qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqs(EDIShipmentTrans.idEDITranscation);
+                    // Nothing there
+                    if (qEDIRecipReq.Count <= 0)
+                    {
+                        for (int i = 0; i < iTotalRequest; i++)
+                        {
+                            clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                            Int32 newID = 0;
+                            SrvEDIRecipReq.Insert(data, out newID);
+                        }
+                    }
+                    // Add new value
+                    else if (qEDIRecipReq.Count < iTotalRequest)
+                    {
+                        int iTotNewRecNum = iTotalRequest - qEDIRecipReq.Count;
+                        int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
+                        for (int i = 0; i < iTotNewRecNum; i++)
+                        {
+                            clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                            Int32 newID = 0;
+                            SrvEDIRecipReq.Insert(data, out newID);
+                        }
+                    }
+                    // Remove value
+                    else if (qEDIRecipReq.Count > iTotalRequest)
+                    {
+                        int iTotalRecRemove = qEDIRecipReq.Count - iTotalRequest;
+                        for (int i = 1; i < iTotalRecRemove + 1; i++)
+                        {
+                            int idEDIRecipReqs = qEDIRecipReq[qEDIRecipReq.Count - i].idEDIRecipReqs;
+                            SrvEDIRecipReq.Remove(idEDIRecipReqs);
+                        }
+                    }
+                    //UserControlParams p2 = new UserControlParams((!IsPostBack) ? EDIShipmentTrans.TotalRequests : int.Parse(txtBxNumberRecipients214.Text));
+                    ParamsFor214 = new UserControlParams(iTotalRequest, int.Parse(ID));
+                    List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIShipmentTrans.idEDITranscation);
+                    List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIShipmentTrans.idEDITranscation);
+                    ParamsFor214.EDIRecipReqs = EDIRecipReqs;
+                    ParamsFor214.passbacks = passbacks;
+
                     if (!IsPostBack)
                         txtBxNumberRecipients214.Text = EDIShipmentTrans.TotalRequests.ToString();
-                    AddAndRemoveDynamicControls2(p2);
+                    AddAndRemoveDynamicControls2(ParamsFor214);
                     SetCourierEDI214Controls();
                 }
             }
@@ -4698,14 +4808,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             if (c.ID.ToString() == "btnAdd")
             {
-                //ltlCount.Text = (p.xTimes.Count + 1).ToString();
-                p.xNames.Add((p.xTimes.Count + 1).ToString());
-                p.yNames.Add((p.xTimes.Count + 1).ToString());
-                p.xTimes.Add(p.xTimes.Count + 1);
+                //p.xNames.Add((p.xTimes.Count + 1).ToString());
+                //p.yNames.Add((p.xTimes.Count + 1).ToString());
+                //p.xTimes.Add(p.xTimes.Count + 1);
             }
         }
 
-        ltlCount.Text = p.xTimes.Count.ToString();
+        ltlCount.Text = p.iTotalRecs.ToString();
 
         ph1.Controls.Clear();
         int ControlID = 0;
@@ -4719,13 +4828,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
 
             DynamicUserControl.ID = "uc1" + ControlID;
-            //DynamicUserControl.FirstName = ControlID.ToString();
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
             DynamicUserControl.Params.idRequest = requestID;
             DynamicUserControl.Params.iRecordID = i;
-            //DynamicUserControl.Params.FirstName = p.xNames[i];
-            //DynamicUserControl.Params.Heading = p.yNames[i];
+            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
+            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
+            DynamicUserControl.Params.passbacks = p.passbacks;
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
             ph1.Controls.Add(DynamicUserControl);
             ControlID += 1;
@@ -4735,7 +4844,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         Control c = GetPostBackControl(Page);
 
-        ltlCount2.Text = p.xTimes.Count.ToString();
+        //ltlCount2.Text = p.xTimes.Count.ToString();
+        ltlCount2.Text = p.iTotalRecs.ToString();
 
         ph2.Controls.Clear();
         int ControlID = 0;
@@ -4749,11 +4859,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
 
             DynamicUserControl.ID = "uc" + ControlID;
-            //DynamicUserControl.FirstName = ControlID.ToString();
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
             DynamicUserControl.Params.idRequest = requestID;
             DynamicUserControl.Params.iRecordID = i;
+            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
+            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
+            DynamicUserControl.Params.passbacks = p.passbacks;
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
             ph2.Controls.Add(DynamicUserControl);
             ControlID += 1;
@@ -4785,19 +4897,25 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     }
     public void HandleRemoveUserControl(object sender, EventArgs e)
     {
-        Button remove = (sender as Button);
-        UserControl DynamicUserControl = (UserControl)remove.Parent;
-        ph1.Controls.Remove((UserControl)remove.Parent);
-        ltlRemoved.Text += DynamicUserControl.ID + "|";
-        ltlCount.Text = (Convert.ToInt16(ltlCount.Text) - 1).ToString();
+        ParamsFor210 = ((EDI210)sender).Params;
+        int er = 0;
+        er++;
+        //Button remove = (sender as Button);
+        //UserControl DynamicUserControl = (UserControl)remove.Parent;
+        //ph1.Controls.Remove((UserControl)remove.Parent);
+        //ltlRemoved.Text += DynamicUserControl.ID + "|";
+        //ltlCount.Text = (Convert.ToInt16(ltlCount.Text) - 1).ToString();
     }
     public void HandleRemoveUserControl2(object sender, EventArgs e)
     {
-        Button remove = (sender as Button);
-        UserControl DynamicUserControl = (UserControl)remove.Parent;
-        ph2.Controls.Remove((UserControl)remove.Parent);
-        ltlRemoved2.Text += DynamicUserControl.ID + "|";
-        ltlCount2.Text = (Convert.ToInt16(ltlCount2.Text) - 1).ToString();
+        ParamsFor214 = ((EDI214)sender).Params;
+        int er = 0;
+        er++;
+        //Button remove = (sender as Button);
+        //UserControl DynamicUserControl = (UserControl)remove.Parent;
+        //ph2.Controls.Remove((UserControl)remove.Parent);
+        //ltlRemoved2.Text += DynamicUserControl.ID + "|";
+        //ltlCount2.Text = (Convert.ToInt16(ltlCount2.Text) - 1).ToString();
     }
     protected void btnDisplayValues_Click(object sender, System.EventArgs e)
     {
