@@ -24,6 +24,9 @@ public partial class EDI214 : System.Web.UI.UserControl
         {
             GetFileFormats();
             GetCommunicationMethods();
+            GetTriggerMechanisms();
+            GetTiming();
+            GetStatusCodes();
             UpdateControls(qEDIRecipReq);
         }
         else if (Params.bNewDialog)
@@ -32,6 +35,9 @@ public partial class EDI214 : System.Web.UI.UserControl
             RemoveUserControl2(sender, e);
             GetFileFormats();
             GetCommunicationMethods();
+            GetTriggerMechanisms();
+            GetTiming();
+            GetStatusCodes();
             UpdateControls(qEDIRecipReq);
         }
         SetFileFormatControls();
@@ -39,11 +45,6 @@ public partial class EDI214 : System.Web.UI.UserControl
         SetFileFormatControls();
         SetCommunicationMethodControls();
         SetTimeOfFileControls();
-        //GetFileFormats();
-        //GetCommunicationMethods();
-        GetTriggerMechanisms();
-        GetTiming();
-        GetStatusCodes();
         RadPanelBar1.Items[0].Text = "Record num: " + (Params.iRecordID + 1).ToString();
         RadPanelBar1.Items[0].Expanded = false;
     }
@@ -146,12 +147,12 @@ public partial class EDI214 : System.Web.UI.UserControl
         if (comboxTiming.SelectedText.ToString().Contains("Once a Day"))
         {
             lblTimeofFile.Visible = true;
-            textBoxTimeofFile.Visible = true;
+            timeTimeofFile.Visible = true;
         }
         else
         {
             lblTimeofFile.Visible = false;
-            textBoxTimeofFile.Visible = false;
+            timeTimeofFile.Visible = false;
         }
     }
 
@@ -249,6 +250,9 @@ public partial class EDI214 : System.Web.UI.UserControl
     {
         int iFileformat = int.Parse(comboBxFileFormat214.SelectedValue);
         int iCommMethod = int.Parse(comboxCommunicationMethod.SelectedValue);
+        int iTriggerMech = int.Parse(comboxTriggerMechanism.SelectedValue);
+        int iTiming = int.Parse(comboxTiming.SelectedValue);
+        int iStatusCode = int.Parse(comboxStatusCodes.SelectedValue);
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
 
         qEDIRecipReq.idFileType = iFileformat;
@@ -261,6 +265,11 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.Password = textBoxPassword.Text;
         qEDIRecipReq.FolderPath = textBoxFolderPath.Text;
         qEDIRecipReq.Email = textBoxEmail.Text;
+        qEDIRecipReq.idTriggerMechanism = iTriggerMech;
+        qEDIRecipReq.idTiming = iTiming;
+        qEDIRecipReq.idStatusCodes = iStatusCode;
+        TimeSpan? ts = timeTimeofFile.SelectedTime;
+        qEDIRecipReq.TimeOfFile = new DateTime( DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day, ts.Value.Hours, ts.Value.Minutes, 0);
         qEDIRecipReq.UpdatedBy = Session["userName"].ToString();
         qEDIRecipReq.UpdatedOn = DateTime.Now;
         SrvEDIRecipReq.Insert(qEDIRecipReq);
@@ -273,6 +282,9 @@ public partial class EDI214 : System.Web.UI.UserControl
     {
         comboBxFileFormat214.SelectedValue = qEDIRecipReq.idFileType.ToString();
         comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
+        comboxTriggerMechanism.SelectedValue = qEDIRecipReq.idTriggerMechanism.ToString();
+        comboxTiming.SelectedValue = qEDIRecipReq.idTiming.ToString();
+        comboxStatusCodes.SelectedValue = qEDIRecipReq.idStatusCodes.ToString();
         txtBoxISA.Text = qEDIRecipReq.X12_ISA;
         txtBoxGS.Text = qEDIRecipReq.X12_GS;
         txtBoxQualifier.Text = qEDIRecipReq.X12_Qualifier;
@@ -281,6 +293,8 @@ public partial class EDI214 : System.Web.UI.UserControl
         textBoxPassword.Text = qEDIRecipReq.Password;
         textBoxFolderPath.Text = qEDIRecipReq.FolderPath;
         textBoxEmail.Text = qEDIRecipReq.Email;
+        TimeSpan? ts = new TimeSpan (qEDIRecipReq.TimeOfFile.Value.Hour, qEDIRecipReq.TimeOfFile.Value.Minute, 0);
+        timeTimeofFile.SelectedTime = ts;
         return;
     }
 }

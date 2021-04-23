@@ -177,6 +177,49 @@ public static class SrvEDITransaction
         }
         return errMsg;
     }
+    public static string Insert(List<clsEDITransaction> TransList, Int32 ID)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        try
+        {
+            foreach(clsEDITransaction edi in TransList)
+            {
+                tblEDITranscation EDITrans = o.GetTable<tblEDITranscation>()
+                                    .Where(p => p.idRequest == ID && p.idEDITranscationType == edi.idEDITranscationType)
+                                    .FirstOrDefault();
+                if (EDITrans == null)
+                {
+                    tblEDITranscation oNewRow = new tblEDITranscation()
+                    {
+                        idEDITranscationType = edi.idEDITranscationType,
+                        TotalRequests = 0,
+                        BatchInvoices =  false,
+                        CombinePayer = false,
+                        idRequest = ID,
+                        CreatedBy = edi.CreatedBy,
+                        CreatedOn = edi.CreatedOn,
+                        ActiveFlag = true
+                    };
+                    o.GetTable<tblEDITranscation>().InsertOnSubmit(oNewRow);
+                }
+                else
+                {
+                    EDITrans.idEDITranscationType = edi.idEDITranscationType;
+                    EDITrans.ActiveFlag = true;
+                }
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return errMsg;
+    }
+
     public static string Insert(clsEDITransaction data)
     {
         string errMsg = "";
@@ -577,6 +620,10 @@ public static class SrvEDIRecipReq
                 qRec.Password = data.Password;
                 qRec.FolderPath = data.FolderPath;
                 qRec.Email = data.Email;
+                qRec.idTriggerMechanism = data.idTriggerMechanism;
+                qRec.idTiming = data.idTiming;
+                qRec.idStatusCodes = data.idStatusCodes;
+                qRec.TimeOfFile = data.TimeOfFile;
                 qRec.UpdatedBy = data.UpdatedBy;
                 qRec.UpdatedOn = DateTime.Now;
                 o.SubmitChanges();

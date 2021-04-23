@@ -177,7 +177,8 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="textBoxTimeofFile" runat="server" MaxLength="100" Text='sample Time of File' Width="110px" ToolTip="Time of File" />
+<%--                            <telerik:RadTextBox ID="textBoxTimeofFile" runat="server" MaxLength="100" Text='sample Time of File' Width="110px" ToolTip="Time of File" />--%>
+                            <telerik:RadTimePicker ID="timeTimeofFile" runat="server" Width="100px" DateInput-DateFormat="hh:mm" ></telerik:RadTimePicker>
                         </td>
                     </tr>
                     <tr>
@@ -186,11 +187,6 @@
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="110px">
-                               <%-- <Items>
-                                    <telerik:DropDownListItem Value="Status Code 1" Text="Status Code 1" Selected="true" />
-                                    <telerik:DropDownListItem Value="Status Code 2" Text="Status Code 2" />
-                                    <telerik:DropDownListItem Value="Status Code 3" Text="Status Code 3" />
-                                </Items>--%>
                             </telerik:RadDropDownList>
                         </td>
                     </tr>

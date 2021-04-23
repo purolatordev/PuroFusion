@@ -85,3 +85,15 @@ public class ClsContactType
         return errMsg;
     }
 }
+public static class SrvContactType
+{
+    public static ClsContactType GetContactsTypeByID(int idContactType)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        ClsContactType qContactType = o.GetTable<tblContactType>()
+                            .Where(p => p.ActiveFlag == true && p.idContactType == idContactType)
+                            .Select(p => new ClsContactType() { idContactType = p.idContactType, ContactType = p.ContactType, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .FirstOrDefault();
+        return qContactType;
+    }
+}

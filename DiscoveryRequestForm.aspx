@@ -393,6 +393,16 @@
                 </td>
             </tr>
             <tr>
+                <td >
+                    <telerik:RadButton ID="RadButton1" CausesValidation="true" runat="server" Text="Tab Tester" OnClick="btnTesty_Click" AutoPostBack="true" />
+                </td>
+                <td style="text-align: right">Tab Number
+                </td>
+                <td>
+                    <telerik:RadTextBox ID="textBTabNum" runat="server" MaxLength="75" Width="250px" />
+                </td>
+            </tr>
+            <tr>
                 <td style="color: #4b6c9e; text-align: right;"></td>
                 <td></td>
                 <td style="color: #4b6c9e; text-align: left;"></td>
@@ -609,7 +619,6 @@
                                                     <td>
                                                         <telerik:RadDropDownList ID="radListContactType" runat="server" OnSelectedIndexChanged="radListContactTypeIdxChanged" DefaultMessage="Select Contact Type" AutoPostBack="true" ToolTip="Select Your Contact Type" Visible="true" Width="280px">
                                                         </telerik:RadDropDownList>
-                                                        <%--<asp:RequiredFieldValidator runat="server" ValidationGroup="custInfo" ControlToValidate="rddlContactType2" ErrorMessage="Contact Type is required" Style="color: red"></asp:RequiredFieldValidator>--%>
                                                     </td>
                                                     <td style="height: 20px"></td>
                                                 </tr>
@@ -996,6 +1005,9 @@
                         <td>
                             <p style="color: red"><i>*Required Fields</i></p>
                         </td>
+                        <td style="color: blue; width: 20%; font-size: medium; text-align: right;">
+                            <telerik:RadButton RenderMode="Lightweight" CausesValidation="true" ValidationGroup="currentInfo" ID="btnEDIServicesNext" runat="server" Text="Next" OnClick="btnNextTab4_Click"></telerik:RadButton>
+                        </td>
                     </tr>
                 </table>
             </telerik:RadPageView>
@@ -1150,7 +1162,7 @@
             </telerik:RadPageView>
 
             <%--  PROFILE  --%>
-            <telerik:RadPageView runat="server" ID="RadPageView1">
+            <telerik:RadPageView runat="server" ID="profile">
                 <hr />
                 <div style="width: 90%; margin-left: 5%">
                     <%--  SOLUTION SUMMARY  --%>
@@ -3368,12 +3380,10 @@
                         <PagerStyle AlwaysVisible="True"></PagerStyle>
                     </MasterTableView>
                 </telerik:RadGrid>
-
-
             </telerik:RadPageView>
 
             <%-- File Uploads --%>
-            <telerik:RadPageView runat="server" ID="RadPageView2">
+            <telerik:RadPageView runat="server" ID="uploads">
                 <hr />
                 <table border="0">
                     <tr>

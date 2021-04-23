@@ -249,13 +249,33 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     txtEmail.Text = username + "@purolator.com";
                     txtSalesProfessional.Text = username.Replace(".", " ");
                     RadTabStrip1.Tabs[0].Visible = true;
+                    RadTabStrip1.Tabs[1].Visible = true;
+                    RadTabStrip1.Tabs[2].Visible = true;
+                    RadTabStrip1.Tabs[3].Visible = true;
+                    RadTabStrip1.Tabs[4].Visible = true;
+                    RadTabStrip1.Tabs[5].Visible = false;
+                    RadTabStrip1.Tabs[6].Visible = false;
+                    RadTabStrip1.Tabs[7].Visible = false;
+                    RadTabStrip1.Tabs[8].Visible = false;
+                    RadTabStrip1.Tabs[0].Enabled = true;
                     RadTabStrip1.Tabs[1].Enabled = false;
                     RadTabStrip1.Tabs[2].Enabled = false;
                     RadTabStrip1.Tabs[3].Enabled = false;
-                    RadTabStrip1.Tabs[4].Visible = false;
-                    RadTabStrip1.Tabs[5].Visible = false;
-                    RadTabStrip1.Tabs[6].Visible = false;
+                    RadTabStrip1.Tabs[4].Enabled = false;
+                    RadTabStrip1.Tabs[5].Enabled = false;
+                    RadTabStrip1.Tabs[6].Enabled = false;
+                    RadTabStrip1.Tabs[7].Enabled = false;
+                    RadTabStrip1.Tabs[8].Enabled = false;
                     RadTabStrip1.Tabs[0].Selected = true;
+                    //original
+                    //RadTabStrip1.Tabs[0].Visible = true;
+                    //RadTabStrip1.Tabs[1].Enabled = false;
+                    //RadTabStrip1.Tabs[2].Enabled = false;
+                    //RadTabStrip1.Tabs[3].Enabled = false;
+                    //RadTabStrip1.Tabs[4].Visible = false;
+                    //RadTabStrip1.Tabs[5].Visible = false;
+                    //RadTabStrip1.Tabs[6].Visible = false;
+                    //RadTabStrip1.Tabs[0].Selected = true;
                     RadMultiPage1.SelectedIndex = 0;
                     rgNotesGrid.Visible = false;
                     btnSubmit.Enabled = false;
@@ -1379,8 +1399,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-
-            (sender as RadGrid).DataSource = SrvContact.GetContactsByRequestID(requestID);
+            if (requestID != 0)
+            {
+                (sender as RadGrid).DataSource = SrvContact.GetContactsByRequestID(requestID);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource =(List<clsContact>)Session["contactList"];
+            }
         }
         catch (Exception ex)
         {
@@ -1470,8 +1496,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int requestID = 0;
                 int.TryParse(Request.QueryString["requestID"], out requestID);
 
-                // && !String.IsNullOrEmpty(txtBxContactTitle2.Text)
-                if ( !String.IsNullOrEmpty(radlist.SelectedText) && !String.IsNullOrEmpty(txtBxContactName2.Text)  && !String.IsNullOrEmpty(txtBxContactEmail2.Text) && !String.IsNullOrEmpty(txtBxContactPhone2.Text))
+                if (!String.IsNullOrEmpty(radlist.SelectedText) && !String.IsNullOrEmpty(txtBxContactName2.Text) && !String.IsNullOrEmpty(txtBxContactEmail2.Text) && !String.IsNullOrEmpty(txtBxContactPhone2.Text))
                 {
                     txtBxContactEmail2.Text = txtBxContactEmail2.Text.Replace("<", "");
                     clsContact contact = new clsContact()
@@ -1485,9 +1510,20 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                         CreatedOn = DateTime.Now,
                         CreatedBy = (string)(Session["userName"])
                     };
-                    int inewID = 0;
-                    SrvContact.Insert(contact, out inewID);
-                    List<clsContact> contactList = repository.GetContacts(requestID);
+                    List<clsContact> contactList = new List<clsContact>();
+                    if (requestID != 0)
+                    {
+                        int inewID = 0;
+                        SrvContact.Insert(contact, out inewID);
+                        contactList = repository.GetContacts(requestID);
+                    }
+                    else
+                    {
+                        contactList = (List<clsContact>)Session["contactList"];
+                        ClsContactType qContactType = SrvContactType.GetContactsTypeByID(contact.idContactType);
+                        contact.ContactTypeName = qContactType.ContactType;
+                        contactList.Add(contact);
+                    }
                     Session["contactList"] = contactList;
                     contactGrid.DataSource = contactList;
                     contactGrid.DataBind();
@@ -1550,8 +1586,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-
-            (sender as RadGrid).DataSource = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+            if (requestID != 0)
+            {
+                (sender as RadGrid).DataSource = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+            }
         }
         catch (Exception ex)
         {
@@ -1605,9 +1647,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                         CreatedOn = DateTime.Now,
                         CreatedBy = (string)(Session["userName"])
                     };
-                    int inewID = 0;
-                    SrvEDIShipMethod.Insert(contact, out inewID);
-                    List<clsEDIShipMethod> EDIShipMethList = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+                    List<clsEDIShipMethod> EDIShipMethList = new List<clsEDIShipMethod>();
+                    if (requestID != 0)
+                    {
+                        int inewID = 0;
+                        SrvEDIShipMethod.Insert(contact, out inewID);
+                        EDIShipMethList = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
+                    }
+                    else
+                    {
+                        EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+                        EDIShipMethList.Add(contact);
+                    }
                     Session["EDIShipMethList"] = EDIShipMethList;
                     gridShipmentMethods.DataSource = EDIShipMethList;
                     gridShipmentMethods.DataBind();
@@ -1671,8 +1722,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-
-            (sender as RadGrid).DataSource = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+            if (requestID != 0)
+            {
+                (sender as RadGrid).DataSource = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+            }
+            else
+            {
+                (sender as RadGrid).DataSource = (List<clsEDITransaction>)Session["EDITransList"];
+            }
         }
         catch (Exception ex)
         {
@@ -1725,9 +1782,20 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                         CreatedOn = DateTime.Now,
                         CreatedBy = (string)(Session["userName"])
                     };
-                    int inewID = 0;
-                    SrvEDITransaction.Insert(EDITrans, out inewID);
-                    List<clsEDITransaction> EDITransList = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+                    List<clsEDITransaction> EDITransList = new List<clsEDITransaction>();
+                    if (requestID != 0)
+                    {
+                        int inewID = 0;
+                        SrvEDITransaction.Insert(EDITrans, out inewID);
+                        EDITransList = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+                    }
+                    else
+                    {
+                        EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
+                        clsEDITransactionType qEDITransType = SrvEDITransactionType.GetOneEDITransactionType(EDITrans.idEDITranscationType);
+                        EDITrans.EDITranscationType = qEDITransType.EDITranscationType;
+                        EDITransList.Add(EDITrans);
+                    }
                     Session["EDITransList"] = EDITransList;
                     gridEDITransactions.DataSource = EDITransList;
                     gridEDITransactions.DataBind();
@@ -2597,7 +2665,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
+    private bool CheckForSalesUser(string ur)
+    {
+        bool bRetVal = false;
+        if (ur == "sales" || ur == "salesdm" || ur == "salesmanager")
+        {
+            bRetVal = true;
+        }
+        return bRetVal;
+    }
     public string sharedValidator()
     {
         string ErrorMessage = "";
@@ -2671,13 +2747,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             ErrorMessage = ErrorMessage + "<br>At Least One EDI transaction method Must Be Supplied";
         }
-        if(cmboxEDISpecialist.SelectedIndex < 0)
+        if(cmboxEDISpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
             ErrorMessage = ErrorMessage + "<br>At Least One EDI Specialist Assignment Must Be Supplied";
 
-        if (cmboxBillingSpecialist.SelectedIndex < 0)
+        if (cmboxBillingSpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
             ErrorMessage = ErrorMessage + "<br>At Least One Billing Specialist Assignment Must Be Supplied";
 
-        if (cmboxCollectionSpecialist.SelectedIndex < 0)
+        if (cmboxCollectionSpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
             ErrorMessage = ErrorMessage + "<br>At Least One Collection Specialist Assignment Must Be Supplied";
 
         if (comboxCustAuditPortal.SelectedText == "Yes")
@@ -3155,6 +3231,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         btnSubmit.Enabled = true;
         btnNextTab3.Visible = false;
     }
+    protected void btnNextTab4_Click(object sender, System.EventArgs e)
+    {
+        RadTabStrip1.Tabs[4].Enabled = true;
+        RadTabStrip1.Tabs[4].Selected = true;
+        RadMultiPage1.SelectedIndex = 4;
+        btnSubmit.Enabled = true;
+        btnEDIServicesNext.Visible = false;
+    }
     protected void date1_Changed(object sender, System.EventArgs e)
     {
         btnAddDate1.Enabled = true;
@@ -3254,6 +3338,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     lblDanger.Text = msg;
                     pnlDanger.Visible = true;
                 }
+                SrvContact.Insert((List<clsContact>)Session["contactList"], requestID);
+                SrvEDITransaction.Insert( (List<clsEDITransaction>)Session["EDITransList"],requestID);
+                SrvEDIShipMethod.Insert((List<clsEDIShipMethod>)Session["EDIShipMethList"],requestID);
 
                 btnSubmit.Visible = false;
                 btnSubmitChanges.Visible = true;
@@ -3655,7 +3742,23 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
 
     }
+    protected void btnTesty_Click(object sender, System.EventArgs e)
+    {
+        int iTabNumber = int.Parse(textBTabNum.Text);
+        //RadTabStrip1.Tabs[iTabNumber].Visible = true;
+        //RadTabStrip1.Tabs[iTabNumber].Enabled = true;
+        //RadTabStrip1.Tabs[iTabNumber-1].Enabled = false;
+        //RadTabStrip1.Tabs[iTabNumber - 1].Visible = false;
+        RadTabStrip1.Tabs[iTabNumber].Enabled = true;
+         RadTabStrip1.Tabs[iTabNumber].Visible = true;
+        RadTabStrip1.Tabs[iTabNumber].Selected = true;
+        RadMultiPage1.SelectedIndex = iTabNumber;
+        //RadTabStrip1.Tabs[2].Enabled = false;
+        // RadTabStrip1.Tabs[3].Enabled = false;
+        // RadTabStrip1.Tabs[5].Visible = false;
+        // RadTabStrip1.Tabs[6].Visible = false;
 
+    }
     protected void rgNotesGrid_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
         try

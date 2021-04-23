@@ -25,8 +25,6 @@ public partial class EDI210 : System.Web.UI.UserControl
             GetFileFormats();
             GetCommunicationMethods();
             UpdateControls(qEDIRecipReq);
-            //comboBxFileFormat.SelectedValue = qEDIRecipReq.idFileType.ToString();
-            //comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
         }
         else if(Params.bNewDialog)
         {
@@ -35,8 +33,6 @@ public partial class EDI210 : System.Web.UI.UserControl
             GetFileFormats();
             GetCommunicationMethods();
             UpdateControls(qEDIRecipReq);
-            //comboBxFileFormat.SelectedValue = qEDIRecipReq.idFileType.ToString();
-            //comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
         }
         SetFileFormatControls();
         SetCommunicationMethodControls();

@@ -84,6 +84,51 @@ public static class SrvContact
         }
         return errMsg; 
     }
+    public static string Insert(List<clsContact> contactList, Int32 ID)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        try
+        {
+            foreach (clsContact c in contactList)
+            {
+                tblContact oNewRow = new tblContact()
+                {
+                    idContactType = c.idContactType,
+                    idRequest = ID,
+                    Name = c.Name,
+                    Title = c.Title,
+                    Phone = c.Phone,
+                    Email = c.Email,
+                    ActiveFlag = true,
+                    CreatedBy = c.CreatedBy,
+                    CreatedOn = DateTime.Now
+                };
+                var contact = o.GetTable<tblContact>().Where(f => f.idContactType == c.idContactType && f.idRequest == ID).FirstOrDefault();
+                if (contact != null)
+                {
+                    contact.Name = c.Name;
+                    contact.Title = c.Title;
+                    contact.Phone = c.Phone;
+                    contact.Email = c.Email;
+                    contact.ActiveFlag = true;
+                    contact.UpdatedBy = c.CreatedBy;
+                    contact.UpdatedOn = DateTime.Now;
+                }
+                else
+                {
+                    o.GetTable<tblContact>().InsertOnSubmit(oNewRow);
+                }
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+
     public static string Update(clsContact data)
     {
         string errMsg = "";

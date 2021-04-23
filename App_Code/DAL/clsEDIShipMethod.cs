@@ -95,6 +95,43 @@ public static class SrvEDIShipMethod
         }
         return errMsg;
     }
+    public static string Insert(List<clsEDIShipMethod> ShipList, Int32 ID)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        try
+        {
+            foreach (clsEDIShipMethod edi in ShipList)
+            {
+                tblEDIShipMethod qShipMeth = o.GetTable<tblEDIShipMethod>().Where(p => p.idRequest == ID && p.idEDIShipMethodType == edi.idEDIShipMethodType).FirstOrDefault();
+                if (qShipMeth != null)
+                {
+                    qShipMeth.UpdatedBy = edi.CreatedBy;
+                    qShipMeth.UpdatedOn = DateTime.Now;
+                    qShipMeth.ActiveFlag = true;
+                }
+                else
+                {
+                    tblEDIShipMethod oNewRow = new tblEDIShipMethod()
+                    {
+                        idEDIShipMethodType = edi.idEDIShipMethodType,
+                        idRequest = ID,
+                        ActiveFlag = true,
+                        CreatedBy = edi.CreatedBy,
+                        CreatedOn = edi.CreatedOn
+                    };
+                    o.GetTable<tblEDIShipMethod>().InsertOnSubmit(oNewRow);
+                }
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+
     public static string Remove(int idEDIShipMethod)
     {
         string errMsg = "";
