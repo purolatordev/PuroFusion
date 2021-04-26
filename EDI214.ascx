@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EDI214.ascx.cs" Inherits="EDI214" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <style type="text/css">
-    /*  table,th,td{
+      table,th,td{
         border: 1px solid black;
-    }*/
+    }
     td.Column1a {
         width: 75px;
     }
@@ -12,9 +12,9 @@
         text-align: left;
     }
 
-    td.Column2 {
+    td.Column2A {
         text-align: right;
-        width: 150px;
+        width: 145px;
     }
 
     td.Column3Spacer {
@@ -37,7 +37,7 @@
                 <table>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">File Format
+                        <td class="Column2A">File Format
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblISA" runat="server" Text="ISA" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -61,7 +61,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblGS" runat="server" Text="GS" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -71,7 +71,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblQualifier" runat="server" Text="Qualifier" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -81,7 +81,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">Communication Method</td>
+                        <td class="Column2a">Communication Method</td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboxCommunicationMethod" runat="server" Visible="true" Width="110px" AutoPostBack="True" OnSelectedIndexChanged="CommunicationMethod_SelectedIndexChanged">
@@ -94,7 +94,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblFTPAddress" runat="server" Text="FTP Address" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -104,7 +104,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblUserName" runat="server" Text="User Name" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -114,7 +114,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblPassword" runat="server" Text="Password" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -124,7 +124,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblFolderPath" runat="server" Text="Folder Path" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -138,7 +138,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblEmail" runat="server" Text="Email" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -148,7 +148,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">Trigger Mechanism
+                        <td class="Column2a">Trigger Mechanism
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -158,7 +158,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">Timing
+                        <td class="Column2a">Timing
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -172,7 +172,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">
+                        <td class="Column2a">
                             <asp:Label ID="lblTimeofFile" runat="server" Text="Time of File" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -183,7 +183,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2">Status Codes</td>
+                        <td class="Column2a">Status Codes</td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="110px">

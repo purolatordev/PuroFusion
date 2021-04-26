@@ -53,8 +53,12 @@
             }
         </script>
         <style type="text/css">
-            td.Spacer{
+            td.Spacer {
                 width: 100px;
+            }
+
+            td.SpacerNonCourier {
+                width: 20px;
             }
         </style>
     </telerik:RadCodeBlock>
@@ -393,16 +397,6 @@
                 </td>
             </tr>
             <tr>
-                <td >
-                    <telerik:RadButton ID="RadButton1" CausesValidation="true" runat="server" Text="Tab Tester" OnClick="btnTesty_Click" AutoPostBack="true" />
-                </td>
-                <td style="text-align: right">Tab Number
-                </td>
-                <td>
-                    <telerik:RadTextBox ID="textBTabNum" runat="server" MaxLength="75" Width="250px" />
-                </td>
-            </tr>
-            <tr>
                 <td style="color: #4b6c9e; text-align: right;"></td>
                 <td></td>
                 <td style="color: #4b6c9e; text-align: left;"></td>
@@ -425,6 +419,7 @@
                 <telerik:RadTab runat="server" Text="Shipping Services" Width="150px" PageViewID="services"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Profile" Width="140px" PageViewID="profile"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Courier EDI" Width="140px" PageViewID="courierEDI"></telerik:RadTab>
+                <telerik:RadTab runat="server" Text="Non-Courier EDI" Width="140px" PageViewID="noncourierEDI"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="Add'l Notes" Width="150px" PageViewID="notes"></telerik:RadTab>
                 <telerik:RadTab runat="server" Text="File Uploads" Width="140px" PageViewID="uploads"></telerik:RadTab>
             </Tabs>
@@ -3035,8 +3030,8 @@
                         <td style="width: 140px; text-align:left">
                             <telerik:RadDropDownList ID="comboBxCourierEDI214" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxCourierEDI214_SelectedIndexChanged">
                                 <Items>
-                                    <telerik:DropDownListItem Value="no" Text="No"  />
-                                    <telerik:DropDownListItem Value="yes" Text="Yes" Selected="true" />
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes"  />
                                 </Items>
                             </telerik:RadDropDownList>
                         </td>
@@ -3214,7 +3209,7 @@
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadTextBox ID="txtBxNumberRecipients214" MinValue="0" MaxValue="10" runat="server" MaxLength="10" Width="50px" OnTextChanged="txtBxNumberRecipients214_TextChanged" AutoPostBack="true" ToolTip="Enter Number of Invoice Recipients Requested" />
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat ="server" ID="txtBxNumberRecipients214" Width="50px" OnTextChanged="txtBxNumberRecipients214_TextChanged" AutoPostBack="true"  ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
                             <telerik:RadButton ID="btnAdd214" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
                         </td>
                     </tr>
@@ -3232,6 +3227,356 @@
                          <asp:Literal ID="ltlRemoved" runat="server" Visible="false" />
                          <asp:Literal ID="ltlCount2" runat="server" Text="0" Visible="false" />
                          <asp:Literal ID="ltlRemoved2" runat="server" Visible="false" />
+                     </tr>
+                </table>
+            </telerik:RadPageView>
+
+            <%--  Non-Courier EDI  --%>
+            <telerik:RadPageView runat="server" ID="noncourierEDI">
+                <hr />
+                <table border="0">
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px;text-align:right">EDI 210</td>
+                        <td></td>
+                        <td style="width: 140px; text-align:left">
+                            <telerik:RadDropDownList ID="comboBxNonCourierEDI210" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxNonCourierEDI210_SelectedIndexChanged">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td class="SpacerNonCourier" ></td>
+                        <td style="width: 140px; text-align:right">EDI 214</td>
+                        <td></td>
+                        <td style="width: 140px; text-align:left">
+                            <telerik:RadDropDownList ID="comboBxNonCourierEDI214" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxNonCourierEDI214_SelectedIndexChanged">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes"  />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td class="SpacerNonCourier" ></td>
+                        <td style="width: 170px; text-align:right">PuroPost Standard Invoice</td>
+                        <td></td>
+                         <td style="width: 140px; text-align:left">
+                            <telerik:RadDropDownList ID="comboBxNonCourierPuroPost" runat="server" Visible="true" Width="70px" AutoPostBack="true" >
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes"  />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px; text-align: right;">
+                            <asp:Label ID="Label12" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="Label13" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td ></td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px;text-align:right">
+                            <asp:Label ID="Label14" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                        </td>
+                       <td style="width: 10px; color: red; text-align: left;">
+                            <asp:Label ID="Label15" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td></td>
+                        <td></td>
+                        <td style="width: 160px; text-align: right;">
+                            <asp:Label ID="Label16" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="Label21" runat="server" Text="*" Visible="true"></asp:Label></td>
+                    </tr>
+                    <tr>
+                        <td ></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourier210SFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: left">
+                            <telerik:RadTextBox ID="txtNonCourier210SFTP" runat="server" MaxLength="190" Text="" Width="220px"  />
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourier214SFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: left">
+                            <telerik:RadTextBox ID="txtNonCourier214SFTP" runat="server" MaxLength="190" Text="" Width="220px" />
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourierPuroPostSFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: left">
+                            <telerik:RadTextBox ID="txtNonCourierPuroPostSFTP" runat="server" MaxLength="190" Text="" Width="220px" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td style="width: 160px; text-align: right;">
+                            <asp:Label ID="lblNonCourier210Accounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="lblNonCourier210AccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td style="width: 220px; text-align:left">
+                            <telerik:RadGrid ID="gridNonCourierEDI210Accounts" runat="server" AllowPaging="True"
+                                AllowSorting="false" AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
+                                OnNeedDataSource="gridNonCourierEDI210Accounts_NeedDataSource" OnDeleteCommand="gridNonCourierEDI210Accounts_DeleteCommand"
+                                OnItemDataBound="gridNonCourierEDI210Accounts_ItemDataBound"   OnItemCommand="gridNonCourierEDI210Accounts_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIAccount" CommandItemDisplay="Top">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="AccountNumber" FilterControlAltText="AccountNumber" SortExpression="Team" HeaderText="Account Number" UniqueName="AccountNumber">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center">
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                        <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                            CommandName="Cancel">
+                                                        </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 140px; text-align: right;">
+                            <asp:Label ID="lblNonCourier214Accounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="lblNonCourier214AccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td style="width: 220px; text-align:left">
+                            <telerik:RadGrid ID="gridNonCourierEDI214Accounts" runat="server" AllowPaging="True"
+                                AllowSorting="false" AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
+                                OnNeedDataSource="gridNonCourierEDI214Accounts_NeedDataSource" OnDeleteCommand="gridNonCourierEDI214Accounts_DeleteCommand"
+                                OnItemDataBound="gridNonCourierEDI214Accounts_ItemDataBound"   OnItemCommand="gridNonCourierEDI214Accounts_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIAccount" CommandItemDisplay="Top">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="AccountNumber" FilterControlAltText="AccountNumber" SortExpression="Team" HeaderText="Account Number" UniqueName="AccountNumber">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center">
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                                            <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
+                                                                            </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                        <td></td>
+                        <td style="width: 160px; text-align: right;">
+                            <asp:Label ID="lblNonCourierPuroPostAccounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px; color: red; text-align: right;">
+                            <asp:Label ID="lblNonCourierPuroPostAccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
+                        <td style="width: 220px; text-align:left">
+                            <telerik:RadGrid ID="gridNonCourierPuroPostAccounts" runat="server" AllowPaging="True"
+                                AllowSorting="false" AllowFilteringByColumn="false"
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
+                                OnNeedDataSource="gridNonCourierPuroPostAccounts_NeedDataSource" OnDeleteCommand="gridNonCourierPuroPostAccounts_DeleteCommand"
+                                OnItemDataBound="gridNonCourierPuroPostAccounts_ItemDataBound"   OnItemCommand="gridNonCourierPuroPostAccounts_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDIAccount" CommandItemDisplay="Top">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="AccountNumber" FilterControlAltText="AccountNumber" SortExpression="Team" HeaderText="Account Number" UniqueName="AccountNumber">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center">
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                                            <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False" CommandName="Cancel">
+                                                                            </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourier210TestEnvironment" runat="server" Text="Does Customer Have Test Environment?" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="comboNonCourier210TestEnvironment" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourier214TestEnvironment" runat="server" Text="Does Customer Have Test Environment?" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="comboNonCourier214TestEnvironment" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10px"></td>
+                        <td colspan="3" style="text-align: center;">
+                            <asp:Label ID="lblNonCourier210ProdTest" runat="server" Text="If yes, both Prod and Test sections will appear:" Visible="true"></asp:Label>
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td colspan="3" style="text-align: center;">
+                            <asp:Label ID="lblNonCourier214ProdTest" runat="server" Text="If yes, both Prod and Test sections will appear:" Visible="true"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourier210TestSent" runat="server" Text="How should initial test files be sent?" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="comboNonCourier210TestSent" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="SFTP" Text="SFTP" Selected="true" />
+                                    <telerik:DropDownListItem Value="via Email" Text="via Email" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNonCourier214TestSent" runat="server" Text="How should initial test files be sent?" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadDropDownList ID="comboNonCourier214TestSent" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="SFTP" Text="SFTP" Selected="true" />
+                                    <telerik:DropDownListItem Value="via Email" Text="via Email" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNumRecipNonCourier210" runat="server" Text="Number of Invoice Recipients Requested" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat ="server" ID="txtBxNumRecipNonCourier210" Width="50px" OnTextChanged="txtBxNumRecipNonCourier210_TextChanged" AutoPostBack="true"  ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadButton ID="btnNumRecipNonCourier210" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNumRecipNonCourier214" runat="server" Text="Number of Shipment Status Recipients Requested" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat ="server" ID="txtBxNumRecipNonCourier214" Width="50px" OnTextChanged="txtBxNumRecipNonCourier214_TextChanged" AutoPostBack="true"  ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadButton ID="btnNumRecipNonCourier214" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td colspan="4" style="vertical-align:top">
+                            <asp:PlaceHolder ID="placeNonCourier210" runat="server" />
+                        </td>
+                         <td class="SpacerNonCourier"></td>
+                         <td colspan="3" style="text-align: center;vertical-align:top">
+                            <asp:PlaceHolder ID="placeNonCourier214" runat="server" />
+                        </td>
+                         <asp:Literal ID="Literal1" runat="server" />
+                         <asp:Literal ID="Literal2" runat="server" />
+                         <asp:Literal ID="ltlCountNonCourier210" runat="server" Text="0" Visible="false" />
+                         <asp:Literal ID="ltlRemovedNonCourier210" runat="server" Visible="false" />
+                         <asp:Literal ID="ltlCountNonCourier214" runat="server" Text="0" Visible="false" />
+                         <asp:Literal ID="ltlRemovedNonCourier214" runat="server" Visible="false" />
                      </tr>
                 </table>
             </telerik:RadPageView>

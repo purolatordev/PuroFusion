@@ -55,11 +55,19 @@ public static class SrvEDITransaction
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         clsEDITransaction qShipMeth = null;
-        qShipMeth = o.GetTable<tblEDITranscation>()
-                                            .Where(p => p.idRequest == idRequest && p.idEDITranscationType == idEDITranscationType && p.ActiveFlag == true)
-                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
-                                            .FirstOrDefault();
-
+        try
+        {
+            qShipMeth = o.GetTable<tblEDITranscation>()
+                                .Where(p => p.idRequest == idRequest && p.idEDITranscationType == idEDITranscationType && p.ActiveFlag == true)
+                                .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                .FirstOrDefault();
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
         return qShipMeth;
     }
     public static clsEDITransaction GetAnyEDITransactionsByidRequest(int idRequest, int idEDITranscationType)

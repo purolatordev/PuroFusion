@@ -14,6 +14,7 @@ public partial class EDI214 : System.Web.UI.UserControl
     const int SHIPMENT_STATUS_COURIER_EDI = 4;
 
     public event EventHandler RemoveUserControl2;
+    public event EventHandler UserControlSaved;
     public event EventHandler buttonClick;
     public UserControlParams Params = new UserControlParams();
 
@@ -274,6 +275,7 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.UpdatedOn = DateTime.Now;
         SrvEDIRecipReq.Insert(qEDIRecipReq);
 
+        UserControlSaved(sender, e);
         int er = 0;
         er++;
     }
