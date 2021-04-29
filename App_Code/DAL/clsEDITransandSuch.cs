@@ -428,6 +428,7 @@ public class clsEDIRecipReq
 {
     public int idEDIRecipReqs{ get; set; }
     public int RecipReqNum { get; set; }
+    public string PanelTitle { get; set; }
 
     public int idFileType{ get; set; }
 
@@ -486,7 +487,7 @@ public static class SrvEDIRecipReq
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         clsEDIRecipReq qEDIRecipReq = o.GetTable<tblEDIRecipReq>()
                             .Where(p => p.idEDIRecipReqs == idEDIRecipReqs)
-                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, idFileType = p.idFileType, X12_GS = p.X12_GS, X12_ISA = p.X12_ISA, X12_Qualifier = p.X12_Qualifier, idCommunicationMethod = p.idCommunicationMethod, FTPAddress = p.FTPAddress, UserName = p.UserName, Password = p.Password, FolderPath = p.FolderPath, Email = p.Email, idTriggerMechanism = p.idTriggerMechanism, idTiming = p.idTiming, TimeOfFile = p.TimeOfFile, idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType, EDITranscationType = p.EDITranscationType, idStatusCodes = p.idStatusCodes, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType, X12_GS = p.X12_GS, X12_ISA = p.X12_ISA, X12_Qualifier = p.X12_Qualifier, idCommunicationMethod = p.idCommunicationMethod, FTPAddress = p.FTPAddress, UserName = p.UserName, Password = p.Password, FolderPath = p.FolderPath, Email = p.Email, idTriggerMechanism = p.idTriggerMechanism, idTiming = p.idTiming, TimeOfFile = p.TimeOfFile, idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType, EDITranscationType = p.EDITranscationType, idStatusCodes = p.idStatusCodes, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .FirstOrDefault();
         return qEDIRecipReq;
     }
@@ -513,7 +514,7 @@ public static class SrvEDIRecipReq
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDIRecipReq> qEDIRecipReq = o.GetTable<tblEDIRecipReq>()
                             .Where(p => p.ActiveFlag == true && p.idEDITranscation == idEDITranscation)
-                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum,idFileType = p.idFileType,X12_GS = p.X12_GS,X12_ISA = p.X12_ISA,X12_Qualifier = p.X12_Qualifier,idCommunicationMethod = p.idCommunicationMethod,FTPAddress = p.FTPAddress,UserName = p.UserName,Password = p.Password,FolderPath = p.FolderPath,Email = p.Email,idTriggerMechanism = p.idTriggerMechanism,idTiming = p.idTiming, TimeOfFile = p.TimeOfFile,idEDITranscation = p.idEDITranscation,idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType,EDITranscationType = p.EDITranscationType ,idStatusCodes = p.idStatusCodes, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType,X12_GS = p.X12_GS,X12_ISA = p.X12_ISA,X12_Qualifier = p.X12_Qualifier,idCommunicationMethod = p.idCommunicationMethod,FTPAddress = p.FTPAddress,UserName = p.UserName,Password = p.Password,FolderPath = p.FolderPath,Email = p.Email,idTriggerMechanism = p.idTriggerMechanism,idTiming = p.idTiming, TimeOfFile = p.TimeOfFile,idEDITranscation = p.idEDITranscation,idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType,EDITranscationType = p.EDITranscationType ,idStatusCodes = p.idStatusCodes, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .ToList();
         return qEDIRecipReq;
     }
@@ -534,6 +535,7 @@ public static class SrvEDIRecipReq
                 {
                     idFileType = data.idFileType,
                     RecipReqNum = data.RecipReqNum,
+                    PanelTitle = data.PanelTitle,
                     idEDITranscation = Trans.idEDITranscation,
                     X12_ISA = data.X12_ISA,
                     X12_GS = data.X12_GS,
@@ -592,6 +594,7 @@ public static class SrvEDIRecipReq
                 {
                     idFileType = data.idFileType,
                     RecipReqNum = data.RecipReqNum,
+                    PanelTitle = data.PanelTitle,
                     idEDITranscation = Trans.idEDITranscation,
                     X12_ISA = data.X12_ISA,
                     X12_GS = data.X12_GS,
@@ -620,6 +623,7 @@ public static class SrvEDIRecipReq
             {
                 qRec.idFileType = data.idFileType;
                 qRec.idCommunicationMethod = data.idCommunicationMethod;
+                qRec.PanelTitle = data.PanelTitle;
                 qRec.X12_ISA = data.X12_ISA;
                 qRec.X12_GS = data.X12_GS;
                 qRec.X12_Qualifier = data.X12_Qualifier;

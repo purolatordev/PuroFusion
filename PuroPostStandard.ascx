@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EDI210.ascx.cs" Inherits="EDI210" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PuroPostStandard.ascx.cs" Inherits="PUROPOSTSTANDARD" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <style type="text/css">
   /*  table,th,td{
@@ -31,50 +31,6 @@
         <telerik:RadPanelItem  Expanded="True">
             <ContentTemplate>
                 <table>
-                    <tr>
-                        <td class="Column1"></td>
-                        <td class="Column2">File Format
-                        </td>
-                        <td class="Column3Spacer"></td>
-                        <td class="Column4LeftWidth">
-                            <telerik:RadDropDownList ID="comboBxFileFormat" runat="server" Visible="true" Width="110px" AutoPostBack="True" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged">
-                            </telerik:RadDropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="Column1Span">If X12 is chosen, the following section will appear
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="Column1"></td>
-                        <td class="Column2">
-                            <asp:Label ID="lblISA" runat="server" Text="ISA" Visible="true"></asp:Label>
-                        </td>
-                        <td class="Column3Spacer"></td>
-                        <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxISA" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter ISA" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="Column1"></td>
-                        <td class="Column2">
-                            <asp:Label ID="lblGS" runat="server" Text="GS" Visible="true"></asp:Label>
-                        </td>
-                        <td class="Column3Spacer"></td>
-                        <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxGS" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter GS" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="Column1"></td>
-                        <td class="Column2">
-                            <asp:Label ID="lblQualifier" runat="server" Text="Qualifier" Visible="true"></asp:Label>
-                        </td>
-                        <td class="Column3Spacer"></td>
-                        <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxQualifier" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter Qualifier" />
-                        </td>
-                    </tr>
                     <tr>
                         <td class="Column1"></td>
                         <td class="Column2">Communication Method</td>
@@ -162,4 +118,3 @@
         </telerik:RadPanelItem>
     </Items>
 </telerik:RadPanelBar>
-<%--<asp:Button ID="btnRemove" runat="server" Text="Remove" OnClick="btnRemove_Click" />--%>

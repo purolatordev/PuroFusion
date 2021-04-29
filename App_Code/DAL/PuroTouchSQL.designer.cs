@@ -18432,6 +18432,8 @@ namespace DAL
 		
 		private int _idEDITranscation;
 		
+		private string _PanelTitle;
+		
 		private int _idFileType;
 		
 		private string _X12_ISA;
@@ -18498,6 +18500,8 @@ namespace DAL
     partial void OnidRequestChanged();
     partial void OnidEDITranscationChanging(int value);
     partial void OnidEDITranscationChanged();
+    partial void OnPanelTitleChanging(string value);
+    partial void OnPanelTitleChanged();
     partial void OnidFileTypeChanging(int value);
     partial void OnidFileTypeChanged();
     partial void OnX12_ISAChanging(string value);
@@ -18633,6 +18637,26 @@ namespace DAL
 					this._idEDITranscation = value;
 					this.SendPropertyChanged("idEDITranscation");
 					this.OnidEDITranscationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PanelTitle", DbType="VarChar(50)")]
+		public string PanelTitle
+		{
+			get
+			{
+				return this._PanelTitle;
+			}
+			set
+			{
+				if ((this._PanelTitle != value))
+				{
+					this.OnPanelTitleChanging(value);
+					this.SendPropertyChanging();
+					this._PanelTitle = value;
+					this.SendPropertyChanged("PanelTitle");
+					this.OnPanelTitleChanged();
 				}
 			}
 		}

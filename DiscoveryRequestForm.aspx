@@ -3262,7 +3262,7 @@
                         <td style="width: 170px; text-align:right">PuroPost Standard Invoice</td>
                         <td></td>
                          <td style="width: 140px; text-align:left">
-                            <telerik:RadDropDownList ID="comboBxNonCourierPuroPost" runat="server" Visible="true" Width="70px" AutoPostBack="true" >
+                            <telerik:RadDropDownList ID="comboBxNonCourierPuroPost" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxNonCourierPuroPost_SelectedIndexChanged">
                                 <Items>
                                     <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
                                     <telerik:DropDownListItem Value="yes" Text="Yes"  />
@@ -3562,6 +3562,15 @@
                             <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat ="server" ID="txtBxNumRecipNonCourier214" Width="50px" OnTextChanged="txtBxNumRecipNonCourier214_TextChanged" AutoPostBack="true"  ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
                             <telerik:RadButton ID="btnNumRecipNonCourier214" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
                         </td>
+                        <td ></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNumRecipNonCourierPuroPostStand" runat="server" Text="Number of Shipment Status Recipients Requested" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat ="server" ID="txtBxNumRecipNonCourierPuroPostStand" Width="50px" OnTextChanged="txtBxNumRecipNonCourierPuroPostStand_TextChanged" AutoPostBack="true"  ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadButton ID="btnNumRecipNonCourierPuroPostStand" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
+                        </td>
                     </tr>
                      <tr>
                         <td colspan="4" style="vertical-align:top">
@@ -3571,13 +3580,19 @@
                          <td colspan="3" style="text-align: center;vertical-align:top">
                             <asp:PlaceHolder ID="placeNonCourier214" runat="server" />
                         </td>
+                         <td></td>
+                         <td colspan="3" style="text-align: center;vertical-align:top">
+                            <asp:PlaceHolder ID="placePuroPostStand" runat="server" />
+                        </td>
                          <asp:Literal ID="Literal1" runat="server" />
                          <asp:Literal ID="Literal2" runat="server" />
                          <asp:Literal ID="ltlCountNonCourier210" runat="server" Text="0" Visible="false" />
                          <asp:Literal ID="ltlRemovedNonCourier210" runat="server" Visible="false" />
                          <asp:Literal ID="ltlCountNonCourier214" runat="server" Text="0" Visible="false" />
                          <asp:Literal ID="ltlRemovedNonCourier214" runat="server" Visible="false" />
-                     </tr>
+                         <asp:Literal ID="ltlCountPuroPostStand" runat="server" Text="0" Visible="false" />
+                         <asp:Literal ID="ltlRemovedPuroPostStand" runat="server" Visible="false" />
+                    </tr>
                 </table>
             </telerik:RadPageView>
 

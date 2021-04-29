@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EDI214.ascx.cs" Inherits="EDI214" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <style type="text/css">
-      table,th,td{
+    /*  table,th,td{
         border: 1px solid black;
-    }
+    }*/
     td.Column1a {
         width: 75px;
     }
@@ -177,7 +177,6 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-<%--                            <telerik:RadTextBox ID="textBoxTimeofFile" runat="server" MaxLength="100" Text='sample Time of File' Width="110px" ToolTip="Time of File" />--%>
                             <telerik:RadTimePicker ID="timeTimeofFile" runat="server" Width="100px" DateInput-DateFormat="hh:mm" ></telerik:RadTimePicker>
                         </td>
                     </tr>
@@ -188,6 +187,16 @@
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="110px">
                             </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Column1"></td>
+                        <td class="Column2">
+                            <asp:Label ID="Label1" runat="server" Text="Panel Title" Visible="true"></asp:Label>
+                        </td>
+                        <td class="Column3Spacer"></td>
+                        <td class="Column4LeftWidth">
+                            <telerik:RadTextBox ID="textBoxPanelTitle" runat="server" MaxLength="225" Width="150px" ToolTip="Enter Panel title" />
                         </td>
                     </tr>
                     <tr>

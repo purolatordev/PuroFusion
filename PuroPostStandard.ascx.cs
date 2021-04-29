@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using context = System.Web.HttpContext;
 
-public partial class EDI210 : System.Web.UI.UserControl
+public partial class PUROPOSTSTANDARD : System.Web.UI.UserControl
 {
     const int INVOICE_COURIER_EDI = 3;
     const int SHIPMENT_STATUS_COURIER_EDI = 4;
@@ -23,19 +23,16 @@ public partial class EDI210 : System.Web.UI.UserControl
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
         if (qEDIRecipReq != null && !IsPostBack)
         {
-            GetFileFormats();
             GetCommunicationMethods();
             UpdateControls(qEDIRecipReq);
         }
-        else if(Params.bNewDialog)
+        else if (Params.bNewDialog)
         {
-            Params.CheckPassBacks(Params.idEDIRecipReqs,false);
+            Params.CheckPassBacks(Params.idEDIRecipReqs, false);
             RemoveUserControl(sender, e);
-            GetFileFormats();
             GetCommunicationMethods();
             UpdateControls(qEDIRecipReq);
         }
-        SetFileFormatControls();
         SetCommunicationMethodControls();
 
         if (!string.IsNullOrEmpty(qEDIRecipReq.PanelTitle))
@@ -53,28 +50,7 @@ public partial class EDI210 : System.Web.UI.UserControl
         var sf = st.GetFrame(1);
         return sf.GetMethod().Name;
     }
-    private void SetFileFormatControls()
-    {
-        if (comboBxFileFormat.SelectedText.ToString().Contains("X12"))
-        {
-            lblISA.Visible = true;
-            txtBoxISA.Visible = true;
-            lblGS.Visible = true;
-            txtBoxGS.Visible = true;
-            lblQualifier.Visible = true;
-            txtBoxQualifier.Visible = true;
-        }
-        else
-        {
-            lblISA.Visible = false;
-            txtBoxISA.Visible = false;
-            lblGS.Visible = false;
-            txtBoxGS.Visible = false;
-            lblQualifier.Visible = false;
-            txtBoxQualifier.Visible = false;
-        }
-    }
-
+ 
     protected void Page_Init(object sender, EventArgs e)
     {
         //this. += new DetailsViewCommandEventHandler(RoomForm_ItemCommand);
@@ -90,7 +66,7 @@ public partial class EDI210 : System.Web.UI.UserControl
 
     protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
     {
-        SetFileFormatControls();
+        //SetFileFormatControls();
     }
     protected void CommunicationMethod_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -138,18 +114,14 @@ public partial class EDI210 : System.Web.UI.UserControl
 
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-        RemoveUserControl(sender,e);
+        RemoveUserControl(sender, e);
     }
     protected void btnSubmit210Changes_Click(object sender, EventArgs e)
     {
-        int iFileformat = int.Parse( comboBxFileFormat.SelectedValue);
+        //int iFileformat = int.Parse(comboBxFileFormat.SelectedValue);
         int iCommMethod = int.Parse(comboxCommunicationMethod.SelectedValue);
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
 
-        qEDIRecipReq.idFileType = iFileformat;
-        qEDIRecipReq.X12_ISA = txtBoxISA.Text;
-        qEDIRecipReq.X12_GS = txtBoxGS.Text;
-        qEDIRecipReq.X12_Qualifier = txtBoxQualifier.Text;
         qEDIRecipReq.idCommunicationMethod = iCommMethod;
         qEDIRecipReq.FTPAddress = textBoxFTPAddress.Text;
         qEDIRecipReq.UserName = textBoxUserName.Text;
@@ -164,24 +136,7 @@ public partial class EDI210 : System.Web.UI.UserControl
 
         UserControlSaved(sender, e);
     }
-    protected void GetFileFormats()
-    {
-        try
-        {
-            List<ClsFileType> qFileTypes = SrvFileType.GetFileTypes();
-            comboBxFileFormat.DataSource = qFileTypes;
-            comboBxFileFormat.DataTextField = "FileType";
-            comboBxFileFormat.DataValueField = "idFileType";
-            comboBxFileFormat.DataBind();
-        }
-        catch (Exception ex)
-        {
-            long lnewID = 0;
-            clsExceptionLogging error = new clsExceptionLogging() { Method = GetCurrentMethod(), ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now, CreatedBy = Session["userName"].ToString() };
-            SrvExceptionLogging.Insert(error, out lnewID);
-        }
-    }
-    protected void GetCommunicationMethods()
+     protected void GetCommunicationMethods()
     {
         try
         {
@@ -200,11 +155,11 @@ public partial class EDI210 : System.Web.UI.UserControl
     }
     protected void UpdateControls(clsEDIRecipReq qEDIRecipReq)
     {
-        comboBxFileFormat.SelectedValue = qEDIRecipReq.idFileType.ToString();
+        //comboBxFileFormat.SelectedValue = qEDIRecipReq.idFileType.ToString();
         comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
-        txtBoxISA.Text = qEDIRecipReq.X12_ISA;
-        txtBoxGS.Text = qEDIRecipReq.X12_GS;
-        txtBoxQualifier.Text = qEDIRecipReq.X12_Qualifier;
+        //txtBoxISA.Text = qEDIRecipReq.X12_ISA;
+        //txtBoxGS.Text = qEDIRecipReq.X12_GS;
+        //txtBoxQualifier.Text = qEDIRecipReq.X12_Qualifier;
         textBoxFTPAddress.Text = qEDIRecipReq.FTPAddress;
         textBoxUserName.Text = qEDIRecipReq.UserName;
         textBoxPassword.Text = qEDIRecipReq.Password;

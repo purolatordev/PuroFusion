@@ -46,8 +46,14 @@ public partial class EDI214 : System.Web.UI.UserControl
         SetFileFormatControls();
         SetCommunicationMethodControls();
         SetTimeOfFileControls();
-        RadPanelBar1.Items[0].Text = "Record num: " + (Params.iRecordID + 1).ToString();
+
+        if (!string.IsNullOrEmpty(qEDIRecipReq.PanelTitle))
+            RadPanelBar1.Items[0].Text = qEDIRecipReq.PanelTitle;
+        else
+            RadPanelBar1.Items[0].Text = "Record num: " + (Params.iRecordID + 1).ToString();
+
         RadPanelBar1.Items[0].Expanded = false;
+        textBoxPanelTitle.Text = RadPanelBar1.Items[0].Text;
     }
     [MethodImpl(MethodImplOptions.NoInlining)]
     public string GetCurrentMethod()
@@ -271,13 +277,13 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.idStatusCodes = iStatusCode;
         TimeSpan? ts = timeTimeofFile.SelectedTime;
         qEDIRecipReq.TimeOfFile = new DateTime( DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day, ts.Value.Hours, ts.Value.Minutes, 0);
+        qEDIRecipReq.PanelTitle = textBoxPanelTitle.Text;
+        RadPanelBar1.Items[0].Text = qEDIRecipReq.PanelTitle;
         qEDIRecipReq.UpdatedBy = Session["userName"].ToString();
         qEDIRecipReq.UpdatedOn = DateTime.Now;
         SrvEDIRecipReq.Insert(qEDIRecipReq);
 
         UserControlSaved(sender, e);
-        int er = 0;
-        er++;
     }
 
     protected void UpdateControls(clsEDIRecipReq qEDIRecipReq)

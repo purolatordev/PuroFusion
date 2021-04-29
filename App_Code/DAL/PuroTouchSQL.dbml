@@ -932,6 +932,7 @@
       <Column Name="RecipReqNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="idEDITranscation" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PanelTitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="idFileType" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="X12_ISA" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="X12_GS" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
