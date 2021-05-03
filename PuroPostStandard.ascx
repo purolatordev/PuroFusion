@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PuroPostStandard.ascx.cs" Inherits="PUROPOSTSTANDARD" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="PuroPostStandard.ascx.cs" Inherits="PuroPostStandard" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <style type="text/css">
   /*  table,th,td{
@@ -24,7 +24,6 @@
     td.Column4LeftLargest{
         text-align: right;
     }
-    
 </style>
 <telerik:RadPanelBar RenderMode="Lightweight" ID="RadPanelBar1" runat="server" Visible="true" Width="100%">
     <Items>

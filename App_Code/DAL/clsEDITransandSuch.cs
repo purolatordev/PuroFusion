@@ -18,6 +18,9 @@ public class clsEDITransaction
     public System.Nullable<bool> CombinePayer { get; set; }
 
     public System.Nullable<bool> BatchInvoices { get; set; }
+    public string SFTPFolder { get; set; }
+    public Nullable<bool> TestEnvironment { get; set; }
+    public int TestSentMethod { get; set; }
 
     public string CreatedBy { get; set; }
 
@@ -36,7 +39,7 @@ public static class SrvEDITransaction
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDITransaction> qShipMeth = o.GetTable<tblEDITranscation>()
                                             .Where(p => p.idRequest == idRequest && p.tblEDITranscationType.CategoryID == 0)
-                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices, CombinePayer = p.CombinePayer ,ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices, CombinePayer = p.CombinePayer , SFTPFolder = p.SFTPFolder, TestEnvironment = p.TestEnvironment, TestSentMethod = p.TestSentMethod, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                                             .ToList();
 
         return qShipMeth;
@@ -46,7 +49,7 @@ public static class SrvEDITransaction
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDITransaction> qShipMeth = o.GetTable<tblEDITranscation>()
                                             .Where(p => p.idRequest == idRequest && p.idEDITranscationType == idEDITranscationType && p.ActiveFlag == true)
-                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices:false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices:false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, SFTPFolder = p.SFTPFolder, TestEnvironment = p.TestEnvironment, TestSentMethod = p.TestSentMethod, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                                             .ToList();
 
         return qShipMeth;
@@ -59,7 +62,7 @@ public static class SrvEDITransaction
         {
             qShipMeth = o.GetTable<tblEDITranscation>()
                                 .Where(p => p.idRequest == idRequest && p.idEDITranscationType == idEDITranscationType && p.ActiveFlag == true)
-                                .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, SFTPFolder = p.SFTPFolder, TestEnvironment = p.TestEnvironment, TestSentMethod = p.TestSentMethod, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                                 .FirstOrDefault();
         }
         catch (Exception ex)
@@ -76,7 +79,7 @@ public static class SrvEDITransaction
         clsEDITransaction qShipMeth = null;
         qShipMeth = o.GetTable<tblEDITranscation>()
                                             .Where(p => p.idRequest == idRequest && p.idEDITranscationType == idEDITranscationType )
-                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, SFTPFolder = p.SFTPFolder, TestEnvironment = p.TestEnvironment, TestSentMethod = p.TestSentMethod, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                                             .FirstOrDefault();
         return qShipMeth;
     }
@@ -155,6 +158,9 @@ public static class SrvEDITransaction
                     TotalRequests = data.TotalRequests,
                     BatchInvoices = data.BatchInvoices.HasValue ? data.BatchInvoices : false,
                     CombinePayer = data.CombinePayer.HasValue ? data.CombinePayer : false,
+                    SFTPFolder = data.SFTPFolder,
+                    TestEnvironment = data.TestEnvironment,
+                    TestSentMethod = data.TestSentMethod,
                     idRequest = data.idRequest,
                     CreatedBy = data.CreatedBy,
                     CreatedOn = data.CreatedOn,
@@ -174,6 +180,9 @@ public static class SrvEDITransaction
                 EDITrans.BatchInvoices = data.BatchInvoices.HasValue ? data.BatchInvoices : false;
                 EDITrans.CombinePayer = data.CombinePayer.HasValue ? data.CombinePayer : false;
                 EDITrans.TotalRequests = data.TotalRequests;
+                EDITrans.TestEnvironment = data.TestEnvironment;
+                EDITrans.TestSentMethod = data.TestSentMethod;
+                EDITrans.SFTPFolder = data.SFTPFolder;
                 o.SubmitChanges();
             }
         }
@@ -207,6 +216,9 @@ public static class SrvEDITransaction
                         idRequest = ID,
                         CreatedBy = edi.CreatedBy,
                         CreatedOn = edi.CreatedOn,
+                        SFTPFolder = "",
+                        TestEnvironment = false,
+                        TestSentMethod = 0,
                         ActiveFlag = true
                     };
                     o.GetTable<tblEDITranscation>().InsertOnSubmit(oNewRow);
@@ -248,6 +260,9 @@ public static class SrvEDITransaction
                     idRequest = data.idRequest,
                     CreatedBy = data.CreatedBy,
                     CreatedOn = data.CreatedOn,
+                    TestEnvironment = data.TestEnvironment,
+                    TestSentMethod = data.TestSentMethod,
+                    SFTPFolder = data.SFTPFolder,
                     ActiveFlag = true
                 };
                 o.GetTable<tblEDITranscation>().InsertOnSubmit(oNewRow);
@@ -262,6 +277,9 @@ public static class SrvEDITransaction
                 EDITrans.BatchInvoices = data.BatchInvoices.HasValue ? data.BatchInvoices : false;
                 EDITrans.CombinePayer = data.CombinePayer.HasValue ? data.CombinePayer : false;
                 EDITrans.TotalRequests = data.TotalRequests;
+                EDITrans.TestEnvironment = data.TestEnvironment;
+                EDITrans.TestSentMethod = data.TestSentMethod;
+                EDITrans.SFTPFolder = data.SFTPFolder;
                 o.SubmitChanges();
             }
         }

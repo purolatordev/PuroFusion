@@ -13,7 +13,7 @@ public class UserControlParams
     public int iRecordID { get; set; }
     public int idEDIRecipReqs { get; set; }
     public IList<int> EDIRecipReqs;
-    public List<SrvEDIRecipReq.PassBack> passbacks;
+    public List<SrvEDIRecipReq.PassBack> passbacks { get; set; }
     public bool bNewDialog { get; set; }
 
     public UserControlParams()

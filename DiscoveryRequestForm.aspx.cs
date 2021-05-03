@@ -58,7 +58,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 CourierEDI214(ID);
                 NonCourierEDI210(ID);
                 NonCourierEDI214(ID);
-                PuroPostStandard(ID);
+                PuroPostStand(ID);
             }
             if (!IsPostBack)
             {
@@ -192,7 +192,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         //}
     }
 
-    private void PuroPostStandard(string ID)
+    private void PuroPostStand(string ID)
     {
         if (IsPostBack)
         {
@@ -2824,20 +2824,39 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 comboBxCourierEDI214.SelectedText = "No";
             SetCourierEDI214Controls();
 
-            if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_NON_COURIER_EDI) != null)
+            EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_NON_COURIER_EDI);
+            if (EDITrans != null)
+            {
+                //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_NON_COURIER_EDI) != null)
                 comboBxNonCourierEDI210.SelectedText = "Yes";
+                txtNonCourier210SFTP.Text = EDITrans.SFTPFolder;
+                comboNonCourier210TestEnvironment.SelectedText = (EDITrans.TestEnvironment.Value) ? "Yes" : "No";
+                comboNonCourier210TestSent.SelectedText = (EDITrans.TestSentMethod == 1) ? "SFTP" : "via Email";
+            }
             else
                 comboBxNonCourierEDI210.SelectedText = "No";
             SetCourierNonCourierEDI210Controls();
 
-            if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, SHIPMENT_STATUS_NON_COURIER_EDI) != null)
+            EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, SHIPMENT_STATUS_NON_COURIER_EDI);
+            if (EDITrans != null)
+            {
+                //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, SHIPMENT_STATUS_NON_COURIER_EDI) != null)
                 comboBxNonCourierEDI214.SelectedText = "Yes";
+                txtNonCourier214SFTP.Text = EDITrans.SFTPFolder;
+                comboNonCourier214TestEnvironment.SelectedText = (EDITrans.TestEnvironment.Value) ? "Yes" : "No";
+                comboNonCourier214TestSent.SelectedText = (EDITrans.TestSentMethod == 1) ? "SFTP" : "via Email";
+            }
             else
                 comboBxNonCourierEDI214.SelectedText = "No";
             SetCourierNonCourierEDI214Controls();
 
-            if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, PUROPOST_NON_COURIER_EDI) != null)
+            EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, PUROPOST_NON_COURIER_EDI);
+            if (EDITrans != null)
+            {
+                //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, PUROPOST_NON_COURIER_EDI) != null)
                 comboBxNonCourierPuroPost.SelectedText = "Yes";
+                txtNonCourierPuroPostSFTP.Text = EDITrans.SFTPFolder;
+            }
             else
                 comboBxNonCourierPuroPost.SelectedText = "No";
             SetCourierNonCourierPuroPostStandControls();
@@ -4076,6 +4095,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (comboBxNonCourierEDI210.SelectedText == "Yes")
             {
                 clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                data.TestEnvironment = comboNonCourier210TestEnvironment.SelectedText.Contains("Yes") ? true : false;
+                data.TestSentMethod = comboNonCourier210TestSent.SelectedText.Contains("SFTP") ? 1 : 2;
+                data.SFTPFolder = txtNonCourier210SFTP.Text;
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
@@ -4086,6 +4108,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (comboBxNonCourierEDI214.SelectedText == "Yes")
             {
                 clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                data.TestEnvironment = comboNonCourier214TestEnvironment.SelectedText.Contains("Yes") ? true : false;
+                data.TestSentMethod = comboNonCourier214TestSent.SelectedText.Contains("SFTP") ? 1 : 2;
+                data.SFTPFolder = txtNonCourier214SFTP.Text;
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
@@ -4096,6 +4121,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (comboBxNonCourierPuroPost.SelectedText == "Yes")
             {
                 clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = PUROPOST_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourierPuroPostStand.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                data.SFTPFolder = txtNonCourierPuroPostSFTP.Text; 
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
@@ -5493,14 +5519,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc1" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            DynamicUserControl.Params.idRequest = requestID;
-            DynamicUserControl.Params.iRecordID = i;
-            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
-            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
-            DynamicUserControl.Params.passbacks = p.passbacks;
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1); 
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
             DynamicUserControl.UserControlSaved += this.HandleUserControl210Saved;
-            //DynamicUserControl.UserControlSaved += this.Hand
             ph1.Controls.Add(DynamicUserControl);
             ControlID += 1;
         }
@@ -5526,11 +5548,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            DynamicUserControl.Params.idRequest = requestID;
-            DynamicUserControl.Params.iRecordID = i;
-            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
-            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
-            DynamicUserControl.Params.passbacks = p.passbacks;
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
             DynamicUserControl.UserControlSaved += this.HandleUserControl214Saved;
 
@@ -5564,11 +5583,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc3" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            DynamicUserControl.Params.idRequest = requestID;
-            DynamicUserControl.Params.iRecordID = i;
-            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
-            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
-            DynamicUserControl.Params.passbacks = p.passbacks;
+
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlNonCourier210;
             DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier210Saved;
             placeNonCourier210.Controls.Add(DynamicUserControl);
@@ -5601,18 +5619,22 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc4" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            DynamicUserControl.Params.idRequest = requestID;
-            DynamicUserControl.Params.iRecordID = i;
-            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
-            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
-            DynamicUserControl.Params.passbacks = p.passbacks;
+
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            //p1.passbacks = p.passbacks;
+            //p1.idRequest = requestID;
+            //p1.iRecordID = i;
+            //p1.idEDIRecipReqs = p.EDIRecipReqs[i];
+            //p1.bNewDialog = p.passbacks[i].bNewRecord;
+            DynamicUserControl.LoadParams(p1);
+
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControlNonCourier214;
             DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier214Saved;
             placeNonCourier214.Controls.Add(DynamicUserControl);
             ControlID += 1;
         }
     }
-    private void AddPuroPostStandDynamicControls(UserControlParams p)
+    private void AddPuroPostStandDynamicControls(UserControlParams p) 
     {
         Control c = GetPostBackControl(Page);
         if ((c != null))
@@ -5628,7 +5650,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         int ControlID = 0;
         for (int i = 0; i <= (Convert.ToInt16(ltlCountPuroPostStand.Text) - 1); i++)
         {
-            PUROPOSTSTANDARD DynamicUserControl = (PUROPOSTSTANDARD)LoadControl("PuroPostStandard.ascx");
+            PuroPostStandard DynamicUserControl = (PuroPostStandard)LoadControl("PuroPostStandard.ascx");
 
             while (InDeletedPuroPostStand("uc5" + ControlID) == true)
             {
@@ -5638,11 +5660,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc5" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            DynamicUserControl.Params.idRequest = requestID;
-            DynamicUserControl.Params.iRecordID = i;
-            DynamicUserControl.Params.idEDIRecipReqs = p.EDIRecipReqs[i];
-            DynamicUserControl.Params.bNewDialog = p.passbacks[i].bNewRecord;
-            DynamicUserControl.Params.passbacks = p.passbacks;
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks};
+            DynamicUserControl.LoadParams(p1); ;
+            
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlPuroPostStand;
             DynamicUserControl.UserControlSaved += this.HandleUserControlPuroPostStandSaved;
             placePuroPostStand.Controls.Add(DynamicUserControl);
@@ -5754,7 +5774,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     }
     public void HandleRemoveUserControlPuroPostStand(object sender, EventArgs e)
     {
-        ParamsForPuroPostStand = ((PUROPOSTSTANDARD)sender).Params;
+        ParamsForPuroPostStand = ((PuroPostStandard)sender).Params;
     }
     public void HandleUserControlPuroPostStandSaved(object sender, EventArgs e)
     {
@@ -6021,3 +6041,4 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         SetCourierNonCourierPuroPostStandControls();
     }
 }
+

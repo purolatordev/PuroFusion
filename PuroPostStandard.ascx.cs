@@ -8,7 +8,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using context = System.Web.HttpContext;
 
-public partial class PUROPOSTSTANDARD : System.Web.UI.UserControl
+//PUROPOSTSTANDARD
+public partial class PuroPostStandard : System.Web.UI.UserControl
 {
     const int INVOICE_COURIER_EDI = 3;
     const int SHIPMENT_STATUS_COURIER_EDI = 4;
@@ -16,8 +17,8 @@ public partial class PUROPOSTSTANDARD : System.Web.UI.UserControl
     public event EventHandler RemoveUserControl;
     public event EventHandler UserControlSaved;
     public event EventHandler buttonClick;
-    public UserControlParams Params = new UserControlParams();
-
+    public UserControlParams Params = new UserControlParams(); 
+   
     protected void Page_Load(object sender, EventArgs e)
     {
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
@@ -43,6 +44,11 @@ public partial class PUROPOSTSTANDARD : System.Web.UI.UserControl
         RadPanelBar1.Items[0].Expanded = false;
         textBoxPanelTitle.Text = RadPanelBar1.Items[0].Text;
     }
+    public void LoadParams(UserControlParams p)
+    {
+        Params = p;
+    }
+    
     [MethodImpl(MethodImplOptions.NoInlining)]
     public string GetCurrentMethod()
     {

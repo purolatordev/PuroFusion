@@ -17,7 +17,10 @@ public partial class EDI210 : System.Web.UI.UserControl
     public event EventHandler UserControlSaved;
     public event EventHandler buttonClick;
     public UserControlParams Params = new UserControlParams();
-
+    public void LoadParams(UserControlParams p)
+    {
+        Params = p;
+    }
     protected void Page_Load(object sender, EventArgs e)
     {
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
