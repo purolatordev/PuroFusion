@@ -33,7 +33,7 @@
                 <table>
                     <tr>
                         <td class="Column1"></td>
-                        <td class="Column2">File Format
+                        <td class="Column2"><asp:Label ID="lblEDI210FileFormat" runat="server" Text="File Format" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -42,7 +42,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1Span">If X12 is chosen, the following section will appear
+                        <td colspan="4" class="Column1Span"><asp:Label ID="lblEDIIfX12" runat="server" Text="If X12 is chosen, the following section will appear" Visible="true"></asp:Label>
                         </td>
                     </tr>
                     <tr>

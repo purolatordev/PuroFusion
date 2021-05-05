@@ -6,13 +6,13 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
-
+using context = System.Web.HttpContext;
 /// <summary>
 /// Summary description for PuroTouchRepository
 /// </summary>
 /// 
 
-    public class PuroTouchRepository : IPuroTouch,IDisposable
+public class PuroTouchRepository : IPuroTouch,IDisposable
     {
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
 
@@ -1166,13 +1166,22 @@ using System.Configuration;
     public List<ClsFileUpload> GetFileList(int DRid, string strDir)
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
-
-        List<ClsFileUpload> qFiles = o.GetTable<tblDiscoveryRequestUpload>()
+        List<ClsFileUpload> qFiles = new List<ClsFileUpload>();
+        try
+        {
+            qFiles = o.GetTable<tblDiscoveryRequestUpload>()
                                     .Where(d => d.idRequest == DRid && d.ActiveFlag != false && d.FilePath.Contains(strDir))
                                     .OrderByDescending(f => f.UpdatedBy)
                                     .ThenByDescending(f => f.idFileUpload)
-                                    .Select(data => new ClsFileUpload() { idFileUpload = data.idFileUpload,idRequest = data.idRequest,UploadDate = data.UploadDate,Description = data.Description,FilePath = data.FilePath,CreatedBy = data.CreatedBy,CreatedOn = (DateTime)data.CreatedOn,UpdatedBy = data.UpdatedBy,UpdatedOn = data.UpdatedOn,ActiveFlag = (bool)data.ActiveFlag}).ToList();
-        
+                                    .Select(data => new ClsFileUpload() { idFileUpload = data.idFileUpload, idRequest = data.idRequest, UploadDate = data.UploadDate, Description = data.Description, FilePath = data.FilePath, CreatedBy = data.CreatedBy, CreatedOn = (DateTime)data.CreatedOn, UpdatedBy = data.UpdatedBy, UpdatedOn = data.UpdatedOn, ActiveFlag = (bool)data.ActiveFlag }).ToList();
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+
         return qFiles;
     }
     public int GetTotalTimeSpent(int requestID)

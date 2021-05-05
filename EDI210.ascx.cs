@@ -12,6 +12,9 @@ public partial class EDI210 : System.Web.UI.UserControl
 {
     const int INVOICE_COURIER_EDI = 3;
     const int SHIPMENT_STATUS_COURIER_EDI = 4;
+    const int INVOICE_NON_COURIER_EDI = 5;
+    const int SHIPMENT_STATUS_NON_COURIER_EDI = 6;
+    const int PUROPOST_NON_COURIER_EDI = 7;
 
     public event EventHandler RemoveUserControl;
     public event EventHandler UserControlSaved;
@@ -145,14 +148,16 @@ public partial class EDI210 : System.Web.UI.UserControl
     }
     protected void btnSubmit210Changes_Click(object sender, EventArgs e)
     {
-        int iFileformat = int.Parse( comboBxFileFormat.SelectedValue);
         int iCommMethod = int.Parse(comboxCommunicationMethod.SelectedValue);
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
-
-        qEDIRecipReq.idFileType = iFileformat;
-        qEDIRecipReq.X12_ISA = txtBoxISA.Text;
-        qEDIRecipReq.X12_GS = txtBoxGS.Text;
-        qEDIRecipReq.X12_Qualifier = txtBoxQualifier.Text;
+        if (qEDIRecipReq.idEDITranscationType != PUROPOST_NON_COURIER_EDI)
+        {
+            int iFileformat = int.Parse( comboBxFileFormat.SelectedValue);
+            qEDIRecipReq.idFileType = iFileformat;
+            qEDIRecipReq.X12_ISA = txtBoxISA.Text;
+            qEDIRecipReq.X12_GS = txtBoxGS.Text;
+            qEDIRecipReq.X12_Qualifier = txtBoxQualifier.Text;
+        }
         qEDIRecipReq.idCommunicationMethod = iCommMethod;
         qEDIRecipReq.FTPAddress = textBoxFTPAddress.Text;
         qEDIRecipReq.UserName = textBoxUserName.Text;
@@ -203,7 +208,16 @@ public partial class EDI210 : System.Web.UI.UserControl
     }
     protected void UpdateControls(clsEDIRecipReq qEDIRecipReq)
     {
-        comboBxFileFormat.SelectedValue = qEDIRecipReq.idFileType.ToString();
+        if (qEDIRecipReq.idEDITranscationType == PUROPOST_NON_COURIER_EDI)
+        {
+            comboBxFileFormat.Visible = false;
+            lblEDI210FileFormat.Visible = false;
+            lblEDIIfX12.Visible = false;
+        }
+        else
+        {
+            comboBxFileFormat.SelectedValue = qEDIRecipReq.idFileType.ToString();
+        }
         comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
         txtBoxISA.Text = qEDIRecipReq.X12_ISA;
         txtBoxGS.Text = qEDIRecipReq.X12_GS;
