@@ -33,6 +33,16 @@
                 <table>
                     <tr>
                         <td class="Column1"></td>
+                        <td class="Column2">
+                            <asp:Label ID="Label1" runat="server" Text="Panel Title" Visible="true"></asp:Label>
+                        </td>
+                        <td class="Column3Spacer"></td>
+                        <td class="Column4LeftWidth">
+                            <telerik:RadTextBox ID="textBoxPanelTitle" runat="server" MaxLength="225" Width="150px" ToolTip="Enter Panel title" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Column1"></td>
                         <td class="Column2"><asp:Label ID="lblEDI210FileFormat" runat="server" Text="File Format" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
@@ -140,16 +150,6 @@
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftLargest">
                             <telerik:RadTextBox ID="textBoxEmail" runat="server" MaxLength="225" Width="225px" ToolTip="Enter Email" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="Column1"></td>
-                        <td class="Column2">
-                            <asp:Label ID="Label1" runat="server" Text="Panel Title" Visible="true"></asp:Label>
-                        </td>
-                        <td class="Column3Spacer"></td>
-                        <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="textBoxPanelTitle" runat="server" MaxLength="225" Width="150px" ToolTip="Enter Panel title" />
                         </td>
                     </tr>
                     <tr>

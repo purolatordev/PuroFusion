@@ -12,7 +12,7 @@
 
             function submitCallBackFn(arg) {
                 window.location.href = "Home.aspx";
-            }
+            } 		
             function profileCallBackFn(arg) {
             }
             function notesCallBackFn(arg) {
@@ -3480,44 +3480,6 @@
                     <tr>
                         <td></td>
                         <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNonCourier210TestEnvironment" runat="server" Text="Does Customer Have Test Environment?" Visible="true"></asp:Label>
-                        </td>
-                        <td></td>
-                        <td style="width: 140px; text-align: left">
-                            <telerik:RadDropDownList ID="comboNonCourier210TestEnvironment" runat="server" Visible="true" Width="70px">
-                                <Items>
-                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
-                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
-                                </Items>
-                            </telerik:RadDropDownList>
-                        </td>
-                        <td></td>
-                        <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNonCourier214TestEnvironment" runat="server" Text="Does Customer Have Test Environment?" Visible="true"></asp:Label>
-                        </td>
-                        <td></td>
-                        <td style="width: 140px; text-align: left">
-                            <telerik:RadDropDownList ID="comboNonCourier214TestEnvironment" runat="server" Visible="true" Width="70px">
-                                <Items>
-                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
-                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
-                                </Items>
-                            </telerik:RadDropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width: 10px"></td>
-                        <td colspan="3" style="text-align: center;">
-                            <asp:Label ID="lblNonCourier210ProdTest" runat="server" Text="If yes, both Prod and Test sections will appear:" Visible="true"></asp:Label>
-                        </td>
-                        <td style="width: 10px"></td>
-                        <td colspan="3" style="text-align: center;">
-                            <asp:Label ID="lblNonCourier214ProdTest" runat="server" Text="If yes, both Prod and Test sections will appear:" Visible="true"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="width: 220px; text-align: right">
                             <asp:Label ID="lblNonCourier210TestSent" runat="server" Text="How should initial test files be sent?" Visible="true"></asp:Label>
                         </td>
                         <td></td>
@@ -3546,7 +3508,7 @@
                     <tr>
                         <td></td>
                         <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNumRecipNonCourier210" runat="server" Text="Number of Invoice Recipients Requested" Visible="true"></asp:Label>
+                            <asp:Label ID="lblNumRecipNonCourier210" runat="server" Text="Number of Invoice Recipients Requested Prod" Visible="true"></asp:Label>
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
@@ -3555,7 +3517,7 @@
                         </td>
                         <td style="width: 10px"></td>
                         <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNumRecipNonCourier214" runat="server" Text="Number of Shipment Status Recipients Requested" Visible="true"></asp:Label>
+                            <asp:Label ID="lblNumRecipNonCourier214" runat="server" Text="Number of Shipment Status Recipients Requested Prod" Visible="true"></asp:Label>
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
@@ -3572,26 +3534,60 @@
                             <telerik:RadButton ID="btnNumRecipNonCourierPuroPostStand" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
                         </td>
                     </tr>
-                     <tr>
-                        <td colspan="4" style="vertical-align:top">
+                    <tr>
+                        <td colspan="4" style="vertical-align: top">
                             <asp:PlaceHolder ID="placeNonCourier210" runat="server" />
                         </td>
-                         <td class="SpacerNonCourier"></td>
-                         <td colspan="3" style="text-align: center;vertical-align:top">
+                        <td class="SpacerNonCourier"></td>
+                        <td colspan="3" style="text-align: center; vertical-align: top">
                             <asp:PlaceHolder ID="placeNonCourier214" runat="server" />
                         </td>
-                         <td></td>
-                         <td colspan="3" style="text-align: center;vertical-align:top">
+                        <td></td>
+                        <td colspan="3" style="text-align: center; vertical-align: top">
                             <asp:PlaceHolder ID="placePuroPostStand" runat="server" />
                         </td>
-                         <asp:Literal ID="Literal1" runat="server" />
-                         <asp:Literal ID="Literal2" runat="server" />
-                         <asp:Literal ID="ltlCountNonCourier210" runat="server" Text="0" Visible="false" />
-                         <asp:Literal ID="ltlRemovedNonCourier210" runat="server" Visible="false" />
-                         <asp:Literal ID="ltlCountNonCourier214" runat="server" Text="0" Visible="false" />
-                         <asp:Literal ID="ltlRemovedNonCourier214" runat="server" Visible="false" />
-                         <asp:Literal ID="ltlCountPuroPostStand" runat="server" Text="0" Visible="false" />
-                         <asp:Literal ID="ltlRemovedPuroPostStand" runat="server" Visible="false" />
+                        <asp:Literal ID="Literal1" runat="server" />
+                        <asp:Literal ID="Literal2" runat="server" />
+                        <asp:Literal ID="ltlCountNonCourier210" runat="server" Text="0" Visible="false" />
+                        <asp:Literal ID="ltlRemovedNonCourier210" runat="server" Visible="false" />
+                        <asp:Literal ID="ltlCountNonCourier214" runat="server" Text="0" Visible="false" />
+                        <asp:Literal ID="ltlRemovedNonCourier214" runat="server" Visible="false" />
+                        <asp:Literal ID="ltlCountPuroPostStand" runat="server" Text="0" Visible="false" />
+                        <asp:Literal ID="ltlRemovedPuroPostStand" runat="server" Visible="false" />
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNumRecipNonCourier210Test" runat="server" Text="Number of Invoice Recipients Requested Test" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat="server" ID="txtBxNumRecipNonCourier210Test" Width="50px" OnTextChanged="txtBxNumRecipNonCourier210_TextChanged" AutoPostBack="true" ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadButton ID="btnNumRecipNonCourier210Test" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
+                        </td>
+                        <td style="width: 10px"></td>
+                        <td style="width: 220px; text-align: right">
+                            <asp:Label ID="lblNumRecipNonCourier214Test" runat="server" Text="Number of Shipment Status Recipients Requested Test" Visible="true"></asp:Label>
+                        </td>
+                        <td></td>
+                        <td style="width: 140px; text-align: left">
+                            <telerik:RadNumericTextBox RenderMode="Lightweight" MinValue="0" MaxValue="10" runat="server" ID="txtBxNumRecipNonCourier214Test" Width="50px" OnTextChanged="txtBxNumRecipNonCourier214_TextChanged" AutoPostBack="true" ShowSpinButtons="false" NumberFormat-DecimalDigits="0"></telerik:RadNumericTextBox>
+                            <telerik:RadButton ID="btnNumRecipNonCourier214Test" AutoPostBack="false" runat="server" Text="Update"></telerik:RadButton>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="vertical-align: top">
+                            <asp:PlaceHolder ID="placeNonCourier210Test" runat="server" />
+                        </td>
+                        <td class="SpacerNonCourier"></td>
+                        <td colspan="3" style="text-align: center; vertical-align: top">
+                            <asp:PlaceHolder ID="placeNonCourier214Test" runat="server" />
+                        </td>
+                        <td></td>
+                        <asp:Literal ID="ltlCountNonCourier210Test" runat="server" Text="0" Visible="false" />
+                        <asp:Literal ID="ltlRemovedNonCourier210Test" runat="server" Visible="false" />
+                        <asp:Literal ID="ltlCountNonCourier214Test" runat="server" Text="0" Visible="false" />
+                        <asp:Literal ID="ltlRemovedNonCourier214Test" runat="server" Visible="false" />
                     </tr>
                 </table>
             </telerik:RadPageView>

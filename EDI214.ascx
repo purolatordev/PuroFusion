@@ -36,6 +36,16 @@
             <ContentTemplate>
                 <table>
                     <tr>
+                        <td class="Column1"></td>
+                        <td class="Column2">
+                            <asp:Label ID="Label1" runat="server" Text="Panel Title" Visible="true"></asp:Label>
+                        </td>
+                        <td class="Column3Spacer"></td>
+                        <td class="Column4LeftWidth">
+                            <telerik:RadTextBox ID="textBoxPanelTitle" runat="server" MaxLength="225" Width="150px" ToolTip="Enter Panel title" />
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="Column1a"></td>
                         <td class="Column2A">File Format
                         </td>
@@ -187,16 +197,6 @@
                         <td class="Column4LeftWidth">
                             <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="110px">
                             </telerik:RadDropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="Column1"></td>
-                        <td class="Column2">
-                            <asp:Label ID="Label1" runat="server" Text="Panel Title" Visible="true"></asp:Label>
-                        </td>
-                        <td class="Column3Spacer"></td>
-                        <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="textBoxPanelTitle" runat="server" MaxLength="225" Width="150px" ToolTip="Enter Panel title" />
                         </td>
                     </tr>
                     <tr>

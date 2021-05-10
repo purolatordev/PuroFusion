@@ -27,7 +27,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     UserControlParams ParamsFor210 = new UserControlParams();
     UserControlParams ParamsFor214 = new UserControlParams();
     UserControlParams ParamsForNonCourier210 = new UserControlParams();
+    UserControlParams ParamsForNonCourier210Test = new UserControlParams();
     UserControlParams ParamsForNonCourier214 = new UserControlParams();
+    UserControlParams ParamsForNonCourier214Test = new UserControlParams();
     UserControlParams ParamsForPuroPostStand = new UserControlParams();
 
     const int INVOICE_COURIER_EDI = 3;
@@ -35,18 +37,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     const int INVOICE_NON_COURIER_EDI = 5;
     const int SHIPMENT_STATUS_NON_COURIER_EDI = 6;
     const int PUROPOST_NON_COURIER_EDI = 7;
+    const int INVOICE_NON_COURIER_EDI_TEST = 8;
+    const int SHIPMENT_STATUS_NON_COURIER_EDI_TEST = 9;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //for (int i = 0; i < RadTabStrip1.Tabs.Count(); i++)
-        //{
-        //    if (RadTabStrip1.Tabs[i].Selected)
-        //    {
-        //        int er = 0;
-        //        string s = RadTabStrip1.Tabs[i].Text;
-        //        er++;
-        //    }
-        //}
         if (bool.Parse(ConfigurationManager.AppSettings["debug"]) )
         {
             Session["userName"] = "Scott.Cardinale";
@@ -66,7 +61,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 CourierEDI210(ID);
                 CourierEDI214(ID);
                 NonCourierEDI210(ID);
+                NonCourierEDI210Test(ID);
                 NonCourierEDI214(ID);
+                NonCourierEDI214Test(ID);
                 PuroPostStand(ID);
             }
             if (!IsPostBack)
@@ -211,7 +208,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         //    RadTabStrip1.Tabs[6].Selected = true;
         //}
     }
-
+    #region User controls
     private void PuroPostStand(string ID)
     {
         if (IsPostBack)
@@ -343,6 +340,71 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             SetCourierNonCourierEDI210Controls();
         }
     }
+    private void NonCourierEDI210Test(string ID)
+    {
+        if (IsPostBack)
+        {
+            clsEDITransaction EDITrans = new clsEDITransaction()
+            {
+                idEDITranscationType = INVOICE_NON_COURIER_EDI_TEST,
+                TotalRequests = string.IsNullOrEmpty(txtBxNumRecipNonCourier210Test.Text) ? 0 : int.Parse(txtBxNumRecipNonCourier210Test.Text),
+                idRequest = int.Parse(ID),
+                ActiveFlag = true,
+                CreatedOn = DateTime.Now,
+                CreatedBy = (string)(Session["userName"])
+            };
+            Int32 t = 0;
+            SrvEDITransaction.Insert(EDITrans, out t);
+        }
+        clsEDITransaction EDIInvoiceTrans = SrvEDITransaction.GetAEDITransactionsByidRequest(Convert.ToInt32(ID), INVOICE_NON_COURIER_EDI_TEST);
+        if (EDIInvoiceTrans != null)
+        {
+            int iTotalRequest = EDIInvoiceTrans.TotalRequests;
+
+            List<clsEDIRecipReq> qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqs(EDIInvoiceTrans.idEDITranscation);
+            // Nothing there
+            if (qEDIRecipReq.Count <= 0)
+            {
+                for (int i = 0; i < iTotalRequest; i++)
+                {
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    Int32 newID = 0;
+                    SrvEDIRecipReq.Insert(data, out newID);
+                }
+            }
+            // Add new value
+            else if (qEDIRecipReq.Count < iTotalRequest)
+            {
+                int iTotNewRecNum = iTotalRequest - qEDIRecipReq.Count;
+                int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
+                for (int i = 0; i < iTotNewRecNum; i++)
+                {
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    Int32 newID = 0;
+                    SrvEDIRecipReq.Insert(data, out newID);
+                }
+            }
+            // Remove value
+            else if (qEDIRecipReq.Count > iTotalRequest)
+            {
+                int iTotalRecRemove = qEDIRecipReq.Count - iTotalRequest;
+                for (int i = 1; i < iTotalRecRemove + 1; i++)
+                {
+                    int idEDIRecipReqs = qEDIRecipReq[qEDIRecipReq.Count - i].idEDIRecipReqs;
+                    SrvEDIRecipReq.Remove(idEDIRecipReqs);
+                }
+            }
+            ParamsForNonCourier210Test = new UserControlParams(iTotalRequest, int.Parse(ID));
+            List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
+            List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
+            ParamsForNonCourier210Test.EDIRecipReqs = EDIRecipReqs;
+            ParamsForNonCourier210Test.passbacks = passbacks;
+            if (!IsPostBack)
+                txtBxNumRecipNonCourier210Test.Text = EDIInvoiceTrans.TotalRequests.ToString();
+            AddNonCourier210TestDynamicControls(ParamsForNonCourier210Test);
+            SetCourierNonCourierEDI210Controls();
+        }
+    }
     private void NonCourierEDI214(string ID)
     {
         if (IsPostBack)
@@ -407,6 +469,71 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             SetCourierNonCourierEDI214Controls();
         }
     }
+    private void NonCourierEDI214Test(string ID)
+    {
+        if (IsPostBack)
+        {
+            clsEDITransaction EDITrans = new clsEDITransaction()
+            {
+                idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI_TEST,
+                TotalRequests = string.IsNullOrEmpty(txtBxNumRecipNonCourier214Test.Text) ? 0 : int.Parse(txtBxNumRecipNonCourier214Test.Text),
+                idRequest = int.Parse(ID),
+                ActiveFlag = true,
+                CreatedOn = DateTime.Now,
+                CreatedBy = (string)(Session["userName"])
+            };
+            SrvEDITransaction.Insert(EDITrans);
+        }
+        clsEDITransaction EDIShipmentTrans = SrvEDITransaction.GetAEDITransactionsByidRequest(Convert.ToInt32(ID), SHIPMENT_STATUS_NON_COURIER_EDI_TEST);
+        if (EDIShipmentTrans != null)
+        {
+            int iTotalRequest = EDIShipmentTrans.TotalRequests;
+            List<clsEDIRecipReq> qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqs(EDIShipmentTrans.idEDITranscation);
+            // Nothing there
+            if (qEDIRecipReq.Count <= 0)
+            {
+                for (int i = 0; i < iTotalRequest; i++)
+                {
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    Int32 newID = 0;
+                    SrvEDIRecipReq.Insert(data, out newID);
+                }
+            }
+            // Add new value
+            else if (qEDIRecipReq.Count < iTotalRequest)
+            {
+                int iTotNewRecNum = iTotalRequest - qEDIRecipReq.Count;
+                int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
+                for (int i = 0; i < iTotNewRecNum; i++)
+                {
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    Int32 newID = 0;
+                    SrvEDIRecipReq.Insert(data, out newID);
+                }
+            }
+            // Remove value
+            else if (qEDIRecipReq.Count > iTotalRequest)
+            {
+                int iTotalRecRemove = qEDIRecipReq.Count - iTotalRequest;
+                for (int i = 1; i < iTotalRecRemove + 1; i++)
+                {
+                    int idEDIRecipReqs = qEDIRecipReq[qEDIRecipReq.Count - i].idEDIRecipReqs;
+                    SrvEDIRecipReq.Remove(idEDIRecipReqs);
+                }
+            }
+            ParamsForNonCourier214Test = new UserControlParams(iTotalRequest, int.Parse(ID));
+            List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIShipmentTrans.idEDITranscation);
+            List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIShipmentTrans.idEDITranscation);
+            ParamsForNonCourier214Test.EDIRecipReqs = EDIRecipReqs;
+            ParamsForNonCourier214Test.passbacks = passbacks;
+
+            if (!IsPostBack)
+                txtBxNumRecipNonCourier214Test.Text = EDIShipmentTrans.TotalRequests.ToString();
+            AddNonCourier214TestDynamicControls(ParamsForNonCourier214Test);
+            SetCourierNonCourierEDI214Controls();
+        }
+    }
+
     private void CourierEDI214(string ID)
     {
         if (IsPostBack)
@@ -537,7 +664,624 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             SetCourierEDI210Controls();
         }
     }
+    private void AddAndRemoveDynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+                //p.xNames.Add((p.xTimes.Count + 1).ToString());
+                //p.yNames.Add((p.xTimes.Count + 1).ToString());
+                //p.xTimes.Add(p.xTimes.Count + 1);
+            }
+        }
 
+        ltlCount.Text = p.iTotalRecs.ToString();
+
+        ph1.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCount.Text) - 1); i++)
+        {
+            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
+
+            while (InDeletedList("uc1" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc1" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
+            DynamicUserControl.UserControlSaved += this.HandleUserControl210Saved;
+            ph1.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+    private void AddAndRemoveDynamicControls2(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+
+        //ltlCount2.Text = p.xTimes.Count.ToString();
+        ltlCount2.Text = p.iTotalRecs.ToString();
+
+        ph2.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCount2.Text) - 1); i++)
+        {
+            EDI214 DynamicUserControl = (EDI214)LoadControl("EDI214.ascx");
+
+            while (InDeletedList2("uc" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+            DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
+            DynamicUserControl.UserControlSaved += this.HandleUserControl214Saved;
+
+            ph2.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+    private void AddNonCourier210DynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+            }
+        }
+
+        ltlCountNonCourier210.Text = p.iTotalRecs.ToString();
+
+        placeNonCourier210.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCountNonCourier210.Text) - 1); i++)
+        {
+            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
+
+            while (InDeletedNonCourier210("uc3" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc3" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+
+            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlNonCourier210;
+            DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier210Saved;
+            placeNonCourier210.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+    private void AddNonCourier210TestDynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+            }
+        }
+
+        ltlCountNonCourier210Test.Text = p.iTotalRecs.ToString();
+
+        placeNonCourier210Test.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCountNonCourier210Test.Text) - 1); i++)
+        {
+            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
+
+            while (InDeletedNonCourier210Test("uc6" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc6" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+
+            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlNonCourier210Test;
+            DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier210TestSaved;
+            placeNonCourier210Test.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+
+    private void AddNonCourier214DynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+            }
+        }
+
+        ltlCountNonCourier214.Text = p.iTotalRecs.ToString();
+
+        placeNonCourier214.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCountNonCourier214.Text) - 1); i++)
+        {
+            EDI214 DynamicUserControl = (EDI214)LoadControl("EDI214.ascx");
+
+            while (InDeletedNonCourier214("uc4" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc4" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+
+            DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControlNonCourier214;
+            DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier214Saved;
+            placeNonCourier214.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+    private void AddNonCourier214TestDynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+            }
+        }
+
+        ltlCountNonCourier214Test.Text = p.iTotalRecs.ToString();
+
+        placeNonCourier214Test.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCountNonCourier214Test.Text) - 1); i++)
+        {
+            EDI214 DynamicUserControl = (EDI214)LoadControl("EDI214.ascx");
+
+            while (InDeletedNonCourier214Test("uc7" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc7" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1);
+
+            DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControlNonCourier214Test;
+            DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier214TestSaved;
+            placeNonCourier214Test.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+
+    private void AddPuroPostStandDynamicControls(UserControlParams p)
+    {
+        Control c = GetPostBackControl(Page);
+        if ((c != null))
+        {
+            if (c.ID.ToString() == "btnAdd")
+            {
+            }
+        }
+
+        ltlCountPuroPostStand.Text = p.iTotalRecs.ToString();
+
+        placePuroPostStand.Controls.Clear();
+        int ControlID = 0;
+        for (int i = 0; i <= (Convert.ToInt16(ltlCountPuroPostStand.Text) - 1); i++)
+        {
+            //PuroPostStandard DynamicUserControl = (PuroPostStandard)LoadControl("PuroPostStandard.ascx");
+            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
+
+            while (InDeletedPuroPostStand("uc5" + ControlID) == true)
+            {
+                ControlID += 1;
+            }
+
+            DynamicUserControl.ID = "uc5" + ControlID;
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            DynamicUserControl.LoadParams(p1); ;
+
+            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlPuroPostStand;
+            DynamicUserControl.UserControlSaved += this.HandleUserControlPuroPostStandSaved;
+            placePuroPostStand.Controls.Add(DynamicUserControl);
+            ControlID += 1;
+        }
+    }
+
+    private bool InDeletedList(string ControlID)
+    {
+        string[] DeletedList = ltlRemoved.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool InDeletedList2(string ControlID)
+    {
+        string[] DeletedList = ltlRemoved2.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool InDeletedNonCourier210(string ControlID)
+    {
+        string[] DeletedList = ltlRemovedNonCourier210.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool InDeletedNonCourier210Test(string ControlID)
+    {
+        string[] DeletedList = ltlRemovedNonCourier210Test.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool InDeletedNonCourier214(string ControlID)
+    {
+        string[] DeletedList = ltlRemovedNonCourier214.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private bool InDeletedNonCourier214Test(string ControlID)
+    {
+        string[] DeletedList = ltlRemovedNonCourier214Test.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool InDeletedPuroPostStand(string ControlID)
+    {
+        string[] DeletedList = ltlRemovedPuroPostStand.Text.Split('|');
+        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
+        {
+            if (ControlID.ToLower() == DeletedList[i].ToLower())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void HandleRemoveUserControl(object sender, EventArgs e)
+    {
+        ParamsFor210 = ((EDI210)sender).Params;
+    }
+    public void HandleUserControl210Saved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 6;
+        RadTabStrip1.Tabs[6].Selected = true;
+    }
+    public void HandleRemoveUserControl2(object sender, EventArgs e)
+    {
+        ParamsFor214 = ((EDI214)sender).Params;
+        //Button remove = (sender as Button);
+        //UserControl DynamicUserControl = (UserControl)remove.Parent;
+        //ph2.Controls.Remove((UserControl)remove.Parent);
+        //ltlRemoved2.Text += DynamicUserControl.ID + "|";
+        //ltlCount2.Text = (Convert.ToInt16(ltlCount2.Text) - 1).ToString();
+    }
+    public void HandleUserControl214Saved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 6;
+        RadTabStrip1.Tabs[6].Selected = true;
+    }
+    public void HandleRemoveUserControlNonCourier210(object sender, EventArgs e)
+    {
+        ParamsForNonCourier210 = ((EDI210)sender).Params;
+    }
+    public void HandleRemoveUserControlNonCourier210Test(object sender, EventArgs e)
+    {
+        ParamsForNonCourier210Test = ((EDI210)sender).Params;
+    }
+    public void HandleUserControlNonCourier210Saved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    public void HandleUserControlNonCourier210TestSaved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    public void HandleRemoveUserControlNonCourier214(object sender, EventArgs e)
+    {
+        ParamsForNonCourier214 = ((EDI214)sender).Params;
+    }
+    public void HandleRemoveUserControlNonCourier214Test(object sender, EventArgs e)
+    {
+        ParamsForNonCourier214Test = ((EDI214)sender).Params;
+    }
+
+    public void HandleUserControlNonCourier214Saved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    public void HandleUserControlNonCourier214TestSaved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+
+    public void HandleRemoveUserControlPuroPostStand(object sender, EventArgs e)
+    {
+        //ParamsForPuroPostStand = ((PuroPostStandard)sender).Params;
+        ParamsForPuroPostStand = ((EDI210)sender).Params;
+    }
+    public void HandleUserControlPuroPostStandSaved(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    protected void txtBxNumberRecipients210_TextChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 6;
+        RadTabStrip1.Tabs[6].Selected = true;
+    }
+    protected void txtBxNumberRecipients214_TextChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 6;
+        RadTabStrip1.Tabs[6].Selected = true;
+    }
+    protected void txtBxNumRecipNonCourier210_TextChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    protected void txtBxNumRecipNonCourier214_TextChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    protected void txtBxNumRecipNonCourierPuroPostStand_TextChanged(object sender, EventArgs e)
+    {
+        RadMultiPage1.SelectedIndex = 7;
+        RadTabStrip1.Tabs[7].Selected = true;
+    }
+    protected void comboBxCourierEDI210_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierEDI210Controls();
+    }
+    protected void comboBxCourierEDI214_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierEDI214Controls();
+    }
+    private void SetCourierEDI210Controls()
+    {
+        if (comboBxCourierEDI210.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lbl210Accounnts.Visible = true;
+            gridEDI210Accounts.Visible = true;
+            lbl210AccounntStar.Visible = true;
+            comboxCombinepayer.Visible = true;
+            lblCombinepayer.Visible = true;
+            comboBoxBatchInvoices.Visible = true;
+            lblBatchInvoices.Visible = true;
+            txtBxNumberRecipients210.Visible = true;
+            lbl210InvoiceRecipients.Visible = true;
+            btnAdd210.Visible = true;
+            ph1.Visible = true;
+        }
+        else
+        {
+            lbl210Accounnts.Visible = false;
+            gridEDI210Accounts.Visible = false;
+            lbl210AccounntStar.Visible = false;
+            comboxCombinepayer.Visible = false;
+            lblCombinepayer.Visible = false;
+            comboBoxBatchInvoices.Visible = false;
+            lblBatchInvoices.Visible = false;
+            txtBxNumberRecipients210.Visible = false;
+            lbl210InvoiceRecipients.Visible = false;
+            btnAdd210.Visible = false;
+            ph1.Visible = false;
+        }
+    }
+    private void SetCourierEDI214Controls()
+    {
+        if (comboBxCourierEDI214.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lbl214Accounnts.Visible = true;
+            gridEDI214Accounts.Visible = true;
+            lbl214AccounntStar.Visible = true;
+            lbl214InvoiceRecipients.Visible = true;
+            txtBxNumberRecipients214.Visible = true;
+            btnAdd214.Visible = true;
+            ph2.Visible = true;
+        }
+        else
+        {
+            lbl214Accounnts.Visible = false;
+            gridEDI214Accounts.Visible = false;
+            lbl214AccounntStar.Visible = false;
+            lbl214InvoiceRecipients.Visible = false;
+            txtBxNumberRecipients214.Visible = false;
+            btnAdd214.Visible = false;
+            ph2.Visible = false;
+
+        }
+    }
+    private void SetCourierNonCourierEDI210Controls()
+    {
+        if (comboBxNonCourierEDI210.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lblNonCourier210SFTP.Visible = true;
+            txtNonCourier210SFTP.Visible = true;
+            lblNonCourier210Accounnts.Visible = true;
+            gridNonCourierEDI210Accounts.Visible = true;
+            lblNonCourier210AccounntStar.Visible = true;
+            txtBxNumRecipNonCourier210.Visible = true;
+            lblNumRecipNonCourier210.Visible = true;
+            btnNumRecipNonCourier210.Visible = true;
+            lblNonCourier210TestSent.Visible = true;
+            comboNonCourier210TestSent.Visible = true;
+            lblNumRecipNonCourier210Test.Visible = true;
+            txtBxNumRecipNonCourier210Test.Visible = true;
+            btnNumRecipNonCourier210Test.Visible = true;
+            placeNonCourier210.Visible = true;
+            placeNonCourier210Test.Visible = true;
+        }
+        else
+        {
+            lblNonCourier210SFTP.Visible = false;
+            txtNonCourier210SFTP.Visible = false;
+            lblNonCourier210Accounnts.Visible = false;
+            gridNonCourierEDI210Accounts.Visible = false;
+            lblNonCourier210AccounntStar.Visible = false;
+            txtBxNumRecipNonCourier210.Visible = false;
+            lblNumRecipNonCourier210.Visible = false;
+            btnNumRecipNonCourier210.Visible = false;
+            lblNonCourier210TestSent.Visible = false;
+            comboNonCourier210TestSent.Visible = false;
+            lblNumRecipNonCourier210Test.Visible = false;
+            txtBxNumRecipNonCourier210Test.Visible = false;
+            btnNumRecipNonCourier210Test.Visible = false;
+            placeNonCourier210.Visible = false;
+            placeNonCourier210Test.Visible = false;
+        }
+    }
+
+    private void SetCourierNonCourierEDI214Controls()
+    {
+        if (comboBxNonCourierEDI214.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lblNonCourier214SFTP.Visible = true;
+            txtNonCourier214SFTP.Visible = true;
+            lblNonCourier214Accounnts.Visible = true;
+            gridNonCourierEDI214Accounts.Visible = true;
+            lblNonCourier214AccounntStar.Visible = true;
+            txtBxNumRecipNonCourier214.Visible = true;
+            lblNumRecipNonCourier214.Visible = true;
+            btnNumRecipNonCourier214.Visible = true;
+            lblNonCourier214TestSent.Visible = true;
+            comboNonCourier214TestSent.Visible = true;
+            lblNumRecipNonCourier214Test.Visible = true;
+            txtBxNumRecipNonCourier214Test.Visible = true;
+            btnNumRecipNonCourier214Test.Visible = true;
+            placeNonCourier214.Visible = true;
+            placeNonCourier214Test.Visible = true;
+        }
+        else
+        {
+            lblNonCourier214SFTP.Visible = false;
+            txtNonCourier214SFTP.Visible = false;
+            lblNonCourier214Accounnts.Visible = false;
+            gridNonCourierEDI214Accounts.Visible = false;
+            lblNonCourier214AccounntStar.Visible = false;
+            txtBxNumRecipNonCourier214.Visible = false;
+            lblNumRecipNonCourier214.Visible = false;
+            btnNumRecipNonCourier214.Visible = false;
+            lblNonCourier214TestSent.Visible = false;
+            comboNonCourier214TestSent.Visible = false;
+            lblNumRecipNonCourier214Test.Visible = false;
+            txtBxNumRecipNonCourier214Test.Visible = false;
+            btnNumRecipNonCourier214Test.Visible = false;
+            placeNonCourier214.Visible = false;
+            placeNonCourier214Test.Visible = false;
+        }
+    }
+    private void SetCourierNonCourierPuroPostStandControls()
+    {
+        if (comboBxNonCourierPuroPost.SelectedValue.ToString().ToLower().Contains("yes"))
+        {
+            lblNonCourierPuroPostSFTP.Visible = true;
+            txtNonCourierPuroPostSFTP.Visible = true;
+            lblNonCourierPuroPostAccounnts.Visible = true;
+            lblNonCourierPuroPostAccounntStar.Visible = true;
+            gridNonCourierPuroPostAccounts.Visible = true;
+            lblNumRecipNonCourierPuroPostStand.Visible = true;
+            txtBxNumRecipNonCourierPuroPostStand.Visible = true;
+            btnNumRecipNonCourierPuroPostStand.Visible = true;
+
+            placePuroPostStand.Visible = true;
+        }
+        else
+        {
+            lblNonCourierPuroPostSFTP.Visible = false;
+            txtNonCourierPuroPostSFTP.Visible = false;
+            lblNonCourierPuroPostAccounnts.Visible = false;
+            lblNonCourierPuroPostAccounntStar.Visible = false;
+            gridNonCourierPuroPostAccounts.Visible = false;
+            lblNumRecipNonCourierPuroPostStand.Visible = false;
+            txtBxNumRecipNonCourierPuroPostStand.Visible = false;
+            btnNumRecipNonCourierPuroPostStand.Visible = false;
+
+            placePuroPostStand.Visible = false;
+        }
+    }
+
+    protected void comboBxNonCourierEDI210_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierNonCourierEDI210Controls();
+    }
+    protected void comboBxNonCourierEDI214_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierNonCourierEDI214Controls();
+    }
+    protected void comboBxNonCourierPuroPost_SelectedIndexChanged(object sender, DropDownListEventArgs e)
+    {
+        SetCourierNonCourierPuroPostStandControls();
+    }
+    #endregion
     protected void hideshowbars()
     {
         //hide and show sections based on servcies
@@ -2850,7 +3594,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_NON_COURIER_EDI) != null)
                 comboBxNonCourierEDI210.SelectedText = "Yes";
                 txtNonCourier210SFTP.Text = EDITrans.SFTPFolder;
-                comboNonCourier210TestEnvironment.SelectedText = (EDITrans.TestEnvironment.HasValue) ? (EDITrans.TestEnvironment.Value) ? "Yes" : "No" : "No"; 
+                //comboNonCourier210TestEnvironment.SelectedText = (EDITrans.TestEnvironment.HasValue) ? (EDITrans.TestEnvironment.Value) ? "Yes" : "No" : "No"; 
                 comboNonCourier210TestSent.SelectedText = (EDITrans.TestSentMethod == 1) ? "SFTP" : "via Email";
             }
             else
@@ -2860,10 +3604,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, SHIPMENT_STATUS_NON_COURIER_EDI);
             if (EDITrans != null)
             {
-                //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, SHIPMENT_STATUS_NON_COURIER_EDI) != null)
                 comboBxNonCourierEDI214.SelectedText = "Yes";
                 txtNonCourier214SFTP.Text = EDITrans.SFTPFolder;
-                comboNonCourier214TestEnvironment.SelectedText = (EDITrans.TestEnvironment.HasValue) ? (EDITrans.TestEnvironment.Value) ? "Yes" : "No" : "No"; 
+                //comboNonCourier214TestEnvironment.SelectedText = (EDITrans.TestEnvironment.HasValue) ? (EDITrans.TestEnvironment.Value) ? "Yes" : "No" : "No"; 
                 comboNonCourier214TestSent.SelectedText = (EDITrans.TestSentMethod == 1) ? "SFTP" : "via Email";
             }
             else
@@ -4115,7 +4858,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (comboBxNonCourierEDI210.SelectedText == "Yes")
             {
                 clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
-                data.TestEnvironment = comboNonCourier210TestEnvironment.SelectedText.Contains("Yes") ? true : false;
+                //data.TestEnvironment = comboNonCourier210TestEnvironment.SelectedText.Contains("Yes") ? true : false;
                 data.TestSentMethod = comboNonCourier210TestSent.SelectedText.Contains("SFTP") ? 1 : 2;
                 data.SFTPFolder = txtNonCourier210SFTP.Text;
                 SrvEDITransaction.Insert(data, out newEDIID);
@@ -4128,7 +4871,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (comboBxNonCourierEDI214.SelectedText == "Yes")
             {
                 clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
-                data.TestEnvironment = comboNonCourier214TestEnvironment.SelectedText.Contains("Yes") ? true : false;
+                //data.TestEnvironment = comboNonCourier214TestEnvironment.SelectedText.Contains("Yes") ? true : false;
                 data.TestSentMethod = comboNonCourier214TestSent.SelectedText.Contains("SFTP") ? 1 : 2;
                 data.SFTPFolder = txtNonCourier214SFTP.Text;
                 SrvEDITransaction.Insert(data, out newEDIID);
@@ -5510,294 +6253,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     }
 
-    private void AddAndRemoveDynamicControls(UserControlParams p)
-    {
-        Control c = GetPostBackControl(Page);
-        if ((c != null))
-        {
-            if (c.ID.ToString() == "btnAdd")
-            {
-                //p.xNames.Add((p.xTimes.Count + 1).ToString());
-                //p.yNames.Add((p.xTimes.Count + 1).ToString());
-                //p.xTimes.Add(p.xTimes.Count + 1);
-            }
-        }
-
-        ltlCount.Text = p.iTotalRecs.ToString();
-
-        ph1.Controls.Clear();
-        int ControlID = 0;
-        for (int i = 0; i <= (Convert.ToInt16(ltlCount.Text) - 1); i++)
-        {
-            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
-
-            while (InDeletedList("uc1" + ControlID) == true)
-            {
-                ControlID += 1;
-            }
-
-            DynamicUserControl.ID = "uc1" + ControlID;
-            int requestID = 0;
-            int.TryParse(Request.QueryString["requestID"], out requestID);
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
-            DynamicUserControl.LoadParams(p1); 
-            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
-            DynamicUserControl.UserControlSaved += this.HandleUserControl210Saved;
-            ph1.Controls.Add(DynamicUserControl);
-            ControlID += 1;
-        }
-    }
-    private void AddAndRemoveDynamicControls2(UserControlParams p)
-    {
-        Control c = GetPostBackControl(Page);
-
-        //ltlCount2.Text = p.xTimes.Count.ToString();
-        ltlCount2.Text = p.iTotalRecs.ToString();
-
-        ph2.Controls.Clear();
-        int ControlID = 0;
-        for (int i = 0; i <= (Convert.ToInt16(ltlCount2.Text) - 1); i++)
-        {
-            EDI214 DynamicUserControl = (EDI214)LoadControl("EDI214.ascx");
-
-            while (InDeletedList2("uc" + ControlID) == true)
-            {
-                ControlID += 1;
-            }
-
-            DynamicUserControl.ID = "uc" + ControlID;
-            int requestID = 0;
-            int.TryParse(Request.QueryString["requestID"], out requestID);
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
-            DynamicUserControl.LoadParams(p1);
-            DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
-            DynamicUserControl.UserControlSaved += this.HandleUserControl214Saved;
-
-            ph2.Controls.Add(DynamicUserControl);
-            ControlID += 1;
-        }
-    }
-    private void AddNonCourier210DynamicControls(UserControlParams p)
-    {
-        Control c = GetPostBackControl(Page);
-        if ((c != null))
-        {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
-        }
-
-        ltlCountNonCourier210.Text = p.iTotalRecs.ToString();
-
-        placeNonCourier210.Controls.Clear();
-        int ControlID = 0;
-        for (int i = 0; i <= (Convert.ToInt16(ltlCountNonCourier210.Text) - 1); i++)
-        {
-            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
-
-            while (InDeletedNonCourier210("uc3" + ControlID) == true)
-            {
-                ControlID += 1;
-            }
-
-            DynamicUserControl.ID = "uc3" + ControlID;
-            int requestID = 0;
-            int.TryParse(Request.QueryString["requestID"], out requestID);
-
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
-            DynamicUserControl.LoadParams(p1);
-
-            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlNonCourier210;
-            DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier210Saved;
-            placeNonCourier210.Controls.Add(DynamicUserControl);
-            ControlID += 1;
-        }
-    }
-    private void AddNonCourier214DynamicControls(UserControlParams p)
-    {
-        Control c = GetPostBackControl(Page);
-        if ((c != null))
-        {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
-        }
-
-        ltlCountNonCourier214.Text = p.iTotalRecs.ToString();
-
-        placeNonCourier214.Controls.Clear();
-        int ControlID = 0;
-        for (int i = 0; i <= (Convert.ToInt16(ltlCountNonCourier214.Text) - 1); i++)
-        {
-            EDI214 DynamicUserControl = (EDI214)LoadControl("EDI214.ascx");
-
-            while (InDeletedNonCourier214("uc4" + ControlID) == true)
-            {
-                ControlID += 1;
-            }
-
-            DynamicUserControl.ID = "uc4" + ControlID;
-            int requestID = 0;
-            int.TryParse(Request.QueryString["requestID"], out requestID);
-
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
-            DynamicUserControl.LoadParams(p1);
-
-            DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControlNonCourier214;
-            DynamicUserControl.UserControlSaved += this.HandleUserControlNonCourier214Saved;
-            placeNonCourier214.Controls.Add(DynamicUserControl);
-            ControlID += 1;
-        }
-    }
-    private void AddPuroPostStandDynamicControls(UserControlParams p)
-    {
-        Control c = GetPostBackControl(Page);
-        if ((c != null))
-        {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
-        }
-
-        ltlCountPuroPostStand.Text = p.iTotalRecs.ToString();
-
-        placePuroPostStand.Controls.Clear();
-        int ControlID = 0;
-        for (int i = 0; i <= (Convert.ToInt16(ltlCountPuroPostStand.Text) - 1); i++)
-        {
-            //PuroPostStandard DynamicUserControl = (PuroPostStandard)LoadControl("PuroPostStandard.ascx");
-            EDI210 DynamicUserControl = (EDI210)LoadControl("EDI210.ascx");
-
-            while (InDeletedPuroPostStand("uc5" + ControlID) == true)
-            {
-                ControlID += 1;
-            }
-
-            DynamicUserControl.ID = "uc5" + ControlID;
-            int requestID = 0;
-            int.TryParse(Request.QueryString["requestID"], out requestID);
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
-            DynamicUserControl.LoadParams(p1); ;
-
-            DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlPuroPostStand;
-            DynamicUserControl.UserControlSaved += this.HandleUserControlPuroPostStandSaved;
-            placePuroPostStand.Controls.Add(DynamicUserControl);
-            ControlID += 1;
-        }
-    }
-
-    private bool InDeletedList(string ControlID)
-    {
-        string[] DeletedList = ltlRemoved.Text.Split('|');
-        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
-        {
-            if (ControlID.ToLower() == DeletedList[i].ToLower())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    private bool InDeletedList2(string ControlID)
-    {
-        string[] DeletedList = ltlRemoved2.Text.Split('|');
-        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
-        {
-            if (ControlID.ToLower() == DeletedList[i].ToLower())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    private bool InDeletedNonCourier210(string ControlID)
-    {
-        string[] DeletedList = ltlRemovedNonCourier210.Text.Split('|');
-        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
-        {
-            if (ControlID.ToLower() == DeletedList[i].ToLower())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    private bool InDeletedNonCourier214(string ControlID)
-    {
-        string[] DeletedList = ltlRemovedNonCourier214.Text.Split('|');
-        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
-        {
-            if (ControlID.ToLower() == DeletedList[i].ToLower())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    private bool InDeletedPuroPostStand(string ControlID)
-    {
-        string[] DeletedList = ltlRemovedPuroPostStand.Text.Split('|');
-        for (int i = 0; i <= DeletedList.GetLength(0) - 1; i++)
-        {
-            if (ControlID.ToLower() == DeletedList[i].ToLower())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void HandleRemoveUserControl(object sender, EventArgs e)
-    {
-        ParamsFor210 = ((EDI210)sender).Params;
-    }
-    public void HandleUserControl210Saved(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 6;
-        RadTabStrip1.Tabs[6].Selected = true;
-    }
-    public void HandleRemoveUserControl2(object sender, EventArgs e)
-    {
-        ParamsFor214 = ((EDI214)sender).Params;
-        //Button remove = (sender as Button);
-        //UserControl DynamicUserControl = (UserControl)remove.Parent;
-        //ph2.Controls.Remove((UserControl)remove.Parent);
-        //ltlRemoved2.Text += DynamicUserControl.ID + "|";
-        //ltlCount2.Text = (Convert.ToInt16(ltlCount2.Text) - 1).ToString();
-    }
-    public void HandleUserControl214Saved(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 6;
-        RadTabStrip1.Tabs[6].Selected = true;
-    }
-    public void HandleRemoveUserControlNonCourier210(object sender, EventArgs e)
-    {
-        ParamsForNonCourier210 = ((EDI210)sender).Params;
-    }
-    public void HandleUserControlNonCourier210Saved(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 7;
-        RadTabStrip1.Tabs[7].Selected = true;
-    }
-    public void HandleRemoveUserControlNonCourier214(object sender, EventArgs e)
-    {
-        ParamsForNonCourier214 = ((EDI214)sender).Params;
-    }
-    public void HandleUserControlNonCourier214Saved(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 7;
-        RadTabStrip1.Tabs[7].Selected = true;
-    }
-    public void HandleRemoveUserControlPuroPostStand(object sender, EventArgs e)
-    {
-        //ParamsForPuroPostStand = ((PuroPostStandard)sender).Params;
-        ParamsForPuroPostStand = ((EDI210)sender).Params;
-    }
-    public void HandleUserControlPuroPostStandSaved(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 7;
-        RadTabStrip1.Tabs[7].Selected = true;
-    }
 
     protected void btnDisplayValues_Click(object sender, System.EventArgs e)
     {
@@ -5853,209 +6308,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         return control;
     }
 
-    protected void txtBxNumberRecipients210_TextChanged(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 6;
-        RadTabStrip1.Tabs[6].Selected = true;
-    }
-    protected void txtBxNumberRecipients214_TextChanged(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 6;
-        RadTabStrip1.Tabs[6].Selected = true;
-    }
-    protected void txtBxNumRecipNonCourier210_TextChanged(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 7;
-        RadTabStrip1.Tabs[7].Selected = true;
-    }
-    protected void txtBxNumRecipNonCourier214_TextChanged(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 7;
-        RadTabStrip1.Tabs[7].Selected = true;
-    }
-    protected void txtBxNumRecipNonCourierPuroPostStand_TextChanged(object sender, EventArgs e)
-    {
-        RadMultiPage1.SelectedIndex = 7;
-        RadTabStrip1.Tabs[7].Selected = true;
-    }
-    protected void comboBxCourierEDI210_SelectedIndexChanged(object sender, DropDownListEventArgs e)
-    {
-        SetCourierEDI210Controls(); 
-    }
-    protected void comboBxCourierEDI214_SelectedIndexChanged(object sender, DropDownListEventArgs e)
-    {
-        SetCourierEDI214Controls();
-    }
-    private void SetCourierEDI210Controls()
-    {
-        if (comboBxCourierEDI210.SelectedValue.ToString().ToLower().Contains("yes"))
-        {
-            lbl210Accounnts.Visible = true;
-            gridEDI210Accounts.Visible = true;
-            lbl210AccounntStar.Visible = true;
-            comboxCombinepayer.Visible = true;
-            lblCombinepayer.Visible = true;
-            comboBoxBatchInvoices.Visible = true;
-            lblBatchInvoices.Visible = true;
-            txtBxNumberRecipients210.Visible = true;
-            lbl210InvoiceRecipients.Visible = true;
-            btnAdd210.Visible = true;
-            ph1.Visible = true;
-        }
-        else
-        {
-            lbl210Accounnts.Visible = false;
-            gridEDI210Accounts.Visible = false;
-            lbl210AccounntStar.Visible = false;
-            comboxCombinepayer.Visible = false;
-            lblCombinepayer.Visible = false;
-            comboBoxBatchInvoices.Visible = false;
-            lblBatchInvoices.Visible = false;
-            txtBxNumberRecipients210.Visible = false;
-            lbl210InvoiceRecipients.Visible = false;
-            btnAdd210.Visible = false;
-            ph1.Visible = false;
-        }
-    }
-    private void SetCourierEDI214Controls()
-    {
-        if (comboBxCourierEDI214.SelectedValue.ToString().ToLower().Contains("yes"))
-        {
-            lbl214Accounnts.Visible = true;
-            gridEDI214Accounts.Visible = true;
-            lbl214AccounntStar.Visible = true;
-            lbl214InvoiceRecipients.Visible = true;
-            txtBxNumberRecipients214.Visible = true;
-            btnAdd214.Visible = true;
-            ph2.Visible = true;
-        }
-        else
-        {
-            lbl214Accounnts.Visible = false;
-            gridEDI214Accounts.Visible = false;
-            lbl214AccounntStar.Visible = false;
-            lbl214InvoiceRecipients.Visible = false;
-            txtBxNumberRecipients214.Visible = false;
-            btnAdd214.Visible = false;
-            ph2.Visible = false;
-
-        }
-    }
-    private void SetCourierNonCourierEDI210Controls()
-    {
-        if (comboBxNonCourierEDI210.SelectedValue.ToString().ToLower().Contains("yes"))
-        {
-            lblNonCourier210SFTP.Visible = true;
-            txtNonCourier210SFTP.Visible = true;
-            lblNonCourier210Accounnts.Visible = true;
-            gridNonCourierEDI210Accounts.Visible = true;
-            lblNonCourier210AccounntStar.Visible = true;
-            comboNonCourier210TestEnvironment.Visible = true;
-            lblNonCourier210TestEnvironment.Visible = true;
-            lblNonCourier210ProdTest.Visible = true;
-            txtBxNumRecipNonCourier210.Visible = true;
-            lblNumRecipNonCourier210.Visible = true;
-            btnNumRecipNonCourier210.Visible = true;
-            lblNonCourier210TestSent.Visible = true;
-            comboNonCourier210TestSent.Visible = true;
-            placeNonCourier210.Visible = true;
-        }
-        else
-        {
-            lblNonCourier210SFTP.Visible = false;
-            txtNonCourier210SFTP.Visible = false;
-            lblNonCourier210Accounnts.Visible = false;
-            gridNonCourierEDI210Accounts.Visible = false;
-            lblNonCourier210AccounntStar.Visible = false;
-            comboNonCourier210TestEnvironment.Visible = false;
-            lblNonCourier210TestEnvironment.Visible = false;
-            lblNonCourier210ProdTest.Visible = false;
-            txtBxNumRecipNonCourier210.Visible = false;
-            lblNumRecipNonCourier210.Visible = false;
-            btnNumRecipNonCourier210.Visible = false;
-            lblNonCourier210TestSent.Visible = false;
-            comboNonCourier210TestSent.Visible = false;
-            placeNonCourier210.Visible = false;
-        }
-    }
-    private void SetCourierNonCourierEDI214Controls()
-    {
-        if (comboBxNonCourierEDI214.SelectedValue.ToString().ToLower().Contains("yes"))
-        {
-            lblNonCourier214SFTP.Visible = true;
-            txtNonCourier214SFTP.Visible = true;
-            lblNonCourier214Accounnts.Visible = true;
-            gridNonCourierEDI214Accounts.Visible = true;
-            lblNonCourier214AccounntStar.Visible = true;
-            comboNonCourier214TestEnvironment.Visible = true;
-            lblNonCourier214TestEnvironment.Visible = true;
-            lblNonCourier214ProdTest.Visible = true;
-            txtBxNumRecipNonCourier214.Visible = true;
-            lblNumRecipNonCourier214.Visible = true;
-            btnNumRecipNonCourier214.Visible = true;
-            lblNonCourier214TestSent.Visible = true;
-            comboNonCourier214TestSent.Visible = true;
-            placeNonCourier214.Visible = true;
-        }
-        else
-        {
-            lblNonCourier214SFTP.Visible = false;
-            txtNonCourier214SFTP.Visible = false;
-            lblNonCourier214Accounnts.Visible = false;
-            gridNonCourierEDI214Accounts.Visible = false;
-            lblNonCourier214AccounntStar.Visible = false;
-            comboNonCourier214TestEnvironment.Visible = false;
-            lblNonCourier214TestEnvironment.Visible = false;
-            lblNonCourier214ProdTest.Visible = false;
-            txtBxNumRecipNonCourier214.Visible = false;
-            lblNumRecipNonCourier214.Visible = false;
-            btnNumRecipNonCourier214.Visible = false;
-            lblNonCourier214TestSent.Visible = false;
-            comboNonCourier214TestSent.Visible = false;
-            placeNonCourier214.Visible = false;
-        }
-    }
-    private void SetCourierNonCourierPuroPostStandControls()
-    {
-        if (comboBxNonCourierPuroPost.SelectedValue.ToString().ToLower().Contains("yes"))
-        {
-            lblNonCourierPuroPostSFTP.Visible = true;
-            txtNonCourierPuroPostSFTP.Visible = true;
-            lblNonCourierPuroPostAccounnts.Visible = true;
-            lblNonCourierPuroPostAccounntStar.Visible = true;
-            gridNonCourierPuroPostAccounts.Visible = true;
-            lblNumRecipNonCourierPuroPostStand.Visible = true;
-            txtBxNumRecipNonCourierPuroPostStand.Visible = true;
-            btnNumRecipNonCourierPuroPostStand.Visible = true;
-
-            placePuroPostStand.Visible = true;
-        }
-        else
-        {
-            lblNonCourierPuroPostSFTP.Visible = false;
-            txtNonCourierPuroPostSFTP.Visible = false;
-            lblNonCourierPuroPostAccounnts.Visible = false;
-            lblNonCourierPuroPostAccounntStar.Visible = false;
-            gridNonCourierPuroPostAccounts.Visible = false;
-            lblNumRecipNonCourierPuroPostStand.Visible = false;
-            txtBxNumRecipNonCourierPuroPostStand.Visible = false;
-            btnNumRecipNonCourierPuroPostStand.Visible = false;
-
-            placePuroPostStand.Visible = false;
-        }
-    }
-
-    protected void comboBxNonCourierEDI210_SelectedIndexChanged(object sender, DropDownListEventArgs e)
-    {
-        SetCourierNonCourierEDI210Controls();
-    }
-    protected void comboBxNonCourierEDI214_SelectedIndexChanged(object sender, DropDownListEventArgs e)
-    {
-        SetCourierNonCourierEDI214Controls();
-    }
-    protected void comboBxNonCourierPuroPost_SelectedIndexChanged(object sender, DropDownListEventArgs e)
-    {
-        SetCourierNonCourierPuroPostStandControls();
-    }
+   
 }
 
