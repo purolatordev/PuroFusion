@@ -268,6 +268,34 @@
                     <telerik:AjaxUpdatedControl ControlID="rddlContactType" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="edi">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="gridShipmentMethods" />
+                    <telerik:AjaxUpdatedControl ControlID="gridEDITransactions" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <%--  CONTACT INFORMATION  Tab --%>
+           <%-- <telerik:AjaxSetting AjaxControlID="contact">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="contactGrid" />
+                    <telerik:AjaxUpdatedControl ControlID="btnNextTab2" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>--%>
+            <%--  Courier EDI Tab  --%>
+            <telerik:AjaxSetting AjaxControlID="courierEDI">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="gridEDI210Accounts" />
+                    <telerik:AjaxUpdatedControl ControlID="gridEDI214Accounts" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <%--  Non-Courier EDI Tab  --%>
+            <telerik:AjaxSetting AjaxControlID="noncourierEDI">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI210Accounts" />
+                    <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI214Accounts" />
+                    <telerik:AjaxUpdatedControl ControlID="gridNonCourierPuroPostAccounts" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
 
 
@@ -687,8 +715,7 @@
                             <asp:CustomValidator runat="server" ID="CustomValidatorContact" ValidationGroup="contactInfo" OnServerValidate="CustomValidatorContact_ServerValidate" Style="color: red"></asp:CustomValidator><br />
                         </td>
                         <td style="text-align: right;">
-                            <telerik:RadButton RenderMode="Lightweight" CausesValidation="true" ValidationGroup="contactInfo" ID="btnNextTab2" runat="server" Text="Next" OnClick="btnNextTab2_Click"></telerik:RadButton>
-
+                            <telerik:RadButton RenderMode="Lightweight" CausesValidation="true" ValidationGroup="contactInfo" ID="btnNextTab2" runat="server" Text="Next" AutoPostBack="true" OnClick="btnNextTab2_Click"></telerik:RadButton>
                         </td>
                     </tr>
                 </table>
@@ -1148,7 +1175,6 @@
                         </td>
                         <td></td>
                         <td style="color: blue; width: 20%; font-size: medium; text-align: right;">
-
                             <telerik:RadButton ID="btnSubmit" CausesValidation="true" ValidationGroup="submitButton" runat="server" Text="Submit Request" OnClick="btnSubmit_Click" AutoPostBack="true" Enabled="true" />
                         </td>
                     </tr>
@@ -1449,7 +1475,7 @@
                                             <td style="width: 140px">EDI Transactions</td>
                                             <td></td>
                                             <td >
-                                                <telerik:RadGrid ID="RadGrid1" runat="server" AllowPaging="True"
+                                                <telerik:RadGrid ID="gridProfileEDITrans" runat="server" AllowPaging="True"
                                                     AllowSorting="false" AllowFilteringByColumn="false"
                                                     AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
                                                     OnNeedDataSource="gridEDITransactions_NeedDataSource" OnDeleteCommand="gridEDITransactions_DeleteCommand"
@@ -1501,7 +1527,7 @@
                                             <td style="width: 160px">Ship Methods in Scope</td>
                                             <td></td>
                                             <td>
-                                                <telerik:RadGrid ID="RadGrid2" runat="server" AllowPaging="True"
+                                                <telerik:RadGrid ID="gridProfileShipMethod" runat="server" AllowPaging="True"
                                                     AllowSorting="false" AllowFilteringByColumn="false"
                                                     AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false"
                                                     OnNeedDataSource="gridShipmentMethods_NeedDataSource" OnDeleteCommand="gridShipmentMethods_DeleteCommand"
@@ -3039,23 +3065,23 @@
                     <tr>
                         <td style="width: 10px"></td>
                         <td style="width: 160px; text-align: right;">
-                            <asp:Label ID="Label18" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                            <asp:Label ID="Label18" runat="server" Text="If Yes, then:" Visible="false"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
-                            <asp:Label ID="Label17" runat="server" Text="*" Visible="true"></asp:Label></td>
+                            <asp:Label ID="Label17" runat="server" Text="*" Visible="false"></asp:Label></td>
                         <td ></td>
                         <td style="width: 10px"></td>
                         <td style="width: 140px;text-align:right">
-                            <asp:Label ID="Label20" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                            <asp:Label ID="Label20" runat="server" Text="If Yes, then:" Visible="false"></asp:Label>
                         </td>
                        <td style="width: 10px; color: red; text-align: left;">
-                            <asp:Label ID="Label19" runat="server" Text="*" Visible="true"></asp:Label></td>
+                            <asp:Label ID="Label19" runat="server" Text="*" Visible="false"></asp:Label></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td style="width: 10px"></td>
                         <td style="width: 160px; text-align: right;">
-                            <asp:Label ID="lbl210Accounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                            <asp:Label ID="lbl210Accounnts" runat="server" Text="Accounts" Visible="true"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="lbl210AccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
@@ -3108,7 +3134,7 @@
                         </td>
                         <td style="width: 10px"></td>
                         <td style="width: 140px; text-align: right;">
-                            <asp:Label ID="lbl214Accounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                            <asp:Label ID="lbl214Accounnts" runat="server" Text="Accounts" Visible="true"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="lbl214AccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
@@ -3273,24 +3299,24 @@
                     <tr>
                         <td style="width: 10px"></td>
                         <td style="width: 160px; text-align: right;">
-                            <asp:Label ID="Label12" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                            <asp:Label ID="Label12" runat="server" Text="If Yes, then:" Visible="false"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
-                            <asp:Label ID="Label13" runat="server" Text="*" Visible="true"></asp:Label></td>
+                            <asp:Label ID="Label13" runat="server" Text="*" Visible="false"></asp:Label></td>
                         <td ></td>
                         <td style="width: 10px"></td>
                         <td style="width: 140px;text-align:right">
-                            <asp:Label ID="Label14" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                            <asp:Label ID="Label14" runat="server" Text="If Yes, then:" Visible="false"></asp:Label>
                         </td>
                        <td style="width: 10px; color: red; text-align: left;">
-                            <asp:Label ID="Label15" runat="server" Text="*" Visible="true"></asp:Label></td>
+                            <asp:Label ID="Label15" runat="server" Text="*" Visible="false"></asp:Label></td>
                         <td></td>
                         <td></td>
                         <td style="width: 160px; text-align: right;">
-                            <asp:Label ID="Label16" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
+                            <asp:Label ID="Label16" runat="server" Text="If Yes, then:" Visible="false"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
-                            <asp:Label ID="Label21" runat="server" Text="*" Visible="true"></asp:Label></td>
+                            <asp:Label ID="Label21" runat="server" Text="*" Visible="false"></asp:Label></td>
                     </tr>
                     <tr>
                         <td ></td>
@@ -3321,7 +3347,7 @@
                     <tr>
                         <td style="width: 10px"></td>
                         <td style="width: 160px; text-align: right;">
-                            <asp:Label ID="lblNonCourier210Accounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                            <asp:Label ID="lblNonCourier210Accounnts" runat="server" Text="Accounts" Visible="true"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="lblNonCourier210AccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
@@ -3374,7 +3400,7 @@
                         </td>
                         <td style="width: 10px"></td>
                         <td style="width: 140px; text-align: right;">
-                            <asp:Label ID="lblNonCourier214Accounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                            <asp:Label ID="lblNonCourier214Accounnts" runat="server" Text="Accounts" Visible="true"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="lblNonCourier214AccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>
@@ -3426,7 +3452,7 @@
                         </td>
                         <td></td>
                         <td style="width: 160px; text-align: right;">
-                            <asp:Label ID="lblNonCourierPuroPostAccounnts" runat="server" Text="Accounnts" Visible="true"></asp:Label>
+                            <asp:Label ID="lblNonCourierPuroPostAccounnts" runat="server" Text="Accounts" Visible="true"></asp:Label>
                         </td>
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="lblNonCourierPuroPostAccounntStar" runat="server" Text="*" Visible="true"></asp:Label></td>

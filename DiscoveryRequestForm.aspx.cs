@@ -42,7 +42,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (bool.Parse(ConfigurationManager.AppSettings["debug"]) )
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
         {
             Session["userName"] = "Scott.Cardinale";
             Session["appName"] = "PuroTouch";
@@ -133,7 +133,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     btnSubmit.Visible = false;
                     btnSubmitChanges.Visible = true;
                     hideshowbars();
-                   }
+                }
                 else
                 {
                     //If New, disable tabs initially
@@ -173,6 +173,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         }
 
+        UpdateTabs();
+    }
+
+    private void UpdateTabs()
+    {
         //Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
         if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
@@ -186,27 +191,36 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblInternalTimeSpentAsk.Visible = true;
             txtInternalTimeSpent.Visible = true;
             RadTabStrip1.Tabs[4].Visible = true;
-            //RadTabStrip1.Tabs[4].Selected = true;
             RadTabStrip1.Tabs[6].Visible = true;
-            //RadMultiPage1.SelectedIndex = 4;
+        }
+        else if (userRole == "sales")
+        {
+            RadTabStrip1.Tabs[9].Visible = false;
+            RadTabStrip1.Tabs[9].Enabled = false;
         }
 
-        //for (int i = 0; i < RadTabStrip1.Tabs.Count();i++)
-        //{
-        //    if( RadTabStrip1.Tabs[i].Selected)
-        //    {
-        //        int er = 0;
-        //        string s = RadTabStrip1.Tabs[i].Text;
-        //        er++;
-        //    }
-        //}
-
-        //}
-        //if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
-        //{
-        //    RadMultiPage1.SelectedIndex = 6;
-        //    RadTabStrip1.Tabs[6].Selected = true;
-        //}
+        // Solution Type Checking
+        if (rddlSolutionType.SelectedIndex == 0)
+        {   // Shipping System
+            RadTabStrip1.Tabs[3].Enabled = false;
+            RadTabStrip1.Tabs[3].Visible = false;
+            RadTabStrip1.Tabs[4].Visible = true;
+            RadTabStrip1.Tabs[4].Enabled = true;
+        }
+        else if (rddlSolutionType.SelectedIndex == 1)
+        {   // EDI
+            RadTabStrip1.Tabs[3].Enabled = true;
+            RadTabStrip1.Tabs[3].Visible = true;
+            RadTabStrip1.Tabs[4].Visible = false;
+            RadTabStrip1.Tabs[4].Enabled = false;
+        }
+        else
+        {   // Both
+            RadTabStrip1.Tabs[3].Enabled = true;
+            RadTabStrip1.Tabs[3].Visible = true;
+            RadTabStrip1.Tabs[4].Visible = true;
+            RadTabStrip1.Tabs[4].Enabled = true;
+        }
     }
     #region User controls
     private void PuroPostStand(string ID)
@@ -2494,6 +2508,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     Session["contactList"] = contactList;
                     contactGrid.DataSource = contactList;
                     contactGrid.DataBind();
+                    btnNextTab2.Visible = true;
+                    //Response.Redirect(Request.RawUrl);
                 }
                 else
                     e.Canceled = true;
@@ -4035,6 +4051,16 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             ErrorMessage = ErrorMessage + "<br>Current Solution Description is Missing";
         }
+        List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
+        if (rddlSolutionType.SelectedIndex == 0 && EDITransList.Count() == 0)
+        {   // Shipping System
+            ErrorMessage = ErrorMessage + "<br>At Least One EDI Transaction Must Be Supplied";
+        }
+        List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+        if (rddlSolutionType.SelectedIndex == 0 && EDIShipMethList.Count() == 0)
+        {   // Shipping System
+            ErrorMessage = ErrorMessage + "<br>At Least One EDI Ship Method Must Be Supplied";
+        }
         //check tab4
         string snumSvcs = rgSvcGrid.MasterTableView.Items.Count.ToString();
         Int16 numSvcs = Convert.ToInt16(snumSvcs);
@@ -4047,17 +4073,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             ErrorMessage = ErrorMessage + "<br>Please Fill in Current Go-Live Date Change Reason";
         }
-        //check EDI Services Tab
-        List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
-        if (EDIShipMethList.Count() == 0)
-        {
-            ErrorMessage = ErrorMessage + "<br>At Least One EDI shipment method Must Be Supplied";
-        }
-        List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
-        if (EDITransList.Count() == 0)
-        {
-            ErrorMessage = ErrorMessage + "<br>At Least One EDI transaction method Must Be Supplied";
-        }
+       
         if(cmboxEDISpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
             ErrorMessage = ErrorMessage + "<br>At Least One EDI Specialist Assignment Must Be Supplied";
 
@@ -4514,15 +4530,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     protected void btnNextTab1_Click(object sender, System.EventArgs e)
     {
-
         if (Page.IsValid)
         {
             RadTabStrip1.Tabs[1].Enabled = true;
             RadTabStrip1.Tabs[1].Selected = true;
             RadMultiPage1.SelectedIndex = 1;
             btnNextTab1.Visible = false;
+            List<clsContact> contactList = (List<clsContact>)Session["contactList"];
+            if( contactList.Count() == 0)
+            {
+                btnNextTab2.Visible = false;
+            }
         }
-
     }
     protected void btnNextTab2_Click(object sender, System.EventArgs e)
     {

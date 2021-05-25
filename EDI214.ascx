@@ -56,7 +56,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA">If X12 is chosen, the following section will appear
+                        <td colspan="4" class="Column1SpanA"><asp:Label ID="lblEDIIfX12" runat="server" Text="If X12 is chosen, the following section will appear" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -99,7 +99,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA">If any FTP option is chosen, the following section will appear
+                        <td colspan="4" class="Column1SpanA"><asp:Label ID="Label2" runat="server" Text="If any FTP option is chosen, the following section will appear" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -143,7 +143,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA">If email is chosen, the following section will appear
+                        <td colspan="4" class="Column1SpanA"><asp:Label ID="Label3" runat="server" Text="If email is chosen, the following section will appear" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
