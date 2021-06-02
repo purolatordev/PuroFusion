@@ -53,7 +53,10 @@ public partial class _Default : Page
                     UserInfo.Roles = userrole;
                     Session["userName"] = m_sUserName;
                     Session["appName"] = m_appName;
-                    Session["userRole"] = UserInfo.Roles;
+                    if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+                        Session["userRole"] = ConfigurationManager.AppSettings["role"];
+                    else
+                        Session["userRole"] = UserInfo.Roles;
                     //User is Logged In
                     Response.Redirect("Home.aspx");
                 }

@@ -89,7 +89,7 @@
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="rddlRequestType">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="rddlSolutionType" />
+                    <%--<telerik:AjaxUpdatedControl ControlID="rddlSolutionType" />--%>
                     <telerik:AjaxUpdatedControl ControlID="rddlRequestType" />
                     <telerik:AjaxUpdatedControl ControlID="rddlRelationships" />
                     <telerik:AjaxUpdatedControl ControlID="txtCustomerName" />
@@ -258,11 +258,11 @@
                     <telerik:AjaxUpdatedControl ControlID="lbl3pv" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="rddlSolutionType">
+            <%--<telerik:AjaxSetting AjaxControlID="rddlSolutionType">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="rddlSolutionType" />
                 </UpdatedControls>
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
             <telerik:AjaxSetting AjaxControlID="rddlContactType">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="rddlContactType" />
@@ -270,17 +270,10 @@
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="edi">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="gridShipmentMethods" />
+                    <%--<telerik:AjaxUpdatedControl ControlID="gridShipmentMethods" />--%>
                     <telerik:AjaxUpdatedControl ControlID="gridEDITransactions" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <%--  CONTACT INFORMATION  Tab --%>
-           <%-- <telerik:AjaxSetting AjaxControlID="contact">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="contactGrid" />
-                    <telerik:AjaxUpdatedControl ControlID="btnNextTab2" />
-                </UpdatedControls>
-            </telerik:AjaxSetting>--%>
             <%--  Courier EDI Tab  --%>
             <telerik:AjaxSetting AjaxControlID="courierEDI">
                 <UpdatedControls>
@@ -477,7 +470,7 @@
                         <td style="color: red; width: 1%; text-align: left; vertical-align: top">
                             <asp:Label ID="Label5" runat="server" Text="*"></asp:Label></td>
                         <td>
-                            <telerik:RadDropDownList ID="rddlSolutionType" runat="server" DefaultMessage="Select Solution Type" AutoPostBack="true" ToolTip="Select Your Solution Type" Visible="true" Width="250px">
+                            <telerik:RadDropDownList ID="rddlSolutionType" runat="server" DefaultMessage="Select Solution Type" AutoPostBack="true" ToolTip="Select Your Solution Type" Visible="true" Width="250px" OnSelectedIndexChanged="rddlSolutionType_IndexChanged">
                             </telerik:RadDropDownList>
                             <asp:RequiredFieldValidator runat="server" ValidationGroup="custInfo" ControlToValidate="rddlSolutionType" ErrorMessage="Solution Type is required" Style="color: red"></asp:RequiredFieldValidator>
                         </td>
@@ -657,7 +650,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: right; width: 100px">Contact Title:</td>
-                                                    <td style="color: red; text-align: left; width: 2px">*</td>
+                                                    <td style="color: red; text-align: left; width: 2px"></td>
                                                     <td>
                                                         <telerik:RadTextBox ID="txtBxContactTitle2" runat="server" MaxLength="75" Text='' Width="300px" />
                                                     </td>
@@ -1028,9 +1021,12 @@
                             <p style="color: red"><i>*Required Fields</i></p>
                         </td>
                         <td style="color: blue; width: 20%; font-size: medium; text-align: right;">
+                            <telerik:RadButton ID="btnSubmitEDIServices" CausesValidation="true" ValidationGroup="submitChangesButton" runat="server" Text="Submit Request" OnClick="btnSubmit_Click" AutoPostBack="true" Enabled="false" />
                             <telerik:RadButton RenderMode="Lightweight" CausesValidation="true" ValidationGroup="currentInfo" ID="btnEDIServicesNext" runat="server" Text="Next" OnClick="btnNextTab4_Click"></telerik:RadButton>
                         </td>
                     </tr>
+                    <tr>
+            </tr>
                 </table>
             </telerik:RadPageView>
 
@@ -1385,13 +1381,13 @@
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 140px">EDI Specialist Assigned</td>
-                                            <td style="color: red;">*</td>
+                                            <td style="color: red;"></td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxEDISpecialist" runat="server" DefaultMessage="Select EDI Specialist" ToolTip="Select EDI Specialist" Visible="true"></telerik:RadDropDownList>
                                             </td>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Onboarding Phase</td>
-                                            <td style="color: red;">*</td>
+                                            <td style="color: red;"></td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxOnboardingPhase" runat="server" Width="240"  DefaultMessage="Select Onboarding Phase" ToolTip="Select Onboarding Phase" Visible="true">
                                                 </telerik:RadDropDownList>
@@ -1400,7 +1396,7 @@
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Billing Specialist Assigned</td>
-                                            <td style="color: red;">*</td>
+                                            <td style="color: red;"></td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxBillingSpecialist" runat="server" DefaultMessage="Select Billing Specialist" ToolTip="Select Billing Specialist" Visible="true"></telerik:RadDropDownList>
                                             </td>
@@ -1408,7 +1404,7 @@
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 160px">Collection Specialist Assigned</td>
-                                            <td style="color: red;">*</td>
+                                            <td style="color: red;"></td>
                                             <td>
                                                 <telerik:RadDropDownList ID="cmboxCollectionSpecialist" runat="server" DefaultMessage="Select Collection Specialist" ToolTip="Select Collection Specialist" Visible="true"></telerik:RadDropDownList>
                                             </td>
@@ -1444,7 +1440,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="" Visible="true"></asp:Label></td>
                                             <td>EDI Solution Summary</td>
                                             <td></td>
                                             <td colspan="7">
@@ -1471,7 +1467,7 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="" Visible="true"></asp:Label></td>
                                             <td style="width: 140px">EDI Transactions</td>
                                             <td></td>
                                             <td >
@@ -1523,7 +1519,7 @@
                                                     </MasterTableView>
                                                 </telerik:RadGrid>
                                             </td>
-                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="*" Visible="true"></asp:Label></td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label runat="server" Text="" Visible="true"></asp:Label></td>
                                             <td style="width: 160px">Ship Methods in Scope</td>
                                             <td></td>
                                             <td>
@@ -1594,7 +1590,7 @@
                                             <td></td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label ID="lblCustAuditPortalStar" runat="server" Text="*" Visible="true"></asp:Label></td>
+                                            <td style="width: 10px;color:red;text-align:right;"><asp:Label ID="lblCustAuditPortalStar" runat="server" Text="" Visible="true"></asp:Label></td>
                                             <td style="width: 140px;">
                                                 <asp:Label ID="lblCustAuditPortalYes" runat="server" Text="If Yes, then:" Visible="true"></asp:Label>
                                             </td>
@@ -3829,6 +3825,8 @@
             </telerik:RadPageView>
 
         </telerik:RadMultiPage>
+        <telerik:RadButton RenderMode="Lightweight" ID="btnDebugLoad" runat="server" Text="Pre-Load Customer" OnClick="btnPre_Load_Click" Visible="false"></telerik:RadButton>
+
     </div>
 
 </asp:Content>

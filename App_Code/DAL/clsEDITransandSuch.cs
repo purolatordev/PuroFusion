@@ -126,10 +126,11 @@ public static class SrvEDITransaction
         try
         {
             var q = o.GetTable<tblEDITranscation>().Where(f => f.idRequest == data.idRequest && f.idEDITranscationType == data.idEDITranscationType).FirstOrDefault();
-            q.ActiveFlag = false;
-            //o.GetTable<tblEDITranscation>().(q);
-            //o.GetTable<tblEDITranscation>().DeleteOnSubmit(q);
-            o.SubmitChanges();
+            if (q != null)
+            {
+                q.ActiveFlag = false;
+                o.SubmitChanges();
+            }
         }
         catch (Exception ex)
         {

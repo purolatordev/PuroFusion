@@ -46,7 +46,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             Session["userName"] = "Scott.Cardinale";
             Session["appName"] = "PuroTouch";
-            Session["userRole"] = "ITAdmin";
+            //Session["userRole"] = "ITAdmin";
+            Session["userRole"] = ConfigurationManager.AppSettings["role"];
+            btnDebugLoad.Visible = true;
         }
 
         if (Session["userName"] == null)
@@ -178,7 +180,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     private void UpdateTabs()
     {
-        //Role Based Viewing
+        #region Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
         if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
         {
@@ -198,29 +200,118 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[9].Visible = false;
             RadTabStrip1.Tabs[9].Enabled = false;
         }
-
-        // Solution Type Checking
+        #endregion
+        string ID = Request.QueryString["requestID"];
+        #region Solution Type Checking
         if (rddlSolutionType.SelectedIndex == 0)
         {   // Shipping System
             RadTabStrip1.Tabs[3].Enabled = false;
             RadTabStrip1.Tabs[3].Visible = false;
             RadTabStrip1.Tabs[4].Visible = true;
-            RadTabStrip1.Tabs[4].Enabled = true;
+            if (String.IsNullOrEmpty(ID))
+                RadTabStrip1.Tabs[4].Enabled = false;  // Shipping Services Tab
+            else
+                RadTabStrip1.Tabs[4].Enabled = true;
+            RadTabStrip1.Tabs[5].Enabled = true;
+            RadTabStrip1.Tabs[5].Visible = true;
+            btnSubmitEDIServices.Visible = false;
+
+            RadTabStrip1.Tabs[6].Visible = false; // Courier EDI
+            RadTabStrip1.Tabs[6].Enabled = false;
+            RadTabStrip1.Tabs[7].Visible = false;// Non-Courier EDI
+            RadTabStrip1.Tabs[7].Enabled = false;
         }
         else if (rddlSolutionType.SelectedIndex == 1)
         {   // EDI
-            RadTabStrip1.Tabs[3].Enabled = true;
+            if (String.IsNullOrEmpty(ID))
+                RadTabStrip1.Tabs[3].Enabled = false; // EDI Services
+            else
+                RadTabStrip1.Tabs[3].Enabled = true;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = false;
             RadTabStrip1.Tabs[4].Enabled = false;
+            btnSubmitEDIServices.Visible = true;
+            btnSubmitEDIServices.Enabled = true;
         }
-        else
+        else if (rddlSolutionType.SelectedIndex == 2)
         {   // Both
             RadTabStrip1.Tabs[3].Enabled = true;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = true;
             RadTabStrip1.Tabs[4].Enabled = true;
+            RadTabStrip1.Tabs[5].Enabled = true;
+            RadTabStrip1.Tabs[5].Visible = true;
+            btnSubmitEDIServices.Visible = false;
         }
+        #endregion
+        #region Current Shipping Solution Text Area Check
+        if ( string.IsNullOrEmpty(txtareaCurrentSolution.Text) )
+        {
+            btnNextTab3.Visible = true;
+            btnNextTab3.Enabled = true;
+        }
+        else
+        {
+            btnNextTab3.Visible = false;
+            btnNextTab3.Enabled = false;
+        }
+        #endregion
+
+        #region EDIShipMethList Checking
+        List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+        var qEDIShipMethList = EDIShipMethList.Select(f => f.MethodType).OrderBy(f=>f).ToList();
+        if(qEDIShipMethList.Count == 3)
+        {
+            RadTabStrip1.Tabs[6].Visible = true;
+            RadTabStrip1.Tabs[6].Enabled = true;
+            RadTabStrip1.Tabs[7].Visible = true;
+            RadTabStrip1.Tabs[7].Enabled = true;
+        }
+        else if (qEDIShipMethList.Count > 0)
+        {
+            var qListNonCourierEDI = qEDIShipMethList.Where(f => f.Contains("Freight") || f.Contains("PuroPost")).ToList();
+            if (qListNonCourierEDI.Count > 0)
+            {
+                RadTabStrip1.Tabs[7].Visible = true;
+                RadTabStrip1.Tabs[7].Enabled = true;
+            }
+            else
+            {
+                RadTabStrip1.Tabs[7].Visible = false;
+                RadTabStrip1.Tabs[7].Enabled = false;
+            }
+            var qListCourierEDI = qEDIShipMethList.Where(f => f.Contains("Courier") ).ToList();
+            if (qListCourierEDI.Count > 0)
+            {
+                RadTabStrip1.Tabs[6].Visible = true;
+                RadTabStrip1.Tabs[6].Enabled = true;
+            }
+            else
+            {
+                RadTabStrip1.Tabs[6].Visible = false;
+                RadTabStrip1.Tabs[6].Enabled = false;
+            }
+        }
+        else
+        {
+            RadTabStrip1.Tabs[6].Visible = false;
+            RadTabStrip1.Tabs[6].Enabled = false;
+            RadTabStrip1.Tabs[7].Visible = false;
+            RadTabStrip1.Tabs[7].Enabled = false;
+        }
+        #endregion
+    }
+    protected void btnPre_Load_Click(object sender, System.EventArgs e)
+    {
+        rddlSolutionType.SelectedIndex = 1;
+        rddlRequestType.SelectedIndex = 1;
+        txtCustomerName.Text = "Pre Customer " + DateTime.Now.ToString();
+        txtCustomerAddress.Text = "Pre Address " + DateTime.Now.ToString();
+        txtCustomerZip.Text = "12121";
+        txtCustomerCity.Text = "Pre City";
+        txtCustomerState.Text = "NY";
+        txtRevenue.Text = "100";
+        txtCommodity.Text = "Pre commodity";
     }
     #region User controls
     private void PuroPostStand(string ID)
@@ -1640,7 +1731,18 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-
+    protected void rddlSolutionType_IndexChanged(object sender, System.EventArgs e)
+    {
+        try
+        {
+            UpdateTabs();
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
     protected void getSolutionTypes()
     {
         try
@@ -1650,7 +1752,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             rddlSolutionType.DataTextField = "SolutionType";
             rddlSolutionType.DataValueField = "idSolutionType";
             rddlSolutionType.DataBind();
-            rddlSolutionType.SelectedIndex = -1;
+            rddlSolutionType.SelectedIndex = 0;
         }
         catch (Exception ex)
         {
@@ -2448,6 +2550,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             clsContact currentrow = contactList[rownum];
             SrvContact.Remove(currentrow.idContact);
             contactList.Remove(currentrow);
+            if (contactList.Count == 0)
+            {
+                btnNextTab2.Visible = true; 
+                btnNextTab2.Enabled = false;
+            }
             Session["contactList"] = contactList;
             contactGrid.DataSource = contactList;
             contactGrid.Rebind();
@@ -2509,11 +2616,29 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     contactGrid.DataSource = contactList;
                     contactGrid.DataBind();
                     btnNextTab2.Visible = true;
-                    //Response.Redirect(Request.RawUrl);
+                    btnNextTab2.Enabled = true;
                 }
                 else
                     e.Canceled = true;
             }
+            else if (e.CommandName == RadGrid.InitInsertCommandName)
+            {
+                if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+                {
+                    //GridEditFormItem edit = (GridEditFormItem)e.Item;
+                    //RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListContactType");
+                    //radlist.SelectedIndex = 1; ;
+                    //RadTextBox txtBxContactName2 = (RadTextBox)edit.FindControl("txtBxContactName2");
+                    //txtBxContactName2.Text = "Pre-Contact " + DateTime.Now.ToString();
+                    //RadTextBox txtBxContactTitle2 = (RadTextBox)edit.FindControl("txtBxContactTitle2");
+                    //txtBxContactTitle2.Text = "Pre-Title " + DateTime.Now.ToString();
+                    //RadTextBox txtBxContactEmail2 = (RadTextBox)edit.FindControl("txtBxContactEmail2");
+                    //txtBxContactEmail2.Text = "Pre-Email " + DateTime.Now.ToString();
+                    //RadTextBox txtBxContactPhone2 = (RadTextBox)edit.FindControl("txtBxContactPhone2");
+                    //txtBxContactPhone2.Text = "123 456789 ";
+                }
+            }
+
             RadMultiPage1.SelectedIndex = 1;
             RadTabStrip1.Tabs[1].Selected = true;
         }
@@ -2645,6 +2770,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     Session["EDIShipMethList"] = EDIShipMethList;
                     gridShipmentMethods.DataSource = EDIShipMethList;
                     gridShipmentMethods.DataBind();
+                    UpdateTabs();
                 }
                 else
                     e.Canceled = true;
@@ -2683,6 +2809,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             gridShipmentMethods.Rebind();
             RadMultiPage1.SelectedIndex = 3;
             RadTabStrip1.Tabs[3].Selected = true;
+            UpdateTabs();
         }
         catch (Exception ex)
         {
@@ -4052,12 +4179,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             ErrorMessage = ErrorMessage + "<br>Current Solution Description is Missing";
         }
         List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
-        if (rddlSolutionType.SelectedIndex == 0 && EDITransList.Count() == 0)
+        if (EDITransList.Count() == 0)
         {   // Shipping System
             ErrorMessage = ErrorMessage + "<br>At Least One EDI Transaction Must Be Supplied";
         }
         List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
-        if (rddlSolutionType.SelectedIndex == 0 && EDIShipMethList.Count() == 0)
+        if (EDIShipMethList.Count() == 0)
         {   // Shipping System
             ErrorMessage = ErrorMessage + "<br>At Least One EDI Ship Method Must Be Supplied";
         }
@@ -4547,19 +4674,48 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         if (Page.IsValid)
         {
-            RadTabStrip1.Tabs[2].Enabled = true;
-            RadTabStrip1.Tabs[2].Selected = true;
-            RadMultiPage1.SelectedIndex = 2;
-            btnNextTab2.Visible = false;
+            if (String.IsNullOrEmpty(txtareaCurrentSolution.Text.ToString()))
+            {
+                RadTabStrip1.Tabs[2].Enabled = true;
+                RadTabStrip1.Tabs[2].Selected = true;
+                RadMultiPage1.SelectedIndex = 2;
+                btnNextTab2.Visible = false;
+            }
+            else if (rddlSolutionType.SelectedIndex == 1)
+            {
+                RadTabStrip1.Tabs[3].Enabled = true;
+                RadTabStrip1.Tabs[3].Selected = true;
+                RadMultiPage1.SelectedIndex = 3;
+                btnSubmit.Enabled = true;
+                btnNextTab3.Visible = false;
+            }
+            else if (rddlSolutionType.SelectedIndex == 0)
+            {
+                RadTabStrip1.Tabs[4].Enabled = true;
+                RadTabStrip1.Tabs[4].Selected = true;
+                RadMultiPage1.SelectedIndex = 4;
+                btnSubmit.Enabled = true;
+            }
         }
     }
     protected void btnNextTab3_Click(object sender, System.EventArgs e)
     {
-        RadTabStrip1.Tabs[3].Enabled = true;
-        RadTabStrip1.Tabs[3].Selected = true;
-        RadMultiPage1.SelectedIndex = 3;
-        btnSubmit.Enabled = true;
-        btnNextTab3.Visible = false;
+        if (rddlSolutionType.SelectedIndex == 1)
+        {
+            RadTabStrip1.Tabs[3].Enabled = true;
+            RadTabStrip1.Tabs[3].Selected = true;
+            RadMultiPage1.SelectedIndex = 3;
+            btnSubmit.Enabled = true;
+            btnNextTab3.Visible = false;
+        }
+        else if (rddlSolutionType.SelectedIndex == 0) 
+        {
+            RadTabStrip1.Tabs[4].Enabled = true;
+            RadTabStrip1.Tabs[4].Selected = true;
+            RadMultiPage1.SelectedIndex = 4;
+            btnSubmit.Enabled = true;
+            //btnNextTab3.Visible = false;
+        }
     }
     protected void btnNextTab4_Click(object sender, System.EventArgs e)
     {
