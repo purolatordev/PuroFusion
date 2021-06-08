@@ -39,6 +39,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     const int PUROPOST_NON_COURIER_EDI = 7;
     const int INVOICE_NON_COURIER_EDI_TEST = 8;
     const int SHIPMENT_STATUS_NON_COURIER_EDI_TEST = 9;
+    const int SOLUTION_TYPE_SHIPPING = 0; 
+    const int SOLUTION_TYPE_EDI = 1;
+    const int SOLUTION_TYPE_BOTH = 2;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -203,7 +206,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         #endregion
         string ID = Request.QueryString["requestID"];
         #region Solution Type Checking
-        if (rddlSolutionType.SelectedIndex == 0)
+        if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING)
         {   // Shipping System
             RadTabStrip1.Tabs[3].Enabled = false;
             RadTabStrip1.Tabs[3].Visible = false;
@@ -212,8 +215,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 RadTabStrip1.Tabs[4].Enabled = false;  // Shipping Services Tab
             else
                 RadTabStrip1.Tabs[4].Enabled = true;
-            RadTabStrip1.Tabs[5].Enabled = true;
-            RadTabStrip1.Tabs[5].Visible = true;
+            if (userRole != "sales")
+            {
+                RadTabStrip1.Tabs[5].Enabled = true;
+                RadTabStrip1.Tabs[5].Visible = true;
+            }
             btnSubmitEDIServices.Visible = false;
 
             RadTabStrip1.Tabs[6].Visible = false; // Courier EDI
@@ -221,7 +227,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[7].Visible = false;// Non-Courier EDI
             RadTabStrip1.Tabs[7].Enabled = false;
         }
-        else if (rddlSolutionType.SelectedIndex == 1)
+        else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
         {   // EDI
             if (String.IsNullOrEmpty(ID))
                 RadTabStrip1.Tabs[3].Enabled = false; // EDI Services
@@ -233,14 +239,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             btnSubmitEDIServices.Visible = true;
             btnSubmitEDIServices.Enabled = true;
         }
-        else if (rddlSolutionType.SelectedIndex == 2)
+        else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH)
         {   // Both
             RadTabStrip1.Tabs[3].Enabled = true;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = true;
             RadTabStrip1.Tabs[4].Enabled = true;
-            RadTabStrip1.Tabs[5].Enabled = true;
-            RadTabStrip1.Tabs[5].Visible = true;
+            if (userRole != "sales")
+            {
+                RadTabStrip1.Tabs[5].Enabled = true;
+                RadTabStrip1.Tabs[5].Visible = true;
+            }
             btnSubmitEDIServices.Visible = false;
         }
         #endregion
@@ -264,13 +273,26 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             RadTabStrip1.Tabs[6].Visible = true;
             RadTabStrip1.Tabs[6].Enabled = true;
-            RadTabStrip1.Tabs[7].Visible = true;
-            RadTabStrip1.Tabs[7].Enabled = true;
+            if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI && userRole == "sales")
+            {
+                RadTabStrip1.Tabs[7].Visible = false;
+                RadTabStrip1.Tabs[7].Enabled = false;
+            }
+            else
+            {
+                RadTabStrip1.Tabs[7].Visible = true;
+                RadTabStrip1.Tabs[7].Enabled = true;
+            }
         }
         else if (qEDIShipMethList.Count > 0)
         {
             var qListNonCourierEDI = qEDIShipMethList.Where(f => f.Contains("Freight") || f.Contains("PuroPost")).ToList();
-            if (qListNonCourierEDI.Count > 0)
+            if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI && userRole == "sales")
+            {
+                RadTabStrip1.Tabs[7].Visible = false;
+                RadTabStrip1.Tabs[7].Enabled = false;
+            }
+            else if (qListNonCourierEDI.Count > 0 )
             {
                 RadTabStrip1.Tabs[7].Visible = true;
                 RadTabStrip1.Tabs[7].Enabled = true;
@@ -4174,24 +4196,24 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             ErrorMessage = ErrorMessage + "<br>At Least One Contact Must Be Supplied";
         }
-        if ((rddlSolutionType.SelectedIndex == 0 || rddlSolutionType.SelectedIndex == 2) && string.IsNullOrEmpty(txtareaCurrentSolution.Text))
+        if ((rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING || rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH) && string.IsNullOrEmpty(txtareaCurrentSolution.Text))
         {
             ErrorMessage = ErrorMessage + "<br>Current Solution Description is Missing";
         }
         List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
-        if (EDITransList.Count() == 0)
+        if (EDITransList.Count() == 0 && (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI || rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH))
         {   // Shipping System
             ErrorMessage = ErrorMessage + "<br>At Least One EDI Transaction Must Be Supplied";
         }
         List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
-        if (EDIShipMethList.Count() == 0)
+        if (EDIShipMethList.Count() == 0 && (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI || rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH))
         {   // Shipping System
             ErrorMessage = ErrorMessage + "<br>At Least One EDI Ship Method Must Be Supplied";
         }
         //check tab4
         string snumSvcs = rgSvcGrid.MasterTableView.Items.Count.ToString();
         Int16 numSvcs = Convert.ToInt16(snumSvcs);
-        if ( (rddlSolutionType.SelectedIndex == 0 || rddlSolutionType.SelectedIndex == 2) && (numSvcs < 1) )
+        if ( (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING || rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH) && (numSvcs < 1) )
         {
             ErrorMessage = ErrorMessage + "<br>Must Choose At Least One Service";
         }
