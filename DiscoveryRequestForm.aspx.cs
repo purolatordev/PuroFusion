@@ -4814,11 +4814,42 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     }
     protected void btnNextTab4_Click(object sender, System.EventArgs e)
     {
-        RadTabStrip1.Tabs[4].Enabled = true;
-        RadTabStrip1.Tabs[4].Selected = true;
-        RadMultiPage1.SelectedIndex = 4;
-        btnSubmit.Enabled = true;
-        btnEDIServicesNext.Visible = false;
+        string userRole = Session["userRole"].ToString().ToLower();
+        if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH && userRole.Contains("sales"))
+        {
+            List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
+            List<clsEDITransaction> EDITransList = (List<clsEDITransaction>)Session["EDITransList"];
+            if (EDIShipMethList.Count() != 0 && EDITransList.Count() != 0)
+            {
+                RadTabStrip1.Tabs[4].Enabled = true;
+                RadTabStrip1.Tabs[4].Selected = true;
+                RadMultiPage1.SelectedIndex = 4;
+                btnSubmit.Enabled = true;
+                btnEDIServicesNext.Visible = false;
+                //CustomValidator.Visible = false;
+                //CustomValidator.ErrorMessage = "";
+            }
+            else
+            {
+                string ErrorMessage = "";
+                if (EDITransList.Count() == 0)
+                    ErrorMessage = "<br>At Least One EDI Transaction Must Be Supplied";
+                if (EDIShipMethList.Count() == 0 )
+                    ErrorMessage = ErrorMessage + "<br>At Least One EDI Ship Method Must Be Supplied";
+
+                CustomValidator.ErrorMessage = ErrorMessage;
+                CustomValidator.IsValid = false;
+                CustomValidator.Visible = true;
+            }
+        }
+        else
+        {
+            RadTabStrip1.Tabs[4].Enabled = true;
+            RadTabStrip1.Tabs[4].Selected = true;
+            RadMultiPage1.SelectedIndex = 4;
+            btnSubmit.Enabled = true;
+            btnEDIServicesNext.Visible = false;
+        }
     }
     protected void date1_Changed(object sender, System.EventArgs e)
     {
