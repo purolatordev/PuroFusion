@@ -3825,8 +3825,12 @@
             </telerik:RadPageView>
 
         </telerik:RadMultiPage>
-        <telerik:RadButton RenderMode="Lightweight" ID="btnDebugLoad" runat="server" Text="Pre-Load Customer" OnClick="btnPre_Load_Click" Visible="false"></telerik:RadButton>
-
+        <telerik:RadButton RenderMode="Lightweight" ID="btnDebugLoad" runat="server" Text="Customer" OnClick="btnPre_Load_Click" Visible="false"></telerik:RadButton>
+        <telerik:RadButton RenderMode="Lightweight" ID="btnDebugLoadContactInfo" runat="server" Text="Contact Info" OnClick="btnDebugLoadContactInfo_Click" Visible="false"></telerik:RadButton>
+        <telerik:RadButton RenderMode="Lightweight" ID="btnDebugLoadEDI" runat="server" Text="EDI" OnClick="btnDebugLoadEDI_Click" Visible="false"></telerik:RadButton>
+        <telerik:RadButton RenderMode="Lightweight" ID="btnDebugLoadShipping" runat="server" Text="Shipping" OnClick="btnDebugLoadShipping_Click" Visible="false"></telerik:RadButton>
+        <asp:TextBox ID="txtBoxMultiDebug" TextMode="multiline" Columns="100" Rows="5" runat="server" Visible="false" />
+        <telerik:RadButton RenderMode="Lightweight" ID="btnClearDebug" runat="server" Text="Clear" OnClick="btnClearDebug_Click" Visible="false"></telerik:RadButton>
     </div>
 
 </asp:Content>

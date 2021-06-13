@@ -42,7 +42,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     const int SOLUTION_TYPE_SHIPPING = 0; 
     const int SOLUTION_TYPE_EDI = 1;
     const int SOLUTION_TYPE_BOTH = 2;
-
+    bool bOneTimeContactGrid = false;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
@@ -52,6 +52,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //Session["userRole"] = "ITAdmin";
             Session["userRole"] = ConfigurationManager.AppSettings["role"];
             btnDebugLoad.Visible = true;
+            btnDebugLoadContactInfo.Visible = true;
+            btnDebugLoadEDI.Visible = true;
+            btnDebugLoadShipping.Visible = true;
+            txtBoxMultiDebug.Visible = true;
+            btnClearDebug.Visible = true;
         }
 
         if (Session["userName"] == null)
@@ -183,6 +188,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     private void UpdateTabs()
     {
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug.Text += "UpdateTabs()\r\n";
+        }
         #region Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
         if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
@@ -211,10 +220,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[3].Enabled = false;
             RadTabStrip1.Tabs[3].Visible = false;
             RadTabStrip1.Tabs[4].Visible = true;
-            if (String.IsNullOrEmpty(ID))
-                RadTabStrip1.Tabs[4].Enabled = false;  // Shipping Services Tab
-            else
-                RadTabStrip1.Tabs[4].Enabled = true;
+            //if (String.IsNullOrEmpty(ID))
+            //    RadTabStrip1.Tabs[4].Enabled = false;  // Shipping Services Tab
+            //else
+            //    RadTabStrip1.Tabs[4].Enabled = true;
             if (userRole != "sales")
             {
                 RadTabStrip1.Tabs[5].Enabled = true;
@@ -229,10 +238,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
         {   // EDI
-            if (String.IsNullOrEmpty(ID))
-                RadTabStrip1.Tabs[3].Enabled = false; // EDI Services
-            else
-                RadTabStrip1.Tabs[3].Enabled = true;
+            //if (String.IsNullOrEmpty(ID))
+            //    RadTabStrip1.Tabs[3].Enabled = false; // EDI Services
+            //else
+            //    RadTabStrip1.Tabs[3].Enabled = true;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = false;
             RadTabStrip1.Tabs[4].Enabled = false;
@@ -241,10 +250,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH)
         {   // Both
-            RadTabStrip1.Tabs[3].Enabled = true;
+            //RadTabStrip1.Tabs[3].Enabled = true;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = true;
-            RadTabStrip1.Tabs[4].Enabled = true;
+            //RadTabStrip1.Tabs[4].Enabled = true;
             if (userRole != "sales")
             {
                 RadTabStrip1.Tabs[5].Enabled = true;
@@ -323,8 +332,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         #endregion
     }
+    #region Debugging
     protected void btnPre_Load_Click(object sender, System.EventArgs e)
     {
+        rddlDistrict.SelectedIndex = 1;
+        rddlBranch.SelectedIndex = 1;
         rddlSolutionType.SelectedIndex = 1;
         rddlRequestType.SelectedIndex = 1;
         txtCustomerName.Text = "Pre Customer " + DateTime.Now.ToString();
@@ -334,7 +346,43 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         txtCustomerState.Text = "NY";
         txtRevenue.Text = "100";
         txtCommodity.Text = "Pre commodity";
+        //bOneTimeContactGrid = true;
+        //contactGrid.Rebind();
+        //List<ClsDiscoveryRequestSvcs> svcList = repository.GetProposedServices(7026);
+        //Session["proposedSvcList"] = svcList;
+        //rgSvcGrid.DataSource = svcList;
+        //rgSvcGrid.Rebind();
     }
+    protected void btnDebugLoadContactInfo_Click(object sender, System.EventArgs e)
+    {
+        bOneTimeContactGrid = true;
+        contactGrid.Rebind();
+        btnNextTab2.Visible = true;
+        btnNextTab2.Enabled = true;
+    }
+    protected void btnDebugLoadShipping_Click(object sender, System.EventArgs e)
+    {
+        List<ClsDiscoveryRequestSvcs> svcList = repository.GetProposedServices(7026);
+        Session["proposedSvcList"] = svcList;
+        rgSvcGrid.DataSource = svcList;
+        rgSvcGrid.Rebind();
+    }
+    protected void btnDebugLoadEDI_Click(object sender, System.EventArgs e)
+    {
+        bOneTimeContactGrid = true;
+        gridShipmentMethods.Rebind();
+        bOneTimeContactGrid = true;
+        gridEDITransactions.Rebind();
+        //List<ClsDiscoveryRequestSvcs> svcList = repository.GetProposedServices(7026);
+        //Session["proposedSvcList"] = svcList;
+        //gridShipmentMethods.DataSource = svcList;
+    }
+    
+    protected void btnClearDebug_Click(object sender, System.EventArgs e)
+    {
+        txtBoxMultiDebug.Text = "";
+    }
+    #endregion
     #region User controls
     private void PuroPostStand(string ID)
     {
@@ -2508,6 +2556,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 (sender as RadGrid).DataSource = SrvContact.GetContactsByRequestID(requestID);
             }
+            // Only used during debug
+            else if(bOneTimeContactGrid)
+            {
+                List<clsContact> contactList = SrvContact.GetContactsByRequestID(7024);
+                Session["contactList"] = contactList;
+                (sender as RadGrid).DataSource = contactList;
+                bOneTimeContactGrid = false;
+            }
             else
             {
                 (sender as RadGrid).DataSource =(List<clsContact>)Session["contactList"];
@@ -2720,6 +2776,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 (sender as RadGrid).DataSource = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(requestID);
             }
+            else if(bOneTimeContactGrid)
+            {
+                (sender as RadGrid).DataSource = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(7024);
+                bOneTimeContactGrid = false;
+            }
             else
             {
                 (sender as RadGrid).DataSource = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
@@ -2857,6 +2918,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (requestID != 0)
             {
                 (sender as RadGrid).DataSource = SrvEDITransaction.GetEDITransactionsByidRequest(requestID);
+            }
+            else if(bOneTimeContactGrid)
+            {
+                (sender as RadGrid).DataSource = SrvEDITransaction.GetEDITransactionsByidRequest(7024);
+                bOneTimeContactGrid = false;
             }
             else
             {
@@ -4686,9 +4752,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadMultiPage1.SelectedIndex = 1;
             btnNextTab1.Visible = false;
             List<clsContact> contactList = (List<clsContact>)Session["contactList"];
-            if( contactList.Count() == 0)
+            if (contactList.Count() == 0)
             {
                 btnNextTab2.Visible = false;
+            }
+            if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+            {
+                txtBoxMultiDebug.Text += "btnNextTab1_Click()\r\n";
             }
         }
     }
@@ -4718,11 +4788,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 RadMultiPage1.SelectedIndex = 4;
                 btnSubmit.Enabled = true;
             }
+            if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+            {
+                txtBoxMultiDebug.Text += "btnNextTab2_Click()\r\n";
+            }
         }
     }
     protected void btnNextTab3_Click(object sender, System.EventArgs e)
     {
-        if (rddlSolutionType.SelectedIndex == 1)
+        if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
         {
             RadTabStrip1.Tabs[3].Enabled = true;
             RadTabStrip1.Tabs[3].Selected = true;
@@ -4730,13 +4804,25 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             btnSubmit.Enabled = true;
             btnNextTab3.Visible = false;
         }
-        else if (rddlSolutionType.SelectedIndex == 0) 
+        else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING) 
         {
             RadTabStrip1.Tabs[4].Enabled = true;
             RadTabStrip1.Tabs[4].Selected = true;
             RadMultiPage1.SelectedIndex = 4;
             btnSubmit.Enabled = true;
             //btnNextTab3.Visible = false;
+        }
+        else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH)
+        {
+            RadTabStrip1.Tabs[3].Enabled = true;
+            RadTabStrip1.Tabs[3].Selected = true;
+            RadMultiPage1.SelectedIndex = 3;
+            //btnSubmit.Enabled = true;
+            btnNextTab3.Visible = true;
+        }
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug.Text += "btnNextTab3_Click()\r\n";
         }
     }
     protected void btnNextTab4_Click(object sender, System.EventArgs e)
