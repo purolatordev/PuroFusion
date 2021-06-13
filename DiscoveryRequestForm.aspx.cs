@@ -278,30 +278,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         #region EDIShipMethList Checking
         List<clsEDIShipMethod> EDIShipMethList = (List<clsEDIShipMethod>)Session["EDIShipMethList"];
         var qEDIShipMethList = EDIShipMethList.Select(f => f.MethodType).OrderBy(f=>f).ToList();
-        if(qEDIShipMethList.Count == 3)
+        if (qEDIShipMethList.Count == 3 && userRole != "sales")
         {
+            RadTabStrip1.Tabs[7].Visible = true;
+            RadTabStrip1.Tabs[7].Enabled = true;
             RadTabStrip1.Tabs[6].Visible = true;
             RadTabStrip1.Tabs[6].Enabled = true;
-            if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI && userRole == "sales")
-            {
-                RadTabStrip1.Tabs[7].Visible = false;
-                RadTabStrip1.Tabs[7].Enabled = false;
-            }
-            else
-            {
-                RadTabStrip1.Tabs[7].Visible = true;
-                RadTabStrip1.Tabs[7].Enabled = true;
-            }
         }
-        else if (qEDIShipMethList.Count > 0)
+        else if (qEDIShipMethList.Count > 0 && userRole != "sales")
         {
             var qListNonCourierEDI = qEDIShipMethList.Where(f => f.Contains("Freight") || f.Contains("PuroPost")).ToList();
-            if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI && userRole == "sales")
-            {
-                RadTabStrip1.Tabs[7].Visible = false;
-                RadTabStrip1.Tabs[7].Enabled = false;
-            }
-            else if (qListNonCourierEDI.Count > 0 )
+            if (qListNonCourierEDI.Count > 0 )
             {
                 RadTabStrip1.Tabs[7].Visible = true;
                 RadTabStrip1.Tabs[7].Enabled = true;
@@ -312,7 +299,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 RadTabStrip1.Tabs[7].Enabled = false;
             }
             var qListCourierEDI = qEDIShipMethList.Where(f => f.Contains("Courier") ).ToList();
-            if (qListCourierEDI.Count > 0)
+            if (qListCourierEDI.Count > 0 )
             {
                 RadTabStrip1.Tabs[6].Visible = true;
                 RadTabStrip1.Tabs[6].Enabled = true;
