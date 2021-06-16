@@ -55,6 +55,16 @@ public static class SrvEDIShipMethod
 
         return qShipMeth;
     }
+    public static List<clsEDIShipMethod> GetEDIShipMethodMockData()
+    {
+        List<clsEDIShipMethod> qShipMeth = new List<clsEDIShipMethod>() 
+        {
+            new clsEDIShipMethod() { MethodType = "Courier", idEDIShipMethodType = 1, ActiveFlag = true, CreatedBy = "scott.cardinale", CreatedOn = DateTime.Now },
+            new clsEDIShipMethod() { MethodType = "PuroPost", idEDIShipMethodType = 2, ActiveFlag = true, CreatedBy = "scott.cardinale", CreatedOn = DateTime.Now },
+            new clsEDIShipMethod() { MethodType = "Freight", idEDIShipMethodType = 3, ActiveFlag = true, CreatedBy = "scott.cardinale", CreatedOn = DateTime.Now }
+        };
+        return qShipMeth;
+    }
     public static List<clsEDIShipMethod> GetEDIShipMethodTypesByidRequest(int idRequest,int idEDIShipMethodTypes)
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();

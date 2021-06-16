@@ -2546,7 +2546,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             // Only used during debug
             else if(bOneTimeContactGrid)
             {
-                List<clsContact> contactList = SrvContact.GetContactsByRequestID(7024);
+                List<clsContact> contactList = SrvContact.GetMockData();
                 Session["contactList"] = contactList;
                 (sender as RadGrid).DataSource = contactList;
                 bOneTimeContactGrid = false;
@@ -2765,7 +2765,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
             else if(bOneTimeContactGrid)
             {
-                (sender as RadGrid).DataSource = SrvEDIShipMethod.GetEDIShipMethodTypesByidRequest(7024);
+                List<clsEDIShipMethod> EDIShipMethList = SrvEDIShipMethod.GetEDIShipMethodMockData();
+                Session["EDIShipMethList"] = EDIShipMethList;
+                (sender as RadGrid).DataSource = EDIShipMethList;
                 bOneTimeContactGrid = false;
             }
             else
@@ -2908,7 +2910,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             }
             else if(bOneTimeContactGrid)
             {
-                (sender as RadGrid).DataSource = SrvEDITransaction.GetEDITransactionsByidRequest(7024);
+                List<clsEDITransaction> EDITransList = SrvEDITransaction.GetEDITransactionsMockData();
+                Session["EDITransList"] = EDITransList;
+                (sender as RadGrid).DataSource = EDITransList;
                 bOneTimeContactGrid = false;
             }
             else

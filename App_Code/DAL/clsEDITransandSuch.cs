@@ -44,6 +44,16 @@ public static class SrvEDITransaction
 
         return qShipMeth;
     }
+    public static List<clsEDITransaction> GetEDITransactionsMockData()
+    {
+        List<clsEDITransaction> qShipMeth = new List<clsEDITransaction>()
+        {
+            new clsEDITransaction {EDITranscationType = "210 - Invoice", idEDITranscationType = 1, TotalRequests = 0, BatchInvoices = false, CombinePayer = false, ActiveFlag = true, CreatedBy = "scott.cardinale", CreatedOn = DateTime.Now },
+            new clsEDITransaction {EDITranscationType = "214 - Shipment Status", idEDITranscationType = 2, TotalRequests = 0, BatchInvoices = false, CombinePayer = false, ActiveFlag = true, CreatedBy = "scott.cardinale", CreatedOn = DateTime.Now },
+    };
+
+        return qShipMeth;
+    }
     public static List<clsEDITransaction> GetEDITransactionsByidRequest(int idRequest, int idEDITranscationType)
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();

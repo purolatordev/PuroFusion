@@ -55,6 +55,15 @@ public static class SrvContact
                                    }).ToList<clsContact>();
         return oEquip;
     }
+    public static List<clsContact> GetMockData()
+    {
+        List<clsContact> oEquip = new List<clsContact>()
+        {
+            new clsContact(){idContactType = 1, ContactTypeName = "Mock Type 1",Name = "Type 1 Contact", Title = "Type 1 Title", Phone = "5161234567", Email = "Type1@email.com"  }
+        };
+            
+        return oEquip;
+    }
     public static string Insert(clsContact data, out Int32 newID) 
     {
         string errMsg = "";
