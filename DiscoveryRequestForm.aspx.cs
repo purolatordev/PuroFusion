@@ -4280,14 +4280,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             ErrorMessage = ErrorMessage + "<br>Please Fill in Current Go-Live Date Change Reason";
         }
        
-        if(cmboxEDISpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
-            ErrorMessage = ErrorMessage + "<br>At Least One EDI Specialist Assignment Must Be Supplied";
+        //if(cmboxEDISpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
+        //    ErrorMessage = ErrorMessage + "<br>At Least One EDI Specialist Assignment Must Be Supplied";
 
-        if (cmboxBillingSpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
-            ErrorMessage = ErrorMessage + "<br>At Least One Billing Specialist Assignment Must Be Supplied";
+        //if (cmboxBillingSpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
+        //    ErrorMessage = ErrorMessage + "<br>At Least One Billing Specialist Assignment Must Be Supplied";
 
-        if (cmboxCollectionSpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
-            ErrorMessage = ErrorMessage + "<br>At Least One Collection Specialist Assignment Must Be Supplied";
+        //if (cmboxCollectionSpecialist.SelectedIndex < 0 && !CheckForSalesUser(Session["userRole"].ToString().ToLower()) )
+        //    ErrorMessage = ErrorMessage + "<br>At Least One Collection Specialist Assignment Must Be Supplied";
 
         if (comboxCustAuditPortal.SelectedText == "Yes")
         {
