@@ -779,4 +779,48 @@ public static class SrvStatusCode
                             .ToList();
         return qStatusCode;
     }
+    public static string UpdatetatusCode(clsStatusCode data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+
+        try
+        {
+            tblStatusCode qStatusCode = o.GetTable<tblStatusCode>()
+                            .Where(p => p.idStatusCodes == data.idStatusCodes && p.ActiveFlag == true)
+                            .FirstOrDefault();
+            if (qStatusCode == null)
+            {
+                tblStatusCode oNewRow = new tblStatusCode()
+                {
+                    StatusCode = data.StatusCode,
+                    ActiveFlag = data.ActiveFlag,
+                    CreatedBy = data.CreatedBy,
+                    CreatedOn = data.CreatedOn,
+                    UpdatedBy = data.UpdatedBy,
+                    UpdatedOn = DateTime.Now
+                };
+                o.GetTable<tblStatusCode>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+            }
+            else
+            {
+                qStatusCode.StatusCode = data.StatusCode;
+                qStatusCode.ActiveFlag = true;
+                qStatusCode.CreatedBy = data.CreatedBy;
+                qStatusCode.CreatedOn = data.CreatedOn;
+                qStatusCode.UpdatedBy = data.UpdatedBy;
+                qStatusCode.UpdatedOn = DateTime.Now;
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return errMsg;
+    }
+
 }

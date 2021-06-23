@@ -700,7 +700,9 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType,
                                                   VendorType = data.VendorType,
-                                                  VendorName = data.VendorName
+                                                  VendorName = data.VendorName,
+                                                  SolutionType = data.SolutionType,
+                                                  EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
@@ -750,8 +752,11 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   TotalTimeSpent = data.TotalTimeSpent,
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
-                                                  RequestType = data.RequestType
-                                                  }).ToList<ClsDiscoveryRequest>();
+                                                  RequestType = data.RequestType,
+                                                  SolutionType = data.SolutionType,
+                                                  EDISpecialistName = data.EDISpecialistName
+
+                                              }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
         }
@@ -800,7 +805,9 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   TotalTimeSpent = data.TotalTimeSpent,
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
-                                                  RequestType = data.RequestType
+                                                  RequestType = data.RequestType,
+                                                  SolutionType = data.SolutionType,
+                                                  EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
@@ -850,7 +857,9 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   TotalTimeSpent = data.TotalTimeSpent,
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
-                                                  RequestType = data.RequestType
+                                                  RequestType = data.RequestType,
+                                                  SolutionType = data.SolutionType,
+                                                  EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;
@@ -899,7 +908,9 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   TotalTimeSpent = data.TotalTimeSpent,
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
-                                                  RequestType = data.RequestType
+                                                  RequestType = data.RequestType,
+                                                  SolutionType = data.SolutionType,
+                                                  EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
             return newoReq;

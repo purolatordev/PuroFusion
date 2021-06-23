@@ -111,7 +111,7 @@ public class ClsDiscoveryRequest
     public DateTime? PhaseChangeDate { get; set; }
     public int? idRequestType { get; set; }
     public int? idSolutionType { get; set; }
-
+    public string SolutionType { get; set; }
     public string RequestType { get; set; }
     public bool? CurrentlyShippingFlag { get; set; }
     public int? idShippingVendor { get; set; }
@@ -129,6 +129,7 @@ public class ClsDiscoveryRequest
     public string EDIDetails { get; set; }
 
     public System.Nullable<int> idEDISpecialist { get; set; }
+    public string EDISpecialistName { get; set; }
 
     public System.Nullable<int> idBillingSpecialist { get; set; }
 

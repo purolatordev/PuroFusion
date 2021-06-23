@@ -283,6 +283,10 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="RequestType" FilterControlAltText="Filter RequestType column" HeaderText="Request Type" SortExpression="RequestType" UniqueName="RequestType">
                     </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="SolutionType" FilterControlAltText="Filter SolutionType column" HeaderText="Solution Type" SortExpression="SolutionType" UniqueName="SolutionType">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="EDISpecialistName" FilterControlAltText="Filter EDISpecialistName column" HeaderText="EDI Specialist" SortExpression="EDISpecialistName" UniqueName="EDISpecialistName">
+                    </telerik:GridBoundColumn>
                     <telerik:GridHyperLinkColumn DataTextField="CustomerName" Target="_parent" NavigateUrl="javascript:void(0);"
                          AllowFiltering="true" FilterControlAltText="Filter CustomerName column" HeaderText="Customer Name" SortExpression="CustomerName" UniqueName="CustomerName" ItemStyle-ForeColor="Blue">
                     </telerik:GridHyperLinkColumn>

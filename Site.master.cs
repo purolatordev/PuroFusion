@@ -239,8 +239,11 @@ public partial class SiteMaster : MasterPage
                 RadMenuItem maintItemSV = new RadMenuItem();
                 maintItemSV.Text = "Shipping Vendors";
                 maintItemSV.NavigateUrl = "~/ShippingVendorMaintenance.aspx";
-                repItem.Items.Add(maintItemSV);             
-
+                repItem.Items.Add(maintItemSV);
+                RadMenuItem maintItemStatusCodes = new RadMenuItem();
+                maintItemStatusCodes.Text = "Status Codes";
+                maintItemStatusCodes.NavigateUrl = "~/StatusCodesMaintenance.aspx";
+                repItem.Items.Add(maintItemStatusCodes);
 
                 RadMenuItem maintItem1 = new RadMenuItem();
                 maintItem1.Text = "Task Types";

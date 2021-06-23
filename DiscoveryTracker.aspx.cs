@@ -28,8 +28,18 @@ public partial class DiscoveryTracker : System.Web.UI.Page
 
 
         public string LoadStateFromStorage(string key)
-        {            
-             return session[storageKey].ToString();        
+        {
+            string strstorageKey = "failed";
+            try
+            {
+                if(session[storageKey] != null)
+                    strstorageKey =  session[storageKey].ToString();
+            }
+            catch (Exception ex)
+            {
+                strstorageKey = ex.Message.ToString();
+            }
+            return strstorageKey;
         }
     }
 

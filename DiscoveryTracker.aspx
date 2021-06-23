@@ -122,6 +122,10 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="RequestType" FilterControlAltText="Filter RequestType column" HeaderText="Request Type" SortExpression="RequestType" UniqueName="RequestType">
                     </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="SolutionType" FilterControlAltText="Filter SolutionType column" HeaderText="Solution Type" SortExpression="SolutionType" UniqueName="SolutionType">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="EDISpecialistName" FilterControlAltText="Filter EDISpecialistName column" HeaderText="EDI Specialist" SortExpression="EDISpecialistName" UniqueName="EDISpecialistName">
+                    </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="VendorType" FilterControlAltText="Filter VendorType column" HeaderText="Vendor Type" SortExpression="VendorType" UniqueName="VendorType">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="VendorName" FilterControlAltText="Filter VendorName column" HeaderText="Vendor Name" SortExpression="VendorName" UniqueName="VendorName">
@@ -129,12 +133,8 @@
                     <telerik:GridHyperLinkColumn DataTextField="CustomerName" Target="_parent" NavigateUrl="javascript:void(0);"
                          AllowFiltering="true" FilterControlAltText="Filter CustomerName column" HeaderText="Customer Name" SortExpression="CustomerName" UniqueName="CustomerName" ItemStyle-ForeColor="Blue">
                     </telerik:GridHyperLinkColumn>
-                   <%-- <telerik:GridBoundColumn DataField="flagNewRequest" FilterControlAltText="Filter isNewRequest column" HeaderText="New Request" SortExpression="isNewRequest" UniqueName="isNewRequest" Visible="true" ><HeaderStyle Width="50px"></HeaderStyle>
-                    </telerik:GridBoundColumn>--%>
                     <telerik:GridBoundColumn DataField="NewRequestYesNo" FilterControlAltText="Filter NewRequestYesNo column" HeaderText="New Request?" SortExpression="NewRequestYesNo" UniqueName="NewRequestYesNo" Visible="false" ><HeaderStyle Width="50px"></HeaderStyle>
                     </telerik:GridBoundColumn>
-                    <%--<telerik:GridBoundColumn DataField="worldpakFlag" FilterControlAltText="Filter worldpakFlag column" HeaderText="Worldpak" SortExpression="worldpakFlag" UniqueName="worldpakFlag"><HeaderStyle Width="50px"></HeaderStyle>
-                    </telerik:GridBoundColumn>--%>
                     <telerik:GridBoundColumn DataField="WorldpakYesNo" FilterControlAltText="Filter WorldpakYesNo column" HeaderText="Worldpak?" SortExpression="WorldpakYesNo" UniqueName="WorldpakYesNo" Visible="false"><HeaderStyle Width="50px" ></HeaderStyle>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="SalesRepName" FilterControlAltText="Filter SalesRepName column" HeaderText="Sales Professional" SortExpression="SalesRepName" UniqueName="SalesRepName">
