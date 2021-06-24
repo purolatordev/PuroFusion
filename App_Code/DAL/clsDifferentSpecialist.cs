@@ -42,6 +42,16 @@ public static class SrvEDISpecialist
 
         return qEDISpecialisth;
     }
+    public static clsEDISpecialist GetEDISpecialistByIDView(int idEDISpecialist)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        clsEDISpecialist qEDISpecialisth = o.GetTable<vw_EDISpecialist>()
+                                            .Where(p => p.idEDISpecialist == idEDISpecialist)
+                                            .Select(p => new clsEDISpecialist() { ActiveDirectoryName = p.ActiveDirectoryName, Name = p.Name, idEDISpecialist = p.idEDISpecialist, idEmployee = p.idEmployee, login = p.login, email = p.email, ReceiveNewReqEmail = p.ReceiveNewReqEmail, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .FirstOrDefault();
+
+        return qEDISpecialisth;
+    }
     public static string InsertEDISpecialist(clsEDISpecialist data)
     {
         string errMsg = "";

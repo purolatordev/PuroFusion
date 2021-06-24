@@ -127,8 +127,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 List<clsEDITransaction> EDITransList = new List<clsEDITransaction>();
                 Session["EDITransList"] = EDITransList;
 
-                //save Original ITBA, later send email if changed
+                //save Original ITBA and EDISpecialist, later send email if changed
                 Session["ITBA"] = "";
+                Session["EDISpecialist"] = "";
                 string requestID = Request.QueryString["requestID"];
                 if (!String.IsNullOrEmpty(requestID))
                 {
@@ -3681,6 +3682,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             rddlITBA.SelectedValue = request.idITBA.ToString();
             Session["ITBA"] = request.idITBA.ToString();
             cmboxEDISpecialist.SelectedValue = request.idEDISpecialist.ToString();
+            Session["EDISpecialist"] = request.idEDISpecialist.ToString();
             cmboxBillingSpecialist.SelectedValue = request.idBillingSpecialist.ToString();
             cmboxCollectionSpecialist.SelectedValue = request.idCollectionSpecialist.ToString();
             dateTargetGoLive.SelectedDate = request.EDITargetGoLive;
@@ -5209,6 +5211,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             sendITBAEmail(objDiscoveryRequest);
             emailmsg = "Email sent to ITBA.";
         }
+        string OrigEDISpecialist = Session["EDISpecialist"].ToString();
+        string CurrentEDISpecialist = objDiscoveryRequest.idEDISpecialist.ToString();
+        if (OrigEDISpecialist != CurrentEDISpecialist)
+        {
+            sendEDISpecialistEmail(objDiscoveryRequest);
+        }
 
         //FINAL STEP
         if (msg == "")
@@ -6395,6 +6403,46 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         catch (Exception ex)
         {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void sendEDISpecialistEmail(ClsDiscoveryRequest objDiscoveryRequest)
+    {
+        try
+        {
+            clsEDISpecialist currentEDISpecialist = SrvEDISpecialist.GetEDISpecialistByIDView(Convert.ToInt16(objDiscoveryRequest.idEDISpecialist));
+            string EDISpecialistemail = currentEDISpecialist.email;
+            string subject = "Discovery Request Assigned To You";
+            string msgBody = composeEmail(objDiscoveryRequest);
+
+            string host = ConfigurationManager.AppSettings["host"].ToString();
+            int port = int.Parse(ConfigurationManager.AppSettings["port"]);
+            string userName = ConfigurationManager.AppSettings["userName"];
+            string password = ConfigurationManager.AppSettings["password"];
+
+            string fromEmail = ConfigurationManager.AppSettings["fromEmail"];
+            string toEmail = EDISpecialistemail;
+
+            SmtpClient client = new SmtpClient(host, port);
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(userName, password);
+
+            string errorMsg = "Error Sending Email";
+            MailMessage message = new MailMessage(fromEmail, toEmail, subject, errorMsg);
+
+            message.Body = msgBody;
+
+            client.Send(message);
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { Method = GetCurrentMethod(), ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now, CreatedBy = Session["userName"].ToString() };
+            SrvExceptionLogging.Insert(error, out lnewID);
+
             pnlDanger.Visible = true;
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
