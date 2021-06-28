@@ -72,7 +72,6 @@ public partial class Home : System.Web.UI.Page
 
     protected void getITBAs()
     {
-        
         List<ClsITBA> balist = repository.GetITBAs();
         rddlITBA.DataSource = balist;
         rddlITBA.DataTextField = "ITBA";
@@ -82,25 +81,12 @@ public partial class Home : System.Web.UI.Page
     
     private void loadHomeGrid1(bool doBind=false)
     {
-
-
         try
         {
-            //DataSet dt = ClsInvoiceDetails.getInvByVendor();
-            //rgHomeGrid1.DataSource = dt;
-            //if (doBind == true)
-            //{
-            //    rgHomeGrid1.DataBind();
-            //}
-            //lblGridtitle.Text = "Invoices";
         }
-
         catch (Exception ex)
         {
-
         }
-
-       
     }
 
     private void getPieChartData()
@@ -176,37 +162,23 @@ public partial class Home : System.Web.UI.Page
         }
         ColumnChart.DataBind();
     }
-
-   
-   
     protected void rgHomeGrid1_ItemCommand(object sender, GridCommandEventArgs e)
     {
         if (e.CommandName == RadGrid.ExportToExcelCommandName)
         {
-            //rgHomeGrid1.ExportSettings.FileName = "InvoicesByVendor";
-            //rgHomeGrid1.AllowFilteringByColumn = false;
         }
     }
     protected void rgHomeGrid1_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
-        //loadHomeGrid1();
     }
-
-
 
     protected void btnNewRequest_Click(object sender, System.EventArgs e)
     {
         Response.Redirect("DiscoveryRequestForm");
     }
-
-
     protected void btnAssign_Click(object sender, System.EventArgs e)
-    {        
-
-       
-            windowManager.RadAlert("Assign this Request to " + rddlITBA.SelectedText + "?", 350, 200, "Assign", "assignCallBackFn", "Please confirm");
-        
-
+    {
+        windowManager.RadAlert("Assign this Request to " + rddlITBA.SelectedText + "?", 350, 200, "Assign", "assignCallBackFn", "Please confirm");
     }
 
     protected void rgRequests_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -260,25 +232,19 @@ public partial class Home : System.Web.UI.Page
             {
                 item.ForeColor = System.Drawing.Color.Green;
             }
-          
 
             HyperLink hLink = (HyperLink)item["CustomerName"].Controls[0];
             hLink.ForeColor = System.Drawing.Color.Blue;
             ClsDiscoveryRequest row = (ClsDiscoveryRequest)item.DataItem;
             hLink.Attributes["onclick"] = "OpenWin('" + row.idRequest + "');";
-
         }
     }
 
     protected void rgRequests_ItemCommand(object source, GridCommandEventArgs e)
     {
-
         if (e.CommandName == "EditRequest")
         {
-
             Response.Redirect("DiscoveryRequestForm.aspx?requestID=" + e.CommandArgument);
-
         }
-
     }
 }
