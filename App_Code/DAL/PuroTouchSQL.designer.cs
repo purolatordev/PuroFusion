@@ -18717,6 +18717,8 @@ namespace DAL
 		
 		private string _EDISpecialistName;
 		
+		private string _EDISpecActiveDir;
+		
 		private string _RequestType;
 		
 		private string _VendorType;
@@ -18853,6 +18855,22 @@ namespace DAL
 				if ((this._EDISpecialistName != value))
 				{
 					this._EDISpecialistName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDISpecActiveDir", DbType="VarChar(MAX)")]
+		public string EDISpecActiveDir
+		{
+			get
+			{
+				return this._EDISpecActiveDir;
+			}
+			set
+			{
+				if ((this._EDISpecActiveDir != value))
+				{
+					this._EDISpecActiveDir = value;
 				}
 			}
 		}

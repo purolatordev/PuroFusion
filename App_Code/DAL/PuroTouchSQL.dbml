@@ -929,6 +929,7 @@
       <Column Name="isNewRequest" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="SolutionType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="EDISpecialistName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="EDISpecActiveDir" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="RequestType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="VendorType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="SalesRepName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />

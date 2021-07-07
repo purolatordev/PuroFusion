@@ -714,7 +714,7 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsDiscoveryRequest> oReq = (from data in puroTouchContext.GetTable<vw_DiscoveryRequestSummary>()                                             
                                               where data.ActiveFlag != false
-                                              where data.ActiveDirectoryName == itbaLogin
+                                              where data.ActiveDirectoryName == itbaLogin || data.EDISpecActiveDir == itbaLogin
 
                                               select new ClsDiscoveryRequest
                                               {

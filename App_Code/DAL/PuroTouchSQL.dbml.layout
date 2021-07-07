@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 32, 42.625" name="PuroTouchSQL">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 32, 46.875" name="PuroTouchSQL">
   <DataContextMoniker Name="/PuroTouchSQLDataContext" />
   <nestedChildShapes>
     <classShape Id="9e3c9d02-921d-44f1-95e5-e0927bbd872c" absoluteBounds="6.75, 0.75, 2, 1.0016910807291666">
@@ -373,14 +373,14 @@
         <elementListCompartment Id="f35c06e7-9960-4e88-b95d-e789b22bcb46" absoluteBounds="11.89, 12.085, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(11.25 : 29.2027498372396); (13.8515625 : 29.2027498372396); (13.8515625 : 17.4342268880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.25 : 29.2027498372396); (13.8515625 : 29.2027498372396); (13.8515625 : 17.4342268880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PuroTouchSQLDataContext/tblCommunicationMethod/tblCommunicationMethod_tblEDIRecipReq" />
       <nodes>
         <classShapeMoniker Id="7de08d64-2f3b-4aff-90c1-aae7075f6c48" />
         <classShapeMoniker Id="56e7573c-495a-4eb6-ac65-d8186344e9d6" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(10.25 : 25.25); (10.25 : 24.7804996744792); (11.5 : 24.7804996744792); (11.5 : 14.5296134440104); (11.875 : 14.5296134440104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(10.25 : 25.25); (10.25 : 24.7804996744792); (11.5 : 24.7804996744792); (11.5 : 14.5296134440104); (11.875 : 14.5296134440104)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PuroTouchSQLDataContext/tblFileType/tblFileType_tblEDIRecipReq" />
       <nodes>
         <classShapeMoniker Id="67c6d0ea-bab1-4a40-85aa-229f015f7dee" />
@@ -442,16 +442,16 @@
         <classShapeMoniker Id="ff4b3467-6a36-42dc-9467-c742552aeeeb" />
       </nodes>
     </associationConnector>
-    <classShape Id="4bcba960-275f-4614-b0e8-5682c6c05fe0" absoluteBounds="26.75, 3.375, 2, 8.1168440755208326">
+    <classShape Id="4bcba960-275f-4614-b0e8-5682c6c05fe0" absoluteBounds="29.75, 3.625, 2, 8.1168440755208326">
       <DataClassMoniker Name="/PuroTouchSQLDataContext/vw_DiscoveryRequest" />
       <nestedChildShapes>
-        <elementListCompartment Id="eb6983bc-8176-4e1d-b9b0-021949dcf5c5" absoluteBounds="26.765, 3.835, 1.9700000000000002, 7.556844075520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eb6983bc-8176-4e1d-b9b0-021949dcf5c5" absoluteBounds="29.765, 4.085, 1.9700000000000002, 7.556844075520833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7f9620f8-3d01-4852-9cce-7445bd632d31" absoluteBounds="13.125, 33.875, 2, 8.5014469401041666">
+    <classShape Id="f7751635-78c3-4d24-9eeb-c521d4bb6b71" absoluteBounds="11.375, 37.875, 2, 8.6937483723958326">
       <DataClassMoniker Name="/PuroTouchSQLDataContext/vw_DiscoveryRequestSummary" />
       <nestedChildShapes>
-        <elementListCompartment Id="9d339539-599c-4a34-a116-f6662d52693a" absoluteBounds="13.14, 34.335, 1.9700000000000002, 7.941446940104167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="86bed478-038b-4e86-a686-6971319cc23b" absoluteBounds="11.39, 38.335, 1.9700000000000002, 8.1337483723958321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
