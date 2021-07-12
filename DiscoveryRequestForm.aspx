@@ -883,7 +883,7 @@
                     <tr>
                         <td style="color: red; text-align: right">*</td>
                         <td>
-                            <asp:Label ID="Label6" runat="server" Text="EDI Transactions Requested - Add all that apply" Visible="true"></asp:Label></td>
+                            <asp:Label ID="Label6" runat="server" Text="EDI Solution Requested - Add all that apply" Visible="true"></asp:Label></td>
                         <td></td>
                         <td>
                             <asp:Label ID="Label9" runat="server" Text="Customer EDI Details" Visible="true"></asp:Label>
@@ -899,7 +899,7 @@
                                 OnItemCommand="gridEDITransactions_ItemCommand">
                                 <MasterTableView AutoGenerateColumns="False" DataKeyNames="idEDITranscation" CommandItemDisplay="Top">
                                     <Columns>
-                                        <telerik:GridBoundColumn DataField="EDITranscationType" FilterControlAltText="EDITranscationType" SortExpression="Team" HeaderText="EDI Trans Type" UniqueName="EDITranscationType">
+                                        <telerik:GridBoundColumn DataField="EDITranscationType" FilterControlAltText="EDITranscationType" SortExpression="Team" HeaderText="EDI Solution Type" UniqueName="EDITranscationType">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
                                         </telerik:GridButtonColumn>
@@ -909,10 +909,10 @@
                                         <FormTemplate>
                                             <table id="Table2" style="padding-top: 2px; width: 100%; margin-left:50px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px;vertical-align: top">Transaction Requested</td>
+                                                    <td style="text-align: right; width: 100px;vertical-align: top">Solution Requested</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
-                                                        <telerik:RadDropDownList ID="radListEDITransList" runat="server" OnSelectedIndexChanged="radListEDITransIdxChanged" DefaultMessage="Select EDI Trans Req" AutoPostBack="true" ToolTip="Select Your Ship Method" Visible="true" Width="280px">
+                                                        <telerik:RadDropDownList ID="radListEDITransList" runat="server" OnSelectedIndexChanged="radListEDITransIdxChanged" DefaultMessage="Select EDI Solution Req" AutoPostBack="true" ToolTip="Select Your Ship Method" Visible="true" Width="280px">
                                                         </telerik:RadDropDownList>
                                                     </td>
                                                     <td style="height: 20px"></td>

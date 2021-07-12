@@ -47,7 +47,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
         {
-            Session["userName"] = "Scott.Cardinale";
+            Session["userName"] = ConfigurationManager.AppSettings["debugUser"];
             Session["appName"] = "PuroTouch";
             //Session["userRole"] = "ITAdmin";
             Session["userRole"] = ConfigurationManager.AppSettings["role"];
@@ -217,14 +217,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         string ID = Request.QueryString["requestID"];
         #region Solution Type Checking
         if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING)
-        {   // Shipping System
+        {
+            RadTabStrip1.Tabs[2].Visible = true;
             RadTabStrip1.Tabs[3].Enabled = false;
             RadTabStrip1.Tabs[3].Visible = false;
             RadTabStrip1.Tabs[4].Visible = true;
-            //if (String.IsNullOrEmpty(ID))
-            //    RadTabStrip1.Tabs[4].Enabled = false;  // Shipping Services Tab
-            //else
-            //    RadTabStrip1.Tabs[4].Enabled = true;
+
             if (userRole != "sales")
             {
                 RadTabStrip1.Tabs[5].Enabled = true;
@@ -238,11 +236,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[7].Enabled = false;
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
-        {   // EDI
-            //if (String.IsNullOrEmpty(ID))
-            //    RadTabStrip1.Tabs[3].Enabled = false; // EDI Services
-            //else
-            //    RadTabStrip1.Tabs[3].Enabled = true;
+        {
+            RadTabStrip1.Tabs[2].Visible = false;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = false;
             RadTabStrip1.Tabs[4].Enabled = false;
@@ -250,11 +245,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             btnSubmitEDIServices.Enabled = true;
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH)
-        {   // Both
-            //RadTabStrip1.Tabs[3].Enabled = true;
+        {
+            RadTabStrip1.Tabs[2].Visible = true;
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = true;
-            //RadTabStrip1.Tabs[4].Enabled = true;
+
             if (userRole != "sales")
             {
                 RadTabStrip1.Tabs[5].Enabled = true;
@@ -4759,14 +4754,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         if (Page.IsValid)
         {
-            if (String.IsNullOrEmpty(txtareaCurrentSolution.Text.ToString()))
-            {
-                RadTabStrip1.Tabs[2].Enabled = true;
-                RadTabStrip1.Tabs[2].Selected = true;
-                RadMultiPage1.SelectedIndex = 2;
-                btnNextTab2.Visible = false;
-            }
-            else if (rddlSolutionType.SelectedIndex == 1)
+            if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
             {
                 RadTabStrip1.Tabs[3].Enabled = true;
                 RadTabStrip1.Tabs[3].Selected = true;
@@ -4774,7 +4762,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 btnSubmit.Enabled = true;
                 btnNextTab3.Visible = false;
             }
-            else if (rddlSolutionType.SelectedIndex == 0)
+            else if (String.IsNullOrEmpty(txtareaCurrentSolution.Text.ToString()))
+            {
+                RadTabStrip1.Tabs[2].Enabled = true;
+                RadTabStrip1.Tabs[2].Selected = true;
+                RadMultiPage1.SelectedIndex = 2;
+                btnNextTab2.Visible = false;
+            }
+            else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING)
             {
                 RadTabStrip1.Tabs[4].Enabled = true;
                 RadTabStrip1.Tabs[4].Selected = true;
