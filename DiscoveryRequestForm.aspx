@@ -1375,9 +1375,18 @@
                                 </ContentTemplate>
                             </telerik:RadPanelItem>
                             <%--    EDI Summary    --%>
-                            <telerik:RadPanelItem Text="EDI Summary" Expanded="True">
+                            <telerik:RadPanelItem Text="EDI Summary"  Expanded="True">
                                 <ContentTemplate>
                                     <table border="0">
+                                        <tr>
+                                            <td style="width: 10px"></td>
+                                            <td style="width: 140px">ITBA Assigned
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <telerik:RadDropDownList ID="rddlITBA2" runat="server" DefaultMessage="Select Onboarding Specialist" ToolTip="Select Onboarding Specialist" Visible="true"></telerik:RadDropDownList>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td style="width: 10px"></td>
                                             <td style="width: 140px">EDI Specialist Assigned</td>

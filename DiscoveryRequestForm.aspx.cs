@@ -234,15 +234,25 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[6].Enabled = false;
             RadTabStrip1.Tabs[7].Visible = false;// Non-Courier EDI
             RadTabStrip1.Tabs[7].Enabled = false;
+
+            RadPanelBar1.Items.FindItemByText("EDI Summary").Visible = false;
+            RadPanelBar1.Items.FindItemByText("Solution Summary").Visible = true;
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
         {
-            RadTabStrip1.Tabs[2].Visible = false;
+            if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
+                RadTabStrip1.Tabs[2].Visible = true;
+            else
+                RadTabStrip1.Tabs[2].Visible = false;
+
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = false;
             RadTabStrip1.Tabs[4].Enabled = false;
             btnSubmitEDIServices.Visible = true;
             btnSubmitEDIServices.Enabled = true;
+
+            RadPanelBar1.Items.FindItemByText("EDI Summary").Visible = true;
+            RadPanelBar1.Items.FindItemByText("Solution Summary").Visible = false;
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH)
         {
@@ -256,6 +266,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 RadTabStrip1.Tabs[5].Visible = true;
             }
             btnSubmitEDIServices.Visible = false;
+
+            RadPanelBar1.Items.FindItemByText("EDI Summary").Visible = true;
+            RadPanelBar1.Items.FindItemByText("Solution Summary").Visible = true;
         }
         #endregion
         #region Current Shipping Solution Text Area Check
@@ -2306,6 +2319,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             rddlITBA.DataTextField = "ITBA";
             rddlITBA.DataValueField = "idITBA";
             rddlITBA.DataBind();
+
+            rddlITBA2.DataSource = balist;
+            rddlITBA2.DataTextField = "ITBA";
+            rddlITBA2.DataValueField = "idITBA";
+            rddlITBA2.DataBind();
         }
         catch (Exception ex)
         {
@@ -3675,6 +3693,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //Tab5 - Profile
             //Solution Summary
             rddlITBA.SelectedValue = request.idITBA.ToString();
+            rddlITBA2.SelectedValue = request.idITBA.ToString();
             Session["ITBA"] = request.idITBA.ToString();
             cmboxEDISpecialist.SelectedValue = request.idEDISpecialist.ToString();
             Session["EDISpecialist"] = request.idEDISpecialist.ToString();
@@ -4105,6 +4124,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (userRole != "itmanager" && userRole != "admin" && userRole != "itadmin")
             {
                 rddlITBA.Enabled = false;
+                rddlITBA2.Enabled = false;
             }
 
             //Display Total Minutes
@@ -5538,6 +5558,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //SOLUTION SUMMARY
             if (rddlITBA.SelectedValue != "")
                 objDiscoveryRequest.idITBA = Convert.ToInt32(rddlITBA.SelectedValue);
+            else if(rddlITBA2.SelectedValue != "")
+                objDiscoveryRequest.idITBA = Convert.ToInt32(rddlITBA2.SelectedValue);
             if (cmboxEDISpecialist.SelectedValue != "")
                 objDiscoveryRequest.idEDISpecialist = Convert.ToInt32(cmboxEDISpecialist.SelectedValue);
             if (cmboxBillingSpecialist.SelectedValue != "")
