@@ -259,6 +259,11 @@ public partial class SiteMaster : MasterPage
                 maintItemVT.NavigateUrl = "~/VendorTypeMaintenance.aspx";
                 repItem.Items.Add(maintItemVT);
 
+                RadMenuItem maintItemFA = new RadMenuItem();
+                maintItemFA.Text = "Freight Auditor";
+                maintItemFA.NavigateUrl = "~/FreightAuditMaintenance.aspx";
+                repItem.Items.Add(maintItemFA);
+
                 RadMenuItem sep = new RadMenuItem();
                 sep.IsSeparator = true;
 

@@ -824,3 +824,213 @@ public static class SrvStatusCode
     }
 
 }
+
+public class clsFreightAuditor
+{
+    public int idFreightAuditor { get; set; }
+    public string CompanyName { get; set; }
+
+    public string CreatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> CreatedOn { get; set; }
+
+    public string UpdatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> UpdatedOn { get; set; }
+
+    public System.Nullable<bool> ActiveFlag { get; set; }
+}
+public static class SrvFreightAuditor
+{
+    public static List<clsFreightAuditor> GetFreightAuditors()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsFreightAuditor> qFreightAuditors = o.GetTable<tblFreightAuditor>()
+                            .Where(p => p.ActiveFlag == true)
+                            .Select(p => new clsFreightAuditor() { idFreightAuditor = p.idFreightAuditor, CompanyName = p.CompanyName, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qFreightAuditors;
+    }
+    public static string UpdateFreightAuditor(clsFreightAuditor data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+
+        try
+        {
+            tblFreightAuditor qFreightAuditor = o.GetTable<tblFreightAuditor>()
+                            .Where(p => p.idFreightAuditor == data.idFreightAuditor && p.ActiveFlag == true)
+                            .FirstOrDefault();
+            if (qFreightAuditor == null)
+            {
+                tblFreightAuditor oNewRow = new tblFreightAuditor()
+                {
+                    CompanyName = data.CompanyName,
+                    ActiveFlag = data.ActiveFlag,
+                    CreatedBy = data.CreatedBy,
+                    CreatedOn = DateTime.Now,
+                    UpdatedBy = data.UpdatedBy,
+                    UpdatedOn = DateTime.Now
+                };
+                o.GetTable<tblFreightAuditor>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+            }
+            else
+            {
+                qFreightAuditor.CompanyName = data.CompanyName;
+                qFreightAuditor.ActiveFlag = data.ActiveFlag;
+                qFreightAuditor.CreatedBy = data.CreatedBy;
+                qFreightAuditor.CreatedOn = data.CreatedOn;
+                qFreightAuditor.UpdatedBy = data.UpdatedBy;
+                qFreightAuditor.UpdatedOn = DateTime.Now;
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return errMsg;
+    }
+
+}
+
+public class clsFreightAuditorsDiscReq
+{
+    public int idFreightAuditorDiscReq { get; set; }
+    public int idFreightAuditor { get; set; }
+    public int idRequest { get; set; }
+
+    public string CompanyName { get; set; }
+
+    public string CreatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> CreatedOn { get; set; }
+
+    public string UpdatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> UpdatedOn { get; set; }
+
+    public System.Nullable<bool> ActiveFlag { get; set; }
+}
+public static class SrvFreightAuditorsDiscReq
+{
+    public static List<clsFreightAuditorsDiscReq> GetFreightAuditors()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsFreightAuditorsDiscReq> qFreightAuditors = o.GetTable<tblFreightAuditorsDiscReq>()
+                            .Where(p => p.ActiveFlag == true)
+                            .Select(p => new clsFreightAuditorsDiscReq() { idFreightAuditorDiscReq = p.idFreightAuditorDiscReq ,idFreightAuditor = p.idFreightAuditor,  idRequest = p.idRequest, CompanyName = p.tblFreightAuditor.CompanyName, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qFreightAuditors;
+    }
+    public static List<clsFreightAuditorsDiscReq> GetFreightAuditorsByID(int idRequest)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsFreightAuditorsDiscReq> qFreightAuditors = o.GetTable<tblFreightAuditorsDiscReq>()
+                            .Where(p => p.ActiveFlag == true && p.idRequest == idRequest)
+                            .Select(p => new clsFreightAuditorsDiscReq() { idFreightAuditorDiscReq = p.idFreightAuditorDiscReq, idFreightAuditor = p.idFreightAuditor, idRequest = p.idRequest, CompanyName = p.tblFreightAuditor.CompanyName, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qFreightAuditors;
+    }
+    public static string UpdateFreightAuditor(clsFreightAuditorsDiscReq data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+
+        try
+        {
+            tblFreightAuditorsDiscReq qFreightAuditor = o.GetTable<tblFreightAuditorsDiscReq>()
+                            .Where(p => p.idFreightAuditorDiscReq == data.idFreightAuditorDiscReq && p.ActiveFlag == true)
+                            .FirstOrDefault();
+            if (qFreightAuditor == null)
+            {
+                tblFreightAuditorsDiscReq oNewRow = new tblFreightAuditorsDiscReq()
+                {
+                    idFreightAuditor = data.idFreightAuditor,
+                    idRequest = data.idRequest,
+                    ActiveFlag = data.ActiveFlag,
+                    CreatedBy = data.CreatedBy,
+                    CreatedOn = DateTime.Now,
+                    UpdatedBy = data.UpdatedBy,
+                    UpdatedOn = DateTime.Now
+                };
+                o.GetTable<tblFreightAuditorsDiscReq>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+            }
+            else
+            {
+                qFreightAuditor.idFreightAuditor = data.idFreightAuditor;
+                qFreightAuditor.idRequest = data.idRequest;
+                qFreightAuditor.ActiveFlag = data.ActiveFlag;
+                qFreightAuditor.CreatedBy = data.CreatedBy;
+                qFreightAuditor.CreatedOn = data.CreatedOn;
+                qFreightAuditor.UpdatedBy = data.UpdatedBy;
+                qFreightAuditor.UpdatedOn = DateTime.Now;
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return errMsg;
+    }
+    public static string InsertFreightAuditor(List<clsFreightAuditorsDiscReq> AuditorList, Int32 idRequest)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        try
+        {
+            foreach (clsFreightAuditorsDiscReq edi in AuditorList)
+            {
+                tblFreightAuditorsDiscReq qShipMeth = o.GetTable<tblFreightAuditorsDiscReq>().Where(p => p.idRequest == idRequest && p.idFreightAuditor == edi.idFreightAuditor).FirstOrDefault();
+                if (qShipMeth != null)
+                {
+                    qShipMeth.UpdatedBy = edi.CreatedBy;
+                    qShipMeth.UpdatedOn = DateTime.Now;
+                    qShipMeth.ActiveFlag = true;
+                }
+                else
+                {
+                    tblFreightAuditorsDiscReq oNewRow = new tblFreightAuditorsDiscReq()
+                    {
+                        idFreightAuditor = edi.idFreightAuditor,
+                        idRequest = idRequest,
+                        ActiveFlag = true,
+                        CreatedBy = edi.CreatedBy,
+                        CreatedOn = edi.CreatedOn
+                    };
+                    o.GetTable<tblFreightAuditorsDiscReq>().InsertOnSubmit(oNewRow);
+                }
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+
+    public static string Remove(int idFreightAuditorDiscReq)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        try
+        {
+            var q = puroTouchContext.GetTable<tblFreightAuditorsDiscReq>().Where(f => f.idFreightAuditorDiscReq == idFreightAuditorDiscReq).FirstOrDefault();
+            puroTouchContext.GetTable<tblFreightAuditorsDiscReq>().DeleteOnSubmit(q);
+            puroTouchContext.SubmitChanges();
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+}

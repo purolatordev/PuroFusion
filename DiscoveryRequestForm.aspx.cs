@@ -108,6 +108,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 getRequestTypes();
                 getVendorTypes();
                 getSolutionTypes();
+                //getFreightAuditors();
 
                 dpNoteDate.SelectedDate = DateTime.Now;
                 //Start with blank lists
@@ -126,6 +127,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 Session["EDIShipMethList"] = EDIShipMethList;
                 List<clsEDITransaction> EDITransList = new List<clsEDITransaction>();
                 Session["EDITransList"] = EDITransList;
+                List<clsFreightAuditorsDiscReq> FreightAuditorList = new List<clsFreightAuditorsDiscReq>();
+                Session["FreightAuditorsList"] = FreightAuditorList;
 
                 //save Original ITBA and EDISpecialist, later send email if changed
                 Session["ITBA"] = "";
@@ -1861,7 +1864,23 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-    
+    //protected void getFreightAuditors()
+    //{
+    //    try
+    //    {
+    //        List<clsFreightAuditor> FreightAuditorList = SrvFreightAuditor.GetFreightAuditors();
+    //        cmbBoxFreightAuditor.DataSource = FreightAuditorList;
+    //        cmbBoxFreightAuditor.DataTextField = "CompanyName";
+    //        cmbBoxFreightAuditor.DataValueField = "idFreightAuditor";
+    //        cmbBoxFreightAuditor.DataBind();
+    //        cmbBoxFreightAuditor.SelectedIndex = -1;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        pnlDanger.Visible = true;
+    //        lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+    //    }
+    //}
     protected void rdCurrentTarget_SelectedDateChanged(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
     {
         try
@@ -2908,6 +2927,138 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     {
         RadMultiPage1.SelectedIndex = 3;
         RadTabStrip1.Tabs[3].Selected = true;
+    }
+
+    #endregion
+    #region  FreightAuditors grid
+    protected void gridFreightAuditors_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+    {
+        try
+        {
+            int requestID = 0;
+            int.TryParse(Request.QueryString["requestID"], out requestID);
+            if (requestID != 0)
+            {
+                (sender as RadGrid).DataSource = SrvFreightAuditorsDiscReq.GetFreightAuditorsByID(requestID);
+            }
+            //else if (bOneTimeContactGrid)
+            //{
+            //    List<clsEDIShipMethod> EDIShipMethList = SrvEDIShipMethod.GetEDIShipMethodMockData();
+            //    Session["EDIShipMethList"] = EDIShipMethList;
+            //    (sender as RadGrid).DataSource = EDIShipMethList;
+            //    bOneTimeContactGrid = false;
+            //}
+            else
+            {
+                (sender as RadGrid).DataSource = (List<clsFreightAuditorsDiscReq>)Session["FreightAuditorsList"];
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridFreightAuditors_ItemDataBound(object sender, GridItemEventArgs e)
+    {
+        try
+        {
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+
+                List<clsFreightAuditor> solutionlist = SrvFreightAuditor.GetFreightAuditors();
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListCompanyName");
+                radlist.DataSource = solutionlist;
+                radlist.DataTextField = "CompanyName";
+                radlist.DataValueField = "idFreightAuditor";
+                radlist.DataBind();
+                radlist.SelectedIndex = -1;
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+        }
+    }
+    protected void gridFreightAuditors_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+    {
+        try
+        {
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditFormItem edit = (GridEditFormItem)e.Item;
+                RadDropDownList radlist = (RadDropDownList)edit.FindControl("radListCompanyName");
+
+                int requestID = 0;
+                int.TryParse(Request.QueryString["requestID"], out requestID);
+
+                if (!String.IsNullOrEmpty(radlist.SelectedText))
+                {
+                    clsFreightAuditorsDiscReq FreightAuditor = new clsFreightAuditorsDiscReq()
+                    {
+                        idFreightAuditor = Convert.ToInt16(radlist.SelectedValue),
+                        idRequest = requestID,
+                        ActiveFlag = true,
+                        CreatedOn = DateTime.Now,
+                        CreatedBy = (string)(Session["userName"])
+                    };
+                    List<clsFreightAuditorsDiscReq> FreightAuditorList = new List<clsFreightAuditorsDiscReq>();
+                    if (requestID != 0)
+                    {
+                        SrvFreightAuditorsDiscReq.UpdateFreightAuditor(FreightAuditor);
+                        FreightAuditorList = SrvFreightAuditorsDiscReq.GetFreightAuditorsByID(requestID);
+                    }
+                    else
+                    {
+                        FreightAuditorList = (List<clsFreightAuditorsDiscReq>)Session["FreightAuditorsList"];
+                        FreightAuditorList.Add(FreightAuditor);
+                    }
+                    Session["FreightAuditorsList"] = FreightAuditorList;
+                    gridFreightAuditors.DataSource = FreightAuditorList;
+                    gridFreightAuditors.DataBind();
+                }
+                else
+                    e.Canceled = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
+    }
+    protected void gridFreightAuditors_UpdateCommand(object source, GridCommandEventArgs e)
+    {
+        if (e.CommandName == RadGrid.UpdateCommandName)
+        {
+            if (e.Item is GridEditFormItem)
+            {
+                GridEditFormItem item = (GridEditFormItem)e.Item;
+            }
+        }
+    }
+    protected void gridFreightAuditors_DeleteCommand(object sender, GridCommandEventArgs e)
+    {
+        try
+        {
+            List<clsFreightAuditorsDiscReq> FreightAuditorList = (List<clsFreightAuditorsDiscReq>)Session["FreightAuditorsList"];
+            int rownum = e.Item.ItemIndex;
+            clsFreightAuditorsDiscReq currentrow = FreightAuditorList[rownum];
+            SrvFreightAuditorsDiscReq.Remove(currentrow.idFreightAuditorDiscReq);
+            FreightAuditorList.Remove(currentrow);
+            Session["FreightAuditorsList"] = FreightAuditorList;
+            gridFreightAuditors.DataSource = FreightAuditorList;
+            gridFreightAuditors.Rebind();
+        }
+        catch (Exception ex)
+        {
+            pnlDanger.Visible = true;
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+            e.Canceled = true;
+        }
     }
 
     #endregion
@@ -4112,6 +4263,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             gridEDITransactions.DataSource = EDITransList;
             gridEDITransactions.DataBind();
 
+            List<clsFreightAuditorsDiscReq> FreightAuditorList = SrvFreightAuditorsDiscReq.GetFreightAuditorsByID(requestID);
+            Session["FreightAuditorsList"] = FreightAuditorList;
+            gridFreightAuditors.DataSource = FreightAuditorList;
+            gridFreightAuditors.DataBind();
+
             if (userRole == "sales" || userRole == "salesdm" || userRole == "salesmanager")
             {
                 //Do  not show Profile to Sales
@@ -4974,6 +5130,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 SrvContact.Insert((List<clsContact>)Session["contactList"], requestID);
                 SrvEDITransaction.Insert( (List<clsEDITransaction>)Session["EDITransList"],requestID);
                 SrvEDIShipMethod.Insert((List<clsEDIShipMethod>)Session["EDIShipMethList"],requestID);
+                SrvFreightAuditorsDiscReq.InsertFreightAuditor((List<clsFreightAuditorsDiscReq>)Session["FreightAuditorsList"], requestID);
 
                 btnSubmit.Visible = false;
                 btnSubmitChanges.Visible = true;

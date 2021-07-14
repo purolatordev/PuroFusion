@@ -6,7 +6,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
     <script type="text/javascript" src="~/Scripts/telerikEditorScript.js"></script>
-    
+    <%--<style type="text/css">
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>--%>
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript" >
 
@@ -873,7 +877,57 @@
                             </telerik:RadGrid>
                         </td>
                         <td></td>
-                        <td></td>
+                        <td style="text-align:left">
+                            <asp:Label ID="Label22" runat="server" Text="Auditor Name" Visible="true"></asp:Label>
+                            <%--<telerik:RadDropDownList ID="cmbBoxFreightAuditor" runat="server" DefaultMessage="Select Freight Auditor" ToolTip="Select Freight Auditor" OnSelectedIndexChanged="rddlDistrict_IndexChanged" AutoPostBack="true"></telerik:RadDropDownList>--%>
+                            <telerik:RadGrid ID="gridFreightAuditors" runat="server" AllowPaging="True" 
+                                AllowSorting="false" AllowFilteringByColumn="false" 
+                                AllowAutomaticInserts="false" ShowStatusBar="false" AllowAutomaticUpdates="false" 
+                                OnNeedDataSource="gridFreightAuditors_NeedDataSource" OnDeleteCommand="gridFreightAuditors_DeleteCommand"
+                                OnItemDataBound="gridFreightAuditors_ItemDataBound"  OnUpdateCommand="gridFreightAuditors_UpdateCommand"
+                                OnItemCommand="gridFreightAuditors_ItemCommand">
+                                <MasterTableView AutoGenerateColumns="False" DataKeyNames="idFreightAuditorDiscReq" CommandItemDisplay="Top">
+                                    <Columns>
+                                        <telerik:GridBoundColumn DataField="CompanyName" FilterControlAltText="CompanyName" SortExpression="Team" HeaderText="Company Name" UniqueName="CompanyName">
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false">
+                                        </telerik:GridButtonColumn>
+                                    </Columns>
+                                    <EditFormSettings EditFormType="Template">
+                                        <EditColumn UniqueName="EditColumn"></EditColumn>
+                                        <FormTemplate>
+                                            <table id="Table2" style="padding-top: 2px; width: 100%; margin-left:50px" border="0">
+                                                <tr>
+                                                    <td style="text-align: right; width: 100px;vertical-align: top">Company Name</td>
+                                                    <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
+                                                    <td>
+                                                        <telerik:RadDropDownList ID="radListCompanyName" runat="server"  DefaultMessage="Select Company Name" AutoPostBack="true" ToolTip="Select Company Name" Visible="true" Width="280px">
+                                                        </telerik:RadDropDownList>
+                                                    </td>
+                                                    <td style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="height: 20px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 100px;"></td>
+                                                    <td style="width: 2px;"></td>
+                                                    <td align="center" >
+                                                        <telerik:RadButton ID="btnUpdate" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                            runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                        </telerik:RadButton>
+                                                        &nbsp;
+                                                    <telerik:RadButton ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CommandName="Cancel">
+                                                    </telerik:RadButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </FormTemplate>
+                                    </EditFormSettings>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -946,9 +1000,9 @@
                             <asp:TextBox ID="txtBxCustomerEDIDetails" TextMode="multiline" Columns="100" Rows="5" runat="server" />
                         </td>
                     </tr>
-                     <tr>
+                    <tr>
                         <td>
-                           <br />
+                            <br />
                         </td>
                     </tr>
                 </table>

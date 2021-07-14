@@ -317,7 +317,7 @@
         <classShapeMoniker Id="508e4534-5825-4378-b827-eda788e0ea45" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 9.42390055338542); (3.5 : 9.42390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 9.42390055338542); (3.5 : 9.42390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PuroTouchSQLDataContext/tblOnboardingPhase/tblOnboardingPhase_tblDiscoveryRequest" />
       <nodes>
         <classShapeMoniker Id="c7cd72d2-a163-4b5e-a8f4-8ecf258bd9fa" />
@@ -421,7 +421,7 @@
         <classShapeMoniker Id="2c203ced-19f2-446f-8e11-1a0e7b3b4b12" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 15.3614005533854); (11.4166666666667 : 15.3614005533854 : JumpStart); (11.5833333333333 : 15.3614005533854 : JumpEnd); (11.875 : 15.3614005533854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.5 : 15.3614005533854); (11.875 : 15.3614005533854)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/PuroTouchSQLDataContext/tblEDITranscation/tblEDITranscation_tblEDIRecipReq" />
       <nodes>
         <classShapeMoniker Id="ff4b3467-6a36-42dc-9467-c742552aeeeb" />
@@ -454,5 +454,31 @@
         <elementListCompartment Id="86bed478-038b-4e86-a686-6971319cc23b" absoluteBounds="11.39, 38.335, 1.9700000000000002, 8.1337483723958321" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="e2e2f08b-64d9-4324-a89f-71252d9c38be" absoluteBounds="6.375, 6.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/PuroTouchSQLDataContext/tblFreightAuditor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="dff83e77-b54f-40ad-99ea-e4f01bd9e48a" absoluteBounds="6.39, 6.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d3700de2-6266-4212-ada9-a0be20577827" absoluteBounds="6.25, 3.125, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/PuroTouchSQLDataContext/tblFreightAuditorsDiscReq" />
+      <nestedChildShapes>
+        <elementListCompartment Id="61082879-7d4a-4700-a3fd-6aa04990f44c" absoluteBounds="6.265, 3.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.3125 : 6.5); (7.3125 : 5.47280110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PuroTouchSQLDataContext/tblFreightAuditor/tblFreightAuditor_tblFreightAuditorsDiscReq" />
+      <nodes>
+        <classShapeMoniker Id="e2e2f08b-64d9-4324-a89f-71252d9c38be" />
+        <classShapeMoniker Id="d3700de2-6266-4212-ada9-a0be20577827" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 4.29890055338542); (6.25 : 4.29890055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PuroTouchSQLDataContext/tblDiscoveryRequest/tblDiscoveryRequest_tblFreightAuditorsDiscReq" />
+      <nodes>
+        <classShapeMoniker Id="a53449c5-06ff-4b10-9b25-5a58a10301a2" />
+        <classShapeMoniker Id="d3700de2-6266-4212-ada9-a0be20577827" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

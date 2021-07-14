@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="EDI210.ascx.cs" Inherits="EDI210" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
 <style type="text/css">
-  /*  table,th,td{
+   /* table,th,td{
         border: 1px solid black;
     }*/
     td.Column1{

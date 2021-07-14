@@ -729,6 +729,7 @@
       <Column Name="idEDIOnboardingPhase" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="tblDiscoveryRequest_tblEDIShipMethod" Member="tblEDIShipMethods" ThisKey="idRequest" OtherKey="idRequest" Type="tblEDIShipMethod" />
       <Association Name="tblDiscoveryRequest_tblEDITranscation" Member="tblEDITranscations" ThisKey="idRequest" OtherKey="idRequest" Type="tblEDITranscation" />
+      <Association Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq" Member="tblFreightAuditorsDiscReqs" ThisKey="idRequest" OtherKey="idRequest" Type="tblFreightAuditorsDiscReq" />
       <Association Name="tblOnboardingPhase_tblDiscoveryRequest" Member="tblOnboardingPhase" ThisKey="idOnboardingPhase" OtherKey="idOnboardingPhase" Type="tblOnboardingPhase" IsForeignKey="true" />
       <Association Name="tblEDIOnboardingPhase_tblDiscoveryRequest" Member="tblEDIOnboardingPhase" ThisKey="idEDIOnboardingPhase" OtherKey="idEDIOnboardingPhase" Type="tblEDIOnboardingPhase" IsForeignKey="true" />
     </Type>
@@ -966,6 +967,32 @@
       <Column Name="ActiveDirectoryName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="ShippingChannel" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="VendorName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFreightAuditors" Member="tblFreightAuditors">
+    <Type Name="tblFreightAuditor">
+      <Column Name="idFreightAuditor" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblFreightAuditor_tblFreightAuditorsDiscReq" Member="tblFreightAuditorsDiscReqs" ThisKey="idFreightAuditor" OtherKey="idFreightAuditor" Type="tblFreightAuditorsDiscReq" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblFreightAuditorsDiscReq" Member="tblFreightAuditorsDiscReqs">
+    <Type Name="tblFreightAuditorsDiscReq">
+      <Column Name="idFreightAuditorDiscReq" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idFreightAuditor" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tblFreightAuditor_tblFreightAuditorsDiscReq" Member="tblFreightAuditor" ThisKey="idFreightAuditor" OtherKey="idFreightAuditor" Type="tblFreightAuditor" IsForeignKey="true" />
+      <Association Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq" Member="tblDiscoveryRequest" ThisKey="idRequest" OtherKey="idRequest" Type="tblDiscoveryRequest" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

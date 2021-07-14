@@ -168,6 +168,12 @@ namespace DAL
     partial void InserttblEDITranscation(tblEDITranscation instance);
     partial void UpdatetblEDITranscation(tblEDITranscation instance);
     partial void DeletetblEDITranscation(tblEDITranscation instance);
+    partial void InserttblFreightAuditor(tblFreightAuditor instance);
+    partial void UpdatetblFreightAuditor(tblFreightAuditor instance);
+    partial void DeletetblFreightAuditor(tblFreightAuditor instance);
+    partial void InserttblFreightAuditorsDiscReq(tblFreightAuditorsDiscReq instance);
+    partial void UpdatetblFreightAuditorsDiscReq(tblFreightAuditorsDiscReq instance);
+    partial void DeletetblFreightAuditorsDiscReq(tblFreightAuditorsDiscReq instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -669,6 +675,22 @@ namespace DAL
 			get
 			{
 				return this.GetTable<vw_DiscoveryRequestSummary>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblFreightAuditor> tblFreightAuditors
+		{
+			get
+			{
+				return this.GetTable<tblFreightAuditor>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblFreightAuditorsDiscReq> tblFreightAuditorsDiscReqs
+		{
+			get
+			{
+				return this.GetTable<tblFreightAuditorsDiscReq>();
 			}
 		}
 	}
@@ -12105,6 +12127,8 @@ namespace DAL
 		
 		private EntitySet<tblEDITranscation> _tblEDITranscations;
 		
+		private EntitySet<tblFreightAuditorsDiscReq> _tblFreightAuditorsDiscReqs;
+		
 		private EntityRef<tblOnboardingPhase> _tblOnboardingPhase;
 		
 		private EntityRef<tblEDIOnboardingPhase> _tblEDIOnboardingPhase;
@@ -12349,6 +12373,7 @@ namespace DAL
 		{
 			this._tblEDIShipMethods = new EntitySet<tblEDIShipMethod>(new Action<tblEDIShipMethod>(this.attach_tblEDIShipMethods), new Action<tblEDIShipMethod>(this.detach_tblEDIShipMethods));
 			this._tblEDITranscations = new EntitySet<tblEDITranscation>(new Action<tblEDITranscation>(this.attach_tblEDITranscations), new Action<tblEDITranscation>(this.detach_tblEDITranscations));
+			this._tblFreightAuditorsDiscReqs = new EntitySet<tblFreightAuditorsDiscReq>(new Action<tblFreightAuditorsDiscReq>(this.attach_tblFreightAuditorsDiscReqs), new Action<tblFreightAuditorsDiscReq>(this.detach_tblFreightAuditorsDiscReqs));
 			this._tblOnboardingPhase = default(EntityRef<tblOnboardingPhase>);
 			this._tblEDIOnboardingPhase = default(EntityRef<tblEDIOnboardingPhase>);
 			OnCreated();
@@ -14688,6 +14713,19 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq", Storage="_tblFreightAuditorsDiscReqs", ThisKey="idRequest", OtherKey="idRequest")]
+		public EntitySet<tblFreightAuditorsDiscReq> tblFreightAuditorsDiscReqs
+		{
+			get
+			{
+				return this._tblFreightAuditorsDiscReqs;
+			}
+			set
+			{
+				this._tblFreightAuditorsDiscReqs.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblOnboardingPhase_tblDiscoveryRequest", Storage="_tblOnboardingPhase", ThisKey="idOnboardingPhase", OtherKey="idOnboardingPhase", IsForeignKey=true)]
 		public tblOnboardingPhase tblOnboardingPhase
 		{
@@ -14795,6 +14833,18 @@ namespace DAL
 		}
 		
 		private void detach_tblEDITranscations(tblEDITranscation entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblDiscoveryRequest = null;
+		}
+		
+		private void attach_tblFreightAuditorsDiscReqs(tblFreightAuditorsDiscReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblDiscoveryRequest = this;
+		}
+		
+		private void detach_tblFreightAuditorsDiscReqs(tblFreightAuditorsDiscReq entity)
 		{
 			this.SendPropertyChanging();
 			entity.tblDiscoveryRequest = null;
@@ -19448,6 +19498,552 @@ namespace DAL
 				{
 					this._VendorName = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblFreightAuditors")]
+	public partial class tblFreightAuditor : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idFreightAuditor;
+		
+		private string _CompanyName;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblFreightAuditorsDiscReq> _tblFreightAuditorsDiscReqs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidFreightAuditorChanging(int value);
+    partial void OnidFreightAuditorChanged();
+    partial void OnCompanyNameChanging(string value);
+    partial void OnCompanyNameChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblFreightAuditor()
+		{
+			this._tblFreightAuditorsDiscReqs = new EntitySet<tblFreightAuditorsDiscReq>(new Action<tblFreightAuditorsDiscReq>(this.attach_tblFreightAuditorsDiscReqs), new Action<tblFreightAuditorsDiscReq>(this.detach_tblFreightAuditorsDiscReqs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idFreightAuditor", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idFreightAuditor
+		{
+			get
+			{
+				return this._idFreightAuditor;
+			}
+			set
+			{
+				if ((this._idFreightAuditor != value))
+				{
+					this.OnidFreightAuditorChanging(value);
+					this.SendPropertyChanging();
+					this._idFreightAuditor = value;
+					this.SendPropertyChanged("idFreightAuditor");
+					this.OnidFreightAuditorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyName", DbType="VarChar(255)")]
+		public string CompanyName
+		{
+			get
+			{
+				return this._CompanyName;
+			}
+			set
+			{
+				if ((this._CompanyName != value))
+				{
+					this.OnCompanyNameChanging(value);
+					this.SendPropertyChanging();
+					this._CompanyName = value;
+					this.SendPropertyChanged("CompanyName");
+					this.OnCompanyNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFreightAuditor_tblFreightAuditorsDiscReq", Storage="_tblFreightAuditorsDiscReqs", ThisKey="idFreightAuditor", OtherKey="idFreightAuditor")]
+		public EntitySet<tblFreightAuditorsDiscReq> tblFreightAuditorsDiscReqs
+		{
+			get
+			{
+				return this._tblFreightAuditorsDiscReqs;
+			}
+			set
+			{
+				this._tblFreightAuditorsDiscReqs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblFreightAuditorsDiscReqs(tblFreightAuditorsDiscReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblFreightAuditor = this;
+		}
+		
+		private void detach_tblFreightAuditorsDiscReqs(tblFreightAuditorsDiscReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblFreightAuditor = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblFreightAuditorsDiscReq")]
+	public partial class tblFreightAuditorsDiscReq : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idFreightAuditorDiscReq;
+		
+		private int _idFreightAuditor;
+		
+		private int _idRequest;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntityRef<tblFreightAuditor> _tblFreightAuditor;
+		
+		private EntityRef<tblDiscoveryRequest> _tblDiscoveryRequest;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidFreightAuditorDiscReqChanging(int value);
+    partial void OnidFreightAuditorDiscReqChanged();
+    partial void OnidFreightAuditorChanging(int value);
+    partial void OnidFreightAuditorChanged();
+    partial void OnidRequestChanging(int value);
+    partial void OnidRequestChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblFreightAuditorsDiscReq()
+		{
+			this._tblFreightAuditor = default(EntityRef<tblFreightAuditor>);
+			this._tblDiscoveryRequest = default(EntityRef<tblDiscoveryRequest>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idFreightAuditorDiscReq", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idFreightAuditorDiscReq
+		{
+			get
+			{
+				return this._idFreightAuditorDiscReq;
+			}
+			set
+			{
+				if ((this._idFreightAuditorDiscReq != value))
+				{
+					this.OnidFreightAuditorDiscReqChanging(value);
+					this.SendPropertyChanging();
+					this._idFreightAuditorDiscReq = value;
+					this.SendPropertyChanged("idFreightAuditorDiscReq");
+					this.OnidFreightAuditorDiscReqChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idFreightAuditor", DbType="Int NOT NULL")]
+		public int idFreightAuditor
+		{
+			get
+			{
+				return this._idFreightAuditor;
+			}
+			set
+			{
+				if ((this._idFreightAuditor != value))
+				{
+					if (this._tblFreightAuditor.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidFreightAuditorChanging(value);
+					this.SendPropertyChanging();
+					this._idFreightAuditor = value;
+					this.SendPropertyChanged("idFreightAuditor");
+					this.OnidFreightAuditorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					if (this._tblDiscoveryRequest.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidRequestChanging(value);
+					this.SendPropertyChanging();
+					this._idRequest = value;
+					this.SendPropertyChanged("idRequest");
+					this.OnidRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFreightAuditor_tblFreightAuditorsDiscReq", Storage="_tblFreightAuditor", ThisKey="idFreightAuditor", OtherKey="idFreightAuditor", IsForeignKey=true)]
+		public tblFreightAuditor tblFreightAuditor
+		{
+			get
+			{
+				return this._tblFreightAuditor.Entity;
+			}
+			set
+			{
+				tblFreightAuditor previousValue = this._tblFreightAuditor.Entity;
+				if (((previousValue != value) 
+							|| (this._tblFreightAuditor.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblFreightAuditor.Entity = null;
+						previousValue.tblFreightAuditorsDiscReqs.Remove(this);
+					}
+					this._tblFreightAuditor.Entity = value;
+					if ((value != null))
+					{
+						value.tblFreightAuditorsDiscReqs.Add(this);
+						this._idFreightAuditor = value.idFreightAuditor;
+					}
+					else
+					{
+						this._idFreightAuditor = default(int);
+					}
+					this.SendPropertyChanged("tblFreightAuditor");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq", Storage="_tblDiscoveryRequest", ThisKey="idRequest", OtherKey="idRequest", IsForeignKey=true)]
+		public tblDiscoveryRequest tblDiscoveryRequest
+		{
+			get
+			{
+				return this._tblDiscoveryRequest.Entity;
+			}
+			set
+			{
+				tblDiscoveryRequest previousValue = this._tblDiscoveryRequest.Entity;
+				if (((previousValue != value) 
+							|| (this._tblDiscoveryRequest.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblDiscoveryRequest.Entity = null;
+						previousValue.tblFreightAuditorsDiscReqs.Remove(this);
+					}
+					this._tblDiscoveryRequest.Entity = value;
+					if ((value != null))
+					{
+						value.tblFreightAuditorsDiscReqs.Add(this);
+						this._idRequest = value.idRequest;
+					}
+					else
+					{
+						this._idRequest = default(int);
+					}
+					this.SendPropertyChanged("tblDiscoveryRequest");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
