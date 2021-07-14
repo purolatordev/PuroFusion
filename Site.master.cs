@@ -244,6 +244,14 @@ public partial class SiteMaster : MasterPage
                 maintItemStatusCodes.Text = "Status Codes";
                 maintItemStatusCodes.NavigateUrl = "~/StatusCodesMaintenance.aspx";
                 repItem.Items.Add(maintItemStatusCodes);
+                RadMenuItem maintItemStatusCodesNonCourierEDI = new RadMenuItem();
+                maintItemStatusCodesNonCourierEDI.Text = "Status Codes Non Courier EDI";
+                maintItemStatusCodesNonCourierEDI.NavigateUrl = "~/StatusCodesNonCourierEDIMaint.aspx";
+                repItem.Items.Add(maintItemStatusCodesNonCourierEDI);
+                RadMenuItem maintItemStatusCodesCourierEDI = new RadMenuItem();
+                maintItemStatusCodesCourierEDI.Text = "Status Codes Courier EDI";
+                maintItemStatusCodesCourierEDI.NavigateUrl = "~/StatusCodesCourierEDIMaint.aspx";
+                repItem.Items.Add(maintItemStatusCodesCourierEDI);
 
                 RadMenuItem maintItem1 = new RadMenuItem();
                 maintItem1.Text = "Task Types";

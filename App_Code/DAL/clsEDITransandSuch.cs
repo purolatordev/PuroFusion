@@ -824,6 +824,148 @@ public static class SrvStatusCode
     }
 
 }
+public class clsStatusCodeNonCourierEDI
+{
+    public int idStatusCodesNonCourierEDI { get; set; }
+    public string StatusCode { get; set; }
+
+    public string CreatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> CreatedOn { get; set; }
+
+    public string UpdatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> UpdatedOn { get; set; }
+
+    public System.Nullable<bool> ActiveFlag { get; set; }
+}
+public static class SrvStatusCodeNonCourierEDI
+{
+    public static List<clsStatusCodeNonCourierEDI> GetStatusCodes()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsStatusCodeNonCourierEDI> qStatusCode = o.GetTable<tblStatusCodesNonCourierEDI>()
+                            .Where(p => p.ActiveFlag == true)
+                            .Select(p => new clsStatusCodeNonCourierEDI() { idStatusCodesNonCourierEDI = p.idStatusCodesNonCourierEDI, StatusCode = p.StatusCode, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qStatusCode;
+    }
+    public static string UpdatetatusCode(clsStatusCodeNonCourierEDI data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+
+        try
+        {
+            tblStatusCodesNonCourierEDI qStatusCode = o.GetTable<tblStatusCodesNonCourierEDI>()
+                            .Where(p => p.idStatusCodesNonCourierEDI == data.idStatusCodesNonCourierEDI && p.ActiveFlag == true)
+                            .FirstOrDefault();
+            if (qStatusCode == null)
+            {
+                tblStatusCodesNonCourierEDI oNewRow = new tblStatusCodesNonCourierEDI()
+                {
+                    StatusCode = data.StatusCode,
+                    ActiveFlag = data.ActiveFlag,
+                    CreatedBy = data.CreatedBy,
+                    CreatedOn = data.CreatedOn,
+                    UpdatedBy = data.UpdatedBy,
+                    UpdatedOn = DateTime.Now
+                };
+                o.GetTable<tblStatusCodesNonCourierEDI>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+            }
+            else
+            {
+                qStatusCode.StatusCode = data.StatusCode;
+                qStatusCode.ActiveFlag = data.ActiveFlag;
+                qStatusCode.CreatedBy = data.CreatedBy;
+                qStatusCode.CreatedOn = data.CreatedOn;
+                qStatusCode.UpdatedBy = data.UpdatedBy;
+                qStatusCode.UpdatedOn = DateTime.Now;
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return errMsg;
+    }
+
+}
+public class clsStatusCodeCourierEDI
+{
+    public int idStatusCodesCourierEDI { get; set; }
+    public string StatusCode { get; set; }
+
+    public string CreatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> CreatedOn { get; set; }
+
+    public string UpdatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> UpdatedOn { get; set; }
+
+    public System.Nullable<bool> ActiveFlag { get; set; }
+}
+public static class SrvStatusCodeCourierEDI
+{
+    public static List<clsStatusCodeCourierEDI> GetStatusCodes()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsStatusCodeCourierEDI> qStatusCode = o.GetTable<tblStatusCodesCourierEDI>()
+                            .Where(p => p.ActiveFlag == true)
+                            .Select(p => new clsStatusCodeCourierEDI() { idStatusCodesCourierEDI = p.idStatusCodesCourierEDI, StatusCode = p.StatusCode, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qStatusCode;
+    }
+    public static string UpdatetatusCode(clsStatusCodeCourierEDI data)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+
+        try
+        {
+            tblStatusCodesCourierEDI qStatusCode = o.GetTable<tblStatusCodesCourierEDI>()
+                            .Where(p => p.idStatusCodesCourierEDI == data.idStatusCodesCourierEDI && p.ActiveFlag == true)
+                            .FirstOrDefault();
+            if (qStatusCode == null)
+            {
+                tblStatusCodesCourierEDI oNewRow = new tblStatusCodesCourierEDI()
+                {
+                    StatusCode = data.StatusCode,
+                    ActiveFlag = data.ActiveFlag,
+                    CreatedBy = data.CreatedBy,
+                    CreatedOn = data.CreatedOn,
+                    UpdatedBy = data.UpdatedBy,
+                    UpdatedOn = DateTime.Now
+                };
+                o.GetTable<tblStatusCodesCourierEDI>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+            }
+            else
+            {
+                qStatusCode.StatusCode = data.StatusCode;
+                qStatusCode.ActiveFlag = data.ActiveFlag;
+                qStatusCode.CreatedBy = data.CreatedBy;
+                qStatusCode.CreatedOn = data.CreatedOn;
+                qStatusCode.UpdatedBy = data.UpdatedBy;
+                qStatusCode.UpdatedOn = DateTime.Now;
+                o.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return errMsg;
+    }
+
+}
 
 public class clsFreightAuditor
 {

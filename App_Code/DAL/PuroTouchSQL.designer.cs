@@ -174,6 +174,12 @@ namespace DAL
     partial void InserttblFreightAuditorsDiscReq(tblFreightAuditorsDiscReq instance);
     partial void UpdatetblFreightAuditorsDiscReq(tblFreightAuditorsDiscReq instance);
     partial void DeletetblFreightAuditorsDiscReq(tblFreightAuditorsDiscReq instance);
+    partial void InserttblStatusCodesCourierEDI(tblStatusCodesCourierEDI instance);
+    partial void UpdatetblStatusCodesCourierEDI(tblStatusCodesCourierEDI instance);
+    partial void DeletetblStatusCodesCourierEDI(tblStatusCodesCourierEDI instance);
+    partial void InserttblStatusCodesNonCourierEDI(tblStatusCodesNonCourierEDI instance);
+    partial void UpdatetblStatusCodesNonCourierEDI(tblStatusCodesNonCourierEDI instance);
+    partial void DeletetblStatusCodesNonCourierEDI(tblStatusCodesNonCourierEDI instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -691,6 +697,22 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblFreightAuditorsDiscReq>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblStatusCodesCourierEDI> tblStatusCodesCourierEDIs
+		{
+			get
+			{
+				return this.GetTable<tblStatusCodesCourierEDI>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblStatusCodesNonCourierEDI> tblStatusCodesNonCourierEDIs
+		{
+			get
+			{
+				return this.GetTable<tblStatusCodesNonCourierEDI>();
 			}
 		}
 	}
@@ -20023,6 +20045,418 @@ namespace DAL
 						this._idRequest = default(int);
 					}
 					this.SendPropertyChanged("tblDiscoveryRequest");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblStatusCodesCourierEDI")]
+	public partial class tblStatusCodesCourierEDI : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idStatusCodesCourierEDI;
+		
+		private string _StatusCode;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidStatusCodesCourierEDIChanging(int value);
+    partial void OnidStatusCodesCourierEDIChanged();
+    partial void OnStatusCodeChanging(string value);
+    partial void OnStatusCodeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblStatusCodesCourierEDI()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idStatusCodesCourierEDI", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idStatusCodesCourierEDI
+		{
+			get
+			{
+				return this._idStatusCodesCourierEDI;
+			}
+			set
+			{
+				if ((this._idStatusCodesCourierEDI != value))
+				{
+					this.OnidStatusCodesCourierEDIChanging(value);
+					this.SendPropertyChanging();
+					this._idStatusCodesCourierEDI = value;
+					this.SendPropertyChanged("idStatusCodesCourierEDI");
+					this.OnidStatusCodesCourierEDIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusCode", DbType="VarChar(100)")]
+		public string StatusCode
+		{
+			get
+			{
+				return this._StatusCode;
+			}
+			set
+			{
+				if ((this._StatusCode != value))
+				{
+					this.OnStatusCodeChanging(value);
+					this.SendPropertyChanging();
+					this._StatusCode = value;
+					this.SendPropertyChanged("StatusCode");
+					this.OnStatusCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblStatusCodesNonCourierEDI")]
+	public partial class tblStatusCodesNonCourierEDI : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idStatusCodesNonCourierEDI;
+		
+		private string _StatusCode;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidStatusCodesNonCourierEDIChanging(int value);
+    partial void OnidStatusCodesNonCourierEDIChanged();
+    partial void OnStatusCodeChanging(string value);
+    partial void OnStatusCodeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblStatusCodesNonCourierEDI()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idStatusCodesNonCourierEDI", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idStatusCodesNonCourierEDI
+		{
+			get
+			{
+				return this._idStatusCodesNonCourierEDI;
+			}
+			set
+			{
+				if ((this._idStatusCodesNonCourierEDI != value))
+				{
+					this.OnidStatusCodesNonCourierEDIChanging(value);
+					this.SendPropertyChanging();
+					this._idStatusCodesNonCourierEDI = value;
+					this.SendPropertyChanged("idStatusCodesNonCourierEDI");
+					this.OnidStatusCodesNonCourierEDIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusCode", DbType="VarChar(100)")]
+		public string StatusCode
+		{
+			get
+			{
+				return this._StatusCode;
+			}
+			set
+			{
+				if ((this._StatusCode != value))
+				{
+					this.OnStatusCodeChanging(value);
+					this.SendPropertyChanging();
+					this._StatusCode = value;
+					this.SendPropertyChanged("StatusCode");
+					this.OnStatusCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
 				}
 			}
 		}

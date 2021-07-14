@@ -995,4 +995,26 @@
       <Association Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq" Member="tblDiscoveryRequest" ThisKey="idRequest" OtherKey="idRequest" Type="tblDiscoveryRequest" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tblStatusCodesCourierEDI" Member="tblStatusCodesCourierEDIs">
+    <Type Name="tblStatusCodesCourierEDI">
+      <Column Name="idStatusCodesCourierEDI" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatusCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblStatusCodesNonCourierEDI" Member="tblStatusCodesNonCourierEDIs">
+    <Type Name="tblStatusCodesNonCourierEDI">
+      <Column Name="idStatusCodesNonCourierEDI" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StatusCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
