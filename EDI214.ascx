@@ -177,8 +177,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA">If Once a day, the following section will appear
-                        </td>
+                        <td colspan="4" class="Column1SpanA"> </td>
                     </tr>
                     <tr>
                         <td class="Column1a"></td>

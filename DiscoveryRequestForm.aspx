@@ -3099,7 +3099,7 @@
                 <table border="0">
                     <tr>
                         <td style="width: 10px"></td>
-                        <td style="width: 140px;text-align:right">EDI 210</td>
+                        <td style="width: 140px;text-align:right">Invoice</td>
                         <td></td>
                         <td style="width: 140px; text-align:left">
                             <telerik:RadDropDownList ID="comboBxCourierEDI210" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxCourierEDI210_SelectedIndexChanged">
@@ -3110,7 +3110,7 @@
                             </telerik:RadDropDownList>
                         </td>
                         <td class="Spacer" ></td>
-                        <td style="width: 140px; text-align:right">EDI 214</td>
+                        <td style="width: 140px; text-align:right">Shipment Status</td>
                         <td></td>
                         <td style="width: 140px; text-align:left">
                             <telerik:RadDropDownList ID="comboBxCourierEDI214" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxCourierEDI214_SelectedIndexChanged">
@@ -3162,7 +3162,7 @@
                                         <FormTemplate>
                                             <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Number</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
                                                         <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
@@ -3215,7 +3215,7 @@
                                         <FormTemplate>
                                             <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Number</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
                                                         <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
@@ -3322,7 +3322,7 @@
                 <table border="0">
                     <tr>
                         <td style="width: 10px"></td>
-                        <td style="width: 140px;text-align:right">EDI 210</td>
+                        <td style="width: 140px;text-align:right">Invoice</td>
                         <td></td>
                         <td style="width: 140px; text-align:left">
                             <telerik:RadDropDownList ID="comboBxNonCourierEDI210" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxNonCourierEDI210_SelectedIndexChanged">
@@ -3333,7 +3333,7 @@
                             </telerik:RadDropDownList>
                         </td>
                         <td class="SpacerNonCourier" ></td>
-                        <td style="width: 140px; text-align:right">EDI 214</td>
+                        <td style="width: 140px; text-align:right">Shipment Status</td>
                         <td></td>
                         <td style="width: 140px; text-align:left">
                             <telerik:RadDropDownList ID="comboBxNonCourierEDI214" runat="server" Visible="true" Width="70px" AutoPostBack="true" OnSelectedIndexChanged="comboBxNonCourierEDI214_SelectedIndexChanged">
@@ -3428,7 +3428,7 @@
                                         <FormTemplate>
                                             <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Number</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
                                                         <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
@@ -3481,7 +3481,7 @@
                                         <FormTemplate>
                                             <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Number</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
                                                         <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
@@ -3533,7 +3533,7 @@
                                         <FormTemplate>
                                             <table id="Table2" style="padding-top: 2px; width: 100%; margin-left: 5px" border="0">
                                                 <tr>
-                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Num</td>
+                                                    <td style="text-align: right; width: 100px; vertical-align: top">Account Number</td>
                                                     <td style="color: red; text-align: left; width: 2px; vertical-align: top">*</td>
                                                     <td>
                                                         <telerik:RadTextBox ID="txtAccountNum" runat="server" MaxLength="75" Text="" Width="75px"  />
