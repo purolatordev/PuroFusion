@@ -410,7 +410,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -423,7 +423,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -438,7 +438,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForPuroPostStand = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsForPuroPostStand = new UserControlParams(iTotalRequest, int.Parse(ID),UserControlParams.CourierType.Zero);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsForPuroPostStand.EDIRecipReqs = EDIRecipReqs;
@@ -476,7 +476,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -488,7 +488,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -503,7 +503,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier210 = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsForNonCourier210 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsForNonCourier210.EDIRecipReqs = EDIRecipReqs;
@@ -541,7 +541,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -553,7 +553,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -568,7 +568,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier210Test = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsForNonCourier210Test = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsForNonCourier210Test.EDIRecipReqs = EDIRecipReqs;
@@ -604,7 +604,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -616,7 +616,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -631,11 +631,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier214 = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsForNonCourier214 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.NonCourierEDI);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIShipmentTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIShipmentTrans.idEDITranscation);
             ParamsForNonCourier214.EDIRecipReqs = EDIRecipReqs;
             ParamsForNonCourier214.passbacks = passbacks;
+            //ParamsForNonCourier214.ct = UserControlParams.CourierType.NonCourierEDI;
 
             if (!IsPostBack)
                 txtBxNumRecipNonCourier214.Text = EDIShipmentTrans.TotalRequests.ToString();
@@ -668,7 +669,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -680,7 +681,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -695,7 +696,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier214Test = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsForNonCourier214Test = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIShipmentTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIShipmentTrans.idEDITranscation);
             ParamsForNonCourier214Test.EDIRecipReqs = EDIRecipReqs;
@@ -733,7 +734,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -745,7 +746,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIShipmentTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIShipmentTrans.idRequest, idEDITranscationType = EDIShipmentTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -761,11 +762,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 }
             }
             //UserControlParams p2 = new UserControlParams((!IsPostBack) ? EDIShipmentTrans.TotalRequests : int.Parse(txtBxNumberRecipients214.Text));
-            ParamsFor214 = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsFor214 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.CourierEDI);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIShipmentTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIShipmentTrans.idEDITranscation);
             ParamsFor214.EDIRecipReqs = EDIRecipReqs;
             ParamsFor214.passbacks = passbacks;
+            //ParamsFor214.ct = UserControlParams.CourierType.CourierEDI;
 
             if (!IsPostBack)
                 txtBxNumberRecipients214.Text = EDIShipmentTrans.TotalRequests.ToString();
@@ -800,7 +802,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 for (int i = 0; i < iTotalRequest; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = i + 1, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -812,7 +814,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 int iStartRecNum = qEDIRecipReq[qEDIRecipReq.Count - 1].RecipReqNum + 1;
                 for (int i = 0; i < iTotNewRecNum; i++)
                 {
-                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodes = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                    clsEDIRecipReq data = new clsEDIRecipReq() { idEDITranscation = EDIInvoiceTrans.idEDITranscation, RecipReqNum = iStartRecNum, idRequest = EDIInvoiceTrans.idRequest, idEDITranscationType = EDIInvoiceTrans.idEDITranscationType, idFileType = 0, X12_GS = "X12_GS", X12_ISA = "X12_ISA", X12_Qualifier = "X12_Qualifier", idCommunicationMethod = 0, FTPAddress = "FTPAddress", UserName = "UserName", Password = "Password", FolderPath = "FolderPath", Email = "Email", idTriggerMechanism = 0, idTiming = 0, TimeOfFile = DateTime.Now, EDITranscationType = "EDITranscationType", idStatusCodesCourierEDI = 0, idStatusCodesNonCourierEDI = 0, ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                     Int32 newID = 0;
                     SrvEDIRecipReq.Insert(data, out newID);
                 }
@@ -827,7 +829,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsFor210 = new UserControlParams(iTotalRequest, int.Parse(ID));
+            ParamsFor210 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsFor210.EDIRecipReqs = EDIRecipReqs;
@@ -896,7 +898,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks, ct = p.ct };
             DynamicUserControl.LoadParams(p1);
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControl2;
             DynamicUserControl.UserControlSaved += this.HandleUserControl214Saved;
@@ -1005,7 +1007,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
 
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks,ct = p.ct };
             DynamicUserControl.LoadParams(p1);
 
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControlNonCourier214;
@@ -1041,7 +1043,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
 
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks, ct = p.ct };
             DynamicUserControl.LoadParams(p1);
 
             DynamicUserControl.RemoveUserControl2 += this.HandleRemoveUserControlNonCourier214Test;

@@ -30,7 +30,10 @@ public partial class EDI214 : System.Web.UI.UserControl
             GetCommunicationMethods();
             GetTriggerMechanisms();
             GetTiming();
-            GetStatusCodes();
+            if( Params.ct == UserControlParams.CourierType.CourierEDI)
+                GetStatusCodesCourier();
+            else if(Params.ct == UserControlParams.CourierType.NonCourierEDI)
+                GetStatusCodesNonCourier();
             UpdateControls(qEDIRecipReq);
         }
         else if (Params.bNewDialog)
@@ -41,7 +44,10 @@ public partial class EDI214 : System.Web.UI.UserControl
             GetCommunicationMethods();
             GetTriggerMechanisms();
             GetTiming();
-            GetStatusCodes();
+            if (Params.ct == UserControlParams.CourierType.CourierEDI)
+                GetStatusCodesCourier();
+            else if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+                GetStatusCodesNonCourier();
             UpdateControls(qEDIRecipReq);
         }
         SetFileFormatControls();
@@ -239,14 +245,31 @@ public partial class EDI214 : System.Web.UI.UserControl
             SrvExceptionLogging.Insert(error, out lnewID);
         }
     }
-    protected void GetStatusCodes()
+    protected void GetStatusCodesCourier()
     {
         try
         {
-            List<clsStatusCode> qStatusCode = SrvStatusCode.GetStatusCodes();
+            List<clsStatusCodeCourierEDI> qStatusCode = SrvStatusCodeCourierEDI.GetStatusCodes();
             comboxStatusCodes.DataSource = qStatusCode;
             comboxStatusCodes.DataTextField = "StatusCode";
-            comboxStatusCodes.DataValueField = "idStatusCodes";
+            comboxStatusCodes.DataValueField = "idStatusCodesCourierEDI";
+            comboxStatusCodes.DataBind();
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { Method = GetCurrentMethod(), ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now, CreatedBy = Session["userName"].ToString() };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+    }
+    protected void GetStatusCodesNonCourier()
+    {
+        try
+        {
+            List<clsStatusCodeNonCourierEDI> qStatusCode = SrvStatusCodeNonCourierEDI.GetStatusCodes();
+            comboxStatusCodes.DataSource = qStatusCode;
+            comboxStatusCodes.DataTextField = "StatusCode";
+            comboxStatusCodes.DataValueField = "idStatusCodesNonCourierEDI";
             comboxStatusCodes.DataBind();
         }
         catch (Exception ex)
@@ -277,7 +300,12 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.Email = textBoxEmail.Text;
         qEDIRecipReq.idTriggerMechanism = iTriggerMech;
         qEDIRecipReq.idTiming = iTiming;
-        qEDIRecipReq.idStatusCodes = iStatusCode;
+
+        if (Params.ct == UserControlParams.CourierType.CourierEDI)
+             qEDIRecipReq.idStatusCodesCourierEDI = iStatusCode;
+        else if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+            qEDIRecipReq.idStatusCodesNonCourierEDI = iStatusCode;
+       
         TimeSpan? ts = timeTimeofFile.SelectedTime;
         qEDIRecipReq.TimeOfFile = new DateTime( DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day, ts.Value.Hours, ts.Value.Minutes, 0);
         qEDIRecipReq.PanelTitle = textBoxPanelTitle.Text;
@@ -295,7 +323,12 @@ public partial class EDI214 : System.Web.UI.UserControl
         comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
         comboxTriggerMechanism.SelectedValue = qEDIRecipReq.idTriggerMechanism.ToString();
         comboxTiming.SelectedValue = qEDIRecipReq.idTiming.ToString();
-        comboxStatusCodes.SelectedValue = qEDIRecipReq.idStatusCodes.ToString();
+
+        if (Params.ct == UserControlParams.CourierType.CourierEDI)
+            comboxStatusCodes.SelectedValue = qEDIRecipReq.idStatusCodesCourierEDI.ToString();
+        else if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+            comboxStatusCodes.SelectedValue = qEDIRecipReq.idStatusCodesNonCourierEDI.ToString();
+
         txtBoxISA.Text = qEDIRecipReq.X12_ISA;
         txtBoxGS.Text = qEDIRecipReq.X12_GS;
         txtBoxQualifier.Text = qEDIRecipReq.X12_Qualifier;

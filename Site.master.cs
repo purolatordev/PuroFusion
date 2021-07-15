@@ -240,10 +240,10 @@ public partial class SiteMaster : MasterPage
                 maintItemSV.Text = "Shipping Vendors";
                 maintItemSV.NavigateUrl = "~/ShippingVendorMaintenance.aspx";
                 repItem.Items.Add(maintItemSV);
-                RadMenuItem maintItemStatusCodes = new RadMenuItem();
-                maintItemStatusCodes.Text = "Status Codes";
-                maintItemStatusCodes.NavigateUrl = "~/StatusCodesMaintenance.aspx";
-                repItem.Items.Add(maintItemStatusCodes);
+                //RadMenuItem maintItemStatusCodes = new RadMenuItem();
+                //maintItemStatusCodes.Text = "Status Codes";
+                //maintItemStatusCodes.NavigateUrl = "~/StatusCodesMaintenance.aspx";
+                //repItem.Items.Add(maintItemStatusCodes);
                 RadMenuItem maintItemStatusCodesNonCourierEDI = new RadMenuItem();
                 maintItemStatusCodesNonCourierEDI.Text = "Status Codes Non Courier EDI";
                 maintItemStatusCodesNonCourierEDI.NavigateUrl = "~/StatusCodesNonCourierEDIMaint.aspx";

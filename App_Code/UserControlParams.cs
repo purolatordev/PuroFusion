@@ -8,6 +8,9 @@ using System.Web;
 /// </summary>
 public class UserControlParams
 {
+    public enum CourierType {Zero,CourierEDI,NonCourierEDI };
+    public CourierType ct;// = CourierType.Zero;
+
     public int iTotalRecs { get; set; }
     public int idRequest { get; set; }
     public int iRecordID { get; set; }
@@ -30,7 +33,16 @@ public class UserControlParams
         iTotalRecs = iCount;
         bNewDialog = false;
     }
-    public UserControlParams(int iCount, int Request)
+    //public UserControlParams(int iCount, int Request)
+    //{
+    //    idRequest = Request;
+    //    iTotalRecs = iCount;
+    //    EDIRecipReqs = new List<int>();
+    //    passbacks = new List<SrvEDIRecipReq.PassBack>();
+    //    idEDIRecipReqs = 0;
+    //    bNewDialog = false;
+    //}
+    public UserControlParams(int iCount, int Request, CourierType ct)
     {
         idRequest = Request;
         iTotalRecs = iCount;
@@ -38,6 +50,7 @@ public class UserControlParams
         passbacks = new List<SrvEDIRecipReq.PassBack>();
         idEDIRecipReqs = 0;
         bNewDialog = false;
+        this.ct = ct;
     }
     public bool CheckPassBacks(int idEDIRecipReqs, bool bNewDialog)
     {

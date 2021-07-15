@@ -23,7 +23,7 @@
 
     td.Column4LeftWidth {
         text-align: left;
-        width: 130px;
+        width: 160px;
     }
 
     td.Column4LeftLargest {
@@ -194,7 +194,7 @@
                         <td class="Column2a">Status Codes</td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="110px">
+                            <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="160px">
                             </telerik:RadDropDownList>
                         </td>
                     </tr>

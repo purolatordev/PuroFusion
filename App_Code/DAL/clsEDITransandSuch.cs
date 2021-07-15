@@ -485,7 +485,8 @@ public class clsEDIRecipReq
 
     public System.Nullable<System.DateTime> TimeOfFile{ get; set; }
 
-    public int idStatusCodes{ get; set; }
+    public int idStatusCodesNonCourierEDI { get; set; }
+    public int idStatusCodesCourierEDI { get; set; }
 
     public int idEDITranscation { get; set; }
     public int idRequest { get; set; }
@@ -516,7 +517,7 @@ public static class SrvEDIRecipReq
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         clsEDIRecipReq qEDIRecipReq = o.GetTable<tblEDIRecipReq>()
                             .Where(p => p.idEDIRecipReqs == idEDIRecipReqs)
-                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType, X12_GS = p.X12_GS, X12_ISA = p.X12_ISA, X12_Qualifier = p.X12_Qualifier, idCommunicationMethod = p.idCommunicationMethod, FTPAddress = p.FTPAddress, UserName = p.UserName, Password = p.Password, FolderPath = p.FolderPath, Email = p.Email, idTriggerMechanism = p.idTriggerMechanism, idTiming = p.idTiming, TimeOfFile = p.TimeOfFile, idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType, EDITranscationType = p.EDITranscationType, idStatusCodes = p.idStatusCodes, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType, X12_GS = p.X12_GS, X12_ISA = p.X12_ISA, X12_Qualifier = p.X12_Qualifier, idCommunicationMethod = p.idCommunicationMethod, FTPAddress = p.FTPAddress, UserName = p.UserName, Password = p.Password, FolderPath = p.FolderPath, Email = p.Email, idTriggerMechanism = p.idTriggerMechanism, idTiming = p.idTiming, TimeOfFile = p.TimeOfFile, idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType, EDITranscationType = p.EDITranscationType, idStatusCodesCourierEDI = p.idStatusCodesCourierEDI,idStatusCodesNonCourierEDI = p.idStatusCodesNonCourierEDI, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .FirstOrDefault();
         return qEDIRecipReq;
     }
@@ -543,7 +544,7 @@ public static class SrvEDIRecipReq
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDIRecipReq> qEDIRecipReq = o.GetTable<tblEDIRecipReq>()
                             .Where(p => p.ActiveFlag == true && p.idEDITranscation == idEDITranscation)
-                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType,X12_GS = p.X12_GS,X12_ISA = p.X12_ISA,X12_Qualifier = p.X12_Qualifier,idCommunicationMethod = p.idCommunicationMethod,FTPAddress = p.FTPAddress,UserName = p.UserName,Password = p.Password,FolderPath = p.FolderPath,Email = p.Email,idTriggerMechanism = p.idTriggerMechanism,idTiming = p.idTiming, TimeOfFile = p.TimeOfFile,idEDITranscation = p.idEDITranscation,idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType,EDITranscationType = p.EDITranscationType ,idStatusCodes = p.idStatusCodes, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType,X12_GS = p.X12_GS,X12_ISA = p.X12_ISA,X12_Qualifier = p.X12_Qualifier,idCommunicationMethod = p.idCommunicationMethod,FTPAddress = p.FTPAddress,UserName = p.UserName,Password = p.Password,FolderPath = p.FolderPath,Email = p.Email,idTriggerMechanism = p.idTriggerMechanism,idTiming = p.idTiming, TimeOfFile = p.TimeOfFile,idEDITranscation = p.idEDITranscation,idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType,EDITranscationType = p.EDITranscationType , idStatusCodesCourierEDI = p.idStatusCodesCourierEDI, idStatusCodesNonCourierEDI = p.idStatusCodesNonCourierEDI, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .ToList();
         return qEDIRecipReq;
     }
@@ -578,7 +579,8 @@ public static class SrvEDIRecipReq
                     idTriggerMechanism = data.idTriggerMechanism,
                     idTiming = data.idTiming,
                     TimeOfFile = data.TimeOfFile,
-                    idStatusCodes = data.idStatusCodes,
+                    idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI,
+                    idStatusCodesCourierEDI = data.idStatusCodesCourierEDI,
                     EDITranscationType = (String.IsNullOrEmpty(TransType.EDITranscationType)) ? "nada" : TransType.EDITranscationType,
                     Category = TransType.Category,
                     idRequest = data.idRequest,
@@ -637,7 +639,8 @@ public static class SrvEDIRecipReq
                     idTriggerMechanism = data.idTriggerMechanism,
                     idTiming = data.idTiming,
                     TimeOfFile = data.TimeOfFile,
-                    idStatusCodes = data.idStatusCodes,
+                    idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI,
+                    idStatusCodesCourierEDI = data.idStatusCodesCourierEDI,
                     EDITranscationType = (String.IsNullOrEmpty(TransType.EDITranscationType)) ? "nada" : TransType.EDITranscationType,
                     Category = TransType.Category,
                     idRequest = data.idRequest,
@@ -663,7 +666,8 @@ public static class SrvEDIRecipReq
                 qRec.Email = data.Email;
                 qRec.idTriggerMechanism = data.idTriggerMechanism;
                 qRec.idTiming = data.idTiming;
-                qRec.idStatusCodes = data.idStatusCodes;
+                qRec.idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI;
+                qRec.idStatusCodesCourierEDI = data.idStatusCodesCourierEDI;
                 qRec.TimeOfFile = data.TimeOfFile;
                 qRec.UpdatedBy = data.UpdatedBy;
                 qRec.UpdatedOn = DateTime.Now;
