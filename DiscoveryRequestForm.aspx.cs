@@ -251,8 +251,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[3].Visible = true;
             RadTabStrip1.Tabs[4].Visible = false;
             RadTabStrip1.Tabs[4].Enabled = false;
-            btnSubmitEDIServices.Visible = true;
-            btnSubmitEDIServices.Enabled = true;
+
+            if (String.IsNullOrEmpty(ID))
+            {
+                btnSubmitEDIServices.Visible = true;
+                btnSubmitEDIServices.Enabled = true;
+            }
+            else
+            {
+                btnSubmitEDIServices.Visible = false;
+                btnSubmitEDIServices.Enabled = false;
+            }
 
             RadPanelBar1.Items.FindItemByText("EDI Summary").Visible = true;
             RadPanelBar1.Items.FindItemByText("Solution Summary").Visible = false;
