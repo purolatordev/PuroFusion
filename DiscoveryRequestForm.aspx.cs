@@ -705,7 +705,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier214Test = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
+            ParamsForNonCourier214Test = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.NonCourierEDI);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIShipmentTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIShipmentTrans.idEDITranscation);
             ParamsForNonCourier214Test.EDIRecipReqs = EDIRecipReqs;
