@@ -6,12 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Telerik.Web.UI;
 using context = System.Web.HttpContext;
 
 public partial class EDI214 : System.Web.UI.UserControl
 {
     const int INVOICE_COURIER_EDI = 3;
     const int SHIPMENT_STATUS_COURIER_EDI = 4;
+    const int SHIPMENT_STATUS_NON_COURIER_EDI = 6;
 
     public event EventHandler RemoveUserControl2;
     public event EventHandler UserControlSaved;
@@ -285,7 +287,7 @@ public partial class EDI214 : System.Web.UI.UserControl
         int iCommMethod = int.Parse(comboxCommunicationMethod.SelectedValue);
         int iTriggerMech = int.Parse(comboxTriggerMechanism.SelectedValue);
         int iTiming = int.Parse(comboxTiming.SelectedValue);
-        int iStatusCode = int.Parse(comboxStatusCodes.SelectedValue);
+
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
 
         qEDIRecipReq.idFileType = iFileformat;
@@ -300,11 +302,6 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.Email = textBoxEmail.Text;
         qEDIRecipReq.idTriggerMechanism = iTriggerMech;
         qEDIRecipReq.idTiming = iTiming;
-
-        if (Params.ct == UserControlParams.CourierType.CourierEDI)
-             qEDIRecipReq.idStatusCodesCourierEDI = iStatusCode;
-        else if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
-            qEDIRecipReq.idStatusCodesNonCourierEDI = iStatusCode;
        
         TimeSpan? ts = timeTimeofFile.SelectedTime;
         qEDIRecipReq.TimeOfFile = new DateTime( DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day, ts.Value.Hours, ts.Value.Minutes, 0);
@@ -313,7 +310,37 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.UpdatedBy = Session["userName"].ToString();
         qEDIRecipReq.UpdatedOn = DateTime.Now;
         SrvEDIRecipReq.Insert(qEDIRecipReq);
-
+        int idStatusCodesAll = 0;
+        if (Params.ct == UserControlParams.CourierType.CourierEDI)
+        {
+            foreach (RadComboBoxItem rad in comboxStatusCodes.Items)
+            {
+                clsStatusCodeCourierEDI cEDI = SrvStatusCodeCourierEDI.GetStatusCodes().Where(p => p.idStatusCodesCourierEDI == int.Parse(rad.Value.ToString())).FirstOrDefault();
+                if (rad.Checked)
+                {
+                    SrvStatusCodeAll.UpdatetatusCodeAll(new clsStatusCodeAll() { idStatusCodesAll = idStatusCodesAll, idEDIRecipReqs = qEDIRecipReq.idEDIRecipReqs, idStatusCodes = int.Parse(rad.Value.ToString()), StatusCode = cEDI.StatusCode, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, CreatedBy = qEDIRecipReq.UpdatedBy, CreatedOn = DateTime.Now });
+                }
+                else
+                {
+                    SrvStatusCodeAll.Remove(qEDIRecipReq.idEDIRecipReqs, SHIPMENT_STATUS_COURIER_EDI, cEDI.idStatusCodesCourierEDI);
+                }
+            }
+        }
+        else if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+        {
+            foreach (RadComboBoxItem rad in comboxStatusCodes.Items)
+            {
+                clsStatusCodeNonCourierEDI cEDI = SrvStatusCodeNonCourierEDI.GetStatusCodes().Where(p => p.idStatusCodesNonCourierEDI == int.Parse(rad.Value)).FirstOrDefault();
+                if (rad.Checked)
+                {
+                    SrvStatusCodeAll.UpdatetatusCodeAll(new clsStatusCodeAll() { idStatusCodesAll = idStatusCodesAll, idEDIRecipReqs = qEDIRecipReq.idEDIRecipReqs, idStatusCodes = int.Parse(rad.Value.ToString()), StatusCode = cEDI.StatusCode, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, CreatedBy = qEDIRecipReq.UpdatedBy, CreatedOn = DateTime.Now });
+                }
+                else
+                {
+                    SrvStatusCodeAll.Remove(qEDIRecipReq.idEDIRecipReqs, SHIPMENT_STATUS_NON_COURIER_EDI, cEDI.idStatusCodesNonCourierEDI);
+                }
+            }
+        }
         UserControlSaved(sender, e);
     }
 
@@ -325,9 +352,29 @@ public partial class EDI214 : System.Web.UI.UserControl
         comboxTiming.SelectedValue = qEDIRecipReq.idTiming.ToString();
 
         if (Params.ct == UserControlParams.CourierType.CourierEDI)
-            comboxStatusCodes.SelectedValue = qEDIRecipReq.idStatusCodesCourierEDI.ToString();
+        {
+            List<clsStatusCodeAll> qStatusCode = SrvStatusCodeAll.GetStatusCodesAllByID(qEDIRecipReq.idEDIRecipReqs, SHIPMENT_STATUS_COURIER_EDI);
+            foreach(RadComboBoxItem rad in comboxStatusCodes.Items)
+            {
+                var q = qStatusCode.Where(p => p.idStatusCodes == int.Parse(rad.Value)).FirstOrDefault();
+                if(q != null)
+                    rad.Checked = true;
+                else
+                    rad.Checked = false;
+            }
+        }
         else if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
-            comboxStatusCodes.SelectedValue = qEDIRecipReq.idStatusCodesNonCourierEDI.ToString();
+        {
+            List<clsStatusCodeAll> qStatusCode = SrvStatusCodeAll.GetStatusCodesAllByID(qEDIRecipReq.idEDIRecipReqs, SHIPMENT_STATUS_NON_COURIER_EDI);
+            foreach (RadComboBoxItem rad in comboxStatusCodes.Items)
+            {
+                var q = qStatusCode.Where(p => p.idStatusCodes == int.Parse(rad.Value)).FirstOrDefault();
+                if (q != null)
+                    rad.Checked = true;
+                else
+                    rad.Checked = false;
+            }
+        }
 
         txtBoxISA.Text = qEDIRecipReq.X12_ISA;
         txtBoxGS.Text = qEDIRecipReq.X12_GS;

@@ -194,8 +194,8 @@
                         <td class="Column2a">Status Codes</td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadDropDownList ID="comboxStatusCodes" runat="server" Visible="true" Width="160px">
-                            </telerik:RadDropDownList>
+                            <telerik:RadComboBox   ID="comboxStatusCodes" SelectionMode="Multiple" CheckBoxes="true" runat="server" Visible="true" Width="160px">
+                            </telerik:RadComboBox>
                         </td>
                     </tr>
                     <tr>

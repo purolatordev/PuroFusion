@@ -64,6 +64,16 @@ public static class SrvEDITransaction
 
         return qShipMeth;
     }
+    //public static List<clsEDITransaction> GetEDITransactionsByTranstype(int idEDITranscationType)
+    //{
+    //    PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+    //    List<clsEDITransaction> qShipMeth = o.GetTable<tblEDITranscation>()
+    //                                        .Where(p => p.idEDITranscationType == idEDITranscationType && p.ActiveFlag == true)
+    //                                        .Select(p => new clsEDITransaction() { idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, EDITranscationType = p.tblEDITranscationType.EDITranscationType, idEDITranscationType = p.idEDITranscationType, TotalRequests = p.TotalRequests, BatchInvoices = p.BatchInvoices.HasValue ? p.BatchInvoices : false, CombinePayer = p.CombinePayer.HasValue ? p.CombinePayer : false, SFTPFolder = p.SFTPFolder, TestEnvironment = p.TestEnvironment, TestSentMethod = p.TestSentMethod, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+    //                                        .ToList();
+
+    //    return qShipMeth;
+    //}
     public static clsEDITransaction GetAEDITransactionsByidRequest(int idRequest, int idEDITranscationType)
     {
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
@@ -304,7 +314,6 @@ public static class SrvEDITransaction
     }
 
 }
-
 public class clsEDIAccount
 {
     public int idEDIAccount { get; set; }
@@ -485,8 +494,7 @@ public class clsEDIRecipReq
 
     public System.Nullable<System.DateTime> TimeOfFile{ get; set; }
 
-    public int idStatusCodesNonCourierEDI { get; set; }
-    public int idStatusCodesCourierEDI { get; set; }
+    //public int idStatusCodesAll { get; set; }
 
     public int idEDITranscation { get; set; }
     public int idRequest { get; set; }
@@ -517,7 +525,7 @@ public static class SrvEDIRecipReq
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         clsEDIRecipReq qEDIRecipReq = o.GetTable<tblEDIRecipReq>()
                             .Where(p => p.idEDIRecipReqs == idEDIRecipReqs)
-                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType, X12_GS = p.X12_GS, X12_ISA = p.X12_ISA, X12_Qualifier = p.X12_Qualifier, idCommunicationMethod = p.idCommunicationMethod, FTPAddress = p.FTPAddress, UserName = p.UserName, Password = p.Password, FolderPath = p.FolderPath, Email = p.Email, idTriggerMechanism = p.idTriggerMechanism, idTiming = p.idTiming, TimeOfFile = p.TimeOfFile, idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType, EDITranscationType = p.EDITranscationType, idStatusCodesCourierEDI = p.idStatusCodesCourierEDI,idStatusCodesNonCourierEDI = p.idStatusCodesNonCourierEDI, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType, X12_GS = p.X12_GS, X12_ISA = p.X12_ISA, X12_Qualifier = p.X12_Qualifier, idCommunicationMethod = p.idCommunicationMethod, FTPAddress = p.FTPAddress, UserName = p.UserName, Password = p.Password, FolderPath = p.FolderPath, Email = p.Email, idTriggerMechanism = p.idTriggerMechanism, idTiming = p.idTiming, TimeOfFile = p.TimeOfFile, idEDITranscation = p.idEDITranscation, idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType, EDITranscationType = p.EDITranscationType, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .FirstOrDefault();
         return qEDIRecipReq;
     }
@@ -544,7 +552,7 @@ public static class SrvEDIRecipReq
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsEDIRecipReq> qEDIRecipReq = o.GetTable<tblEDIRecipReq>()
                             .Where(p => p.ActiveFlag == true && p.idEDITranscation == idEDITranscation)
-                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType,X12_GS = p.X12_GS,X12_ISA = p.X12_ISA,X12_Qualifier = p.X12_Qualifier,idCommunicationMethod = p.idCommunicationMethod,FTPAddress = p.FTPAddress,UserName = p.UserName,Password = p.Password,FolderPath = p.FolderPath,Email = p.Email,idTriggerMechanism = p.idTriggerMechanism,idTiming = p.idTiming, TimeOfFile = p.TimeOfFile,idEDITranscation = p.idEDITranscation,idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType,EDITranscationType = p.EDITranscationType , idStatusCodesCourierEDI = p.idStatusCodesCourierEDI, idStatusCodesNonCourierEDI = p.idStatusCodesNonCourierEDI, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .Select(p => new clsEDIRecipReq() { idEDIRecipReqs = p.idEDIRecipReqs, RecipReqNum = p.RecipReqNum, PanelTitle = p.PanelTitle, idFileType = p.idFileType,X12_GS = p.X12_GS,X12_ISA = p.X12_ISA,X12_Qualifier = p.X12_Qualifier,idCommunicationMethod = p.idCommunicationMethod,FTPAddress = p.FTPAddress,UserName = p.UserName,Password = p.Password,FolderPath = p.FolderPath,Email = p.Email,idTriggerMechanism = p.idTriggerMechanism,idTiming = p.idTiming, TimeOfFile = p.TimeOfFile,idEDITranscation = p.idEDITranscation,idRequest = p.idRequest, idEDITranscationType = p.tblEDITranscation.idEDITranscationType,EDITranscationType = p.EDITranscationType , ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .ToList();
         return qEDIRecipReq;
     }
@@ -579,8 +587,8 @@ public static class SrvEDIRecipReq
                     idTriggerMechanism = data.idTriggerMechanism,
                     idTiming = data.idTiming,
                     TimeOfFile = data.TimeOfFile,
-                    idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI,
-                    idStatusCodesCourierEDI = data.idStatusCodesCourierEDI,
+                    //idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI,
+                    //idStatusCodesCourierEDI = data.idStatusCodesCourierEDI,
                     EDITranscationType = (String.IsNullOrEmpty(TransType.EDITranscationType)) ? "nada" : TransType.EDITranscationType,
                     Category = TransType.Category,
                     idRequest = data.idRequest,
@@ -639,8 +647,8 @@ public static class SrvEDIRecipReq
                     idTriggerMechanism = data.idTriggerMechanism,
                     idTiming = data.idTiming,
                     TimeOfFile = data.TimeOfFile,
-                    idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI,
-                    idStatusCodesCourierEDI = data.idStatusCodesCourierEDI,
+                    //idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI,
+                    //idStatusCodesCourierEDI = data.idStatusCodesCourierEDI,
                     EDITranscationType = (String.IsNullOrEmpty(TransType.EDITranscationType)) ? "nada" : TransType.EDITranscationType,
                     Category = TransType.Category,
                     idRequest = data.idRequest,
@@ -666,8 +674,8 @@ public static class SrvEDIRecipReq
                 qRec.Email = data.Email;
                 qRec.idTriggerMechanism = data.idTriggerMechanism;
                 qRec.idTiming = data.idTiming;
-                qRec.idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI;
-                qRec.idStatusCodesCourierEDI = data.idStatusCodesCourierEDI;
+                //qRec.idStatusCodesNonCourierEDI = data.idStatusCodesNonCourierEDI;
+                //qRec.idStatusCodesCourierEDI = data.idStatusCodesCourierEDI;
                 qRec.TimeOfFile = data.TimeOfFile;
                 qRec.UpdatedBy = data.UpdatedBy;
                 qRec.UpdatedOn = DateTime.Now;
@@ -828,6 +836,130 @@ public static class SrvStatusCode
     }
 
 }
+public class clsStatusCodeAll
+{
+    public int idStatusCodesAll { get; set; }
+
+    public int idEDIRecipReqs { get; set; }
+    public int idStatusCodes { get; set; }
+    public string StatusCode { get; set; }
+    public int idEDITranscationType { get; set; }
+
+    public string EDITranscationType { get; set; }
+
+    public int CategoryID { get; set; }
+
+    public string Category { get; set; }
+    public string CreatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> CreatedOn { get; set; }
+
+    public string UpdatedBy { get; set; }
+
+    public System.Nullable<System.DateTime> UpdatedOn { get; set; }
+
+    public System.Nullable<bool> ActiveFlag { get; set; }
+}
+public static class SrvStatusCodeAll
+{
+    public static List<clsStatusCodeAll> GetStatusCodesAll()
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsStatusCodeAll> qStatusCode = o.GetTable<tblStatusCodesAll>()
+                            .Where(p => p.ActiveFlag == true)
+                            .Select(p => new clsStatusCodeAll() { idStatusCodesAll = p.idStatusCodesAll, idEDIRecipReqs = p.idEDIRecipReqs, idEDITranscationType = p.idEDITranscationType, idStatusCodes = p.idStatusCodes, StatusCode = p.StatusCode, EDITranscationType = p.EDITranscationType, CategoryID = p.CategoryID, Category = p.Category, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qStatusCode;
+    }
+    public static List<clsStatusCodeAll> GetStatusCodesAllByID(int idEDIRecipReqs,int idEDITranscationType)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        List<clsStatusCodeAll> qStatusCode = o.GetTable<tblStatusCodesAll>()
+                            .Where(p => p.idEDIRecipReqs == idEDIRecipReqs && p.idEDITranscationType == idEDITranscationType)
+                            .Select(p => new clsStatusCodeAll() { idStatusCodesAll = p.idStatusCodesAll, idEDIRecipReqs = p.idEDIRecipReqs, idEDITranscationType = p.idEDITranscationType, idStatusCodes = p.idStatusCodes, StatusCode = p.StatusCode, EDITranscationType = p.EDITranscationType, CategoryID = p.CategoryID, Category = p.Category, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            .ToList();
+        return qStatusCode;
+    }
+    public static int UpdatetatusCodeAll(clsStatusCodeAll data)
+    {
+        PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
+        int retVal = 0;
+        try
+        {
+            tblStatusCodesAll qStatusCode = o.GetTable<tblStatusCodesAll>()
+                            .Where(p => p.idStatusCodes == data.idStatusCodes && p.idEDIRecipReqs == data.idEDIRecipReqs && p.idEDITranscationType == data.idEDITranscationType)
+                            .FirstOrDefault();
+            clsEDITransactionType trantype = SrvEDITransactionType.GetEDITransactionTypes(data.idEDITranscationType).FirstOrDefault();
+            if (qStatusCode == null && trantype != null)
+            {
+                tblStatusCodesAll oNewRow = new tblStatusCodesAll()
+                {
+                    idEDIRecipReqs = data.idEDIRecipReqs,
+                    idStatusCodes = data.idStatusCodes,
+                    StatusCode = data.StatusCode,
+                    idEDITranscationType = data.idEDITranscationType,
+                    EDITranscationType = trantype.EDITranscationType,
+                    CategoryID = trantype.CategoryID,
+                    Category = trantype.Category,
+                    ActiveFlag = data.ActiveFlag,
+                    CreatedBy = data.CreatedBy,
+                    CreatedOn = data.CreatedOn,
+                    UpdatedBy = data.UpdatedBy,
+                    UpdatedOn = DateTime.Now
+                };
+                o.GetTable<tblStatusCodesAll>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+                retVal = oNewRow.idStatusCodesAll;
+            }
+            else
+            {
+                qStatusCode.idEDIRecipReqs = data.idEDIRecipReqs;
+                qStatusCode.idStatusCodes = data.idStatusCodes;
+                qStatusCode.StatusCode = data.StatusCode;
+                qStatusCode.idEDITranscationType = data.idEDITranscationType;
+                qStatusCode.EDITranscationType = trantype.EDITranscationType;
+                qStatusCode.CategoryID = trantype.CategoryID;
+                qStatusCode.Category = trantype.Category;
+                qStatusCode.ActiveFlag = true;
+                qStatusCode.CreatedBy = data.CreatedBy;
+                qStatusCode.CreatedOn = data.CreatedOn;
+                qStatusCode.UpdatedBy = data.UpdatedBy;
+                qStatusCode.UpdatedOn = DateTime.Now;
+                o.SubmitChanges();
+                retVal = qStatusCode.idStatusCodesAll;
+            }
+        }
+        catch (Exception ex)
+        {
+            long lnewID = 0;
+            clsExceptionLogging error = new clsExceptionLogging() { ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now };
+            SrvExceptionLogging.Insert(error, out lnewID);
+        }
+        return retVal;
+    }
+    public static string Remove(int idEDIRecipReqs, int idEDITranscationType,int idStatusCodes)
+    {
+        string errMsg = "";
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        try
+        {
+            var q = puroTouchContext.GetTable<tblStatusCodesAll>()
+                .Where(p => p.idEDIRecipReqs == idEDIRecipReqs && p.idEDITranscationType == idEDITranscationType && p.idStatusCodes == idStatusCodes)
+                .FirstOrDefault();
+            if (q != null)
+            {
+                puroTouchContext.GetTable<tblStatusCodesAll>().DeleteOnSubmit(q);
+                puroTouchContext.SubmitChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            errMsg = ex.Message.ToString();
+        }
+        return errMsg;
+    }
+
+}
 public class clsStatusCodeNonCourierEDI
 {
     public int idStatusCodesNonCourierEDI { get; set; }
@@ -897,7 +1029,6 @@ public static class SrvStatusCodeNonCourierEDI
         }
         return errMsg;
     }
-
 }
 public class clsStatusCodeCourierEDI
 {
