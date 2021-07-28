@@ -65,6 +65,14 @@ public partial class EDI214 : System.Web.UI.UserControl
 
         RadPanelBar1.Items[0].Expanded = false;
         textBoxPanelTitle.Text = RadPanelBar1.Items[0].Text;
+
+        if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+        {
+            comboxTriggerMechanism.Visible = false;
+            comboxTiming.Visible = false;
+            lblTiming.Visible = false;
+            lblTriggerMechanism.Visible = false;
+        }
     }
     [MethodImpl(MethodImplOptions.NoInlining)]
     public string GetCurrentMethod()
@@ -183,7 +191,12 @@ public partial class EDI214 : System.Web.UI.UserControl
     {
         try
         {
-            List<ClsFileType> qFileTypes = SrvFileType.GetFileTypes();
+            bool bNonCourierEDI = false;
+            if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+            {
+                bNonCourierEDI = true;
+            }
+            List<ClsFileType> qFileTypes = SrvFileType.GetFileTypes(bNonCourierEDI);
             comboBxFileFormat214.DataSource = qFileTypes;
             comboBxFileFormat214.DataTextField = "FileType";
             comboBxFileFormat214.DataValueField = "idFileType";

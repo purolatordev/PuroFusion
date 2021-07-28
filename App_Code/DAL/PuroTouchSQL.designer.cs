@@ -54,9 +54,6 @@ namespace DAL
     partial void InserttblEquipment(tblEquipment instance);
     partial void UpdatetblEquipment(tblEquipment instance);
     partial void DeletetblEquipment(tblEquipment instance);
-    partial void InserttblFileType(tblFileType instance);
-    partial void UpdatetblFileType(tblFileType instance);
-    partial void DeletetblFileType(tblFileType instance);
     partial void InserttblEDISolution(tblEDISolution instance);
     partial void UpdatetblEDISolution(tblEDISolution instance);
     partial void DeletetblEDISolution(tblEDISolution instance);
@@ -183,6 +180,9 @@ namespace DAL
     partial void InserttblEDIRecipReq(tblEDIRecipReq instance);
     partial void UpdatetblEDIRecipReq(tblEDIRecipReq instance);
     partial void DeletetblEDIRecipReq(tblEDIRecipReq instance);
+    partial void InserttblFileType(tblFileType instance);
+    partial void UpdatetblFileType(tblFileType instance);
+    partial void DeletetblFileType(tblFileType instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -316,14 +316,6 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblEquipment>();
-			}
-		}
-		
-		public System.Data.Linq.Table<tblFileType> tblFileTypes
-		{
-			get
-			{
-				return this.GetTable<tblFileType>();
 			}
 		}
 		
@@ -724,6 +716,14 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblEDIRecipReq>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblFileType> tblFileTypes
+		{
+			get
+			{
+				return this.GetTable<tblFileType>();
 			}
 		}
 	}
@@ -3072,240 +3072,6 @@ namespace DAL
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblFileType")]
-	public partial class tblFileType : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _idFileType;
-		
-		private string _FileType;
-		
-		private string _UpdatedBy;
-		
-		private System.Nullable<System.DateTime> _UpdatedOn;
-		
-		private string _CreatedBy;
-		
-		private System.Nullable<System.DateTime> _CreatedOn;
-		
-		private System.Nullable<bool> _ActiveFlag;
-		
-		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidFileTypeChanging(int value);
-    partial void OnidFileTypeChanged();
-    partial void OnFileTypeChanging(string value);
-    partial void OnFileTypeChanged();
-    partial void OnUpdatedByChanging(string value);
-    partial void OnUpdatedByChanged();
-    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdatedOnChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedOnChanged();
-    partial void OnActiveFlagChanging(System.Nullable<bool> value);
-    partial void OnActiveFlagChanged();
-    #endregion
-		
-		public tblFileType()
-		{
-			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idFileType", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int idFileType
-		{
-			get
-			{
-				return this._idFileType;
-			}
-			set
-			{
-				if ((this._idFileType != value))
-				{
-					this.OnidFileTypeChanging(value);
-					this.SendPropertyChanging();
-					this._idFileType = value;
-					this.SendPropertyChanged("idFileType");
-					this.OnidFileTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileType", DbType="VarChar(100)")]
-		public string FileType
-		{
-			get
-			{
-				return this._FileType;
-			}
-			set
-			{
-				if ((this._FileType != value))
-				{
-					this.OnFileTypeChanging(value);
-					this.SendPropertyChanging();
-					this._FileType = value;
-					this.SendPropertyChanged("FileType");
-					this.OnFileTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
-		public string UpdatedBy
-		{
-			get
-			{
-				return this._UpdatedBy;
-			}
-			set
-			{
-				if ((this._UpdatedBy != value))
-				{
-					this.OnUpdatedByChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedBy = value;
-					this.SendPropertyChanged("UpdatedBy");
-					this.OnUpdatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedOn
-		{
-			get
-			{
-				return this._UpdatedOn;
-			}
-			set
-			{
-				if ((this._UpdatedOn != value))
-				{
-					this.OnUpdatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedOn = value;
-					this.SendPropertyChanged("UpdatedOn");
-					this.OnUpdatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedOn
-		{
-			get
-			{
-				return this._CreatedOn;
-			}
-			set
-			{
-				if ((this._CreatedOn != value))
-				{
-					this.OnCreatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedOn = value;
-					this.SendPropertyChanged("CreatedOn");
-					this.OnCreatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
-		public System.Nullable<bool> ActiveFlag
-		{
-			get
-			{
-				return this._ActiveFlag;
-			}
-			set
-			{
-				if ((this._ActiveFlag != value))
-				{
-					this.OnActiveFlagChanging(value);
-					this.SendPropertyChanging();
-					this._ActiveFlag = value;
-					this.SendPropertyChanged("ActiveFlag");
-					this.OnActiveFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFileType_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idFileType", OtherKey="idFileType")]
-		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
-		{
-			get
-			{
-				return this._tblEDIRecipReqs;
-			}
-			set
-			{
-				this._tblEDIRecipReqs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
-		{
-			this.SendPropertyChanging();
-			entity.tblFileType = this;
-		}
-		
-		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
-		{
-			this.SendPropertyChanging();
-			entity.tblFileType = null;
 		}
 	}
 	
@@ -20077,13 +19843,13 @@ namespace DAL
 		
 		private EntityRef<tblCommunicationMethod> _tblCommunicationMethod;
 		
-		private EntityRef<tblFileType> _tblFileType;
-		
 		private EntityRef<tblTiming> _tblTiming;
 		
 		private EntityRef<tblEDITranscation> _tblEDITranscation;
 		
 		private EntityRef<tblTriggerMechanism> _tblTriggerMechanism;
+		
+		private EntityRef<tblFileType> _tblFileType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -20145,10 +19911,10 @@ namespace DAL
 		{
 			this._tblStatusCodesAlls = new EntitySet<tblStatusCodesAll>(new Action<tblStatusCodesAll>(this.attach_tblStatusCodesAlls), new Action<tblStatusCodesAll>(this.detach_tblStatusCodesAlls));
 			this._tblCommunicationMethod = default(EntityRef<tblCommunicationMethod>);
-			this._tblFileType = default(EntityRef<tblFileType>);
 			this._tblTiming = default(EntityRef<tblTiming>);
 			this._tblEDITranscation = default(EntityRef<tblEDITranscation>);
 			this._tblTriggerMechanism = default(EntityRef<tblTriggerMechanism>);
+			this._tblFileType = default(EntityRef<tblFileType>);
 			OnCreated();
 		}
 		
@@ -20719,40 +20485,6 @@ namespace DAL
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFileType_tblEDIRecipReq", Storage="_tblFileType", ThisKey="idFileType", OtherKey="idFileType", IsForeignKey=true)]
-		public tblFileType tblFileType
-		{
-			get
-			{
-				return this._tblFileType.Entity;
-			}
-			set
-			{
-				tblFileType previousValue = this._tblFileType.Entity;
-				if (((previousValue != value) 
-							|| (this._tblFileType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tblFileType.Entity = null;
-						previousValue.tblEDIRecipReqs.Remove(this);
-					}
-					this._tblFileType.Entity = value;
-					if ((value != null))
-					{
-						value.tblEDIRecipReqs.Add(this);
-						this._idFileType = value.idFileType;
-					}
-					else
-					{
-						this._idFileType = default(int);
-					}
-					this.SendPropertyChanged("tblFileType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblTiming_tblEDIRecipReq", Storage="_tblTiming", ThisKey="idTiming", OtherKey="idTiming", IsForeignKey=true)]
 		public tblTiming tblTiming
 		{
@@ -20855,6 +20587,40 @@ namespace DAL
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFileType_tblEDIRecipReq", Storage="_tblFileType", ThisKey="idFileType", OtherKey="idFileType", IsForeignKey=true)]
+		public tblFileType tblFileType
+		{
+			get
+			{
+				return this._tblFileType.Entity;
+			}
+			set
+			{
+				tblFileType previousValue = this._tblFileType.Entity;
+				if (((previousValue != value) 
+							|| (this._tblFileType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tblFileType.Entity = null;
+						previousValue.tblEDIRecipReqs.Remove(this);
+					}
+					this._tblFileType.Entity = value;
+					if ((value != null))
+					{
+						value.tblEDIRecipReqs.Add(this);
+						this._idFileType = value.idFileType;
+					}
+					else
+					{
+						this._idFileType = default(int);
+					}
+					this.SendPropertyChanged("tblFileType");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -20885,6 +20651,264 @@ namespace DAL
 		{
 			this.SendPropertyChanging();
 			entity.tblEDIRecipReq = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblFileType")]
+	public partial class tblFileType : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idFileType;
+		
+		private string _FileType;
+		
+		private bool _NonCourierEDI;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private EntitySet<tblEDIRecipReq> _tblEDIRecipReqs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidFileTypeChanging(int value);
+    partial void OnidFileTypeChanged();
+    partial void OnFileTypeChanging(string value);
+    partial void OnFileTypeChanged();
+    partial void OnNonCourierEDIChanging(bool value);
+    partial void OnNonCourierEDIChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    #endregion
+		
+		public tblFileType()
+		{
+			this._tblEDIRecipReqs = new EntitySet<tblEDIRecipReq>(new Action<tblEDIRecipReq>(this.attach_tblEDIRecipReqs), new Action<tblEDIRecipReq>(this.detach_tblEDIRecipReqs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idFileType", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idFileType
+		{
+			get
+			{
+				return this._idFileType;
+			}
+			set
+			{
+				if ((this._idFileType != value))
+				{
+					this.OnidFileTypeChanging(value);
+					this.SendPropertyChanging();
+					this._idFileType = value;
+					this.SendPropertyChanged("idFileType");
+					this.OnidFileTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileType", DbType="VarChar(100)")]
+		public string FileType
+		{
+			get
+			{
+				return this._FileType;
+			}
+			set
+			{
+				if ((this._FileType != value))
+				{
+					this.OnFileTypeChanging(value);
+					this.SendPropertyChanging();
+					this._FileType = value;
+					this.SendPropertyChanged("FileType");
+					this.OnFileTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NonCourierEDI", DbType="Bit NOT NULL")]
+		public bool NonCourierEDI
+		{
+			get
+			{
+				return this._NonCourierEDI;
+			}
+			set
+			{
+				if ((this._NonCourierEDI != value))
+				{
+					this.OnNonCourierEDIChanging(value);
+					this.SendPropertyChanging();
+					this._NonCourierEDI = value;
+					this.SendPropertyChanged("NonCourierEDI");
+					this.OnNonCourierEDIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tblFileType_tblEDIRecipReq", Storage="_tblEDIRecipReqs", ThisKey="idFileType", OtherKey="idFileType")]
+		public EntitySet<tblEDIRecipReq> tblEDIRecipReqs
+		{
+			get
+			{
+				return this._tblEDIRecipReqs;
+			}
+			set
+			{
+				this._tblEDIRecipReqs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblFileType = this;
+		}
+		
+		private void detach_tblEDIRecipReqs(tblEDIRecipReq entity)
+		{
+			this.SendPropertyChanging();
+			entity.tblFileType = null;
 		}
 	}
 }

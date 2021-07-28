@@ -158,7 +158,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2a">Trigger Mechanism
+                        <td class="Column2a"><asp:Label ID="lblTriggerMechanism" runat="server" Text="Trigger Mechanism" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -168,7 +168,7 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2a">Timing
+                        <td class="Column2a"><asp:Label ID="lblTiming" runat="server" Text="Timing" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">

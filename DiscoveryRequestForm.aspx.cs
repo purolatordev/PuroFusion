@@ -512,7 +512,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier210 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
+            ParamsForNonCourier210 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.NonCourierEDI);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsForNonCourier210.EDIRecipReqs = EDIRecipReqs;
@@ -577,7 +577,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsForNonCourier210Test = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
+            ParamsForNonCourier210Test = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.NonCourierEDI);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsForNonCourier210Test.EDIRecipReqs = EDIRecipReqs;
@@ -838,7 +838,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     SrvEDIRecipReq.Remove(idEDIRecipReqs);
                 }
             }
-            ParamsFor210 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.Zero);
+            ParamsFor210 = new UserControlParams(iTotalRequest, int.Parse(ID), UserControlParams.CourierType.CourierEDI);
             List<int> EDIRecipReqs = SrvEDIRecipReq.GetEDIRecipReqsList(EDIInvoiceTrans.idEDITranscation);
             List<SrvEDIRecipReq.PassBack> passbacks = SrvEDIRecipReq.GetEDIRecipReqsList2(EDIInvoiceTrans.idEDITranscation);
             ParamsFor210.EDIRecipReqs = EDIRecipReqs;
@@ -943,7 +943,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
 
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks, ct = p.ct };
             DynamicUserControl.LoadParams(p1);
 
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControlNonCourier210;

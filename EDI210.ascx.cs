@@ -176,7 +176,12 @@ public partial class EDI210 : System.Web.UI.UserControl
     {
         try
         {
-            List<ClsFileType> qFileTypes = SrvFileType.GetFileTypes();
+            bool bNonCourierEDI = false;
+            if (Params.ct == UserControlParams.CourierType.NonCourierEDI)
+            {
+                bNonCourierEDI = true;
+            }
+            List<ClsFileType> qFileTypes = SrvFileType.GetFileTypes(bNonCourierEDI);
             comboBxFileFormat.DataSource = qFileTypes;
             comboBxFileFormat.DataTextField = "FileType";
             comboBxFileFormat.DataValueField = "idFileType";

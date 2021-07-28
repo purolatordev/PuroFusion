@@ -3569,7 +3569,7 @@
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadDropDownList ID="comboNonCourier210TestSent" runat="server" Visible="true" Width="70px">
+                            <telerik:RadDropDownList ID="comboNonCourier210TestSent" runat="server" Visible="true" Width="100px">
                                 <Items>
                                     <telerik:DropDownListItem Value="SFTP" Text="SFTP" Selected="true" />
                                     <telerik:DropDownListItem Value="via Email" Text="via Email" />
@@ -3582,7 +3582,7 @@
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
-                            <telerik:RadDropDownList ID="comboNonCourier214TestSent" runat="server" Visible="true" Width="70px">
+                            <telerik:RadDropDownList ID="comboNonCourier214TestSent" runat="server" Visible="true" Width="100px">
                                 <Items>
                                     <telerik:DropDownListItem Value="SFTP" Text="SFTP" Selected="true" />
                                     <telerik:DropDownListItem Value="via Email" Text="via Email" />
