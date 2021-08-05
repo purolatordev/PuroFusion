@@ -244,7 +244,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
         {
             if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
+            {
                 RadTabStrip1.Tabs[2].Visible = true;
+                RadTabStrip1.Tabs[3].Enabled = true;
+            }
             else
                 RadTabStrip1.Tabs[2].Visible = false;
 
@@ -878,7 +881,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.ID = "uc1" + ControlID;
             int requestID = 0;
             int.TryParse(Request.QueryString["requestID"], out requestID);
-            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks };
+            
+            UserControlParams p1 = new UserControlParams() { idRequest = requestID, iRecordID = i, bNewDialog = p.passbacks[i].bNewRecord, idEDIRecipReqs = p.EDIRecipReqs[i], passbacks = p.passbacks }; 
             DynamicUserControl.LoadParams(p1);
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
             DynamicUserControl.UserControlSaved += this.HandleUserControl210Saved;
