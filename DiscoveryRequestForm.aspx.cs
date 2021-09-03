@@ -230,6 +230,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 RadTabStrip1.Tabs[5].Enabled = true;
                 RadTabStrip1.Tabs[5].Visible = true;
+                RadTabStrip1.Tabs[4].Enabled = true;
             }
             btnSubmitEDIServices.Visible = false;
 
@@ -279,6 +280,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 RadTabStrip1.Tabs[5].Enabled = true;
                 RadTabStrip1.Tabs[5].Visible = true;
+                RadTabStrip1.Tabs[3].Enabled = true;
             }
             btnSubmitEDIServices.Visible = false;
 

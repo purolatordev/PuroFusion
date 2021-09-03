@@ -1085,10 +1085,10 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
         }
         public List<ClsDistrict> GetDistricts()
         {
-            string excld = "Canada";
+            //string excld = "Canada";
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsDistrict> oDistrict = (from data in puroTouchContext.GetTable<vw_District>()
-                                           where data.District != excld
+                                           //where data.District != excld
                                            orderby data.District
                                            select new ClsDistrict
                                            {

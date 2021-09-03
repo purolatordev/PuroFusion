@@ -81,7 +81,7 @@
         </div>
     </div>
     <div class="footer">
-           <p>&copy; <%: DateTime.Now.Year %> - Purolator International</p>
+           <p>&copy; <%: DateTime.Now.Year %> - New Prod Data Included - Purolator International</p>
     </div>
 
     </form>
