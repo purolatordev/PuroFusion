@@ -10,6 +10,7 @@ public class UserControlParams
 {
     public enum CourierType {Zero,CourierEDI,NonCourierEDI };
     public CourierType ct;// = CourierType.Zero;
+    public bool bUseTimeOfFile { get; set; }
 
     public int iTotalRecs { get; set; }
     public int idRequest { get; set; }
@@ -23,7 +24,6 @@ public class UserControlParams
     {
         iTotalRecs = 0;
         idEDIRecipReqs = 0;
-        //bLoaded = false;
         EDIRecipReqs = new List<int>();
         passbacks = new List<SrvEDIRecipReq.PassBack>();
         bNewDialog = false;
@@ -33,16 +33,8 @@ public class UserControlParams
         iTotalRecs = iCount;
         bNewDialog = false;
     }
-    //public UserControlParams(int iCount, int Request)
-    //{
-    //    idRequest = Request;
-    //    iTotalRecs = iCount;
-    //    EDIRecipReqs = new List<int>();
-    //    passbacks = new List<SrvEDIRecipReq.PassBack>();
-    //    idEDIRecipReqs = 0;
-    //    bNewDialog = false;
-    //}
-    public UserControlParams(int iCount, int Request, CourierType ct)
+   
+    public UserControlParams(int iCount, int Request, CourierType ct, bool bUseTimeOfFile)
     {
         idRequest = Request;
         iTotalRecs = iCount;
@@ -51,6 +43,7 @@ public class UserControlParams
         idEDIRecipReqs = 0;
         bNewDialog = false;
         this.ct = ct;
+        this.bUseTimeOfFile = bUseTimeOfFile;
     }
     public bool CheckPassBacks(int idEDIRecipReqs, bool bNewDialog)
     {

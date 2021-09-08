@@ -18,7 +18,8 @@ public partial class EDI214 : System.Web.UI.UserControl
     public event EventHandler RemoveUserControl2;
     public event EventHandler UserControlSaved;
     public event EventHandler buttonClick;
-    public UserControlParams Params = new UserControlParams();
+    //public UserControlParams Params = new UserControlParams();
+    public UserControlParams Params;
     public void LoadParams(UserControlParams p)
     {
         Params = p;
@@ -72,6 +73,11 @@ public partial class EDI214 : System.Web.UI.UserControl
             comboxTiming.Visible = false;
             lblTiming.Visible = false;
             lblTriggerMechanism.Visible = false;
+        }
+        if(!Params.bUseTimeOfFile)
+        {
+            lblTimeofFile.Visible = false;
+            timeTimeofFile.Visible = false;
         }
     }
     [MethodImpl(MethodImplOptions.NoInlining)]

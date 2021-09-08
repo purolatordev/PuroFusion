@@ -3377,7 +3377,7 @@
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="Label21" runat="server" Text="*" Visible="false"></asp:Label></td>
                     </tr>
-                    <tr>
+                   <%-- <tr>
                         <td ></td>
                         <td style="width: 220px; text-align: right">
                             <asp:Label ID="lblNonCourier210SFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
@@ -3402,7 +3402,7 @@
                         <td style="width: 220px; text-align: left">
                             <telerik:RadTextBox ID="txtNonCourierPuroPostSFTP" runat="server" MaxLength="190" Text="" Width="220px" />
                         </td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td style="width: 10px"></td>
                         <td style="width: 160px; text-align: right;">
