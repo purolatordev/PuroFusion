@@ -56,7 +56,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA"><asp:Label ID="lblEDIIfX12" runat="server" Text="If X12 is chosen, the following section will appear" Visible="false"></asp:Label>
+                        <td colspan="4" class="Column1SpanA">
+                            <asp:Label ID="lblEDIIfX12" runat="server" Text="If X12 is chosen, the following section will appear" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -76,7 +77,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTextBox ID="txtBoxGS" runat="server" MaxLength="100"  Width="110px" ToolTip="Enter GS" />
+                            <telerik:RadTextBox ID="txtBoxGS" runat="server" MaxLength="100" Width="110px" ToolTip="Enter GS" />
                         </td>
                     </tr>
                     <tr>
@@ -99,7 +100,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA"><asp:Label ID="Label2" runat="server" Text="If any FTP option is chosen, the following section will appear" Visible="false"></asp:Label>
+                        <td colspan="4" class="Column1SpanA">
+                            <asp:Label ID="Label2" runat="server" Text="If any FTP option is chosen, the following section will appear" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -139,11 +141,12 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftLargest">
-                            <telerik:RadTextBox ID="textBoxFolderPath" runat="server" MaxLength="225"  Width="225px" ToolTip="Enter Folder Path" />
+                            <telerik:RadTextBox ID="textBoxFolderPath" runat="server" MaxLength="225" Width="225px" ToolTip="Enter Folder Path" />
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA"><asp:Label ID="Label3" runat="server" Text="If email is chosen, the following section will appear" Visible="false"></asp:Label>
+                        <td colspan="4" class="Column1SpanA">
+                            <asp:Label ID="Label3" runat="server" Text="If email is chosen, the following section will appear" Visible="false"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -158,7 +161,8 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2a"><asp:Label ID="lblTriggerMechanism" runat="server" Text="Trigger Mechanism" Visible="true"></asp:Label>
+                        <td class="Column2a">
+                            <asp:Label ID="lblTriggerMechanism" runat="server" Text="Trigger Mechanism" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -168,7 +172,8 @@
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
-                        <td class="Column2a"><asp:Label ID="lblTiming" runat="server" Text="Timing" Visible="true"></asp:Label>
+                        <td class="Column2a">
+                            <asp:Label ID="lblTiming" runat="server" Text="Timing" Visible="true"></asp:Label>
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
@@ -177,7 +182,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" class="Column1SpanA"> </td>
+                        <td colspan="4" class="Column1SpanA"></td>
                     </tr>
                     <tr>
                         <td class="Column1a"></td>
@@ -186,7 +191,7 @@
                         </td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadTimePicker ID="timeTimeofFile" runat="server" Width="100px" DateInput-DateFormat="hh:mm" ></telerik:RadTimePicker>
+                            <telerik:RadTimePicker ID="timeTimeofFile" runat="server" Width="100px" DateInput-DateFormat="hh:mm"></telerik:RadTimePicker>
                         </td>
                     </tr>
                     <tr>
@@ -194,13 +199,18 @@
                         <td class="Column2a">Status Codes</td>
                         <td class="Column3Spacer"></td>
                         <td class="Column4LeftWidth">
-                            <telerik:RadComboBox   ID="comboxStatusCodes" SelectionMode="Multiple" CheckBoxes="true" runat="server" Visible="true" Width="160px">
+                            <telerik:RadComboBox ID="comboxStatusCodes" SelectionMode="Multiple" CheckBoxes="true" runat="server" Visible="true" Width="160px">
                             </telerik:RadComboBox>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4">
                             <telerik:RadButton ID="btnSubmitChanges" CausesValidation="true" runat="server" Text="Save Changes" OnClick="btnSubmitChanges_Click" AutoPostBack="true" Enabled="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <asp:TextBox ID="txtBoxMultiDebug2" TextMode="multiline" Columns="100" Rows="7" runat="server" Visible="true" />
                         </td>
                     </tr>
                 </table>

@@ -101,6 +101,7 @@ public partial class EDI210 : System.Web.UI.UserControl
     protected void CommunicationMethod_SelectedIndexChanged(object sender, EventArgs e)
     {
         SetCommunicationMethodControls();
+        Save();
     }
 
     private void SetCommunicationMethodControls()
@@ -148,11 +149,18 @@ public partial class EDI210 : System.Web.UI.UserControl
     }
     protected void btnSubmit210Changes_Click(object sender, EventArgs e)
     {
+        Save();
+
+        UserControlSaved(sender, e);
+    }
+
+    private void Save()
+    {
         int iCommMethod = int.Parse(comboxCommunicationMethod.SelectedValue);
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
         if (qEDIRecipReq.idEDITranscationType != PUROPOST_NON_COURIER_EDI)
         {
-            int iFileformat = int.Parse( comboBxFileFormat.SelectedValue);
+            int iFileformat = int.Parse(comboBxFileFormat.SelectedValue);
             qEDIRecipReq.idFileType = iFileformat;
             qEDIRecipReq.X12_ISA = txtBoxISA.Text;
             qEDIRecipReq.X12_GS = txtBoxGS.Text;
@@ -169,9 +177,8 @@ public partial class EDI210 : System.Web.UI.UserControl
         qEDIRecipReq.UpdatedBy = Session["userName"].ToString();
         qEDIRecipReq.UpdatedOn = DateTime.Now;
         SrvEDIRecipReq.Insert(qEDIRecipReq);
-
-        UserControlSaved(sender, e);
     }
+
     protected void GetFileFormats()
     {
         try

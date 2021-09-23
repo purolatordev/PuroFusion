@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -26,6 +27,18 @@ public partial class EDI214 : System.Web.UI.UserControl
     }
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug2.Text +=
+                "Page_Load Start- " +
+                //RadPanelBar1.Items[0].Text + ": " +
+                comboxCommunicationMethod.SelectedText.ToString() + ": " +
+                comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
+            txtBoxMultiDebug2.Visible = true;
+        }
+        else
+            txtBoxMultiDebug2.Visible = false;
+
         clsEDIRecipReq qEDIRecipReq = SrvEDIRecipReq.GetEDIRecipReqsByID(Params.idEDIRecipReqs);
         if (qEDIRecipReq != null && !IsPostBack)
         {
@@ -78,6 +91,14 @@ public partial class EDI214 : System.Web.UI.UserControl
         {
             lblTimeofFile.Visible = false;
             timeTimeofFile.Visible = false;
+        }
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug2.Text +=
+                "Page_Load End- " +
+                RadPanelBar1.Items[0].Text + ": " +
+                comboxCommunicationMethod.SelectedText.ToString() + ": " +
+                comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
         }
     }
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -134,6 +155,15 @@ public partial class EDI214 : System.Web.UI.UserControl
     protected void CommunicationMethod_SelectedIndexChanged(object sender, EventArgs e)
     {
         SetCommunicationMethodControls();
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug2.Text +=
+                "CommunicationMethod- " +
+                RadPanelBar1.Items[0].Text + ": " +
+                comboxCommunicationMethod.SelectedText.ToString() + ": " +
+                comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
+        }
+        Save();
     }
 
     private void SetCommunicationMethodControls()
@@ -231,6 +261,14 @@ public partial class EDI214 : System.Web.UI.UserControl
             clsExceptionLogging error = new clsExceptionLogging() { Method = GetCurrentMethod(), ExceptionMsg = ex.Message.ToString(), ExceptionType = ex.GetType().Name.ToString(), ExceptionURL = context.Current.Request.Url.ToString(), ExceptionSource = ex.StackTrace.ToString(), CreatedOn = DateTime.Now, CreatedBy = Session["userName"].ToString() };
             SrvExceptionLogging.Insert(error, out lnewID);
         }
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug2.Text +=
+                "GetCommunicationMethods- " +
+                RadPanelBar1.Items[0].Text + ": " +
+                comboxCommunicationMethod.SelectedText.ToString() + ": " +
+                comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
+        }
     }
     protected void GetTriggerMechanisms()
     {
@@ -302,6 +340,20 @@ public partial class EDI214 : System.Web.UI.UserControl
     }
     protected void btnSubmitChanges_Click(object sender, EventArgs e)
     {
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug2.Text +=
+                "Save Changes- " +
+                RadPanelBar1.Items[0].Text + ": " +
+                comboxCommunicationMethod.SelectedText.ToString() + ": " +
+                comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
+        }
+        Save();
+        UserControlSaved(sender, e);
+    }
+
+    private void Save()
+    {
         int iFileformat = int.Parse(comboBxFileFormat214.SelectedValue);
         int iCommMethod = int.Parse(comboxCommunicationMethod.SelectedValue);
         int iTriggerMech = int.Parse(comboxTriggerMechanism.SelectedValue);
@@ -321,9 +373,9 @@ public partial class EDI214 : System.Web.UI.UserControl
         qEDIRecipReq.Email = textBoxEmail.Text;
         qEDIRecipReq.idTriggerMechanism = iTriggerMech;
         qEDIRecipReq.idTiming = iTiming;
-       
+
         TimeSpan? ts = timeTimeofFile.SelectedTime;
-        qEDIRecipReq.TimeOfFile = new DateTime( DateTime.Now.Year,DateTime.Now.Month,DateTime.Now.Day, ts.Value.Hours, ts.Value.Minutes, 0);
+        qEDIRecipReq.TimeOfFile = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, ts.Value.Hours, ts.Value.Minutes, 0);
         qEDIRecipReq.PanelTitle = textBoxPanelTitle.Text;
         RadPanelBar1.Items[0].Text = qEDIRecipReq.PanelTitle;
         qEDIRecipReq.UpdatedBy = Session["userName"].ToString();
@@ -360,13 +412,12 @@ public partial class EDI214 : System.Web.UI.UserControl
                 }
             }
         }
-        UserControlSaved(sender, e);
     }
 
     protected void UpdateControls(clsEDIRecipReq qEDIRecipReq)
     {
         comboBxFileFormat214.SelectedValue = qEDIRecipReq.idFileType.ToString();
-        comboxCommunicationMethod.SelectedValue = qEDIRecipReq.idCommunicationMethod.ToString();
+        comboxCommunicationMethod.SelectedValue = (qEDIRecipReq.idCommunicationMethod == 0 )? "1" : qEDIRecipReq.idCommunicationMethod.ToString();
         comboxTriggerMechanism.SelectedValue = qEDIRecipReq.idTriggerMechanism.ToString();
         comboxTiming.SelectedValue = qEDIRecipReq.idTiming.ToString();
 
@@ -405,6 +456,15 @@ public partial class EDI214 : System.Web.UI.UserControl
         textBoxEmail.Text = qEDIRecipReq.Email;
         TimeSpan? ts = new TimeSpan (qEDIRecipReq.TimeOfFile.Value.Hour, qEDIRecipReq.TimeOfFile.Value.Minute, 0);
         timeTimeofFile.SelectedTime = ts;
+
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            txtBoxMultiDebug2.Text += 
+                "UpdateControls- " + 
+                RadPanelBar1.Items[0].Text + ": " + 
+                comboxCommunicationMethod.SelectedText.ToString() + ": " + 
+                comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
+        }
         return;
     }
 }
