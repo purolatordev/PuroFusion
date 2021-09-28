@@ -344,6 +344,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             RadTabStrip1.Tabs[7].Enabled = false;
         }
         #endregion
+
+        if (!String.IsNullOrEmpty(ID))
+        {
+            btnEDISerivesSaveFile.Enabled = true;
+        }
+        else
+        {
+            btnEDISerivesSaveFile.Enabled = false;
+        }
     }
     #region Debugging
     protected void btnPre_Load_Click(object sender, System.EventArgs e)
@@ -3015,6 +3024,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                     clsFreightAuditorsDiscReq FreightAuditor = new clsFreightAuditorsDiscReq()
                     {
                         idFreightAuditor = Convert.ToInt16(radlist.SelectedValue),
+                        CompanyName = radlist.SelectedText,
                         idRequest = requestID,
                         ActiveFlag = true,
                         CreatedOn = DateTime.Now,

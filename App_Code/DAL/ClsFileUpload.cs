@@ -59,10 +59,12 @@ public class ClsFileUpload
                 
                 ActiveFlag = data.ActiveFlag
             };
-            puroTouchContext.GetTable<tblDiscoveryRequestUpload>().InsertOnSubmit(oNewRow);
-            // Submit the changes to the database. 
-            puroTouchContext.SubmitChanges();
-            newID = oNewRow.idFileUpload;
+            if (oNewRow.idRequest != 0)
+            {
+                puroTouchContext.GetTable<tblDiscoveryRequestUpload>().InsertOnSubmit(oNewRow);
+                puroTouchContext.SubmitChanges();
+                newID = oNewRow.idFileUpload;
+            }
         }
         catch (Exception ex)
         {
