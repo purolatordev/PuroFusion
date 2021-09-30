@@ -646,7 +646,7 @@
                                                     <td style="text-align: right; width: 100px">Contact Name:</td>
                                                     <td style="color: red; text-align: left; width: 2px">*</td>
                                                     <td>
-                                                        <telerik:RadTextBox ID="txtBxContactName2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                        <telerik:RadTextBox ID="txtBxContactName2" autocomplete="chrome-off" runat="server" MaxLength="75" Text='' Width="300px" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -656,7 +656,7 @@
                                                     <td style="text-align: right; width: 100px">Contact Title:</td>
                                                     <td style="color: red; text-align: left; width: 2px"></td>
                                                     <td>
-                                                        <telerik:RadTextBox ID="txtBxContactTitle2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                        <telerik:RadTextBox ID="txtBxContactTitle2" autocomplete="chrome-off" runat="server" MaxLength="75" Text='' Width="300px" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -666,7 +666,7 @@
                                                     <td style="text-align: right; width: 100px">Contact Email:</td>
                                                     <td style="color: red; text-align: left; width: 2px">*</td>
                                                     <td style="width: 160px">
-                                                        <telerik:RadTextBox ID="txtBxContactEmail2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                        <telerik:RadTextBox ID="txtBxContactEmail2" autocomplete="chrome-off" runat="server" MaxLength="75" Text='' Width="300px" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -676,7 +676,7 @@
                                                     <td style="text-align: right; width: 100px">Contact Phone:</td>
                                                     <td style="color: red; text-align: left; width: 2px">*</td>
                                                     <td style="width: 160px">
-                                                        <telerik:RadTextBox ID="txtBxContactPhone2" runat="server" MaxLength="75" Text='' Width="300px" />
+                                                        <telerik:RadTextBox ID="txtBxContactPhone2" autocomplete="chrome-off" runat="server" MaxLength="75" Text='' Width="300px" />
                                                     </td>
                                                 </tr>
                                                 <tr>
