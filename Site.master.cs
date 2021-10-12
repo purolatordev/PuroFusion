@@ -153,6 +153,11 @@ public partial class SiteMaster : MasterPage
                 rpt7.NavigateUrl = "~/rptTimebyITBA.aspx";
                 repItem.Items.Add(rpt7);
 
+                RadMenuItem rpt11 = new RadMenuItem();
+                rpt11.Text = "Time Per Onboarding Specialist EDI";
+                rpt11.NavigateUrl = "~/rptTimebyITBAEdi.aspx";
+                repItem.Items.Add(rpt11);
+
                 RadMenuItem rpt10 = new RadMenuItem();
                 rpt10.Text = "Customer Delay Notes";
                 rpt10.NavigateUrl = "~/rptCustomerDelay.aspx";

@@ -15,7 +15,7 @@
         <script type="text/javascript" >
 
             function submitCallBackFn(arg) {
-                window.location.href = "Home.aspx";
+                window.location.href = "Home.aspx";F
             } 		
             function profileCallBackFn(arg) {
             }
@@ -3377,32 +3377,6 @@
                         <td style="width: 10px; color: red; text-align: right;">
                             <asp:Label ID="Label21" runat="server" Text="*" Visible="false"></asp:Label></td>
                     </tr>
-                   <%-- <tr>
-                        <td ></td>
-                        <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNonCourier210SFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
-                        </td>
-                        <td></td>
-                        <td style="width: 220px; text-align: left">
-                            <telerik:RadTextBox ID="txtNonCourier210SFTP" runat="server" MaxLength="190" Text="" Width="220px"  />
-                        </td>
-                        <td></td>
-                        <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNonCourier214SFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
-                        </td>
-                        <td></td>
-                        <td style="width: 220px; text-align: left">
-                            <telerik:RadTextBox ID="txtNonCourier214SFTP" runat="server" MaxLength="190" Text="" Width="220px" />
-                        </td>
-                        <td></td>
-                        <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNonCourierPuroPostSFTP" runat="server" Text="SFTP Processing Folder" Visible="true"></asp:Label>
-                        </td>
-                        <td></td>
-                        <td style="width: 220px; text-align: left">
-                            <telerik:RadTextBox ID="txtNonCourierPuroPostSFTP" runat="server" MaxLength="190" Text="" Width="220px" />
-                        </td>
-                    </tr>--%>
                     <tr>
                         <td style="width: 10px"></td>
                         <td style="width: 160px; text-align: right;">
@@ -3611,7 +3585,7 @@
                         </td>
                         <td ></td>
                         <td style="width: 220px; text-align: right">
-                            <asp:Label ID="lblNumRecipNonCourierPuroPostStand" runat="server" Text="Number of Shipment Status Recipients Requested" Visible="true"></asp:Label>
+                            <asp:Label ID="lblNumRecipNonCourierPuroPostStand" runat="server" Text="Number of Invoice Status Recipients Requested" Visible="true"></asp:Label>
                         </td>
                         <td></td>
                         <td style="width: 140px; text-align: left">
