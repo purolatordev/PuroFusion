@@ -1,0 +1,35 @@
+
+
+email: scott.cardinale@purolator.com
+Sandbox company name: PurolatorDev
+Login ID: redbird510
+password: Abc123.!
+api login id: 8E9bzW4p
+Transaction Key: 42Dukx59Xs44xySR
+Key: Simon
+
+
+
+Remove all triggers and archive tables
+Move over contact info
+Remove from web pages New Prod Data Included
+
+
+Courier needs Sftp - 
+Make Non-Courier get rid of FTP Internal and FTP External make it SFTP Internal and External
+Non-Courier 		
+KA Shipping System Only - sales submitted one way - Both shipping the EDI Services
+EDI Only - then Shipping the Shipping Services is grayed out.
+On the way to green would be to get rid of FTP
+Status Codes we need them
+
+2. Contact Info having the Contact Phone being populated by Contact Email?
+3. Line up the exit button.
+4. EDI Services tab - Ship methods only allowing 1 - can't get that to happen.
+5. Status not changing as Contact put in.
+Last Updated By:, Last Updated On
+
+Display settings - scale
+The browser size.
+
+Christine Timcheck

@@ -68,12 +68,12 @@
 
          <telerik:RadToolTip ID="RadToolTip1" runat="server" Width="200px" ShowEvent="OnClick"
           TargetControlID="HeaderLink1" IsClientID="true" HideEvent="LeaveToolTip" Position="Center"
-           Animation="Resize" ShowDelay="0" RelativeTo="Element" Text="Use the Onboarding Speicialst Maintenance Screen to maintain the list of Onboarding Speicialsts<p/> ">
+           Animation="Resize" ShowDelay="0" RelativeTo="Element" Text="Use the Onboarding Specialst Maintenance Screen to maintain the list of Onboarding Specialsts<p/> ">
           </telerik:RadToolTip>
 
-         <p></p><div><b>Onboarding Speicialst Maintenance</b>
+         <p></p><div><b>Onboarding Specialst Maintenance</b>
                  <a id="HeaderLink1" href="#" onclick="return false;"><img src="Images/help-icon16.png" /></a>
-                 <br /><i>Use the Onboarding Speicialst Maintenance Screen to maintain the list of  Onboarding Speicialsts</i>
+                 <br /><i>Use the Onboarding Specialst Maintenance Screen to maintain the list of  Onboarding Specialsts</i>
                  <hr />
                </div>        
 
@@ -98,9 +98,9 @@
                     <HeaderStyle Width="36px"></HeaderStyle></telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn DataField="idITBA" Visible="false" FilterControlAltText="Filter idITBA column" HeaderText="idITBA" SortExpression="idITBA" UniqueName="idITBA">
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="ITBAName" FilterControlAltText="Filter ITBAName column" HeaderText="Onboarding Speicialst Name" SortExpression="ITBAName" UniqueName="ITBAName">
+                    <telerik:GridBoundColumn DataField="ITBAName" FilterControlAltText="Filter ITBAName column" HeaderText="Onboarding Specialst Name" SortExpression="ITBAName" UniqueName="ITBAName">
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="ITBAEmail" FilterControlAltText="Filter ITBAEmail column" HeaderText="Onboarding Speicialst Email" SortExpression="ITBAEmail" UniqueName="ITBAEmail">
+                    <telerik:GridBoundColumn DataField="ITBAEmail" FilterControlAltText="Filter ITBAEmail column" HeaderText="Onboarding Specialst Email" SortExpression="ITBAEmail" UniqueName="ITBAEmail">
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn DataField="idEmployee" Visible="false" FilterControlAltText="Filter idEmployee column" HeaderText="idEmployee" SortExpression="idEmployee" UniqueName="idEmployee">
                     </telerik:GridBoundColumn>

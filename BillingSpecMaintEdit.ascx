@@ -49,7 +49,7 @@
             <td style="width: 70px; color: red; text-align: right">*</td>
             <asp:HiddenField ID="hdnITBAID" runat="server" Value='<%# Bind("idBillingSpecialist") %>' />
             <td>
-                <asp:Label ID="lblITBA" runat="server" CssClass="rdfLabel" Text="Billing Speicialst" />
+                <asp:Label ID="lblITBA" runat="server" CssClass="rdfLabel" Text="Billing Specialst" />
             </td>
             <td>
                 <telerik:RadDropDownList ID="rddlEmployee" ValidationGroup="Submitgroup" runat="server" Width="120px" DefaultMessage="Employee" ToolTip="Employee"></telerik:RadDropDownList>

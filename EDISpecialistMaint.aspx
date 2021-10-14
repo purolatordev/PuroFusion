@@ -68,12 +68,12 @@
 
          <telerik:RadToolTip ID="RadToolTip1" runat="server" Width="200px" ShowEvent="OnClick"
           TargetControlID="HeaderLink1" IsClientID="true" HideEvent="LeaveToolTip" Position="Center"
-           Animation="Resize" ShowDelay="0" RelativeTo="Element" Text="Use the Onboarding Speicialst Maintenance Screen to maintain the list of Onboarding Speicialsts<p/> ">
+           Animation="Resize" ShowDelay="0" RelativeTo="Element" Text="Use the Onboarding Specialst Maintenance Screen to maintain the list of Onboarding Specialsts<p/> ">
           </telerik:RadToolTip>
 
-         <p></p><div><b>EDI Speicialst Maintenance</b>
+         <p></p><div><b>EDI Specialst Maintenance</b>
                  <a id="HeaderLink1" href="#" onclick="return false;"><img src="Images/help-icon16.png" /></a>
-                 <br /><i>Use the EDI Speicialst Maintenance Screen to maintain the list of  Onboarding Speicialsts</i>
+                 <br /><i>Use the EDI Specialst Maintenance Screen to maintain the list of  EDI Specialsts</i>
                  <hr />
                </div>        
 
@@ -98,9 +98,9 @@
                     <HeaderStyle Width="36px"></HeaderStyle></telerik:GridEditCommandColumn>
                     <telerik:GridBoundColumn DataField="idEDISpecialist" Visible="false" FilterControlAltText="Filter idEDISpecialist column" HeaderText="idEDISpecialist" SortExpression="idEDISpecialist" UniqueName="idEDISpecialist">
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="Name" FilterControlAltText="Filter Name column" HeaderText="EDI Speicialst Name" SortExpression="Name" UniqueName="Name">
+                    <telerik:GridBoundColumn DataField="Name" FilterControlAltText="Filter Name column" HeaderText="EDI Specialst Name" SortExpression="Name" UniqueName="Name">
                     </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn DataField="email" FilterControlAltText="Filter Email column" HeaderText="EDI Speicialst Email" SortExpression="email" UniqueName="email">
+                    <telerik:GridBoundColumn DataField="email" FilterControlAltText="Filter Email column" HeaderText="EDI Specialst Email" SortExpression="email" UniqueName="email">
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn DataField="idEmployee" Visible="false" FilterControlAltText="Filter idEmployee column" HeaderText="idEmployee" SortExpression="idEmployee" UniqueName="idEmployee">
                     </telerik:GridBoundColumn>

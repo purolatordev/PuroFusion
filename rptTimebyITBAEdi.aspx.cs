@@ -109,7 +109,7 @@ public partial class rptTimebyITBAEdi : System.Web.UI.Page
         int selval = Convert.ToInt16(rddlITBA.SelectedValue);
         try
         {
-            cmd = new SqlCommand("sp_OnboardingTimePerITBA", cnn);
+            cmd = new SqlCommand("sp_OnboardingTimePerITBAOnlyEDI", cnn);
             cmd.Parameters.Add(new SqlParameter("@fromdate", invdate1));
             cmd.Parameters.Add(new SqlParameter("@todate", invdate2));
             cmd.Parameters.Add(new SqlParameter("@idITBA", selval));
