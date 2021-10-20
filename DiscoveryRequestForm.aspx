@@ -1006,7 +1006,7 @@
                         </td>
                     </tr>
                 </table>
-                <table border="0">
+               <%-- <table border="0">
                     <tr>
                     </tr>
                     <tr>
@@ -1067,7 +1067,7 @@
                             </telerik:RadGrid>
                         </td>
                     </tr>
-                </table>
+                </table>--%>
                 <hr />
                 <table style="padding-top: 2px; width: 100%;" border="0">
                     <tr>

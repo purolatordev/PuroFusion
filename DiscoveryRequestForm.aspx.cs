@@ -345,14 +345,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         #endregion
 
-        if (!String.IsNullOrEmpty(ID))
-        {
-            btnEDISerivesSaveFile.Enabled = true;
-        }
-        else
-        {
-            btnEDISerivesSaveFile.Enabled = false;
-        }
+        //if (!String.IsNullOrEmpty(ID))
+        //{
+        //    btnEDISerivesSaveFile.Enabled = true;
+        //}
+        //else
+        //{
+        //    btnEDISerivesSaveFile.Enabled = false;
+        //}
     }
     #region Debugging
     protected void btnPre_Load_Click(object sender, System.EventArgs e)
@@ -6393,54 +6393,54 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
         string FilePath = ConfigurationManager.AppSettings["FileEDIServicesUploadPath"].ToString();
         List<ClsFileUpload> alluploads = repository.GetFileList(RequestID, FilePath);
-        gridEDIServicesUpload.DataSource = alluploads;
-        gridEDIServicesUpload.Visible = true;
+        //gridEDIServicesUpload.DataSource = alluploads;
+        //gridEDIServicesUpload.Visible = true;
     }
     protected void gridEDIServiesUpload_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
     {
         getEDIServicesFilesUpload();
     }
-    protected void btnSaveEDIServicesUpload_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            string errmsg;
-            int fileID;
-            string FilePath = ConfigurationManager.AppSettings["FileEDIServicesUploadPath"].ToString();
-            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+    //protected void btnSaveEDIServicesUpload_Click(object sender, EventArgs e)
+    //{
+    //    try
+    //    {
+    //        string errmsg;
+    //        int fileID;
+    //        string FilePath = ConfigurationManager.AppSettings["FileEDIServicesUploadPath"].ToString();
+    //        Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
 
-            foreach (UploadedFile f in RadAsynEDIServicesUpload.UploadedFiles)
-            {
-                string fileName = f.GetName();
-                string title = f.GetFieldValue("TextBox");
-                ClsFileUpload filedata = new ClsFileUpload();
-                filedata.idRequest = RequestID;
-                filedata.FilePath = FilePath + fileName;
-                filedata.Description = title;
-                filedata.ActiveFlag = true;
-                filedata.CreatedBy = (string)(Session["userName"]);
-                filedata.CreatedOn = Convert.ToDateTime(DateTime.Now);
-                filedata.UploadDate = Convert.ToDateTime(DateTime.Now);
+    //        foreach (UploadedFile f in RadAsynEDIServicesUpload.UploadedFiles)
+    //        {
+    //            string fileName = f.GetName();
+    //            string title = f.GetFieldValue("TextBox");
+    //            ClsFileUpload filedata = new ClsFileUpload();
+    //            filedata.idRequest = RequestID;
+    //            filedata.FilePath = FilePath + fileName;
+    //            filedata.Description = title;
+    //            filedata.ActiveFlag = true;
+    //            filedata.CreatedBy = (string)(Session["userName"]);
+    //            filedata.CreatedOn = Convert.ToDateTime(DateTime.Now);
+    //            filedata.UploadDate = Convert.ToDateTime(DateTime.Now);
 
-                errmsg = filedata.InsertFileUpload(filedata, out fileID);
-                if (errmsg != "")
-                {
-                    pnlDanger.Visible = true;
-                    lblDanger.Text = errmsg;
-                }
+    //            errmsg = filedata.InsertFileUpload(filedata, out fileID);
+    //            if (errmsg != "")
+    //            {
+    //                pnlDanger.Visible = true;
+    //                lblDanger.Text = errmsg;
+    //            }
 
-                getEDIServicesFilesUpload();
-                gridEDIServicesUpload.Rebind();
-            }
-            RadMultiPage1.SelectedIndex = 3;
-            RadTabStrip1.Tabs[3].Selected = true;
-        }
-        catch (Exception ex)
-        {
-            pnlDanger.Visible = true;
-            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
-        }
-    }
+    //            getEDIServicesFilesUpload();
+    //            gridEDIServicesUpload.Rebind();
+    //        }
+    //        RadMultiPage1.SelectedIndex = 3;
+    //        RadTabStrip1.Tabs[3].Selected = true;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        pnlDanger.Visible = true;
+    //        lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
+    //    }
+    //}
     #endregion
     protected void RadAsyncUpload1_FileUploaded(object sender, FileUploadedEventArgs e)
     {
