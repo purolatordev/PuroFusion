@@ -95,12 +95,12 @@
     </div>
     <br />
     <div id="selectedMenu" style="padding-left: 20px">
-        <b>Time Per Onboarding Specialist</b>
+        <b>Time Per Onboarding Specialist - EDI Activities</b>
         <a id="HeaderLink" href="#" onclick="return false;">
             <img src="Images/help-icon16.png" />
         </a>
         <br />
-        <i>Total Time Spent per Onboarding Specialist as Recorded in Discovery Request Notes</i>
+        <i>Total Time Spent per Onboarding Specialist on EDI Activities as Recorded in Discovery Request Notes</i>
     </div>
     <div>
         <hr />

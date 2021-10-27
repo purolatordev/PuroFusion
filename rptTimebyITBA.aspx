@@ -101,11 +101,11 @@
         </asp:Panel>
     </div>
     <br />
-        <div id="selectedMenu" style="padding-left:20px"><b>Time Per Onboarding Specialist</b>
+        <div id="selectedMenu" style="padding-left:20px"><b>Time Per Onboarding Specialist - Shipping System Activities</b>
     <a id="HeaderLink" href="#" onclick="return false;">
        <img src="Images/help-icon16.png" />
     </a>
-            <br /><i>Total Time Spent per Onboarding Specialist as Recorded in Discovery Request Notes</i>
+            <br /><i>Total Time Spent per Onboarding Specialist on Shipping System Activities as Recorded in Discovery Request Notes</i>
         </div>
     <div>
 

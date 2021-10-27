@@ -62,7 +62,7 @@ public partial class rptTimebyITBAEdi : System.Web.UI.Page
             ReportDataSource rptData1 = new ReportDataSource("DataSet1", dt1);
 
             LocalReport r = new LocalReport();
-            r.ReportPath = Server.MapPath("~/rptTimebyITBA.rdlc");
+            r.ReportPath = Server.MapPath("~/rptTimebyITBAEdi.rdlc");
             r.DataSources.Add(rptData1);
 
             ReportViewer1.LocalReport.DataSources.Add(rptData1);
@@ -90,7 +90,7 @@ public partial class rptTimebyITBAEdi : System.Web.UI.Page
         Params[0] = new ReportParameter("invDate1", dpInvoiceDate1.SelectedDate.ToString());
         Params[1] = new ReportParameter("invDate2", dpInvoiceDate2.SelectedDate.ToString());
         this.ReportViewer1.LocalReport.SetParameters(Params);
-        ReportViewer1.LocalReport.DisplayName = "rptTimebyITBA";
+        ReportViewer1.LocalReport.DisplayName = "rptTimebyITBAedi";
     }
 
     protected void loadData()
@@ -123,11 +123,11 @@ public partial class rptTimebyITBAEdi : System.Web.UI.Page
             ReportDataSource rptData = new ReportDataSource("DataSet1", dt);
 
             LocalReport r = new LocalReport();
-            r.ReportPath = Server.MapPath("~/rptTimebyITBA.rdlc");
+            r.ReportPath = Server.MapPath("~/rptTimebyITBAedi.rdlc");
             r.DataSources.Add(rptData);
 
             ReportViewer1.LocalReport.DataSources.Add(rptData);
-            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/rptTimebyITBA.rdlc");
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/rptTimebyITBAedi.rdlc");
             ReportViewer1.LocalReport.Refresh();
             ReportViewer1.Visible = true;
             ReportViewer1.LocalReport.DisplayName = "TimePerITBA";
