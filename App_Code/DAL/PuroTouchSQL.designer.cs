@@ -22,7 +22,7 @@ namespace DAL
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PuroTouchDB")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PuroTouchDB_Prod")]
 	public partial class PuroTouchSQLDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -99,9 +99,6 @@ namespace DAL
     partial void InserttblDiscoveryRequestTargetDate(tblDiscoveryRequestTargetDate instance);
     partial void UpdatetblDiscoveryRequestTargetDate(tblDiscoveryRequestTargetDate instance);
     partial void DeletetblDiscoveryRequestTargetDate(tblDiscoveryRequestTargetDate instance);
-    partial void InserttblITBA(tblITBA instance);
-    partial void UpdatetblITBA(tblITBA instance);
-    partial void DeletetblITBA(tblITBA instance);
     partial void InserttblRequestType(tblRequestType instance);
     partial void UpdatetblRequestType(tblRequestType instance);
     partial void DeletetblRequestType(tblRequestType instance);
@@ -183,6 +180,9 @@ namespace DAL
     partial void InserttblFileType(tblFileType instance);
     partial void UpdatetblFileType(tblFileType instance);
     partial void DeletetblFileType(tblFileType instance);
+    partial void InserttblITBA(tblITBA instance);
+    partial void UpdatetblITBA(tblITBA instance);
+    partial void DeletetblITBA(tblITBA instance);
     #endregion
 		
 		public PuroTouchSQLDataContext() : 
@@ -447,22 +447,6 @@ namespace DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_ITBA> vw_ITBAs
-		{
-			get
-			{
-				return this.GetTable<vw_ITBA>();
-			}
-		}
-		
-		public System.Data.Linq.Table<tblITBA> tblITBAs
-		{
-			get
-			{
-				return this.GetTable<tblITBA>();
-			}
-		}
-		
 		public System.Data.Linq.Table<tblRequestType> tblRequestTypes
 		{
 			get
@@ -724,6 +708,30 @@ namespace DAL
 			get
 			{
 				return this.GetTable<tblFileType>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tblITBA> tblITBAs
+		{
+			get
+			{
+				return this.GetTable<tblITBA>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_EDIandITBACombined> vw_EDIandITBACombineds
+		{
+			get
+			{
+				return this.GetTable<vw_EDIandITBACombined>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_ITBA> vw_ITBAs
+		{
+			get
+			{
+				return this.GetTable<vw_ITBA>();
 			}
 		}
 	}
@@ -7543,509 +7551,6 @@ namespace DAL
 					this._CreatedOn = value;
 					this.SendPropertyChanged("CreatedOn");
 					this.OnCreatedOnChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ITBA")]
-	public partial class vw_ITBA
-	{
-		
-		private int _idITBA;
-		
-		private string _ITBA;
-		
-		private string _ActiveDirectoryName;
-		
-		private string _ITBAemail;
-		
-		private int _idEmployee;
-		
-		private string _UpdatedBy;
-		
-		private System.Nullable<System.DateTime> _UpdatedOn;
-		
-		private string _CreatedBy;
-		
-		private System.Nullable<System.DateTime> _CreatedOn;
-		
-		private System.Nullable<bool> _ActiveFlag;
-		
-		private System.Nullable<bool> _ReceiveNewReqEmail;
-		
-		private string _login;
-		
-		public vw_ITBA()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", DbType="Int NOT NULL")]
-		public int idITBA
-		{
-			get
-			{
-				return this._idITBA;
-			}
-			set
-			{
-				if ((this._idITBA != value))
-				{
-					this._idITBA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBA", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string ITBA
-		{
-			get
-			{
-				return this._ITBA;
-			}
-			set
-			{
-				if ((this._ITBA != value))
-				{
-					this._ITBA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveDirectoryName", DbType="VarChar(MAX)")]
-		public string ActiveDirectoryName
-		{
-			get
-			{
-				return this._ActiveDirectoryName;
-			}
-			set
-			{
-				if ((this._ActiveDirectoryName != value))
-				{
-					this._ActiveDirectoryName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBAemail", DbType="VarChar(255)")]
-		public string ITBAemail
-		{
-			get
-			{
-				return this._ITBAemail;
-			}
-			set
-			{
-				if ((this._ITBAemail != value))
-				{
-					this._ITBAemail = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
-		public int idEmployee
-		{
-			get
-			{
-				return this._idEmployee;
-			}
-			set
-			{
-				if ((this._idEmployee != value))
-				{
-					this._idEmployee = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
-		public string UpdatedBy
-		{
-			get
-			{
-				return this._UpdatedBy;
-			}
-			set
-			{
-				if ((this._UpdatedBy != value))
-				{
-					this._UpdatedBy = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedOn
-		{
-			get
-			{
-				return this._UpdatedOn;
-			}
-			set
-			{
-				if ((this._UpdatedOn != value))
-				{
-					this._UpdatedOn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this._CreatedBy = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedOn
-		{
-			get
-			{
-				return this._CreatedOn;
-			}
-			set
-			{
-				if ((this._CreatedOn != value))
-				{
-					this._CreatedOn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
-		public System.Nullable<bool> ActiveFlag
-		{
-			get
-			{
-				return this._ActiveFlag;
-			}
-			set
-			{
-				if ((this._ActiveFlag != value))
-				{
-					this._ActiveFlag = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
-		public System.Nullable<bool> ReceiveNewReqEmail
-		{
-			get
-			{
-				return this._ReceiveNewReqEmail;
-			}
-			set
-			{
-				if ((this._ReceiveNewReqEmail != value))
-				{
-					this._ReceiveNewReqEmail = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
-		public string login
-		{
-			get
-			{
-				return this._login;
-			}
-			set
-			{
-				if ((this._login != value))
-				{
-					this._login = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblITBA")]
-	public partial class tblITBA : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _idITBA;
-		
-		private int _idEmployee;
-		
-		private string _UpdatedBy;
-		
-		private System.Nullable<System.DateTime> _UpdatedOn;
-		
-		private string _CreatedBy;
-		
-		private System.Nullable<System.DateTime> _CreatedOn;
-		
-		private System.Nullable<bool> _ActiveFlag;
-		
-		private string _ITBAemail;
-		
-		private System.Nullable<bool> _ReceiveNewReqEmail;
-		
-		private string _login;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidITBAChanging(int value);
-    partial void OnidITBAChanged();
-    partial void OnidEmployeeChanging(int value);
-    partial void OnidEmployeeChanged();
-    partial void OnUpdatedByChanging(string value);
-    partial void OnUpdatedByChanged();
-    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnUpdatedOnChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedOnChanged();
-    partial void OnActiveFlagChanging(System.Nullable<bool> value);
-    partial void OnActiveFlagChanged();
-    partial void OnITBAemailChanging(string value);
-    partial void OnITBAemailChanged();
-    partial void OnReceiveNewReqEmailChanging(System.Nullable<bool> value);
-    partial void OnReceiveNewReqEmailChanged();
-    partial void OnloginChanging(string value);
-    partial void OnloginChanged();
-    #endregion
-		
-		public tblITBA()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int idITBA
-		{
-			get
-			{
-				return this._idITBA;
-			}
-			set
-			{
-				if ((this._idITBA != value))
-				{
-					this.OnidITBAChanging(value);
-					this.SendPropertyChanging();
-					this._idITBA = value;
-					this.SendPropertyChanged("idITBA");
-					this.OnidITBAChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
-		public int idEmployee
-		{
-			get
-			{
-				return this._idEmployee;
-			}
-			set
-			{
-				if ((this._idEmployee != value))
-				{
-					this.OnidEmployeeChanging(value);
-					this.SendPropertyChanging();
-					this._idEmployee = value;
-					this.SendPropertyChanged("idEmployee");
-					this.OnidEmployeeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
-		public string UpdatedBy
-		{
-			get
-			{
-				return this._UpdatedBy;
-			}
-			set
-			{
-				if ((this._UpdatedBy != value))
-				{
-					this.OnUpdatedByChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedBy = value;
-					this.SendPropertyChanged("UpdatedBy");
-					this.OnUpdatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedOn
-		{
-			get
-			{
-				return this._UpdatedOn;
-			}
-			set
-			{
-				if ((this._UpdatedOn != value))
-				{
-					this.OnUpdatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._UpdatedOn = value;
-					this.SendPropertyChanged("UpdatedOn");
-					this.OnUpdatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedOn
-		{
-			get
-			{
-				return this._CreatedOn;
-			}
-			set
-			{
-				if ((this._CreatedOn != value))
-				{
-					this.OnCreatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedOn = value;
-					this.SendPropertyChanged("CreatedOn");
-					this.OnCreatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
-		public System.Nullable<bool> ActiveFlag
-		{
-			get
-			{
-				return this._ActiveFlag;
-			}
-			set
-			{
-				if ((this._ActiveFlag != value))
-				{
-					this.OnActiveFlagChanging(value);
-					this.SendPropertyChanging();
-					this._ActiveFlag = value;
-					this.SendPropertyChanged("ActiveFlag");
-					this.OnActiveFlagChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBAemail", DbType="VarChar(255)")]
-		public string ITBAemail
-		{
-			get
-			{
-				return this._ITBAemail;
-			}
-			set
-			{
-				if ((this._ITBAemail != value))
-				{
-					this.OnITBAemailChanging(value);
-					this.SendPropertyChanging();
-					this._ITBAemail = value;
-					this.SendPropertyChanged("ITBAemail");
-					this.OnITBAemailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
-		public System.Nullable<bool> ReceiveNewReqEmail
-		{
-			get
-			{
-				return this._ReceiveNewReqEmail;
-			}
-			set
-			{
-				if ((this._ReceiveNewReqEmail != value))
-				{
-					this.OnReceiveNewReqEmailChanging(value);
-					this.SendPropertyChanging();
-					this._ReceiveNewReqEmail = value;
-					this.SendPropertyChanged("ReceiveNewReqEmail");
-					this.OnReceiveNewReqEmailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
-		public string login
-		{
-			get
-			{
-				return this._login;
-			}
-			set
-			{
-				if ((this._login != value))
-				{
-					this.OnloginChanging(value);
-					this.SendPropertyChanging();
-					this._login = value;
-					this.SendPropertyChanged("login");
-					this.OnloginChanged();
 				}
 			}
 		}
@@ -20909,6 +20414,794 @@ namespace DAL
 		{
 			this.SendPropertyChanging();
 			entity.tblFileType = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblITBA")]
+	public partial class tblITBA : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _idITBA;
+		
+		private int _idEmployee;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private string _ITBAemail;
+		
+		private System.Nullable<bool> _ReceiveNewReqEmail;
+		
+		private string _login;
+		
+		private bool _EDIFlag;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidITBAChanging(int value);
+    partial void OnidITBAChanged();
+    partial void OnidEmployeeChanging(int value);
+    partial void OnidEmployeeChanged();
+    partial void OnUpdatedByChanging(string value);
+    partial void OnUpdatedByChanged();
+    partial void OnUpdatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdatedOnChanged();
+    partial void OnCreatedByChanging(string value);
+    partial void OnCreatedByChanged();
+    partial void OnCreatedOnChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreatedOnChanged();
+    partial void OnActiveFlagChanging(System.Nullable<bool> value);
+    partial void OnActiveFlagChanged();
+    partial void OnITBAemailChanging(string value);
+    partial void OnITBAemailChanged();
+    partial void OnReceiveNewReqEmailChanging(System.Nullable<bool> value);
+    partial void OnReceiveNewReqEmailChanged();
+    partial void OnloginChanging(string value);
+    partial void OnloginChanged();
+    partial void OnEDIFlagChanging(bool value);
+    partial void OnEDIFlagChanged();
+    #endregion
+		
+		public tblITBA()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int idITBA
+		{
+			get
+			{
+				return this._idITBA;
+			}
+			set
+			{
+				if ((this._idITBA != value))
+				{
+					this.OnidITBAChanging(value);
+					this.SendPropertyChanging();
+					this._idITBA = value;
+					this.SendPropertyChanged("idITBA");
+					this.OnidITBAChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
+		public int idEmployee
+		{
+			get
+			{
+				return this._idEmployee;
+			}
+			set
+			{
+				if ((this._idEmployee != value))
+				{
+					this.OnidEmployeeChanging(value);
+					this.SendPropertyChanging();
+					this._idEmployee = value;
+					this.SendPropertyChanged("idEmployee");
+					this.OnidEmployeeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this.OnUpdatedByChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedBy = value;
+					this.SendPropertyChanged("UpdatedBy");
+					this.OnUpdatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this.OnUpdatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._UpdatedOn = value;
+					this.SendPropertyChanged("UpdatedOn");
+					this.OnUpdatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this.OnCreatedByChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedBy = value;
+					this.SendPropertyChanged("CreatedBy");
+					this.OnCreatedByChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this.OnCreatedOnChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedOn = value;
+					this.SendPropertyChanged("CreatedOn");
+					this.OnCreatedOnChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this.OnActiveFlagChanging(value);
+					this.SendPropertyChanging();
+					this._ActiveFlag = value;
+					this.SendPropertyChanged("ActiveFlag");
+					this.OnActiveFlagChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBAemail", DbType="VarChar(255)")]
+		public string ITBAemail
+		{
+			get
+			{
+				return this._ITBAemail;
+			}
+			set
+			{
+				if ((this._ITBAemail != value))
+				{
+					this.OnITBAemailChanging(value);
+					this.SendPropertyChanging();
+					this._ITBAemail = value;
+					this.SendPropertyChanged("ITBAemail");
+					this.OnITBAemailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
+		public System.Nullable<bool> ReceiveNewReqEmail
+		{
+			get
+			{
+				return this._ReceiveNewReqEmail;
+			}
+			set
+			{
+				if ((this._ReceiveNewReqEmail != value))
+				{
+					this.OnReceiveNewReqEmailChanging(value);
+					this.SendPropertyChanging();
+					this._ReceiveNewReqEmail = value;
+					this.SendPropertyChanged("ReceiveNewReqEmail");
+					this.OnReceiveNewReqEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this.OnloginChanging(value);
+					this.SendPropertyChanging();
+					this._login = value;
+					this.SendPropertyChanged("login");
+					this.OnloginChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDIFlag", DbType="Bit NOT NULL")]
+		public bool EDIFlag
+		{
+			get
+			{
+				return this._EDIFlag;
+			}
+			set
+			{
+				if ((this._EDIFlag != value))
+				{
+					this.OnEDIFlagChanging(value);
+					this.SendPropertyChanging();
+					this._EDIFlag = value;
+					this.SendPropertyChanged("EDIFlag");
+					this.OnEDIFlagChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_EDIandITBACombined")]
+	public partial class vw_EDIandITBACombined
+	{
+		
+		private int _idITBA;
+		
+		private string _ITBA;
+		
+		private string _ActiveDirectoryName;
+		
+		private string _ITBAemail;
+		
+		private int _idEmployee;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private System.Nullable<bool> _ReceiveNewReqEmail;
+		
+		private string _login;
+		
+		private int _EDIFlag;
+		
+		public vw_EDIandITBACombined()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", DbType="Int NOT NULL")]
+		public int idITBA
+		{
+			get
+			{
+				return this._idITBA;
+			}
+			set
+			{
+				if ((this._idITBA != value))
+				{
+					this._idITBA = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBA", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string ITBA
+		{
+			get
+			{
+				return this._ITBA;
+			}
+			set
+			{
+				if ((this._ITBA != value))
+				{
+					this._ITBA = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveDirectoryName", DbType="VarChar(MAX)")]
+		public string ActiveDirectoryName
+		{
+			get
+			{
+				return this._ActiveDirectoryName;
+			}
+			set
+			{
+				if ((this._ActiveDirectoryName != value))
+				{
+					this._ActiveDirectoryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBAemail", DbType="VarChar(255)")]
+		public string ITBAemail
+		{
+			get
+			{
+				return this._ITBAemail;
+			}
+			set
+			{
+				if ((this._ITBAemail != value))
+				{
+					this._ITBAemail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
+		public int idEmployee
+		{
+			get
+			{
+				return this._idEmployee;
+			}
+			set
+			{
+				if ((this._idEmployee != value))
+				{
+					this._idEmployee = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this._UpdatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this._UpdatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this._CreatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this._CreatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this._ActiveFlag = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
+		public System.Nullable<bool> ReceiveNewReqEmail
+		{
+			get
+			{
+				return this._ReceiveNewReqEmail;
+			}
+			set
+			{
+				if ((this._ReceiveNewReqEmail != value))
+				{
+					this._ReceiveNewReqEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this._login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDIFlag", DbType="Int NOT NULL")]
+		public int EDIFlag
+		{
+			get
+			{
+				return this._EDIFlag;
+			}
+			set
+			{
+				if ((this._EDIFlag != value))
+				{
+					this._EDIFlag = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_ITBA")]
+	public partial class vw_ITBA
+	{
+		
+		private int _idITBA;
+		
+		private string _ITBA;
+		
+		private string _ActiveDirectoryName;
+		
+		private string _ITBAemail;
+		
+		private int _idEmployee;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private System.Nullable<bool> _ReceiveNewReqEmail;
+		
+		private string _login;
+		
+		private bool _EDIFlag;
+		
+		public vw_ITBA()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", DbType="Int NOT NULL")]
+		public int idITBA
+		{
+			get
+			{
+				return this._idITBA;
+			}
+			set
+			{
+				if ((this._idITBA != value))
+				{
+					this._idITBA = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBA", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string ITBA
+		{
+			get
+			{
+				return this._ITBA;
+			}
+			set
+			{
+				if ((this._ITBA != value))
+				{
+					this._ITBA = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveDirectoryName", DbType="VarChar(MAX)")]
+		public string ActiveDirectoryName
+		{
+			get
+			{
+				return this._ActiveDirectoryName;
+			}
+			set
+			{
+				if ((this._ActiveDirectoryName != value))
+				{
+					this._ActiveDirectoryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBAemail", DbType="VarChar(255)")]
+		public string ITBAemail
+		{
+			get
+			{
+				return this._ITBAemail;
+			}
+			set
+			{
+				if ((this._ITBAemail != value))
+				{
+					this._ITBAemail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEmployee", DbType="Int NOT NULL")]
+		public int idEmployee
+		{
+			get
+			{
+				return this._idEmployee;
+			}
+			set
+			{
+				if ((this._idEmployee != value))
+				{
+					this._idEmployee = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this._UpdatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this._UpdatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this._CreatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this._CreatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this._ActiveFlag = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceiveNewReqEmail", DbType="Bit")]
+		public System.Nullable<bool> ReceiveNewReqEmail
+		{
+			get
+			{
+				return this._ReceiveNewReqEmail;
+			}
+			set
+			{
+				if ((this._ReceiveNewReqEmail != value))
+				{
+					this._ReceiveNewReqEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_login", DbType="VarChar(50)")]
+		public string login
+		{
+			get
+			{
+				return this._login;
+			}
+			set
+			{
+				if ((this._login != value))
+				{
+					this._login = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDIFlag", DbType="Bit NOT NULL")]
+		public bool EDIFlag
+		{
+			get
+			{
+				return this._EDIFlag;
+			}
+			set
+			{
+				if ((this._EDIFlag != value))
+				{
+					this._EDIFlag = value;
+				}
+			}
 		}
 	}
 }

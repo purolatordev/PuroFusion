@@ -21,7 +21,7 @@ public class ClsITBA
     public bool? ActiveFlag { get; set; }
     public bool? ReceiveNewReqEmail { get; set; }
     public string login { get; set; }
-
+    public bool EDIFlag { get; set; }
     public ClsITBA GetITBA(int idITBA)
     {
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
@@ -35,7 +35,8 @@ public class ClsITBA
                                    ITBAEmail = data.ITBAemail,
                                    idEmployee = data.idEmployee,
                                    ReceiveNewReqEmail = data.ReceiveNewReqEmail,
-                                   login = data.login
+                                   login = data.login,
+                                   EDIFlag = data.EDIFlag
                                }).FirstOrDefault();
         return oITBA;
     }

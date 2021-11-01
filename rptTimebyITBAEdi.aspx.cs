@@ -19,7 +19,7 @@ public partial class rptTimebyITBAEdi : System.Web.UI.Page
         {
             if (Session["userName"] != null && Session["appName"] != null)
             {
-                getITBAs();
+                GetITBAandEDICombined();
                 var firstDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
                 dpInvoiceDate1.SelectedDate = firstDayOfMonth;
                 dpInvoiceDate2.SelectedDate = DateTime.Now;
@@ -31,11 +31,17 @@ public partial class rptTimebyITBAEdi : System.Web.UI.Page
             }
         }
     }
-    protected void getITBAs()
+    protected void GetITBAandEDICombined()
     {
         try
         {
-            List<ClsITBA> balist = repository.GetITBAs();
+            List<ClsITBA> FullList = repository.GetITBAandEDICombined();
+            List<int> EmployeeIDs = FullList.GroupBy(p => p.idEmployee).Select(p => p.Key).ToList();
+            List<ClsITBA> balist = new List<ClsITBA>();
+            foreach (int i in EmployeeIDs)
+            {
+                balist.Add(FullList.Where(p => p.idEmployee == i).FirstOrDefault());
+            }
             ClsITBA all = new ClsITBA();
             all.ITBA = "All";
             all.idITBA = 0;

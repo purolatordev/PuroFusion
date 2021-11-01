@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PuroTouchDB" Class="PuroTouchSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PI-DEV-SQL;Initial Catalog=PuroTouchDB;User ID=puroIT" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PuroTouchDBSQLConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PuroTouchDB_Prod" Class="PuroTouchSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PI-DEV-SQL;Initial Catalog=PuroTouchDB_Prod;User ID=puroIT" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PuroTouchDBSQLConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.vw_RelationshipNames" Member="vw_RelationshipNames">
     <Type Name="vw_RelationshipName">
       <Column Name="RelationshipName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -366,36 +366,6 @@
       <Column Name="ChangeReason" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
       <Column Name="CreatedBy" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.vw_ITBA" Member="vw_ITBAs">
-    <Type Name="vw_ITBA">
-      <Column Name="idITBA" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ITBA" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Column Name="ActiveDirectoryName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="ITBAemail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ReceiveNewReqEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.tblITBA" Member="tblITBAs">
-    <Type Name="tblITBA">
-      <Column Name="idITBA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ITBAemail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="ReceiveNewReqEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.tblRequestTypes" Member="tblRequestTypes">
@@ -1034,6 +1004,55 @@
       <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="tblFileType_tblEDIRecipReq" Member="tblEDIRecipReqs" ThisKey="idFileType" OtherKey="idFileType" Type="tblEDIRecipReq" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblITBA" Member="tblITBAs">
+    <Type Name="tblITBA">
+      <Column Name="idITBA" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ITBAemail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ReceiveNewReqEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EDIFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_EDIandITBACombined" Member="vw_EDIandITBACombineds">
+    <Type Name="vw_EDIandITBACombined">
+      <Column Name="idITBA" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ITBA" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveDirectoryName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ITBAemail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ReceiveNewReqEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EDIFlag" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_ITBA" Member="vw_ITBAs">
+    <Type Name="vw_ITBA">
+      <Column Name="idITBA" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ITBA" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="ActiveDirectoryName" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="ITBAemail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idEmployee" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ReceiveNewReqEmail" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EDIFlag" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

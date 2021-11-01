@@ -612,7 +612,7 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
         {
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
             List<ClsITBA> oITBA = (from data in puroTouchContext.GetTable<vw_ITBA>()
-                                   where data.ActiveFlag != false
+                                   where data.ActiveFlag != false && data.EDIFlag == false
                                    orderby data.ITBA
                                    select new ClsITBA
                                    {
@@ -627,11 +627,34 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                        ActiveFlag = data.ActiveFlag,
                                        idEmployee = data.idEmployee,
                                        ReceiveNewReqEmail = data.ReceiveNewReqEmail,
-                                       login = data.login
+                                       login = data.login,
+                                       EDIFlag = data.EDIFlag
                                    }).ToList<ClsITBA>();
             return oITBA;
         }
-
+    public List<ClsITBA> GetITBAandEDICombined()
+    {
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        List<ClsITBA> oITBA = (from data in puroTouchContext.GetTable<vw_EDIandITBACombined>()
+                               where data.ActiveFlag != false
+                               orderby data.ITBA
+                               select new ClsITBA
+                               {
+                                   idITBA = data.idITBA,
+                                   ITBAName = data.ITBA,
+                                   ITBA = data.ITBA,
+                                   ITBAEmail = data.ITBAemail,
+                                   CreatedBy = data.CreatedBy,
+                                   CreatedOn = data.CreatedOn,
+                                   UpdatedBy = data.UpdatedBy,
+                                   UpdatedOn = data.UpdatedOn,
+                                   ActiveFlag = data.ActiveFlag,
+                                   idEmployee = data.idEmployee,
+                                   ReceiveNewReqEmail = data.ReceiveNewReqEmail,
+                                   login = data.login
+                               }).ToList<ClsITBA>();
+        return oITBA;
+    }
     public string GetNewReqEmailList()
     {
         PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
