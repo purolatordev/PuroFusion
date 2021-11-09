@@ -647,14 +647,6 @@ namespace DAL
 			}
 		}
 		
-		public System.Data.Linq.Table<vw_DiscoveryRequestSummary> vw_DiscoveryRequestSummaries
-		{
-			get
-			{
-				return this.GetTable<vw_DiscoveryRequestSummary>();
-			}
-		}
-		
 		public System.Data.Linq.Table<tblFreightAuditor> tblFreightAuditors
 		{
 			get
@@ -732,6 +724,14 @@ namespace DAL
 			get
 			{
 				return this.GetTable<vw_ITBA>();
+			}
+		}
+		
+		public System.Data.Linq.Table<vw_DiscoveryRequestSummary> vw_DiscoveryRequestSummaries
+		{
+			get
+			{
+				return this.GetTable<vw_DiscoveryRequestSummary>();
 			}
 		}
 	}
@@ -17151,753 +17151,6 @@ namespace DAL
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_DiscoveryRequestSummary")]
-	public partial class vw_DiscoveryRequestSummary
-	{
-		
-		private int _idRequest;
-		
-		private System.Nullable<bool> _isNewRequest;
-		
-		private string _SolutionType;
-		
-		private string _EDISpecialistName;
-		
-		private string _EDISpecActiveDir;
-		
-		private string _RequestType;
-		
-		private string _VendorType;
-		
-		private string _SalesRepName;
-		
-		private string _SalesRepEmail;
-		
-		private System.Nullable<int> _idOnboardingPhase;
-		
-		private string _District;
-		
-		private string _CustomerName;
-		
-		private string _Address;
-		
-		private string _City;
-		
-		private string _State;
-		
-		private string _Zipcode;
-		
-		private string _Country;
-		
-		private string _Commodity;
-		
-		private System.Nullable<decimal> _ProjectedRevenue;
-		
-		private string _CurrentSolution;
-		
-		private string _ProposedCustoms;
-		
-		private System.Nullable<System.DateTime> _CallDate1;
-		
-		private System.Nullable<System.DateTime> _CallDate2;
-		
-		private System.Nullable<System.DateTime> _CallDate3;
-		
-		private string _UpdatedBy;
-		
-		private System.Nullable<System.DateTime> _UpdatedOn;
-		
-		private string _CreatedBy;
-		
-		private System.Nullable<System.DateTime> _CreatedOn;
-		
-		private System.Nullable<bool> _ActiveFlag;
-		
-		private System.Nullable<System.DateTime> _CurrentGoLive;
-		
-		private System.Nullable<System.DateTime> _TargetGoLive;
-		
-		private System.Nullable<System.DateTime> _ActualGoLive;
-		
-		private System.Nullable<bool> _worldpakFlag;
-		
-		private System.Nullable<int> _TotalMinutes;
-		
-		private string _TotalTimeSpent;
-		
-		private string _OnboardingPhase;
-		
-		private System.Nullable<int> _idITBA;
-		
-		private string _ITBA;
-		
-		private string _ActiveDirectoryName;
-		
-		private string _ShippingChannel;
-		
-		private string _VendorName;
-		
-		public vw_DiscoveryRequestSummary()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
-		public int idRequest
-		{
-			get
-			{
-				return this._idRequest;
-			}
-			set
-			{
-				if ((this._idRequest != value))
-				{
-					this._idRequest = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNewRequest", DbType="Bit")]
-		public System.Nullable<bool> isNewRequest
-		{
-			get
-			{
-				return this._isNewRequest;
-			}
-			set
-			{
-				if ((this._isNewRequest != value))
-				{
-					this._isNewRequest = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionType", DbType="VarChar(50)")]
-		public string SolutionType
-		{
-			get
-			{
-				return this._SolutionType;
-			}
-			set
-			{
-				if ((this._SolutionType != value))
-				{
-					this._SolutionType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDISpecialistName", DbType="VarChar(MAX)")]
-		public string EDISpecialistName
-		{
-			get
-			{
-				return this._EDISpecialistName;
-			}
-			set
-			{
-				if ((this._EDISpecialistName != value))
-				{
-					this._EDISpecialistName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDISpecActiveDir", DbType="VarChar(MAX)")]
-		public string EDISpecActiveDir
-		{
-			get
-			{
-				return this._EDISpecActiveDir;
-			}
-			set
-			{
-				if ((this._EDISpecActiveDir != value))
-				{
-					this._EDISpecActiveDir = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestType", DbType="VarChar(50)")]
-		public string RequestType
-		{
-			get
-			{
-				return this._RequestType;
-			}
-			set
-			{
-				if ((this._RequestType != value))
-				{
-					this._RequestType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VendorType", DbType="VarChar(100)")]
-		public string VendorType
-		{
-			get
-			{
-				return this._VendorType;
-			}
-			set
-			{
-				if ((this._VendorType != value))
-				{
-					this._VendorType = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesRepName", DbType="VarChar(255)")]
-		public string SalesRepName
-		{
-			get
-			{
-				return this._SalesRepName;
-			}
-			set
-			{
-				if ((this._SalesRepName != value))
-				{
-					this._SalesRepName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesRepEmail", DbType="VarChar(255)")]
-		public string SalesRepEmail
-		{
-			get
-			{
-				return this._SalesRepEmail;
-			}
-			set
-			{
-				if ((this._SalesRepEmail != value))
-				{
-					this._SalesRepEmail = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idOnboardingPhase", DbType="Int")]
-		public System.Nullable<int> idOnboardingPhase
-		{
-			get
-			{
-				return this._idOnboardingPhase;
-			}
-			set
-			{
-				if ((this._idOnboardingPhase != value))
-				{
-					this._idOnboardingPhase = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_District", DbType="VarChar(255)")]
-		public string District
-		{
-			get
-			{
-				return this._District;
-			}
-			set
-			{
-				if ((this._District != value))
-				{
-					this._District = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerName", DbType="VarChar(255)")]
-		public string CustomerName
-		{
-			get
-			{
-				return this._CustomerName;
-			}
-			set
-			{
-				if ((this._CustomerName != value))
-				{
-					this._CustomerName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(255)")]
-		public string Address
-		{
-			get
-			{
-				return this._Address;
-			}
-			set
-			{
-				if ((this._Address != value))
-				{
-					this._Address = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="VarChar(255)")]
-		public string City
-		{
-			get
-			{
-				return this._City;
-			}
-			set
-			{
-				if ((this._City != value))
-				{
-					this._City = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="VarChar(255)")]
-		public string State
-		{
-			get
-			{
-				return this._State;
-			}
-			set
-			{
-				if ((this._State != value))
-				{
-					this._State = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zipcode", DbType="VarChar(255)")]
-		public string Zipcode
-		{
-			get
-			{
-				return this._Zipcode;
-			}
-			set
-			{
-				if ((this._Zipcode != value))
-				{
-					this._Zipcode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(255)")]
-		public string Country
-		{
-			get
-			{
-				return this._Country;
-			}
-			set
-			{
-				if ((this._Country != value))
-				{
-					this._Country = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commodity", DbType="VarChar(255)")]
-		public string Commodity
-		{
-			get
-			{
-				return this._Commodity;
-			}
-			set
-			{
-				if ((this._Commodity != value))
-				{
-					this._Commodity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectedRevenue", DbType="Money")]
-		public System.Nullable<decimal> ProjectedRevenue
-		{
-			get
-			{
-				return this._ProjectedRevenue;
-			}
-			set
-			{
-				if ((this._ProjectedRevenue != value))
-				{
-					this._ProjectedRevenue = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentSolution", DbType="VarChar(3000)")]
-		public string CurrentSolution
-		{
-			get
-			{
-				return this._CurrentSolution;
-			}
-			set
-			{
-				if ((this._CurrentSolution != value))
-				{
-					this._CurrentSolution = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProposedCustoms", DbType="VarChar(2000)")]
-		public string ProposedCustoms
-		{
-			get
-			{
-				return this._ProposedCustoms;
-			}
-			set
-			{
-				if ((this._ProposedCustoms != value))
-				{
-					this._ProposedCustoms = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CallDate1", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CallDate1
-		{
-			get
-			{
-				return this._CallDate1;
-			}
-			set
-			{
-				if ((this._CallDate1 != value))
-				{
-					this._CallDate1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CallDate2", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CallDate2
-		{
-			get
-			{
-				return this._CallDate2;
-			}
-			set
-			{
-				if ((this._CallDate2 != value))
-				{
-					this._CallDate2 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CallDate3", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CallDate3
-		{
-			get
-			{
-				return this._CallDate3;
-			}
-			set
-			{
-				if ((this._CallDate3 != value))
-				{
-					this._CallDate3 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
-		public string UpdatedBy
-		{
-			get
-			{
-				return this._UpdatedBy;
-			}
-			set
-			{
-				if ((this._UpdatedBy != value))
-				{
-					this._UpdatedBy = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> UpdatedOn
-		{
-			get
-			{
-				return this._UpdatedOn;
-			}
-			set
-			{
-				if ((this._UpdatedOn != value))
-				{
-					this._UpdatedOn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this._CreatedBy = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CreatedOn
-		{
-			get
-			{
-				return this._CreatedOn;
-			}
-			set
-			{
-				if ((this._CreatedOn != value))
-				{
-					this._CreatedOn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
-		public System.Nullable<bool> ActiveFlag
-		{
-			get
-			{
-				return this._ActiveFlag;
-			}
-			set
-			{
-				if ((this._ActiveFlag != value))
-				{
-					this._ActiveFlag = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentGoLive", DbType="DateTime")]
-		public System.Nullable<System.DateTime> CurrentGoLive
-		{
-			get
-			{
-				return this._CurrentGoLive;
-			}
-			set
-			{
-				if ((this._CurrentGoLive != value))
-				{
-					this._CurrentGoLive = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TargetGoLive", DbType="DateTime")]
-		public System.Nullable<System.DateTime> TargetGoLive
-		{
-			get
-			{
-				return this._TargetGoLive;
-			}
-			set
-			{
-				if ((this._TargetGoLive != value))
-				{
-					this._TargetGoLive = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualGoLive", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ActualGoLive
-		{
-			get
-			{
-				return this._ActualGoLive;
-			}
-			set
-			{
-				if ((this._ActualGoLive != value))
-				{
-					this._ActualGoLive = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_worldpakFlag", DbType="Bit")]
-		public System.Nullable<bool> worldpakFlag
-		{
-			get
-			{
-				return this._worldpakFlag;
-			}
-			set
-			{
-				if ((this._worldpakFlag != value))
-				{
-					this._worldpakFlag = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalMinutes", DbType="Int")]
-		public System.Nullable<int> TotalMinutes
-		{
-			get
-			{
-				return this._TotalMinutes;
-			}
-			set
-			{
-				if ((this._TotalMinutes != value))
-				{
-					this._TotalMinutes = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalTimeSpent", DbType="VarChar(33)")]
-		public string TotalTimeSpent
-		{
-			get
-			{
-				return this._TotalTimeSpent;
-			}
-			set
-			{
-				if ((this._TotalTimeSpent != value))
-				{
-					this._TotalTimeSpent = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OnboardingPhase", DbType="VarChar(100)")]
-		public string OnboardingPhase
-		{
-			get
-			{
-				return this._OnboardingPhase;
-			}
-			set
-			{
-				if ((this._OnboardingPhase != value))
-				{
-					this._OnboardingPhase = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", DbType="Int")]
-		public System.Nullable<int> idITBA
-		{
-			get
-			{
-				return this._idITBA;
-			}
-			set
-			{
-				if ((this._idITBA != value))
-				{
-					this._idITBA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBA", DbType="VarChar(MAX)")]
-		public string ITBA
-		{
-			get
-			{
-				return this._ITBA;
-			}
-			set
-			{
-				if ((this._ITBA != value))
-				{
-					this._ITBA = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveDirectoryName", DbType="VarChar(MAX)")]
-		public string ActiveDirectoryName
-		{
-			get
-			{
-				return this._ActiveDirectoryName;
-			}
-			set
-			{
-				if ((this._ActiveDirectoryName != value))
-				{
-					this._ActiveDirectoryName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingChannel", DbType="VarChar(100)")]
-		public string ShippingChannel
-		{
-			get
-			{
-				return this._ShippingChannel;
-			}
-			set
-			{
-				if ((this._ShippingChannel != value))
-				{
-					this._ShippingChannel = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VendorName", DbType="VarChar(100)")]
-		public string VendorName
-		{
-			get
-			{
-				return this._VendorName;
-			}
-			set
-			{
-				if ((this._VendorName != value))
-				{
-					this._VendorName = value;
-				}
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tblFreightAuditors")]
 	public partial class tblFreightAuditor : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -21200,6 +20453,825 @@ namespace DAL
 				if ((this._EDIFlag != value))
 				{
 					this._EDIFlag = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.vw_DiscoveryRequestSummary")]
+	public partial class vw_DiscoveryRequestSummary
+	{
+		
+		private int _idRequest;
+		
+		private System.Nullable<bool> _isNewRequest;
+		
+		private string _SolutionType;
+		
+		private string _EDISpecialistName;
+		
+		private string _EDISpecActiveDir;
+		
+		private string _RequestType;
+		
+		private string _VendorType;
+		
+		private string _SalesRepName;
+		
+		private string _SalesRepEmail;
+		
+		private System.Nullable<int> _idOnboardingPhase;
+		
+		private string _District;
+		
+		private string _CustomerName;
+		
+		private string _Address;
+		
+		private string _City;
+		
+		private string _State;
+		
+		private string _Zipcode;
+		
+		private string _Country;
+		
+		private string _Commodity;
+		
+		private System.Nullable<decimal> _ProjectedRevenue;
+		
+		private string _CurrentSolution;
+		
+		private string _ProposedCustoms;
+		
+		private System.Nullable<System.DateTime> _CallDate1;
+		
+		private System.Nullable<System.DateTime> _CallDate2;
+		
+		private System.Nullable<System.DateTime> _CallDate3;
+		
+		private string _UpdatedBy;
+		
+		private System.Nullable<System.DateTime> _UpdatedOn;
+		
+		private string _CreatedBy;
+		
+		private System.Nullable<System.DateTime> _CreatedOn;
+		
+		private System.Nullable<bool> _ActiveFlag;
+		
+		private System.Nullable<System.DateTime> _CurrentGoLive;
+		
+		private System.Nullable<System.DateTime> _TargetGoLive;
+		
+		private System.Nullable<System.DateTime> _ActualGoLive;
+		
+		private System.Nullable<bool> _worldpakFlag;
+		
+		private System.Nullable<int> _TotalMinutes;
+		
+		private string _TotalTimeSpent;
+		
+		private string _OnboardingPhase;
+		
+		private System.Nullable<int> _idITBA;
+		
+		private string _ITBA;
+		
+		private string _ActiveDirectoryName;
+		
+		private string _ShippingChannel;
+		
+		private string _VendorName;
+		
+		private string _EDIOnboardingPhaseType;
+		
+		private System.Nullable<System.DateTime> _EDIActualGoLive;
+		
+		private System.Nullable<System.DateTime> _EDITargetGoLive;
+		
+		private System.Nullable<System.DateTime> _EDICurrentGoLive;
+		
+		public vw_DiscoveryRequestSummary()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idRequest", DbType="Int NOT NULL")]
+		public int idRequest
+		{
+			get
+			{
+				return this._idRequest;
+			}
+			set
+			{
+				if ((this._idRequest != value))
+				{
+					this._idRequest = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isNewRequest", DbType="Bit")]
+		public System.Nullable<bool> isNewRequest
+		{
+			get
+			{
+				return this._isNewRequest;
+			}
+			set
+			{
+				if ((this._isNewRequest != value))
+				{
+					this._isNewRequest = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SolutionType", DbType="VarChar(50)")]
+		public string SolutionType
+		{
+			get
+			{
+				return this._SolutionType;
+			}
+			set
+			{
+				if ((this._SolutionType != value))
+				{
+					this._SolutionType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDISpecialistName", DbType="VarChar(MAX)")]
+		public string EDISpecialistName
+		{
+			get
+			{
+				return this._EDISpecialistName;
+			}
+			set
+			{
+				if ((this._EDISpecialistName != value))
+				{
+					this._EDISpecialistName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDISpecActiveDir", DbType="VarChar(MAX)")]
+		public string EDISpecActiveDir
+		{
+			get
+			{
+				return this._EDISpecActiveDir;
+			}
+			set
+			{
+				if ((this._EDISpecActiveDir != value))
+				{
+					this._EDISpecActiveDir = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RequestType", DbType="VarChar(50)")]
+		public string RequestType
+		{
+			get
+			{
+				return this._RequestType;
+			}
+			set
+			{
+				if ((this._RequestType != value))
+				{
+					this._RequestType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VendorType", DbType="VarChar(100)")]
+		public string VendorType
+		{
+			get
+			{
+				return this._VendorType;
+			}
+			set
+			{
+				if ((this._VendorType != value))
+				{
+					this._VendorType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesRepName", DbType="VarChar(255)")]
+		public string SalesRepName
+		{
+			get
+			{
+				return this._SalesRepName;
+			}
+			set
+			{
+				if ((this._SalesRepName != value))
+				{
+					this._SalesRepName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SalesRepEmail", DbType="VarChar(255)")]
+		public string SalesRepEmail
+		{
+			get
+			{
+				return this._SalesRepEmail;
+			}
+			set
+			{
+				if ((this._SalesRepEmail != value))
+				{
+					this._SalesRepEmail = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idOnboardingPhase", DbType="Int")]
+		public System.Nullable<int> idOnboardingPhase
+		{
+			get
+			{
+				return this._idOnboardingPhase;
+			}
+			set
+			{
+				if ((this._idOnboardingPhase != value))
+				{
+					this._idOnboardingPhase = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_District", DbType="VarChar(255)")]
+		public string District
+		{
+			get
+			{
+				return this._District;
+			}
+			set
+			{
+				if ((this._District != value))
+				{
+					this._District = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerName", DbType="VarChar(255)")]
+		public string CustomerName
+		{
+			get
+			{
+				return this._CustomerName;
+			}
+			set
+			{
+				if ((this._CustomerName != value))
+				{
+					this._CustomerName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address", DbType="VarChar(255)")]
+		public string Address
+		{
+			get
+			{
+				return this._Address;
+			}
+			set
+			{
+				if ((this._Address != value))
+				{
+					this._Address = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_City", DbType="VarChar(255)")]
+		public string City
+		{
+			get
+			{
+				return this._City;
+			}
+			set
+			{
+				if ((this._City != value))
+				{
+					this._City = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_State", DbType="VarChar(255)")]
+		public string State
+		{
+			get
+			{
+				return this._State;
+			}
+			set
+			{
+				if ((this._State != value))
+				{
+					this._State = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zipcode", DbType="VarChar(255)")]
+		public string Zipcode
+		{
+			get
+			{
+				return this._Zipcode;
+			}
+			set
+			{
+				if ((this._Zipcode != value))
+				{
+					this._Zipcode = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(255)")]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this._Country = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Commodity", DbType="VarChar(255)")]
+		public string Commodity
+		{
+			get
+			{
+				return this._Commodity;
+			}
+			set
+			{
+				if ((this._Commodity != value))
+				{
+					this._Commodity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProjectedRevenue", DbType="Money")]
+		public System.Nullable<decimal> ProjectedRevenue
+		{
+			get
+			{
+				return this._ProjectedRevenue;
+			}
+			set
+			{
+				if ((this._ProjectedRevenue != value))
+				{
+					this._ProjectedRevenue = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentSolution", DbType="VarChar(3000)")]
+		public string CurrentSolution
+		{
+			get
+			{
+				return this._CurrentSolution;
+			}
+			set
+			{
+				if ((this._CurrentSolution != value))
+				{
+					this._CurrentSolution = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProposedCustoms", DbType="VarChar(2000)")]
+		public string ProposedCustoms
+		{
+			get
+			{
+				return this._ProposedCustoms;
+			}
+			set
+			{
+				if ((this._ProposedCustoms != value))
+				{
+					this._ProposedCustoms = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CallDate1", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CallDate1
+		{
+			get
+			{
+				return this._CallDate1;
+			}
+			set
+			{
+				if ((this._CallDate1 != value))
+				{
+					this._CallDate1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CallDate2", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CallDate2
+		{
+			get
+			{
+				return this._CallDate2;
+			}
+			set
+			{
+				if ((this._CallDate2 != value))
+				{
+					this._CallDate2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CallDate3", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CallDate3
+		{
+			get
+			{
+				return this._CallDate3;
+			}
+			set
+			{
+				if ((this._CallDate3 != value))
+				{
+					this._CallDate3 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedBy", DbType="VarChar(100)")]
+		public string UpdatedBy
+		{
+			get
+			{
+				return this._UpdatedBy;
+			}
+			set
+			{
+				if ((this._UpdatedBy != value))
+				{
+					this._UpdatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UpdatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UpdatedOn
+		{
+			get
+			{
+				return this._UpdatedOn;
+			}
+			set
+			{
+				if ((this._UpdatedOn != value))
+				{
+					this._UpdatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="VarChar(100)")]
+		public string CreatedBy
+		{
+			get
+			{
+				return this._CreatedBy;
+			}
+			set
+			{
+				if ((this._CreatedBy != value))
+				{
+					this._CreatedBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CreatedOn
+		{
+			get
+			{
+				return this._CreatedOn;
+			}
+			set
+			{
+				if ((this._CreatedOn != value))
+				{
+					this._CreatedOn = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveFlag", DbType="Bit")]
+		public System.Nullable<bool> ActiveFlag
+		{
+			get
+			{
+				return this._ActiveFlag;
+			}
+			set
+			{
+				if ((this._ActiveFlag != value))
+				{
+					this._ActiveFlag = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentGoLive", DbType="DateTime")]
+		public System.Nullable<System.DateTime> CurrentGoLive
+		{
+			get
+			{
+				return this._CurrentGoLive;
+			}
+			set
+			{
+				if ((this._CurrentGoLive != value))
+				{
+					this._CurrentGoLive = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TargetGoLive", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TargetGoLive
+		{
+			get
+			{
+				return this._TargetGoLive;
+			}
+			set
+			{
+				if ((this._TargetGoLive != value))
+				{
+					this._TargetGoLive = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualGoLive", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ActualGoLive
+		{
+			get
+			{
+				return this._ActualGoLive;
+			}
+			set
+			{
+				if ((this._ActualGoLive != value))
+				{
+					this._ActualGoLive = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_worldpakFlag", DbType="Bit")]
+		public System.Nullable<bool> worldpakFlag
+		{
+			get
+			{
+				return this._worldpakFlag;
+			}
+			set
+			{
+				if ((this._worldpakFlag != value))
+				{
+					this._worldpakFlag = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalMinutes", DbType="Int")]
+		public System.Nullable<int> TotalMinutes
+		{
+			get
+			{
+				return this._TotalMinutes;
+			}
+			set
+			{
+				if ((this._TotalMinutes != value))
+				{
+					this._TotalMinutes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalTimeSpent", DbType="VarChar(33)")]
+		public string TotalTimeSpent
+		{
+			get
+			{
+				return this._TotalTimeSpent;
+			}
+			set
+			{
+				if ((this._TotalTimeSpent != value))
+				{
+					this._TotalTimeSpent = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OnboardingPhase", DbType="VarChar(100)")]
+		public string OnboardingPhase
+		{
+			get
+			{
+				return this._OnboardingPhase;
+			}
+			set
+			{
+				if ((this._OnboardingPhase != value))
+				{
+					this._OnboardingPhase = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idITBA", DbType="Int")]
+		public System.Nullable<int> idITBA
+		{
+			get
+			{
+				return this._idITBA;
+			}
+			set
+			{
+				if ((this._idITBA != value))
+				{
+					this._idITBA = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ITBA", DbType="VarChar(MAX)")]
+		public string ITBA
+		{
+			get
+			{
+				return this._ITBA;
+			}
+			set
+			{
+				if ((this._ITBA != value))
+				{
+					this._ITBA = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActiveDirectoryName", DbType="VarChar(MAX)")]
+		public string ActiveDirectoryName
+		{
+			get
+			{
+				return this._ActiveDirectoryName;
+			}
+			set
+			{
+				if ((this._ActiveDirectoryName != value))
+				{
+					this._ActiveDirectoryName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingChannel", DbType="VarChar(100)")]
+		public string ShippingChannel
+		{
+			get
+			{
+				return this._ShippingChannel;
+			}
+			set
+			{
+				if ((this._ShippingChannel != value))
+				{
+					this._ShippingChannel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VendorName", DbType="VarChar(100)")]
+		public string VendorName
+		{
+			get
+			{
+				return this._VendorName;
+			}
+			set
+			{
+				if ((this._VendorName != value))
+				{
+					this._VendorName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDIOnboardingPhaseType", DbType="VarChar(50)")]
+		public string EDIOnboardingPhaseType
+		{
+			get
+			{
+				return this._EDIOnboardingPhaseType;
+			}
+			set
+			{
+				if ((this._EDIOnboardingPhaseType != value))
+				{
+					this._EDIOnboardingPhaseType = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDIActualGoLive", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EDIActualGoLive
+		{
+			get
+			{
+				return this._EDIActualGoLive;
+			}
+			set
+			{
+				if ((this._EDIActualGoLive != value))
+				{
+					this._EDIActualGoLive = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDITargetGoLive", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EDITargetGoLive
+		{
+			get
+			{
+				return this._EDITargetGoLive;
+			}
+			set
+			{
+				if ((this._EDITargetGoLive != value))
+				{
+					this._EDITargetGoLive = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EDICurrentGoLive", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EDICurrentGoLive
+		{
+			get
+			{
+				return this._EDICurrentGoLive;
+			}
+			set
+			{
+				if ((this._EDICurrentGoLive != value))
+				{
+					this._EDICurrentGoLive = value;
 				}
 			}
 		}

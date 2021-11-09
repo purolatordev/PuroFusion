@@ -725,6 +725,10 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   VendorType = data.VendorType,
                                                   VendorName = data.VendorName,
                                                   SolutionType = data.SolutionType,
+                                                  EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                                  EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                                  EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                                  EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
                                                   EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
@@ -776,7 +780,13 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType,
+                                                  VendorType = data.VendorType,
+                                                  VendorName = data.VendorName,
                                                   SolutionType = data.SolutionType,
+                                                  EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                                  EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                                  EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                                  EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
                                                   EDISpecialistName = data.EDISpecialistName
 
                                               }).ToList<ClsDiscoveryRequest>();
@@ -830,6 +840,12 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType,
                                                   SolutionType = data.SolutionType,
+                                                  VendorType = data.VendorType,
+                                                  VendorName = data.VendorName,
+                                                  EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                                  EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                                  EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                                  EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
                                                   EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
@@ -881,7 +897,13 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType,
+                                                  VendorType = data.VendorType,
+                                                  VendorName = data.VendorName,
                                                   SolutionType = data.SolutionType,
+                                                  EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                                  EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                                  EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                                  EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
                                                   EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();
@@ -932,7 +954,13 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
                                                   NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
                                                   WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
                                                   RequestType = data.RequestType,
+                                                  VendorType = data.VendorType,
+                                                  VendorName = data.VendorName,
                                                   SolutionType = data.SolutionType,
+                                                  EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                                  EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                                  EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                                  EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
                                                   EDISpecialistName = data.EDISpecialistName
                                               }).ToList<ClsDiscoveryRequest>();
             var newoReq = oReq.OrderByDescending(x => x.CreatedOn).ToList();

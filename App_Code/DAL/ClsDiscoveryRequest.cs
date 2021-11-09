@@ -149,7 +149,7 @@ public class ClsDiscoveryRequest
 
     public System.Nullable<System.DateTime> EDIActualGoLive { get; set; }
     public int idEDIOnboardingPhase { get; set; }
-
+    public string EDIOnboardingPhaseType { get; set; }
     public ClsDiscoveryRequest()
 	{
 		//

@@ -287,12 +287,12 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="EDISpecialistName" FilterControlAltText="Filter EDISpecialistName column" HeaderText="EDI Specialist" SortExpression="EDISpecialistName" UniqueName="EDISpecialistName">
                     </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="EDIOnboardingPhaseType" FilterControlAltText="Filter EDIOnboardingPhaseType column" HeaderText="EDI Onboarding Phase" SortExpression="EDIOnboardingPhaseType" UniqueName="EDIOnboardingPhaseType">
+                    </telerik:GridBoundColumn>
                     <telerik:GridHyperLinkColumn DataTextField="CustomerName" Target="_parent" NavigateUrl="javascript:void(0);"
                          AllowFiltering="true" FilterControlAltText="Filter CustomerName column" HeaderText="Customer Name" SortExpression="CustomerName" UniqueName="CustomerName" ItemStyle-ForeColor="Blue">
                     </telerik:GridHyperLinkColumn>
-                  
                     <telerik:GridBoundColumn DataField="NewRequestYesNo" FilterControlAltText="Filter NewRequestYesNo column" HeaderText="New Relationship?" SortExpression="NewRequestYesNo" UniqueName="NewRequestYesNo" Visible="false" >
-                        <%--<HeaderStyle Width="50px"></HeaderStyle>--%>
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="SalesRepName" FilterControlAltText="Filter SalesRepName column" HeaderText="Sales Professional" SortExpression="SalesRepName" UniqueName="SalesRepName">
                     </telerik:GridBoundColumn>               
@@ -300,13 +300,17 @@
                     </telerik:GridBoundColumn>
                      <telerik:GridBoundColumn DataField="ITBA" FilterControlAltText="Filter ITBA column" HeaderText="Onboarding Specialist" SortExpression="ITBA" UniqueName="ITBA">
                     </telerik:GridBoundColumn>
-                    
                     <telerik:GridBoundColumn DataField="OnboardingPhase" FilterControlAltText="Filter OnboardingPhase column" HeaderText="Onboarding Phase" SortExpression="OnboardingPhase" UniqueName="OnboardingPhase">
                     </telerik:GridBoundColumn>   
-                   
+                    <telerik:GridBoundColumn DataField="VendorType" FilterControlAltText="Filter VendorType column" HeaderText="Vendor Type" SortExpression="VendorType" UniqueName="VendorType">
+                    </telerik:GridBoundColumn>   
+                    <telerik:GridBoundColumn DataField="VendorName" FilterControlAltText="Filter VendorName column" HeaderText="Vendor Name" SortExpression="VendorName" UniqueName="VendorName">
+                    </telerik:GridBoundColumn>   
                      <telerik:GridBoundColumn DataField="ShippingChannel" FilterControlAltText="Filter ShippingChannel column" HeaderText="Shipping Channel" SortExpression="ShippingChannel" UniqueName="ShippingChannel">
                     </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn DataField="TotalTimeSpent" FilterControlAltText="Filter TotalTimeSpent column" HeaderText="Time Spent" SortExpression="TotalTimeSpent" UniqueName="TotalTimeSpent">
+                    <telerik:GridBoundColumn DataField="ProposedCustoms" FilterControlAltText="Filter Customs column" HeaderText="Customs" SortExpression="ProposedCustoms" UniqueName="ProposedCustoms">
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="TotalTimeSpent" FilterControlAltText="Filter TotalTimeSpent column" HeaderText="Time Spent" SortExpression="TotalTimeSpent" UniqueName="TotalTimeSpent">
                          <HeaderStyle Width="50px"></HeaderStyle>
                     </telerik:GridBoundColumn>
                      <telerik:GridDateTimeColumn DataField="TargetGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter TargetGoLive column" HeaderText="Target Go-Live" SortExpression="TargetGoLive" UniqueName="TargetGoLive" EnableTimeIndependentFiltering="true">
@@ -315,11 +319,16 @@
                     </telerik:GridDateTimeColumn>
                      <telerik:GridDateTimeColumn DataField="ActualGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter ActualGoLive column" HeaderText="Actual Go-Live" SortExpression="ActualGoLive" UniqueName="ActualGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridDateTimeColumn DataField="CreatedOn" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter CreatedOn column" HeaderText="Submitted Date" SortExpression="CreatedOn" UniqueName="CreatedOn" EnableTimeIndependentFiltering="true">
+                    <telerik:GridDateTimeColumn DataField="EDITargetGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDITargetGoLive column" HeaderText="EDI Target Go-Live" SortExpression="EDITargetGoLive" UniqueName="EDITargetGoLive" EnableTimeIndependentFiltering="true">
+                    </telerik:GridDateTimeColumn>
+                    <telerik:GridDateTimeColumn DataField="EDICurrentGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDICurrentGoLive column" HeaderText="EDI Current Go-Live" SortExpression="EDICurrentGoLive" UniqueName="EDICurrentGoLive" EnableTimeIndependentFiltering="true">
+                    </telerik:GridDateTimeColumn>
+                    <telerik:GridDateTimeColumn DataField="EDIActualGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDIActualGoLive column" HeaderText="EDI Actual Go-Live" SortExpression="EDIActualGoLive" UniqueName="EDIActualGoLive" EnableTimeIndependentFiltering="true">
+                    </telerik:GridDateTimeColumn>
+                    <telerik:GridDateTimeColumn DataField="UpdatedOn" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter UpdatedOn column" HeaderText="Last Updated" SortExpression="UpdatedOn" UniqueName="UpdatedOn" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
                      <telerik:GridBoundColumn DataField="UpdatedBy" FilterControlAltText="Filter UpdatedBy column" HeaderText="Last Updated By" SortExpression="UpdatedBy" UniqueName="UpdatedBy">
                     </telerik:GridBoundColumn>
-                    
                 </Columns>
                 <PagerStyle AlwaysVisible="True"></PagerStyle>
             </MasterTableView>
