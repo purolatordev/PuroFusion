@@ -126,6 +126,8 @@
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="EDISpecialistName" FilterControlAltText="Filter EDISpecialistName column" HeaderText="EDI Specialist" SortExpression="EDISpecialistName" UniqueName="EDISpecialistName">
                     </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn DataField="EDIOnboardingPhaseType" FilterControlAltText="Filter EDIOnboardingPhaseType column" HeaderText="EDI Onboarding Phase" SortExpression="EDIOnboardingPhaseType" UniqueName="EDIOnboardingPhaseType">
+                    </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="VendorType" FilterControlAltText="Filter VendorType column" HeaderText="Vendor Type" SortExpression="VendorType" UniqueName="VendorType">
                     </telerik:GridBoundColumn>
                     <telerik:GridBoundColumn DataField="VendorName" FilterControlAltText="Filter VendorName column" HeaderText="Vendor Name" SortExpression="VendorName" UniqueName="VendorName">
@@ -159,10 +161,14 @@
                     </telerik:GridDateTimeColumn>                  
                      <telerik:GridDateTimeColumn DataField="ActualGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter ActualGoLive column" HeaderText="Acutal Go-Live" SortExpression="ActualGoLive" UniqueName="ActualGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
-                    <telerik:GridDateTimeColumn DataField="CreatedOn" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter CreatedOn column" HeaderText="Submitted Date" SortExpression="CreatedOn" UniqueName="CreatedOn" EnableTimeIndependentFiltering="true">
+                    <telerik:GridDateTimeColumn DataField="EDICurrentGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDICurrentGoLive column" HeaderText="EDI Current Go-Live" SortExpression="EDICurrentGoLive" UniqueName="EDICurrentGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
-                     <telerik:GridDateTimeColumn DataField="UpdatedOn" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter UpdatedOn column" HeaderText="Last Updated" SortExpression="UpdatedOn" UniqueName="UpdatedOn" EnableTimeIndependentFiltering="true">
+                    <telerik:GridDateTimeColumn DataField="EDIActualGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDIActualGoLive column" HeaderText="EDI Actual Go-Live" SortExpression="EDIActualGoLive" UniqueName="EDIActualGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
+                    <telerik:GridDateTimeColumn DataField="UpdatedOn" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter UpdatedOn column" HeaderText="Last Updated" SortExpression="UpdatedOn" UniqueName="UpdatedOn" EnableTimeIndependentFiltering="true">
+                    </telerik:GridDateTimeColumn>
+                     <telerik:GridBoundColumn DataField="UpdatedBy" FilterControlAltText="Filter UpdatedBy column" HeaderText="Last Updated By" SortExpression="UpdatedBy" UniqueName="UpdatedBy">
+                    </telerik:GridBoundColumn>
                      <telerik:GridButtonColumn ButtonType="ImageButton" CommandName="Delete"  HeaderText="Delete" FilterControlAltText="Filter DeleteColumn column" Text="Delete" UniqueName="DeleteLink" Resizable="false" ConfirmDialogType="RadWindow" ConfirmText="Delete Request?">
                    <HeaderStyle Width="50px"></HeaderStyle>
                    </telerik:GridButtonColumn>
