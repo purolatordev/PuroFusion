@@ -160,6 +160,8 @@
                      <telerik:GridDateTimeColumn DataField="CurrentGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter CurrentGoLive column" HeaderText="Current Go-Live" SortExpression="CurrentGoLive" UniqueName="CurrentGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>                  
                      <telerik:GridDateTimeColumn DataField="ActualGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter ActualGoLive column" HeaderText="Acutal Go-Live" SortExpression="ActualGoLive" UniqueName="ActualGoLive" EnableTimeIndependentFiltering="true">
+                     </telerik:GridDateTimeColumn>
+                    <telerik:GridDateTimeColumn DataField="EDITargetGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDITargetGoLive column" HeaderText="EDI Target Go-Live" SortExpression="EDITargetGoLive" UniqueName="EDITargetGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
                     <telerik:GridDateTimeColumn DataField="EDICurrentGoLive" Visible="true" DataType="System.DateTime" DataFormatString="{0:M/dd/yyyy}" FilterControlAltText="Filter EDICurrentGoLive column" HeaderText="EDI Current Go-Live" SortExpression="EDICurrentGoLive" UniqueName="EDICurrentGoLive" EnableTimeIndependentFiltering="true">
                     </telerik:GridDateTimeColumn>
