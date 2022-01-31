@@ -56,8 +56,18 @@ public partial class EDI214 : System.Web.UI.UserControl
         {
             Params.CheckPassBacks(Params.idEDIRecipReqs, false);
             RemoveUserControl2(sender, e);
+            string strFileformat = comboBxFileFormat214.SelectedValue;
             GetFileFormats();
+            if( !String.IsNullOrEmpty(strFileformat) )
+            {
+                comboBxFileFormat214.SelectedValue = strFileformat;
+            }
+            string strCommunicationMethod = comboxCommunicationMethod.SelectedValue;
             GetCommunicationMethods();
+            if (!String.IsNullOrEmpty(strCommunicationMethod))
+            {
+                comboxCommunicationMethod.SelectedValue = strCommunicationMethod;
+            }
             GetTriggerMechanisms();
             GetTiming();
             if (Params.ct == UserControlParams.CourierType.CourierEDI)
