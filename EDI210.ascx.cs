@@ -37,8 +37,18 @@ public partial class EDI210 : System.Web.UI.UserControl
         {
             Params.CheckPassBacks(Params.idEDIRecipReqs,false);
             RemoveUserControl(sender, e);
+            string strFileformat = comboBxFileFormat.SelectedValue;
             GetFileFormats();
+            if (!String.IsNullOrEmpty(strFileformat))
+            {
+                comboBxFileFormat.SelectedValue = strFileformat;
+            }
+            string strCommunicationMethod = comboxCommunicationMethod.SelectedValue;
             GetCommunicationMethods();
+            if (!String.IsNullOrEmpty(strCommunicationMethod))
+            {
+                comboxCommunicationMethod.SelectedValue = strCommunicationMethod;
+            }
             UpdateControls(qEDIRecipReq);
         }
         SetFileFormatControls();
