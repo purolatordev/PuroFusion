@@ -6460,10 +6460,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             string subject = "Discovery Request Notification";
 
+            if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+            {
+                subject = subject + " TEST!";
+            }
+
             string msgBody = "";
 
             msgBody = composeEmail(objDiscoveryRequest);
-
 
             string host = ConfigurationManager.AppSettings["host"].ToString();
             int port = int.Parse(ConfigurationManager.AppSettings["port"]);
@@ -6473,8 +6477,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             string fromEmail = ConfigurationManager.AppSettings["fromEmail"];
 
             string toEmail = repository.GetNewReqEmailList();
-
-
 
             SmtpClient client = new SmtpClient(host, port);
             client.EnableSsl = true;
@@ -6489,6 +6491,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
             //MK 7-30, Send email to person submitting
             string subject2 = "Discovery Request Received";
+            if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+            {
+                subject2 = subject2 + " TEST!";
+            }
             string errorMsg2 = "Error Sending Requestor Email";
             string ccEmail = objDiscoveryRequest.SalesRepEmail;
             MailMessage message2 = new MailMessage(fromEmail, ccEmail, subject2, errorMsg2);
@@ -6505,6 +6511,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     protected string composeEmail(ClsDiscoveryRequest objDiscoveryRequest)
     {
         string msgBody = "";
+
+        int iSolutionType = (objDiscoveryRequest.idSolutionType.HasValue) ? objDiscoveryRequest.idSolutionType.Value : 1;
+        string strSolutionType = (iSolutionType == 1) ? "Shipping System" : (iSolutionType == 2) ? "EDI" : "Both Ship Sys & EDI";
+
+        msgBody = msgBody + "Request Type: " + strSolutionType + "\n\n";
 
         // strategic 
         if (objDiscoveryRequest.StrategicFlag == true)
