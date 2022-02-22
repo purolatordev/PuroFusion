@@ -150,6 +150,8 @@ public class ClsDiscoveryRequest
     public System.Nullable<System.DateTime> EDIActualGoLive { get; set; }
     public int idEDIOnboardingPhase { get; set; }
     public string EDIOnboardingPhaseType { get; set; }
+    public string EDICustomerDetails { get; set; }
+
     public ClsDiscoveryRequest()
 	{
 		//
@@ -292,7 +294,8 @@ public class ClsDiscoveryRequest
                                                    EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
                                                    EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
                                                    EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
-                                                   idEDIOnboardingPhase = data.idEDIOnboardingPhase
+                                                   idEDIOnboardingPhase = data.idEDIOnboardingPhase,
+                                                   EDICustomerDetails = data.EDICustomerDetails
                                                }).FirstOrDefault();
         return oReq;
     }
@@ -415,7 +418,8 @@ public class ClsDiscoveryRequest
                 EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
                 EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
                 EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
-                idEDIOnboardingPhase = (int) data.idEDIOnboardingPhase
+                idEDIOnboardingPhase = (int) data.idEDIOnboardingPhase,
+                EDICustomerDetails = data.EDICustomerDetails
             };
             puroTouchContext.GetTable<tblDiscoveryRequest>().InsertOnSubmit(oNewRow);
             // Submit the changes to the database. 
@@ -565,6 +569,7 @@ public class ClsDiscoveryRequest
                     updRow.EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive;
                     updRow.EDIActualGoLive = (DateTime?)data.EDIActualGoLive;
                     updRow.idEDIOnboardingPhase = data.idEDIOnboardingPhase;
+                    updRow.EDICustomerDetails = data.EDICustomerDetails;
                 }
                 // Submit the changes to the database. 
                 puroTouchContext.SubmitChanges();

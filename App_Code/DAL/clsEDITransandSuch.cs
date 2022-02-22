@@ -447,10 +447,14 @@ public static class SrvEDIAccount
                 CreatedOn = data.CreatedOn,
                 ActiveFlag = true
             };
-            o.GetTable<tblEDIAccount>().InsertOnSubmit(oNewRow);
-            o.SubmitChanges();
-            newID = oNewRow.idEDITranscation;
-            data.idRequest = newID;
+            var q = o.tblEDIAccounts.Where(p => p.idEDITranscation == oNewRow.idEDITranscation && String.Equals(p.AccountNumber, oNewRow.AccountNumber)).ToList();
+            if (q.Count() == 0)
+            {
+                o.GetTable<tblEDIAccount>().InsertOnSubmit(oNewRow);
+                o.SubmitChanges();
+                newID = oNewRow.idEDITranscation;
+                data.idRequest = newID;
+            }
         }
         catch (Exception ex)
         {

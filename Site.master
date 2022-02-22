@@ -105,7 +105,7 @@
     </div>
     <div class="footer">
            <p>&copy; <%: DateTime.Now.Year %> - Purolator International
-               <br />Questions?  <a href="mailto:CustomerITSupport@purolatorintl.com" target="_top">Contact CustomerITSupport</a>
+               <br />Questions?  <a href="mailto:ITSupport@purolatorintl.com" target="_top">Contact CustomerITSupport</a>
            </p>
     </div>
 

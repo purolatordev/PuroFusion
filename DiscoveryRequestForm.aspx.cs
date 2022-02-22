@@ -3834,7 +3834,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
             //Tab - EDI Services
             txtBxEDISolutionSummary.Text = request.EDIDetails;
-            txtBxCustomerEDIDetails.Text = request.EDIDetails;
+            txtBxCustomerEDIDetails.Text = request.EDICustomerDetails;
             if (request.FreightAuditor == false || request.FreightAuditor == null)
                 comboxFreightAuditor.SelectedText = "No";
             else
@@ -5401,19 +5401,21 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         //SEND EMAIL TO ITBA IF NEW OR CHANGED
         string OrigITBA = Session["ITBA"].ToString();
         string CurrentITBA = objDiscoveryRequest.idITBA.ToString();
-        string emailmsg = "";
+        //string emailmsg = "";
         if (OrigITBA != CurrentITBA)
         {
             //send email
-            int idITBA = (int)objDiscoveryRequest.idITBA;
+            //int idITBA = (int)objDiscoveryRequest.idITBA;
             sendITBAEmail(objDiscoveryRequest);
-            emailmsg = "Email sent to ITBA.";
+            Session["ITBA"] = objDiscoveryRequest.idITBA.ToString();
+            //emailmsg = "Email sent to ITBA.";
         }
         string OrigEDISpecialist = Session["EDISpecialist"].ToString();
         string CurrentEDISpecialist = objDiscoveryRequest.idEDISpecialist.ToString();
         if (OrigEDISpecialist != CurrentEDISpecialist)
         {
             sendEDISpecialistEmail(objDiscoveryRequest);
+            Session["EDISpecialist"] = objDiscoveryRequest.idEDISpecialist.ToString();
         }
 
         //FINAL STEP
@@ -5821,6 +5823,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 objDiscoveryRequest.FreightAuditor = false;
 
             objDiscoveryRequest.EDIDetails = txtBxEDISolutionSummary.Text;
+            objDiscoveryRequest.EDICustomerDetails = txtBxCustomerEDIDetails.Text;
 
             //CUSTOMS
             objDiscoveryRequest.customsFlag = chkCustoms.Checked;

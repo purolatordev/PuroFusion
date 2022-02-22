@@ -91,10 +91,10 @@
                     <telerik:AjaxUpdatedControl ControlID="rdCall3" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="rddlRequestType">
+            <telerik:AjaxSetting AjaxControlID="rddlRequestType" >
                 <UpdatedControls>
                     <%--<telerik:AjaxUpdatedControl ControlID="rddlSolutionType" />--%>
-                    <telerik:AjaxUpdatedControl ControlID="rddlRequestType" />
+                    <telerik:AjaxUpdatedControl ControlID="rddlRequestType" LoadingPanelID="RadAjaxLoadingPanel1"/>
                     <telerik:AjaxUpdatedControl ControlID="rddlRelationships" />
                     <telerik:AjaxUpdatedControl ControlID="txtCustomerName" />
                     <telerik:AjaxUpdatedControl ControlID="lblCustomerName" />
@@ -173,7 +173,7 @@
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="rddlDistrict">
                 <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="rddlBranch" />
+                    <telerik:AjaxUpdatedControl ControlID="rddlBranch" LoadingPanelID="RadAjaxLoadingPanel1"/>
                 </UpdatedControls>
             </telerik:AjaxSetting>
             <telerik:AjaxSetting AjaxControlID="txtSalesProfessional">
@@ -289,7 +289,7 @@
             <telerik:AjaxSetting AjaxControlID="noncourierEDI">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI210Accounts" />
-                    <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI214Accounts" />
+                    <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI214Accounts" LoadingPanelID="RadAjaxLoadingPanel1"/>
                     <telerik:AjaxUpdatedControl ControlID="gridNonCourierPuroPostAccounts" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
@@ -297,9 +297,10 @@
 
 
     </telerik:RadAjaxManager>
-    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Transparency="40">
-        <asp:Image ID="imgLoading" Style="margin-top: 90px" runat="server" ImageUrl="~/Images/Loading.gif" Height="50px"
-            BorderWidth="0px" AlternateText="Loading" />
+    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Transparency="40" Height="50px">
+        <%--<asp:Label ID="lblLoading" runat="server">Loading..</asp:Label>
+        <asp:Image ID="imgLoading" Style="margin-top: 25px" runat="server" ImageUrl="~/Images/BlackandBlueLoading.gif" Height="50px"
+            BorderWidth="0px" AlternateText="Loading" />--%>
     </telerik:RadAjaxLoadingPanel>
     <div style="width: 853px">
         <asp:Panel ID="pnlsuccess" runat="server" Visible="false">

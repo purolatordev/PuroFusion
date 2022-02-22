@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PuroTouchDB_Prod" Class="PuroTouchSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=PI-DEV-SQL;Initial Catalog=PuroTouchDB_Prod;User ID=puroIT" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PuroTouchDBSQLConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PuroFusion" Class="PuroTouchSQLDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=PI-DEV-SQL;Initial Catalog=PuroFusion;User ID=puroIT" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PuroTouchDBSQLConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.vw_RelationshipNames" Member="vw_RelationshipNames">
     <Type Name="vw_RelationshipName">
       <Column Name="RelationshipName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -568,130 +568,6 @@
       <Column Name="login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.tblDiscoveryRequest" Member="tblDiscoveryRequests">
-    <Type Name="tblDiscoveryRequest">
-      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="isNewRequest" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="SalesRepName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="SalesRepEmail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="idOnboardingPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="District" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="CustomerName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="Address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="City" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="State" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="Zipcode" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="Country" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="Commodity" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="ProjectedRevenue" Type="System.Decimal" DbType="Money" CanBeNull="true" />
-      <Column Name="CurrentSolution" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="ProposedCustoms" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
-      <Column Name="CallDate1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CallDate2" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CallDate3" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="SalesComments" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="idITBA" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="idShippingChannel" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TargetGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActualGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="SolutionSummary" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="CustomerWebsite" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
-      <Column Name="Branch" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="idVendor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="worldpakFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="thirdpartyFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="customFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="InvoiceType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="BilltoAccount" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="FTPUsername" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="FTPPassword" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="CustomsSupportedFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ElinkFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="PARS" Type="System.String" DbType="NChar(25)" CanBeNull="true" />
-      <Column Name="PASS" Type="System.String" DbType="NChar(25)" CanBeNull="true" />
-      <Column Name="CustomsBroker" Type="System.String" DbType="NChar(255)" CanBeNull="true" />
-      <Column Name="SupportUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="SupportGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Office" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="[Group]" Member="Group" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="MigrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="PreMigrationSolution" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="PostMigrationSolution" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="ControlBranch" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="ContractNumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
-      <Column Name="ContractStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ContractEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ContractCurrency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
-      <Column Name="PaymentTerms" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="CloseReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="CRR" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="BrokerNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DataScrubFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="EDICustomizedFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="StrategicFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ReturnsAcctNbr" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
-      <Column Name="ReturnsAddress" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="ReturnsCity" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="ReturnsState" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="ReturnsZip" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
-      <Column Name="ReturnsCountry" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
-      <Column Name="ReturnsDestroyFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="ReturnsCreateLabelFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="WPKSandboxUsername" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WPKSandboxPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WPKProdUsername" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WPKProdPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WPKCustomExportFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="WPKGhostScanFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="WPKEastWestSplitFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="WPKAddressUploadFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="WPKProductUploadFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="WPKDataEntryMethod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="WPKEquipmentFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="EWSelectBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="EWSortCodeFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="EWEastSortCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="EWWestSortCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="EWSepCloseoutFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="EWSepPUFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="EWSortDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="EWMissortDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="CurrentGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="PhaseChangeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="idRequestType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CurrentlyShippingFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="idShippingVendor" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OtherVendorName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="idBroker" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OtherBrokerName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="idVendorType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Route" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
-      <Column Name="idSolutionType" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="FreightAuditor" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="EDIDetails" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
-      <Column Name="idEDISpecialist" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="idBillingSpecialist" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="idCollectionSpecialist" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AuditorPortal" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="AuditorURL" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="AuditorUserName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="AuditorPassword" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="EDITargetGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="EDICurrentGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="EDIActualGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="idEDIOnboardingPhase" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="tblDiscoveryRequest_tblEDIShipMethod" Member="tblEDIShipMethods" ThisKey="idRequest" OtherKey="idRequest" Type="tblEDIShipMethod" />
-      <Association Name="tblDiscoveryRequest_tblEDITranscation" Member="tblEDITranscations" ThisKey="idRequest" OtherKey="idRequest" Type="tblEDITranscation" />
-      <Association Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq" Member="tblFreightAuditorsDiscReqs" ThisKey="idRequest" OtherKey="idRequest" Type="tblFreightAuditorsDiscReq" />
-      <Association Name="tblOnboardingPhase_tblDiscoveryRequest" Member="tblOnboardingPhase" ThisKey="idOnboardingPhase" OtherKey="idOnboardingPhase" Type="tblOnboardingPhase" IsForeignKey="true" />
-      <Association Name="tblEDIOnboardingPhase_tblDiscoveryRequest" Member="tblEDIOnboardingPhase" ThisKey="idEDIOnboardingPhase" OtherKey="idEDIOnboardingPhase" Type="tblEDIOnboardingPhase" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.tblEDIOnboardingPhase" Member="tblEDIOnboardingPhases">
     <Type Name="tblEDIOnboardingPhase">
       <Column Name="idEDIOnboardingPhase" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -1057,6 +933,131 @@
       <Column Name="EDIActualGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="EDITargetGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="EDICurrentGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tblDiscoveryRequest" Member="tblDiscoveryRequests">
+    <Type Name="tblDiscoveryRequest">
+      <Column Name="idRequest" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="isNewRequest" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SalesRepName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="SalesRepEmail" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idOnboardingPhase" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="District" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CustomerName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Zipcode" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Commodity" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ProjectedRevenue" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="CurrentSolution" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="ProposedCustoms" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="CallDate1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CallDate2" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CallDate3" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UpdatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SalesComments" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="idITBA" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idShippingChannel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TargetGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActualGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SolutionSummary" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="CustomerWebsite" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Branch" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="idVendor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="worldpakFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="thirdpartyFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="customFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="InvoiceType" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BilltoAccount" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="FTPUsername" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="FTPPassword" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CustomsSupportedFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ElinkFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="PARS" Type="System.String" DbType="NChar(25)" CanBeNull="true" />
+      <Column Name="PASS" Type="System.String" DbType="NChar(25)" CanBeNull="true" />
+      <Column Name="CustomsBroker" Type="System.String" DbType="NChar(255)" CanBeNull="true" />
+      <Column Name="SupportUser" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SupportGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Office" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="[Group]" Member="Group" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MigrationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PreMigrationSolution" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="PostMigrationSolution" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="ControlBranch" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="ContractNumber" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="ContractStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractCurrency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="PaymentTerms" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CloseReason" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="CRR" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="BrokerNumber" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DataScrubFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EDICustomizedFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="StrategicFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ReturnsAcctNbr" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="ReturnsAddress" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ReturnsCity" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ReturnsState" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ReturnsZip" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="ReturnsCountry" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="ReturnsDestroyFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ReturnsCreateLabelFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WPKSandboxUsername" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WPKSandboxPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WPKProdUsername" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WPKProdPwd" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WPKCustomExportFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WPKGhostScanFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WPKEastWestSplitFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WPKAddressUploadFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WPKProductUploadFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="WPKDataEntryMethod" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="WPKEquipmentFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EWSelectBy" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EWSortCodeFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EWEastSortCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EWWestSortCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EWSepCloseoutFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EWSepPUFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EWSortDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="EWMissortDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="CurrentGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PhaseChangeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idRequestType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CurrentlyShippingFlag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="idShippingVendor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OtherVendorName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idBroker" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OtherBrokerName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="idVendorType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Route" Type="System.String" DbType="VarChar(2000)" CanBeNull="true" />
+      <Column Name="idSolutionType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FreightAuditor" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="EDIDetails" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="idEDISpecialist" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idBillingSpecialist" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idCollectionSpecialist" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuditorPortal" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AuditorURL" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="AuditorUserName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="AuditorPassword" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="EDITargetGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EDICurrentGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EDIActualGoLive" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="idEDIOnboardingPhase" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EDICustomerDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="tblDiscoveryRequest_tblEDIShipMethod" Member="tblEDIShipMethods" ThisKey="idRequest" OtherKey="idRequest" Type="tblEDIShipMethod" />
+      <Association Name="tblDiscoveryRequest_tblEDITranscation" Member="tblEDITranscations" ThisKey="idRequest" OtherKey="idRequest" Type="tblEDITranscation" />
+      <Association Name="tblDiscoveryRequest_tblFreightAuditorsDiscReq" Member="tblFreightAuditorsDiscReqs" ThisKey="idRequest" OtherKey="idRequest" Type="tblFreightAuditorsDiscReq" />
+      <Association Name="tblEDIOnboardingPhase_tblDiscoveryRequest" Member="tblEDIOnboardingPhase" ThisKey="idEDIOnboardingPhase" OtherKey="idEDIOnboardingPhase" Type="tblEDIOnboardingPhase" IsForeignKey="true" />
+      <Association Name="tblOnboardingPhase_tblDiscoveryRequest" Member="tblOnboardingPhase" ThisKey="idOnboardingPhase" OtherKey="idOnboardingPhase" Type="tblOnboardingPhase" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
