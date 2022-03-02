@@ -1056,6 +1056,7 @@ public static class SrvStatusCodeCourierEDI
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsStatusCodeCourierEDI> qStatusCode = o.GetTable<tblStatusCodesCourierEDI>()
                             .Where(p => p.ActiveFlag == true)
+                            .OrderBy(p => p.StatusCode)
                             .Select(p => new clsStatusCodeCourierEDI() { idStatusCodesCourierEDI = p.idStatusCodesCourierEDI, StatusCode = p.StatusCode, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .ToList();
         return qStatusCode;
@@ -1129,6 +1130,7 @@ public static class SrvFreightAuditor
         List<clsFreightAuditor> qFreightAuditors = o.GetTable<tblFreightAuditor>()
                             .Where(p => p.ActiveFlag == true)
                             .Select(p => new clsFreightAuditor() { idFreightAuditor = p.idFreightAuditor, CompanyName = p.CompanyName, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                            //.OrderBy(p => p.CompanyName)
                             .ToList();
         return qFreightAuditors;
     }
