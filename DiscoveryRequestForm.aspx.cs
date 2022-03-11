@@ -133,6 +133,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 //save Original ITBA and EDISpecialist, later send email if changed
                 Session["ITBA"] = "";
                 Session["EDISpecialist"] = "";
+                Session["EDIOnboardingPhase"] = "";
                 string requestID = Request.QueryString["requestID"];
                 if (!String.IsNullOrEmpty(requestID))
                 {
@@ -283,6 +284,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 RadTabStrip1.Tabs[3].Enabled = true;
             }
             btnSubmitEDIServices.Visible = false;
+
+            if (!String.IsNullOrEmpty(ID))
+            {
+                RadTabStrip1.Tabs[4].Enabled = true;
+            }
 
             RadPanelBar1.Items.FindItemByText("EDI Summary").Visible = true;
             RadPanelBar1.Items.FindItemByText("Solution Summary").Visible = true;
@@ -5751,7 +5757,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //--PROFILE--//
 
             //SOLUTION SUMMARY
-            if (rddlITBA.SelectedValue != "")
+            if (rddlITBA.SelectedValue != "" && (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_SHIPPING || rddlSolutionType.SelectedIndex == SOLUTION_TYPE_BOTH) )
                 objDiscoveryRequest.idITBA = Convert.ToInt32(rddlITBA.SelectedValue);
             else if(rddlITBA2.SelectedValue != "")
                 objDiscoveryRequest.idITBA = Convert.ToInt32(rddlITBA2.SelectedValue);
@@ -6676,7 +6682,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         try
         {
             string EDISpecialistemail = ConfigurationManager.AppSettings["EDIOnboardingEmailList"];
-            string subject = "EDI Onboarding status has changed";
+            string subject = "Request Requires EDI Specialist Assignment";
             string msgBody = composeEmail(objDiscoveryRequest);
 
             string host = ConfigurationManager.AppSettings["host"].ToString();
