@@ -32,7 +32,7 @@ public partial class StatusCodesNonCourierEDIMaint : System.Web.UI.Page
     }
     private void getShippingVendors()
     {
-        List<clsStatusCodeNonCourierEDI> listVend = SrvStatusCodeNonCourierEDI.GetStatusCodes();
+        List<clsStatusCodeNonCourierEDI> listVend = SrvStatusCodeNonCourierEDI.GetStatusCodes().OrderBy(p => p.idStatusCodesNonCourierEDI).ToList();
         rgGrid.DataSource = listVend;
     }
 

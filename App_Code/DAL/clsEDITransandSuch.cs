@@ -986,6 +986,7 @@ public static class SrvStatusCodeNonCourierEDI
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsStatusCodeNonCourierEDI> qStatusCode = o.GetTable<tblStatusCodesNonCourierEDI>()
                             .Where(p => p.ActiveFlag == true)
+                            .OrderBy(p => p.StatusCode)
                             .Select(p => new clsStatusCodeNonCourierEDI() { idStatusCodesNonCourierEDI = p.idStatusCodesNonCourierEDI, StatusCode = p.StatusCode, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
                             .ToList();
         return qStatusCode;

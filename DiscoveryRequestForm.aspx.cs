@@ -5416,12 +5416,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         string CurrentEDISpecialist = objDiscoveryRequest.idEDISpecialist.ToString();
         if (OrigEDISpecialist != CurrentEDISpecialist)
         {
-            sendEDISpecialistEmail(objDiscoveryRequest);
+            sendEDISpecialistEmail(objDiscoveryRequest, 1); // "Discovery Request Assigned To You"
             Session["EDISpecialist"] = objDiscoveryRequest.idEDISpecialist.ToString();
         }
         string OrigEDIOnboardingPhase = Session["EDIOnboardingPhase"].ToString();
         string CurrentEDIOnboardingPhase = objDiscoveryRequest.idEDIOnboardingPhase.ToString();
         Session["EDIOnboardingPhase"] = objDiscoveryRequest.idEDIOnboardingPhase.ToString();
+        string strDevelopment = "4"; 
         string strDiscovery = "2";
         string strKickoff = "1";
         if (String.Equals(OrigEDIOnboardingPhase, strKickoff))
@@ -5430,6 +5431,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if(String.Equals(CurrentEDIOnboardingPhase, strDiscovery))
             {
                 sendEDIStatusChangedEmail(objDiscoveryRequest);
+            }
+        }
+        else if(!String.Equals(OrigEDIOnboardingPhase, strDevelopment))
+        {
+            // When changing to Development
+            if (String.Equals(CurrentEDIOnboardingPhase, strDevelopment))
+            {
+                sendEDISpecialistEmail(objDiscoveryRequest, 2); // "Onboarding Phase set to Development"
             }
         }
 
@@ -6637,13 +6646,17 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
-    protected void sendEDISpecialistEmail(ClsDiscoveryRequest objDiscoveryRequest)
+    protected void sendEDISpecialistEmail(ClsDiscoveryRequest objDiscoveryRequest, int iSubject)
     {
         try
         {
             clsEDISpecialist currentEDISpecialist = SrvEDISpecialist.GetEDISpecialistByIDView(Convert.ToInt16(objDiscoveryRequest.idEDISpecialist));
             string EDISpecialistemail = currentEDISpecialist.email;
             string subject = "Discovery Request Assigned To You";
+            if(iSubject == 2)
+            {
+                subject = "Onboarding Phase set to Development";
+            }
             string msgBody = composeEmail(objDiscoveryRequest);
 
             string host = ConfigurationManager.AppSettings["host"].ToString();
