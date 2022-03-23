@@ -218,12 +218,12 @@
                     <telerik:AjaxUpdatedControl ControlID="courierIAddress" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="btnSubmit">
+           <%-- <telerik:AjaxSetting AjaxControlID="btnSubmit">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="CustomValidatorNew" />
                     <telerik:AjaxUpdatedControl ControlID="btnSubmit" LoadingPanelID="RadAjaxLoadingPanel1" />
                 </UpdatedControls>
-            </telerik:AjaxSetting>
+            </telerik:AjaxSetting>--%>
             <telerik:AjaxSetting AjaxControlID="rddlShippingVendor">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="rddlShippingVendor" />
@@ -262,35 +262,87 @@
                     <telerik:AjaxUpdatedControl ControlID="lbl3pv" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <%--<telerik:AjaxSetting AjaxControlID="rddlSolutionType">
-                <UpdatedControls>
-                    <telerik:AjaxUpdatedControl ControlID="rddlSolutionType" />
-                </UpdatedControls>
-            </telerik:AjaxSetting>--%>
             <telerik:AjaxSetting AjaxControlID="rddlContactType">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="rddlContactType" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <telerik:AjaxSetting AjaxControlID="edi">
+            <%--<telerik:AjaxSetting AjaxControlID="edi">
                 <UpdatedControls>
-                    <%--<telerik:AjaxUpdatedControl ControlID="gridShipmentMethods" />--%>
                     <telerik:AjaxUpdatedControl ControlID="gridEDITransactions" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <%--  Courier EDI Tab  --%>
             <telerik:AjaxSetting AjaxControlID="courierEDI">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="gridEDI210Accounts" />
                     <telerik:AjaxUpdatedControl ControlID="gridEDI214Accounts" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
-            <%--  Non-Courier EDI Tab  --%>
             <telerik:AjaxSetting AjaxControlID="noncourierEDI">
                 <UpdatedControls>
                     <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI210Accounts" />
                     <telerik:AjaxUpdatedControl ControlID="gridNonCourierEDI214Accounts" LoadingPanelID="RadAjaxLoadingPanel1"/>
                     <telerik:AjaxUpdatedControl ControlID="gridNonCourierPuroPostAccounts" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>--%>
+            <telerik:AjaxSetting AjaxControlID="rddlSolutionType">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                    <telerik:AjaxUpdatedControl ControlID="txtBoxMultiDebug" />
+                    <telerik:AjaxUpdatedControl ControlID="rddlSolutionType" LoadingPanelID="RadAjaxLoadingPanel1"/>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnNextTab1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                    <telerik:AjaxUpdatedControl ControlID="txtBoxMultiDebug" />
+                    <telerik:AjaxUpdatedControl ControlID="btnNextTab1" LoadingPanelID="RadAjaxLoadingPanel1"/>
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnNextTab2">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                    <telerik:AjaxUpdatedControl ControlID="txtBoxMultiDebug" />
+                    <telerik:AjaxUpdatedControl ControlID="btnNextTab2" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+             <telerik:AjaxSetting AjaxControlID="btnNextTab3">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                    <telerik:AjaxUpdatedControl ControlID="txtBoxMultiDebug" />
+                    <telerik:AjaxUpdatedControl ControlID="btnNextTab3" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="btnSubmit">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                    <telerik:AjaxUpdatedControl ControlID="txtBoxMultiDebug" />
+                    <telerik:AjaxUpdatedControl ControlID="btnSubmit" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+             <telerik:AjaxSetting AjaxControlID="btnSubmitEDIServices">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                    <telerik:AjaxUpdatedControl ControlID="txtBoxMultiDebug" />
+                    <telerik:AjaxUpdatedControl ControlID="btnSubmitEDIServices" LoadingPanelID="RadAjaxLoadingPanel1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="RadMultiPage1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
+            <telerik:AjaxSetting AjaxControlID="RadTabStrip1">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="RadTabStrip1" />
+                    <telerik:AjaxUpdatedControl ControlID="RadMultiPage1" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
         </AjaxSettings>
@@ -3756,7 +3808,7 @@
                     </tr>
                 </table>
 
-                <telerik:RadGrid ID="rgNotesGrid" runat="server" CellSpacing="-1" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" OnNeedDataSource="rgNotesGrid_NeedDataSource"
+                <telerik:RadGrid ID="rgNotesGrid" runat="server" CellSpacing="-1" PageSize="200" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" OnNeedDataSource="rgNotesGrid_NeedDataSource"
                     OnDeleteCommand="rgNotesGrid_DeleteCommand" OnInsertCommand="rgNotesGrid_InsertCommand" OnUpdateCommand="rgNotesGrid_UpdateCommand" OnItemCommand="rgNotesGrid_ItemCommand" OnItemDataBound="rgNotesGrid_ItemDataBound">
                     <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
                     <ExportSettings ExportOnlyData="True" IgnorePaging="True" OpenInNewWindow="True">

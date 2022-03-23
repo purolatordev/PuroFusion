@@ -14,6 +14,7 @@ using System.Net;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using context = System.Web.HttpContext;
+using System.Text;
 
 public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 {
@@ -193,10 +194,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
     private void UpdateTabs()
     {
-        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
-        {
-            txtBoxMultiDebug.Text += "UpdateTabs()\r\n";
-        }
+        
         #region Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
         if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
@@ -351,14 +349,27 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         #endregion
 
-        //if (!String.IsNullOrEmpty(ID))
-        //{
-        //    btnEDISerivesSaveFile.Enabled = true;
-        //}
-        //else
-        //{
-        //    btnEDISerivesSaveFile.Enabled = false;
-        //}
+        if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("Cust Info Vis: {0} -Contact Info Vis: {1} -Current Sol Vis: {2} -EDI Vis: {3} -Ship Vis: {4} -Courier Vis: {5}\r\n", 
+                (RadTabStrip1.Tabs[0].Visible) ? "True" : "False",
+                (RadTabStrip1.Tabs[1].Visible) ? "True" : "False",
+                (RadTabStrip1.Tabs[2].Visible) ? "True" : "False",
+                (RadTabStrip1.Tabs[3].Visible) ? "True" : "False",
+                (RadTabStrip1.Tabs[4].Visible) ? "True" : "False",
+                (RadTabStrip1.Tabs[6].Visible) ? "True" : "False"
+                );
+            sb.AppendFormat("Cust Info En: {0} -Contact Info En: {1} -Current Sol Vis: {2} -EDI En: {3} -Ship En: {4} -Courier Vis: {5} \r\n",
+                (RadTabStrip1.Tabs[0].Enabled) ? "True" : "False",
+                (RadTabStrip1.Tabs[1].Enabled) ? "True" : "False",
+                (RadTabStrip1.Tabs[2].Enabled) ? "True" : "False",
+                (RadTabStrip1.Tabs[3].Enabled) ? "True" : "False",
+                (RadTabStrip1.Tabs[4].Enabled) ? "True" : "False",
+                (RadTabStrip1.Tabs[6].Enabled) ? "True" : "False"
+                );
+            txtBoxMultiDebug.Text = sb.ToString() ;
+        }
     }
     #region Debugging
     protected void btnPre_Load_Click(object sender, System.EventArgs e)
