@@ -3756,7 +3756,7 @@
                     </tr>
                 </table>
 
-                <telerik:RadGrid ID="rgNotesGrid" runat="server" CellSpacing="-1" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" OnNeedDataSource="rgNotesGrid_NeedDataSource"
+                <telerik:RadGrid ID="rgNotesGrid" runat="server" CellSpacing="-1" PageSize="500" GridLines="Both" GroupPanelPosition="Top" AllowFilteringByColumn="true" OnNeedDataSource="rgNotesGrid_NeedDataSource"
                     OnDeleteCommand="rgNotesGrid_DeleteCommand" OnInsertCommand="rgNotesGrid_InsertCommand" OnUpdateCommand="rgNotesGrid_UpdateCommand" OnItemCommand="rgNotesGrid_ItemCommand" OnItemDataBound="rgNotesGrid_ItemDataBound">
                     <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
                     <ExportSettings ExportOnlyData="True" IgnorePaging="True" OpenInNewWindow="True">
