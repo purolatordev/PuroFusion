@@ -5432,6 +5432,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 sendEDIStatusChangedEmail(objDiscoveryRequest);
             }
+            else if (String.Equals(CurrentEDIOnboardingPhase, strDevelopment))
+            {
+                sendEDISpecialistEmail(objDiscoveryRequest, 2); // "Onboarding Phase set to Development"
+            }
         }
         else if(!String.Equals(OrigEDIOnboardingPhase, strDevelopment))
         {
