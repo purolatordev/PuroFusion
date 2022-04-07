@@ -6655,7 +6655,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             string subject = "Discovery Request Assigned To You";
             if(iSubject == 2)
             {
-                subject = "Onboarding Phase set to Development";
+                subject = "EDI Solution Is Ready for Development";
             }
             string msgBody = composeEmail(objDiscoveryRequest);
 

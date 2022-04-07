@@ -293,6 +293,13 @@
                     <telerik:AjaxUpdatedControl ControlID="gridNonCourierPuroPostAccounts" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
+             <telerik:AjaxSetting AjaxControlID="rdCurrentTarget">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="rdCurrentTarget" LoadingPanelID="RadAjaxLoadingPanel1"/>
+                    <telerik:AjaxUpdatedControl ControlID="lblChangeReason" />
+                    <telerik:AjaxUpdatedControl ControlID="txtTargetChangeReason" />
+                </UpdatedControls>
+            </telerik:AjaxSetting>
         </AjaxSettings>
 
 
