@@ -421,7 +421,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 idEDITranscationType = PUROPOST_NON_COURIER_EDI,
                 TotalRequests = string.IsNullOrEmpty(txtBxNumRecipNonCourierPuroPostStand.Text) ? 0 : int.Parse(txtBxNumRecipNonCourierPuroPostStand.Text),
                 idRequest = int.Parse(ID),
-                ActiveFlag = true,
+                ActiveFlag = (comboBxNonCourierPuroPost.SelectedText == "Yes") ? true : false,
                 CreatedOn = DateTime.Now,
                 CreatedBy = (string)(Session["userName"])
             };
@@ -487,7 +487,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 idEDITranscationType = INVOICE_NON_COURIER_EDI,
                 TotalRequests = string.IsNullOrEmpty(txtBxNumRecipNonCourier210.Text) ? 0 : int.Parse(txtBxNumRecipNonCourier210.Text),
                 idRequest = int.Parse(ID),
-                ActiveFlag = true,
+                ActiveFlag = (comboBxNonCourierEDI210.SelectedText == "Yes") ? true : false,
                 CreatedOn = DateTime.Now,
                 CreatedBy = (string)(Session["userName"])
             };
@@ -617,7 +617,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI,
                 TotalRequests = string.IsNullOrEmpty(txtBxNumRecipNonCourier214.Text) ? 0 : int.Parse(txtBxNumRecipNonCourier214.Text),
                 idRequest = int.Parse(ID),
-                ActiveFlag = true,
+                ActiveFlag = (comboBxNonCourierEDI214.SelectedText == "Yes") ? true : false,
                 CreatedOn = DateTime.Now,
                 CreatedBy = (string)(Session["userName"])
             };
@@ -748,7 +748,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI,
                 TotalRequests = string.IsNullOrEmpty(txtBxNumberRecipients214.Text) ? 0 : int.Parse(txtBxNumberRecipients214.Text),
                 idRequest = int.Parse(ID),
-                ActiveFlag = true,
+                ActiveFlag = (comboBxCourierEDI214.SelectedText == "Yes") ? true : false,
                 CreatedOn = DateTime.Now,
                 CreatedBy = (string)(Session["userName"])
             };
@@ -812,7 +812,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 idEDITranscationType = INVOICE_COURIER_EDI,
                 TotalRequests = string.IsNullOrEmpty(txtBxNumberRecipients210.Text) ? 0 : int.Parse(txtBxNumberRecipients210.Text),
                 idRequest = int.Parse(ID),
-                ActiveFlag = true,
+                ActiveFlag = (comboBxCourierEDI210.SelectedText == "Yes") ? true : false,
                 CreatedOn = DateTime.Now,
                 CreatedBy = (string)(Session["userName"])
             };
@@ -4012,10 +4012,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_NON_COURIER_EDI);
             if (EDITrans != null)
             {
-                //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, INVOICE_NON_COURIER_EDI) != null)
                 comboBxNonCourierEDI210.SelectedText = "Yes";
-                //txtNonCourier210SFTP.Text = EDITrans.SFTPFolder;
-                //comboNonCourier210TestEnvironment.SelectedText = (EDITrans.TestEnvironment.HasValue) ? (EDITrans.TestEnvironment.Value) ? "Yes" : "No" : "No"; 
                 comboNonCourier210TestSent.SelectedText = (EDITrans.TestSentMethod == 1) ? "SFTP" : "via Email";
             }
             else
@@ -4026,8 +4023,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             if (EDITrans != null)
             {
                 comboBxNonCourierEDI214.SelectedText = "Yes";
-                //txtNonCourier214SFTP.Text = EDITrans.SFTPFolder;
-                //comboNonCourier214TestEnvironment.SelectedText = (EDITrans.TestEnvironment.HasValue) ? (EDITrans.TestEnvironment.Value) ? "Yes" : "No" : "No"; 
                 comboNonCourier214TestSent.SelectedText = (EDITrans.TestSentMethod == 1) ? "SFTP" : "via Email";
             }
             else
@@ -4037,9 +4032,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             EDITrans = SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, PUROPOST_NON_COURIER_EDI);
             if (EDITrans != null)
             {
-                //if (SrvEDITransaction.GetAEDITransactionsByidRequest(requestID, PUROPOST_NON_COURIER_EDI) != null)
                 comboBxNonCourierPuroPost.SelectedText = "Yes";
-                //txtNonCourierPuroPostSFTP.Text = EDITrans.SFTPFolder;
             }
             else
                 comboBxNonCourierPuroPost.SelectedText = "No";
@@ -5346,61 +5339,56 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
             if (comboBxCourierEDI210.SelectedText == "Yes")
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients210.Text), ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 data.CombinePayer = comboxCombinepayer.SelectedText.Contains("Yes") ? true : false;
                 data.BatchInvoices = comboBoxBatchInvoices.SelectedText.Contains("Yes") ? true : false;
                 SrvEDITransaction.Insert(data,out newEDIID);
             }
             else
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients210.Text), ActiveFlag = false, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Remove(data);
             }
             if (comboBxCourierEDI214.SelectedText == "Yes")
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients214.Text), ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumberRecipients214.Text), ActiveFlag = false, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Remove(data);
             }
             if (comboBxNonCourierEDI210.SelectedText == "Yes")
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
-                //data.TestEnvironment = comboNonCourier210TestEnvironment.SelectedText.Contains("Yes") ? true : false;
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier210.Text), ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 data.TestSentMethod = comboNonCourier210TestSent.SelectedText.Contains("SFTP") ? 1 : 2;
-                //data.SFTPFolder = txtNonCourier210SFTP.Text;
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier210.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = INVOICE_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier210.Text), ActiveFlag = false, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Remove(data);
             }
             if (comboBxNonCourierEDI214.SelectedText == "Yes")
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
-                //data.TestEnvironment = comboNonCourier214TestEnvironment.SelectedText.Contains("Yes") ? true : false;
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier214.Text), ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 data.TestSentMethod = comboNonCourier214TestSent.SelectedText.Contains("SFTP") ? 1 : 2;
-                //data.SFTPFolder = txtNonCourier214SFTP.Text;
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier214.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = SHIPMENT_STATUS_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourier214.Text), ActiveFlag = false, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Remove(data);
             }
             if (comboBxNonCourierPuroPost.SelectedText == "Yes")
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = PUROPOST_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourierPuroPostStand.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
-                //data.SFTPFolder = txtNonCourierPuroPostSFTP.Text; 
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = PUROPOST_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourierPuroPostStand.Text), ActiveFlag = true, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Insert(data, out newEDIID);
             }
             else
             {
-                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = PUROPOST_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourierPuroPostStand.Text), CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
+                clsEDITransaction data = new clsEDITransaction() { idRequest = RequestID, idEDITranscationType = PUROPOST_NON_COURIER_EDI, TotalRequests = GetIntFromField(txtBxNumRecipNonCourierPuroPostStand.Text), ActiveFlag = false, CreatedBy = Session["userName"].ToString(), CreatedOn = DateTime.Now };
                 SrvEDITransaction.Remove(data);
             }
         }

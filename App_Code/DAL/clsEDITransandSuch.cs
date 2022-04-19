@@ -197,7 +197,7 @@ public static class SrvEDITransaction
                 EDITrans.TotalRequests = data.TotalRequests;
                 EDITrans.idEDITranscationType = data.idEDITranscationType;
                 EDITrans.idRequest = data.idRequest;
-                EDITrans.ActiveFlag = true;
+                EDITrans.ActiveFlag = data.ActiveFlag;
                 EDITrans.BatchInvoices = data.BatchInvoices.HasValue ? data.BatchInvoices : false;
                 EDITrans.CombinePayer = data.CombinePayer.HasValue ? data.CombinePayer : false;
                 EDITrans.TotalRequests = data.TotalRequests;
@@ -294,7 +294,7 @@ public static class SrvEDITransaction
                 EDITrans.TotalRequests = data.TotalRequests;
                 EDITrans.idEDITranscationType = data.idEDITranscationType;
                 EDITrans.idRequest = data.idRequest;
-                EDITrans.ActiveFlag = true;
+                EDITrans.ActiveFlag = data.ActiveFlag;
                 EDITrans.BatchInvoices = data.BatchInvoices.HasValue ? data.BatchInvoices : false;
                 EDITrans.CombinePayer = data.CombinePayer.HasValue ? data.CombinePayer : false;
                 EDITrans.TotalRequests = data.TotalRequests;

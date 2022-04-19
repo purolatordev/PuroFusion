@@ -11,13 +11,22 @@ using PI_Application;
 using PI_People;
 using System.Data.SqlClient;
 using System.Data;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 public partial class UserSecurity : System.Web.UI.Page
 {
     String strConnString = ConfigurationManager.ConnectionStrings["PurolatorReportingConnectionString"].ConnectionString;
     Int16 idPI_Application = Convert.ToInt16(ConfigurationManager.AppSettings["AppID"]);
     PuroTouchRepository rep = new PuroTouchRepository();
-   
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public string GetCurrentMethod()
+    {
+        var st = new StackTrace();
+        var sf = st.GetFrame(1);
+        return sf.GetMethod().Name;
+    }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -76,48 +85,25 @@ public partial class UserSecurity : System.Web.UI.Page
 
             //Check that passwords match
             string pwd1 = "";
-            //string pwd1 = (userControl.FindControl("txtPWD") as RadTextBox).Text;
-            //string pwd2 = (userControl.FindControl("txtPWD2") as RadTextBox).Text;
-            //if (pwd1=="")
-            //{
-            //    //msg = "Password is Required";
-            //}
-            //if (pwd1 != pwd2)
-            //{
-            //    //msg = "Passwords do not match";
-            //}
             if (msg != "")
             {
                 pnlDanger.Visible = true;
-                lblDanger.Text = msg;
+                lblDanger.Text = GetCurrentMethod() + " - " + msg;
             }
             else
             {
-
                 //SET UP USER
                 RadComboBox cbxUsers = userControl.FindControl("cbxUsers") as RadComboBox;
                 idEmployee = Convert.ToInt16(cbxUsers.SelectedValue);
 
-
-                //ClsEncryptDecrypt decrypt = new ClsEncryptDecrypt();
-                //string encryptedPwd = decrypt.EncryptString(pwd1);
                 string encryptedPwd = "";
-
-
-                //Do Insert into tblPI_ApplicationUser, then use the id generated (@idPI_ApplicaitonUSer) and insert into tblPI_ApplicationUserRole
-
-                //PROCEDURE [dbo].[spPI_ApplicationUser_Insert]
-                //@idPI_Application int,
-                //@idEmployee int,
-                //@idPI_ApplicationUser int output
-                //MK - change to add password
 
                 //Check if user already there
                 bool userExists = checkUserExists(idPI_Application, idEmployee);
                 if (userExists == true)
                 {
                     pnlDanger.Visible = true;
-                    lblDanger.Text = "User with EmployeeID " + idEmployee.ToString() + " already exists";
+                    lblDanger.Text = GetCurrentMethod() + " - " + "User with EmployeeID " + idEmployee.ToString() + " already exists";
                 }
                 else
                 {
@@ -139,7 +125,6 @@ public partial class UserSecurity : System.Web.UI.Page
                         ParameterName = "@idPI_ApplicationUser",
                         Direction = ParameterDirection.Output,
                         SqlDbType = System.Data.SqlDbType.Int
-
                     };
 
                     cmd.Parameters.Add(idPI_ApplicationUserOut);
@@ -157,11 +142,6 @@ public partial class UserSecurity : System.Web.UI.Page
                     string userRole = cbxUserRoles.SelectedValue;
                     idPI_ApplicationRole = Convert.ToInt16(cbxUserRoles.SelectedValue);
 
-                    //PROCEDURE [dbo].[spPI_ApplicationUserRole_Insert]
-                    //@idPI_ApplicationUser int,
-                    //@idPI_ApplicationRole int,
-                    //@idPI_ApplicationUserRole int output    
-                    //SqlConnection cnn;
                     SqlCommand cmd2;
                     cnn = new SqlConnection(strConnString);
 
@@ -205,7 +185,7 @@ public partial class UserSecurity : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
 
     }
@@ -302,7 +282,7 @@ public partial class UserSecurity : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -365,7 +345,7 @@ public partial class UserSecurity : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
 
 
@@ -376,7 +356,6 @@ public partial class UserSecurity : System.Web.UI.Page
         try
         {
             var msg = "";
-
 
             if (e.Item is GridEditFormInsertItem || e.Item is GridDataInsertItem)
             {
@@ -406,12 +385,9 @@ public partial class UserSecurity : System.Web.UI.Page
                 cbxDistrict.DataValueField = "District";
                 cbxDistrict.DataSource = listDistricts;
                 cbxDistrict.DataBind();
-
-             
             }
             else
             {
-
                 if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
                 {
                     //************First calling dropdown list values selected in pop up edit form**************/ 
@@ -421,8 +397,6 @@ public partial class UserSecurity : System.Web.UI.Page
                     //USER NAME
                     try
                     {
-
-
                         RadComboBox cbxUsers = userControl.FindControl("cbxUsers") as RadComboBox;
                         ClsEmployee emp = new ClsEmployee();
                         List<ClsEmployee> listUsers = emp.GetListClsEmployees();
@@ -433,13 +407,11 @@ public partial class UserSecurity : System.Web.UI.Page
                         cbxUsers.DataBind();
                         cbxUsers.SelectedValue = UserHidden;
                         cbxUsers.Enabled = false;            
-                       
                     }
                     catch (Exception ex)
                     {
                         msg = ex.Message;
                     }                   
-
 
                     //USER ROLE
                     try
@@ -448,7 +420,6 @@ public partial class UserSecurity : System.Web.UI.Page
                         string UserRoleHidden = (userControl.FindControl("hdnUserRole") as HiddenField).Value;
                         RadComboBox cbxUserRoles = userControl.FindControl("cbxUserRole") as RadComboBox;
 
-
                         List<clsPI_ApplicationRole> listRoles = clsPI_ApplicationRole.GetApplicationRoles(idPI_Application);
 
                         cbxUserRoles.DataTextField = "RoleName";
@@ -456,13 +427,11 @@ public partial class UserSecurity : System.Web.UI.Page
                         cbxUserRoles.DataSource = listRoles;
                         cbxUserRoles.DataBind();
                         cbxUserRoles.SelectedValue = UserRoleHidden;                        
-
                     }
                     catch (Exception ex)
                     {
                         msg = ex.Message;
                     }
-
 
                     //User Restrictions                  
                     try
@@ -511,15 +480,13 @@ public partial class UserSecurity : System.Web.UI.Page
                     {
                         msg = ex.Message;
                     }
-
                 }
             }
-            
         }
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
     }
 
@@ -549,11 +516,8 @@ public partial class UserSecurity : System.Web.UI.Page
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
-
-        
     }
 
 
@@ -577,14 +541,11 @@ public partial class UserSecurity : System.Web.UI.Page
             cmd.Parameters.Add("@District", SqlDbType.NVarChar).Value = District.Trim();
             cmd.Connection = cnn;
             cmd.ExecuteNonQuery();
-
-
         }
         catch (Exception ex)
         {
             pnlDanger.Visible = true;
-            lblDanger.Text = ex.Message.ToString();
+            lblDanger.Text = GetCurrentMethod() + " - " + ex.Message.ToString();
         }
-
     }
 }
