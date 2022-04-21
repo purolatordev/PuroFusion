@@ -172,15 +172,8 @@ public partial class UserSecurity : System.Web.UI.Page
                         string district = cbxDistricts.Text;
                         InsertDistrictRestriction(district, idPI_ApplicationUser);
                     }
-
                 }
-                 
-
             }
-
-           
-          
-
         }
         catch (Exception ex)
         {
@@ -372,7 +365,9 @@ public partial class UserSecurity : System.Web.UI.Page
                 //Role
                 string UserRoleHidden = (userControl.FindControl("hdnUserRole") as HiddenField).Value;
                 RadComboBox cbxUserRoles = userControl.FindControl("cbxUserRole") as RadComboBox;
-                List<clsPI_ApplicationRole> listRoles = clsPI_ApplicationRole.GetApplicationRoles(idPI_Application);
+                String strConnString = ConfigurationManager.ConnectionStrings["PurolatorReportingConnectionString"].ConnectionString;
+
+                List<clsPI_ApplicationRole> listRoles = clsPI_ApplicationRole.GetApplicationRoles(strConnString,idPI_Application);
                 cbxUserRoles.DataTextField = "RoleName";
                 cbxUserRoles.DataValueField = "ApplicationRoleId";
                 cbxUserRoles.DataSource = listRoles;
