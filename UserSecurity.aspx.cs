@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
-using DAL;
 using Telerik.Web.UI;
 using PI_Application;
-using PI_People;
 using System.Data.SqlClient;
 using System.Data;
 using System.Runtime.CompilerServices;
@@ -411,11 +407,10 @@ public partial class UserSecurity : System.Web.UI.Page
                     //USER ROLE
                     try
                     {
-
                         string UserRoleHidden = (userControl.FindControl("hdnUserRole") as HiddenField).Value;
                         RadComboBox cbxUserRoles = userControl.FindControl("cbxUserRole") as RadComboBox;
 
-                        List<clsPI_ApplicationRole> listRoles = clsPI_ApplicationRole.GetApplicationRoles(idPI_Application);
+                        List<clsPI_ApplicationRole> listRoles = clsPI_ApplicationRole.GetApplicationRoles(strConnString, idPI_Application);
 
                         cbxUserRoles.DataTextField = "RoleName";
                         cbxUserRoles.DataValueField = "ApplicationRoleId";
