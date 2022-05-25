@@ -57,6 +57,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             btnDebugLoadShipping.Visible = true;
             txtBoxMultiDebug.Visible = true;
             btnClearDebug.Visible = true;
+            DateTime dt = DateTime.Now.AddMinutes(Session.Timeout);
+            txtBoxMultiDebug.Text = "Session timeout: " + Session.Timeout.ToString() + " Expire Time: " + dt.ToShortTimeString() +"\r\n";
         }
 
         if (Session["userName"] == null)
