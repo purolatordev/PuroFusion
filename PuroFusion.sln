@@ -6,7 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PuroFusion", ".", "{DAA21008-135F-4766-8EBF-BFFEBF6E2504}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{b2d636a6-cf0f-4370-b2c8-5a62fd47594a}|PI_Application.dll;"
+		ProjectReferences = "{b2d636a6-cf0f-4370-b2c8-5a62fd47594a}|PI_Application.dll;{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}|PI_People.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_58973"
 		Debug.AspNetCompiler.PhysicalPath = "..\PuroFusion\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_58973\"
@@ -27,6 +27,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PuroFusion", ".", "{DAA2100
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI_Application", "..\..\PI_Application\PI_Application\PI_Application.csproj", "{B2D636A6-CF0F-4370-B2C8-5A62FD47594A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PI_People", "..\..\PI_People\PI_People\PI_People.csproj", "{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{B2D636A6-CF0F-4370-B2C8-5A62FD47594A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2D636A6-CF0F-4370-B2C8-5A62FD47594A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D636A6-CF0F-4370-B2C8-5A62FD47594A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
