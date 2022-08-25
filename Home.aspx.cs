@@ -53,7 +53,7 @@ public partial class Home : System.Web.UI.Page
                 btnNewRequest.Visible = true;
                 
             }
-            if (userRole == "itba")
+            if (userRole == "itba" || userRole == "finance")
             {
                 btnNewRequest.Visible = false;
                 
@@ -119,7 +119,7 @@ public partial class Home : System.Web.UI.Page
             pieChartdata = pc.getOnboardingPhaseCountITBA(userLogin);
             PieChart1.DataSource = pieChartdata;
         }
-        if (userRole == "itmanager")
+        if (userRole == "itmanager" || userRole == "finance")
         {
             pieChartdata = pc.getOnboardingPhaseCountAll();
             PieChart1.DataSource = pieChartdata;
@@ -155,7 +155,7 @@ public partial class Home : System.Web.UI.Page
             revChartData = pr.getProjectedRevenueITBA(userLogin);
             ColumnChart.DataSource = revChartData; 
         }
-        if (userRole == "itmanager")
+        if (userRole == "itmanager" || userRole == "finance")
         {
             revChartData = pr.getProjectedRevenueAll();
             ColumnChart.DataSource = revChartData; 

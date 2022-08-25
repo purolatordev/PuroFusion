@@ -74,7 +74,7 @@ public partial class SiteMaster : MasterPage
 
         if (Session["userName"] != null)
         {
-            if (((string)Session["userRole"]).ToLower() == "itmanager" || ((string)Session["userRole"]).ToLower() == "itba" || ((string)Session["userRole"]).ToLower() == "admin" || ((string)Session["userRole"]).ToLower() == "itadmin")
+            if (((string)Session["userRole"]).ToLower() == "itmanager" || ((string)Session["userRole"]).ToLower() == "itba" || ((string)Session["userRole"]).ToLower() == "admin" || ((string)Session["userRole"]).ToLower() == "itadmin" || ((string)Session["userRole"]).ToLower() == "finance")
             {
                 //Add Tracker
                 RadMenuItem trItem = new RadMenuItem();

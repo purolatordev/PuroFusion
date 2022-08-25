@@ -61,6 +61,22 @@ public partial class EDI210 : System.Web.UI.UserControl
 
         RadPanelBar1.Items[0].Expanded = false;
         textBoxPanelTitle.Text = RadPanelBar1.Items[0].Text;
+        string userRole = Session["userRole"].ToString().ToLower();
+        if (userRole == "finance")
+        {
+            textBoxPanelTitle.Enabled = false;
+            comboBxFileFormat.Enabled = false;
+            txtBoxISA.Enabled = false;
+            txtBoxGS.Enabled = false;
+            txtBoxQualifier.Enabled = false;
+            comboxCommunicationMethod.Enabled = false;
+            textBoxFTPAddress.Enabled = false;
+            textBoxUserName.Enabled = false;
+            textBoxPassword.Enabled = false;
+            textBoxFolderPath.Enabled = false;
+            textBoxEmail.Enabled = false;
+            btnSubmitChanges.Enabled = false;
+        }
     }
     [MethodImpl(MethodImplOptions.NoInlining)]
     public string GetCurrentMethod()

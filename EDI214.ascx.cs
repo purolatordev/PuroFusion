@@ -26,7 +26,7 @@ public partial class EDI214 : System.Web.UI.UserControl
         Params = p;
     }
     protected void Page_Load(object sender, EventArgs e)
-    {
+    {        
         if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
         {
             txtBoxMultiDebug2.Text +=
@@ -109,6 +109,26 @@ public partial class EDI214 : System.Web.UI.UserControl
                 RadPanelBar1.Items[0].Text + ": " +
                 comboxCommunicationMethod.SelectedText.ToString() + ": " +
                 comboxCommunicationMethod.SelectedValue.ToString() + "\r\n";
+        }
+        string userRole = Session["userRole"].ToString().ToLower();
+        if (userRole == "finance")
+        {
+            textBoxPanelTitle.Enabled = false;
+            comboBxFileFormat214.Enabled = false;
+            txtBoxISA.Enabled = false;
+            txtBoxGS.Enabled = false;
+            txtBoxQualifier.Enabled = false;
+            comboxCommunicationMethod.Enabled = false;
+            textBoxFTPAddress.Enabled = false;
+            textBoxUserName.Enabled = false;
+            textBoxPassword.Enabled = false;
+            textBoxFolderPath.Enabled = false;
+            textBoxEmail.Enabled = false;
+            comboxTriggerMechanism.Enabled = false;
+            comboxTiming.Enabled = false;
+            timeTimeofFile.Enabled = false;
+            comboxStatusCodes.Enabled = false;
+            btnSubmitChanges.Enabled = false;
         }
     }
     [MethodImpl(MethodImplOptions.NoInlining)]

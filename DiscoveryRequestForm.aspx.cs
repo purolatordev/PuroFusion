@@ -49,7 +49,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             Session["userName"] = ConfigurationManager.AppSettings["debugUser"];
             Session["appName"] = "PuroTouch";
-            //Session["userRole"] = "ITAdmin";
             Session["userRole"] = ConfigurationManager.AppSettings["role"];
             btnDebugLoad.Visible = true;
             btnDebugLoadContactInfo.Visible = true;
@@ -191,6 +190,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
 
         UpdateTabs();
+        CheckPermissions();
     }
 
     private void UpdateTabs()
@@ -201,7 +201,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         #region Role Based Viewing
         string userRole = Session["userRole"].ToString().ToLower();
-        if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
+        if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager" || userRole == "finance")
         {
             lblInternalNotes.Visible = true;
             txtInternalNotes.Visible = true;
@@ -247,7 +247,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         }
         else if (rddlSolutionType.SelectedIndex == SOLUTION_TYPE_EDI)
         {
-            if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager")
+            if (userRole == "admin" || userRole == "itadmin" || userRole == "itba" || userRole == "itmanager" || userRole == "finance")
             {
                 RadTabStrip1.Tabs[2].Visible = true;
                 RadTabStrip1.Tabs[3].Enabled = true;
@@ -363,7 +363,129 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         //}
     }
     #region Debugging
-    protected void btnPre_Load_Click(object sender, System.EventArgs e)
+
+    private void CheckPermissions()
+    {
+        string userRole = Session["userRole"].ToString().ToLower();
+        if (userRole == "finance")
+        {
+            btnSubmitChanges.Enabled = false;
+
+            //Header
+            txtSalesProfessional.Enabled = false;
+            rddlDistrict.Enabled = false;
+            rddlBranch.Enabled = false;
+            rddlStrategic.Enabled = false;
+            txtEmail.Enabled = false;
+            //Customer Info
+            rddlSolutionType.Enabled = false;
+            rddlRequestType.Enabled = false;
+            txtCustomerName.Enabled = false;
+            txtCustomerAddress.Enabled = false;
+            txtCustomerZip.Enabled = false;
+            txtCustomerCity.Enabled = false;
+            txtCustomerState.Enabled = false;
+            txtCustomerCountry.Enabled = false;
+            txtRevenue.Enabled = false;
+            txtCommodity.Enabled = false;
+            txtWebsite.Enabled = false;
+            //Contact Info
+            contactGrid.Enabled = false;
+            //Current Solution
+            txtareaCurrentSolution.Enabled = false;
+            //Shipping Services
+            rddlService.Enabled = false;
+            txtVolume.Enabled = false;
+            btnAddSvc.Enabled = false;
+            rgSvcGrid.Enabled = false;
+            txtProposedNotes.Enabled = false;
+            rddlCustomsList.Enabled = false;
+            rddlCustomsBroker.Enabled = false;
+            //EDI Services
+            comboxFreightAuditor.Enabled = false;
+            gridShipmentMethods.Enabled = false;
+            gridFreightAuditors.Enabled = false;
+            gridEDITransactions.Enabled = false;
+            txtBxCustomerEDIDetails.Enabled = false;
+            //Profile           
+            // -- shipping
+            rddlITBA.Enabled = false;
+            cbx3pv.Enabled = false;
+            cbxCustom.Enabled = false;
+            cbxDataScrub.Enabled = false;
+            rddlVendorType.Enabled = false;
+            rddlThirdPartyVendor.Enabled = false;
+            rddlPhase.Enabled = false;
+            rddlCloseReason.Enabled = false;
+            rdCurrentTarget.Enabled = false;
+            txtTargetChangeReason.Enabled = false;
+            rdActual.Enabled = false;
+            rddlShippingChannel.Enabled = false;
+            txtSolutionSummary.Enabled = false;
+            txtRoute.Enabled = false;
+            rddlProducts.Enabled = false;
+            btnAddProduct.Enabled = false;
+            rgProductGrid.Enabled = false;
+            // --edi
+            cmboxEDISpecialist.Enabled = false;
+            cmboxOnboardingPhase.Enabled = false;
+            cmboxBillingSpecialist.Enabled = false;
+            cmboxCollectionSpecialist.Enabled = false;
+            dateTargetGoLive.Enabled = false;
+            dateCurrentGoLive.Enabled = false;
+            dateActualGoLive.Enabled = false;
+            txtBxEDISolutionSummary.Enabled = false;
+            comboxFreightAuditorInvolved.Enabled = false;
+            gridProfileEDITrans.Enabled = false;
+            gridProfileShipMethod.Enabled = false;
+            comboxCustAuditPortal.Enabled = false;
+            //Courier EDI
+            gridEDI210Accounts.Enabled = false;
+            gridEDI214Accounts.Enabled = false;
+            comboBxCourierEDI210.Enabled = false;
+            comboBxCourierEDI214.Enabled = false;
+            comboxCombinepayer.Enabled = false;
+            comboBoxBatchInvoices.Enabled = false;
+            btnAdd210.Enabled = false;
+            btnAdd214.Enabled = false;
+            txtBxNumberRecipients210.Enabled = false;
+            txtBxNumberRecipients214.Enabled = false;        
+            //Non-Courier EDI
+            gridNonCourierEDI210Accounts.Enabled = false;
+            gridNonCourierEDI214Accounts.Enabled = false;
+            gridNonCourierPuroPostAccounts.Enabled = false;
+            comboBxNonCourierEDI210.Enabled = false;
+            comboBxNonCourierEDI214.Enabled = false;
+            comboBxNonCourierPuroPost.Enabled = false;
+            comboNonCourier210TestSent.Enabled = false;
+            comboNonCourier214TestSent.Enabled = false;
+            btnNumRecipNonCourier210.Enabled = false;
+            btnNumRecipNonCourier214.Enabled = false;
+            btnNumRecipNonCourierPuroPostStand.Enabled = false;
+            btnNumRecipNonCourier210Test.Enabled = false;
+            btnNumRecipNonCourier214Test.Enabled = false;
+            txtBxNumRecipNonCourier210.Enabled = false;
+            txtBxNumRecipNonCourier214.Enabled = false;
+            txtBxNumRecipNonCourierPuroPostStand.Enabled = false;
+            txtBxNumRecipNonCourier210Test.Enabled = false;
+            txtBxNumRecipNonCourier214Test.Enabled = false;
+            //Add'l Notes
+            dpNoteDate.Enabled = false;
+            rddlInternalType.Enabled = false;
+            txtInternalTimeSpent.Enabled = false;
+            txtNotes.Enabled = false;
+            txtInternalNotes.Enabled = false;
+            lblInternalNotes.Enabled = false;
+            btnSaveNotes.Enabled = false;
+            rgNotesGrid.Enabled = false;
+            //File Uploads                 
+            RadAsyncUpload1.Enabled = false;
+            btnSaveUpload.Enabled = false;
+            rgUpload.Enabled = false;
+        }
+    }
+
+        protected void btnPre_Load_Click(object sender, System.EventArgs e)
     {
         rddlDistrict.SelectedIndex = 1;
         rddlBranch.SelectedIndex = 1;
@@ -904,7 +1026,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             DynamicUserControl.LoadParams(p1);
             DynamicUserControl.RemoveUserControl += this.HandleRemoveUserControl;
             DynamicUserControl.UserControlSaved += this.HandleUserControl210Saved;
-            ph1.Controls.Add(DynamicUserControl);
+            ph1.Controls.Add(DynamicUserControl);            
             ControlID += 1;
         }
     }

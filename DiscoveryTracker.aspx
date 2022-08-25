@@ -26,8 +26,7 @@
         </PersistenceSettings>
     </telerik:RadPersistenceManager>
     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Transparency="40">
-        <asp:Image ID="imgLoading" Style="margin-top: 90px" runat="server" ImageUrl="~/Images/Loading640.gif" Height="250px"
-            BorderWidth="0px" AlternateText="Loading" />
+        <%--<asp:Image ID="imgLoading" Style="margin-top: 90px" runat="server" ImageUrl="~/Images/Loading640.gif" Height="250px" BorderWidth="0px" AlternateText="Loading" />--%>
     </telerik:RadAjaxLoadingPanel>
     <telerik:RadCodeBlock ID="RadCodeBlock1" runat="server">
         <script type="text/javascript">
