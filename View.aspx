@@ -70,7 +70,7 @@
         </div>
      <div style="margin: 20px 30px 60px 10px;  padding-left:20px" >
 
-         <img src="../Images/DiscoveryRequest.jpg" />
+         <img src="../PuroFusion/Images/DiscoveryRequest.jpg" />
         
         
         <div style="margin: 20px 100px 60px 10px;">
@@ -90,7 +90,7 @@
         
        <asp:Panel runat="server" ID="pnlclientInfo" BorderColor="DarkBlue" style="padding-left:5px">
         <div style="text-align:left;width:765px">
-             <img src="../Images/divider.png" /> 
+             <img src="../PuroFusion/Images/divider.png" /> 
         </div>
            
           <asp:Panel runat="server" style="background-color:lightgray !important; -webkit-print-color-adjust: exact;padding-left:5px">
@@ -190,7 +190,7 @@
                     
             </table>           
             <div style="text-align:left;width:765px">
-             <img src="../Content/Images/dividerSmall.png" /> 
+             <img src="../PuroFusion/Content/Images/dividerSmall.png" /> 
             </div>
             <asp:Panel runat="server" style="background-color:lightgray !important; -webkit-print-color-adjust: exact;padding-left:5px">
             <table class="clientInfo" border="0">
@@ -386,7 +386,7 @@
                 </table>
 
              <div style="text-align:left;width:765px">
-             <img src="../Content/Images/dividerSmall.png" /> 
+             <img src="../PuroFusion/Content/Images/dividerSmall.png" /> 
             </div>
             <asp:Panel runat="server" style="background-color:#f4f6f6  !important; -webkit-print-color-adjust: exact;padding-left:5px">
             <table class="clientInfo" border="0">
