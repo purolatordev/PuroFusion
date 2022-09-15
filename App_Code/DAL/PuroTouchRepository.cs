@@ -794,7 +794,67 @@ public class PuroTouchRepository : IPuroTouch,IDisposable
             return newoReq;
         }
 
-        public List<ClsDiscoveryRequest> GetUnassignedDiscoveryRequests()
+
+    public List<ClsDiscoveryRequest> GetRecentDiscoveryRequests(string itbaLogin)
+    {
+        //select only last updated by itbaLogin and orderby UpdatedOn descending
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        List<ClsDiscoveryRequest> oReq = (from data in puroTouchContext.GetTable<vw_DiscoveryRequestSummary>()
+                                          where data.ActiveFlag != false
+                                          where data.UpdatedBy == itbaLogin
+
+                                          select new ClsDiscoveryRequest
+                                          {
+                                              idRequest = data.idRequest,
+                                              flagNewRequest = Convert.ToBoolean(data.isNewRequest),
+                                              SalesRepName = data.SalesRepName,
+                                              SalesRepEmail = data.SalesRepEmail,
+                                              idOnboardingPhase = (int?)data.idOnboardingPhase,
+                                              District = data.District,
+                                              CustomerName = data.CustomerName,
+                                              Address = data.Address,
+                                              City = data.City,
+                                              State = data.State,
+                                              Zipcode = data.Zipcode,
+                                              Country = data.Country,
+                                              Commodity = data.Commodity,
+                                              ProjectedRevenue = (decimal)data.ProjectedRevenue,
+                                              CurrentSolution = data.CurrentSolution,
+                                              ProposedCustoms = data.ProposedCustoms,
+                                              CallDate1 = (DateTime?)data.CallDate1,
+                                              CallDate2 = (DateTime?)data.CallDate2,
+                                              CallDate3 = (DateTime?)data.CallDate3,
+                                              UpdatedBy = data.UpdatedBy,
+                                              UpdatedOn = (DateTime?)data.UpdatedOn,
+                                              CreatedBy = data.CreatedBy,
+                                              CreatedOn = (DateTime?)data.CreatedOn,
+                                              ActiveFlag = Convert.ToBoolean(data.ActiveFlag),
+                                              idITBA = (int?)data.idITBA,
+                                              TargetGoLive = (DateTime?)data.TargetGoLive,
+                                              CurrentGoLive = (DateTime?)data.CurrentGoLive,
+                                              ActualGoLive = (DateTime?)data.ActualGoLive,
+                                              OnboardingPhase = data.OnboardingPhase,
+                                              ShippingChannel = data.ShippingChannel,
+                                              ITBA = data.ITBA,
+                                              TotalTimeSpent = data.TotalTimeSpent,
+                                              NewRequestYesNo = Convert.ToBoolean(data.isNewRequest) == false ? "No" : "Yes",
+                                              WorldpakYesNo = Convert.ToBoolean(data.worldpakFlag) == false ? "No" : "Yes",
+                                              RequestType = data.RequestType,
+                                              VendorType = data.VendorType,
+                                              VendorName = data.VendorName,
+                                              SolutionType = data.SolutionType,
+                                              EDITargetGoLive = (DateTime?)data.EDITargetGoLive,
+                                              EDICurrentGoLive = (DateTime?)data.EDICurrentGoLive,
+                                              EDIActualGoLive = (DateTime?)data.EDIActualGoLive,
+                                              EDIOnboardingPhaseType = data.EDIOnboardingPhaseType,
+                                              EDISpecialistName = data.EDISpecialistName
+
+                                          }).ToList<ClsDiscoveryRequest>();
+        var newoReq = oReq.OrderByDescending(x => x.UpdatedOn).ToList();
+        return newoReq;
+    }
+
+    public List<ClsDiscoveryRequest> GetUnassignedDiscoveryRequests()
         {
             //orderby CreatedOn descending
             PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
