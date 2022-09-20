@@ -28,6 +28,8 @@
                     args.set_enableAjax(false);
                 }
             }
+           
+
             function OpenWin(path) {
                 window.open(path);
                 return false;
@@ -68,6 +70,8 @@
     </telerik:RadCodeBlock>
     <telerik:RadWindowManager ID="windowManager" runat="server">
     </telerik:RadWindowManager>
+     <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Transparency="40" Height="50px">      
+    </telerik:RadAjaxLoadingPanel>
     <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
         <ClientEvents OnRequestStart="onRequestStart" />
         <AjaxSettings>
@@ -300,15 +304,16 @@
                     <telerik:AjaxUpdatedControl ControlID="txtTargetChangeReason" />
                 </UpdatedControls>
             </telerik:AjaxSetting>
+            <%-- Submit Button --%>
+            <%--  <telerik:AjaxSetting AjaxControlID="btnSubmitChanges">
+                <UpdatedControls>
+                    <telerik:AjaxUpdatedControl ControlID="btnSubmitChanges" LoadingPanelID="RadAjaxLoadingPanel1"/>
+                </UpdatedControls>
+            </telerik:AjaxSetting>--%>
         </AjaxSettings>
-
-
     </telerik:RadAjaxManager>
-    <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Transparency="40" Height="50px">
-        <%--<asp:Label ID="lblLoading" runat="server">Loading..</asp:Label>
-        <asp:Image ID="imgLoading" Style="margin-top: 25px" runat="server" ImageUrl="~/Images/BlackandBlueLoading.gif" Height="50px"
-            BorderWidth="0px" AlternateText="Loading" />--%>
-    </telerik:RadAjaxLoadingPanel>
+    <%-- <telerik:RadAjaxLoadingPanel ID="RadAjaxLoadingPanel1" runat="server" Transparency="40" Height="50px">      
+    </telerik:RadAjaxLoadingPanel> --%>
     <div style="width: 853px">
         <asp:Panel ID="pnlsuccess" runat="server" Visible="false">
             <div class="alert alert-success" role="alert">
@@ -422,7 +427,7 @@
                     <telerik:RadTextBox ID="txtEmail" runat="server" MaxLength="75" Width="250px" ToolTip="Enter Sales Professional" />
                 </td>
                 <td style="color: #4b6c9e; text-align: right;">
-                    <telerik:RadButton ID="btnSubmitChanges" CausesValidation="true" ValidationGroup="submitChangesButton" runat="server" Text="Save Changes" OnClick="btnSubmitChanges_Click" AutoPostBack="true" Enabled="true" />
+                    <telerik:RadButton ID="btnSubmitChanges" CausesValidation="true" ValidationGroup="submitChangesButton" runat="server" Text="Save Changes" OnClick="btnSubmitChanges_Click" AutoPostBack="true" Enabled="true"  />
                 </td>
 
                 <td colspan="2">

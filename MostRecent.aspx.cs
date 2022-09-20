@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
@@ -93,7 +94,7 @@ public partial class MostRecent : System.Web.UI.Page
     {
         string userLogin = Session["userName"].ToString();
         PuroTouchRepository rep = new PuroTouchRepository();
-        List<ClsDiscoveryRequest> oDRList = rep.GetRecentDiscoveryRequests(userLogin);
+        DataTable oDRList = rep.GetRecentDiscoveryRequests(userLogin);
         rgRequests.DataSource = oDRList;
     }
 
@@ -101,13 +102,14 @@ public partial class MostRecent : System.Web.UI.Page
     {
         if (e.Item is GridDataItem)
         {
-           
             GridDataItem item = (GridDataItem)e.Item;
             HyperLink hLink = (HyperLink)item["CustomerName"].Controls[0];
             hLink.ForeColor = System.Drawing.Color.Blue;
-            ClsDiscoveryRequest row = (ClsDiscoveryRequest)item.DataItem;
-            hLink.Attributes["onclick"] = "OpenWin('" + row.idRequest + "');";
-                                 
+            //ClsDiscoveryRequest row = (ClsDiscoveryRequest)item.DataItem;
+            GridDataItem dataItem = e.Item as GridDataItem;
+            TableCell cell = dataItem["idRequest"];
+            string idRequest = cell.Text;
+            hLink.Attributes["onclick"] = "OpenWin('" + idRequest + "');";
         }
     }
 
