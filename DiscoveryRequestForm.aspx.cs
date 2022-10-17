@@ -6768,11 +6768,13 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         {
             clsEDISpecialist currentEDISpecialist = SrvEDISpecialist.GetEDISpecialistByIDView(Convert.ToInt16(objDiscoveryRequest.idEDISpecialist));
             string EDISpecialistemail = currentEDISpecialist.email;
+            string toEmail = EDISpecialistemail;
             string subject = "Discovery Request Assigned To You";
             if(iSubject == 2)
             {
                 subject = "EDI Solution Is Ready for Development";
             }
+
             string msgBody = composeEmail(objDiscoveryRequest);
 
             string host = ConfigurationManager.AppSettings["host"].ToString();
@@ -6781,7 +6783,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             string password = ConfigurationManager.AppSettings["password"];
 
             string fromEmail = ConfigurationManager.AppSettings["fromEmail"];
-            string toEmail = EDISpecialistemail;
 
             SmtpClient client = new SmtpClient(host, port);
             client.EnableSsl = true;
@@ -6791,7 +6792,14 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
             string errorMsg = "Error Sending Email";
             MailMessage message = new MailMessage(fromEmail, toEmail, subject, errorMsg);
-
+            if (iSubject == 1)
+            {
+                ClsITBA ba = new ClsITBA();
+                ClsITBA currentITBA = ba.GetITBA(Convert.ToInt16(objDiscoveryRequest.idITBA));
+                MailAddress copy = new MailAddress(currentITBA.ITBAEmail);
+                message.CC.Add(copy);
+                //message.To.Add(new MailAddress(currentITBA.ITBAEmail));
+            }
             message.Body = msgBody;
 
             client.Send(message);
