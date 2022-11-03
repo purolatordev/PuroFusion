@@ -298,6 +298,12 @@ public partial class SiteMaster : MasterPage
                 repItem.Items.Add(maintItem18);
                 repItem.Items.Add(maintItem19);
                 repItem.Items.Add(maintItem20);
+
+                //Add Most Recent
+                RadMenuItem mrItem = new RadMenuItem();
+                mrItem.Text = "Most Recent Requests";
+                mrItem.NavigateUrl = "~/MostRecent.aspx";
+                RadMenu1.Items.Add(mrItem);
             }
 
         }
