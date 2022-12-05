@@ -5651,7 +5651,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             noteObj = populateNoteObj(newNoteflag);
             int newID;
             //Check for required values
-            if (noteObj.idTaskType != 1014)
+            if(noteObj.idTaskType == null)
+            {
+                warningtxt = "Task Type value is Empty";
+            }
+            else if (noteObj.idTaskType != 1014)
             {
                 if (txtNotes.Text == "")
                 {
@@ -5737,6 +5741,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 lblWarning.Text = "";
                 lblWarning.Visible = false;
                 pnlwarning.Visible = false;
+                txtInternalTimeSpent.Text = "0";
+                dpNoteDate.SelectedDate = DateTime.Now;
             }
         }
 
