@@ -6667,6 +6667,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
         msgBody = msgBody + "Request Type: " + strSolutionType + "\n\n";
 
+        msgBody = msgBody + "Request ID: " + objDiscoveryRequest.idRequest.ToString() + "\n\n";
+
         // strategic 
         if (objDiscoveryRequest.StrategicFlag == true)
             msgBody = msgBody + "\nSTRATEGIC ACCOUNT\n";
@@ -6681,10 +6683,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         if (objDiscoveryRequest.CustomerWebsite != "")
             msgBody = msgBody + "\nWebSite: " + objDiscoveryRequest.CustomerWebsite;
 
-
         //Sales Professional info
         msgBody = msgBody + "\n\nSales Professional: " + objDiscoveryRequest.SalesRepName + " " + objDiscoveryRequest.SalesRepEmail + " " + objDiscoveryRequest.District + " District - " + objDiscoveryRequest.Branch;
-
 
         //current solution
         msgBody = msgBody + "\n\nCurrent Solution:";
@@ -6708,23 +6708,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         if (objDiscoveryRequest.flagNewRequest == true)
             msgBody = msgBody + "\n*New Business";
 
-        //contact info
-        //if (objDiscoveryRequest.CustomerBusContact != "")
-        //{
-        //    msgBody = msgBody + "\n\nBusiness Contact:";
-        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusContact + " " + objDiscoveryRequest.CustomerBusTitle;
-        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusEmail;
-        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerBusPhone;
-        //}
-
-        //if (objDiscoveryRequest.CustomerITContact != "")
-        //{
-        //    msgBody = msgBody + "\n\nIT Contact:";
-        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITContact + " " + objDiscoveryRequest.CustomerITTitle;
-        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITEmail;
-        //    msgBody = msgBody + "\n" + objDiscoveryRequest.CustomerITPhone;
-        //}
-
         return msgBody;
     }
 
@@ -6738,7 +6721,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             string ITBAemail = currentITBA.ITBAEmail;
             //get email address
             string subject = "Discovery Request Assigned To You";
-            //string msgBody = "Discovery Request Notification:\n\n Request Assigned to You For Customer: " + Customer + " \nSubmitted On " + DateTime.Now.ToString("MM-dd-yyyy");
             string msgBody = composeEmail(objDiscoveryRequest);
 
             string host = ConfigurationManager.AppSettings["host"].ToString();

@@ -278,7 +278,7 @@
                     </ItemTemplate>
                     <HeaderStyle Width="36px"></HeaderStyle>
                 </telerik:GridTemplateColumn>
-                <telerik:GridBoundColumn DataField="idRequest" FilterControlAltText="Filter isNeidRequestwRequest column" HeaderText="idRequest" SortExpression="idRequest" UniqueName="idRequest" Visible="true" Display="false">
+                <telerik:GridBoundColumn DataField="idRequest" FilterControlAltText="Filter isNeidRequestwRequest column" HeaderText="Request ID" SortExpression="idRequest" UniqueName="idRequest" Visible="true" Display="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn DataField="RequestType" FilterControlAltText="Filter RequestType column" HeaderText="Request Type" SortExpression="RequestType" UniqueName="RequestType">
                 </telerik:GridBoundColumn>
