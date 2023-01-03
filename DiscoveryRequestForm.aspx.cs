@@ -43,6 +43,8 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
     const int SOLUTION_TYPE_EDI = 1;
     const int SOLUTION_TYPE_BOTH = 2;
     bool bOneTimeContactGrid = false;
+    //DateTime? dtUpdatedOn = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (bool.Parse(ConfigurationManager.AppSettings["debug"]))
@@ -76,6 +78,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 NonCourierEDI214(ID);
                 NonCourierEDI214Test(ID);
                 PuroPostStand(ID);
+
+                // Used to detect any changes
+                //ClsDiscoveryRequest dr = new ClsDiscoveryRequest();
+                //ClsDiscoveryRequest UpdateValue = dr.GetRequestUpdatedOn(int.Parse(ID));
+                //ViewState["dtUpdatedOn"] = UpdateValue.UpdatedOn.HasValue ? UpdateValue.UpdatedOn.Value : UpdateValue.CreatedOn.Value;
+                //dtUpdatedOn = UpdateValue.UpdatedOn.HasValue ? UpdateValue.UpdatedOn.Value : UpdateValue.CreatedOn.Value;
             }
             if (!IsPostBack)
             {
@@ -3903,6 +3911,11 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             ClsDiscoveryRequestDetails drd = new ClsDiscoveryRequestDetails();
             ClsDiscoveryRequestDetails details = drd.GetDiscoveryRequestDetails(requestID, "");
             clsContact contact = SrvContact.GetContactsByRequestID(requestID).FirstOrDefault();
+
+            // Used to detect any changes
+            ClsDiscoveryRequest UpdateValue = dr.GetRequestUpdatedOn(requestID);
+            ViewState["dtUpdatedOn"] = UpdateValue.UpdatedOn.HasValue ? UpdateValue.UpdatedOn.Value : UpdateValue.CreatedOn.Value;
+
             //Existing Request may not have Details entered yet
             if (details == null)
             {
@@ -5239,8 +5252,19 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         if (lblRequestID.Text == "0" || lblRequestID.Text == "")
             newFlag = true;
 
-        objDiscoveryRequest = populateDiscoveryRequestObj(newFlag);
         ClsDiscoveryRequest dr = new ClsDiscoveryRequest();
+        ClsDiscoveryRequest UpdateValue = dr.GetRequestUpdatedOn(Convert.ToInt32(lblRequestID.Text));
+        if (UpdateValue != null)
+        {
+            DateTime dtUpdatedOn = (DateTime)ViewState["dtUpdatedOn"];
+            if (!dtUpdatedOn.Equals(UpdateValue.UpdatedOn))
+            {
+                lblDanger.Text = "There is a new version of this record!";
+                pnlDanger.Visible = true;
+                return;
+            }
+        }
+        objDiscoveryRequest = populateDiscoveryRequestObj(newFlag);
 
         objDiscoveryRequestDetails = populateDiscoveryRequestDetails(newFlag);
         ClsDiscoveryRequestDetails drd = new ClsDiscoveryRequestDetails();
@@ -5283,12 +5307,16 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
 
                 btnSubmit.Visible = false;
                 btnSubmitChanges.Visible = true;
+
+                // Used to detect any changes
+                ClsDiscoveryRequest UpdateValue2 = dr.GetRequestUpdatedOn(requestID);
+                ViewState["dtUpdatedOn"] = UpdateValue2.UpdatedOn.HasValue ? UpdateValue2.UpdatedOn.Value : UpdateValue2.CreatedOn.Value;
             }
         }
         else
         {
             //DO UPDATE  
-            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+            Int32 RequestID = Convert.ToInt32(lblRequestID.Text); 
             msg = dr.UpdateDiscoveryRequest(objDiscoveryRequest, RequestID);
             msg = msg + drd.UpdateDiscoveryRequestDetails(objDiscoveryRequestDetails, RequestID);
             if (msg != "")
@@ -5307,6 +5335,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 msg = msg + equip.DeleteEquipment(RequestID);
                 ClsDiscoveryRequestEDI edi = new ClsDiscoveryRequestEDI();
                 msg = msg + edi.DeleteEDI(RequestID);
+
+                // Used to detect any changes
+                ClsDiscoveryRequest UpdateValue2 = dr.GetRequestUpdatedOn(RequestID);
+                ViewState["dtUpdatedOn"] = UpdateValue2.UpdatedOn.HasValue ? UpdateValue2.UpdatedOn.Value : UpdateValue2.CreatedOn.Value;
             }
         }
 
@@ -5319,7 +5351,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 ClsDiscoveryRequestDetails objDiscoveryRequestDetailsWest = new ClsDiscoveryRequestDetails();
                 objDiscoveryRequestDetailsWest = populateDiscoveryRequestDetailsWest(newFlag);
 
-                //Int32 RequestID = (Int32)Session["requestID"];
                 Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
                 //can't use newflag to determine existing record - may be existing Request, but East/West split is new.
                 ClsDiscoveryRequestDetails westDetails = drd.GetDiscoveryRequestDetails(RequestID, "West");
@@ -5358,7 +5389,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         else
         {
             //IF East/West Split is false, check if there was a previously existing West Record
-            //Int32 RequestID = (Int32)Session["requestID"];
             Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
             ClsDiscoveryRequestDetails westDetails = drd.GetDiscoveryRequestDetails(RequestID, "West");
             if (westDetails != null)
@@ -5396,7 +5426,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //INSERT PRODUCTS
             Int32 newProdID;
             List<ClsDiscoveryRequestProds> prodList = (List<ClsDiscoveryRequestProds>)Session["productList"];
-            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+            Int32 RequestID = Convert.ToInt32(lblRequestID.Text); 
             foreach (ClsDiscoveryRequestProds prod in prodList)
             {
                 prod.idRequest = RequestID;
@@ -5418,7 +5448,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //INSERT EQUIPMENT
             Int32 newEquipID;
             List<ClsDiscoveryRequestEquip> equipList = (List<ClsDiscoveryRequestEquip>)Session["equipmentList"];
-            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+            Int32 RequestID = Convert.ToInt32(lblRequestID.Text); 
             foreach (ClsDiscoveryRequestEquip equip in equipList)
             {
                 equip.idRequest = RequestID;
@@ -5440,7 +5470,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             //INSERT EDI
             Int32 newEDIID;
             List<ClsDiscoveryRequestEDI> ediList = (List<ClsDiscoveryRequestEDI>)Session["ediList"];
-            Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
+            Int32 RequestID = Convert.ToInt32(lblRequestID.Text); 
             foreach (ClsDiscoveryRequestEDI edi in ediList)
             {
                 edi.idRequest = RequestID;
@@ -5823,6 +5853,7 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 ClsDiscoveryRequest dr = new ClsDiscoveryRequest();
                 Int32 RequestID = Convert.ToInt32(lblRequestID.Text);
                 editRequest = dr.GetDiscoveryRequest(RequestID);
+
                 priorGoLive = editRequest.CurrentGoLive;
                 priorPhase = (Int32)editRequest.idOnboardingPhase;
                 priorDateChange = (DateTime?)editRequest.PhaseChangeDate;
