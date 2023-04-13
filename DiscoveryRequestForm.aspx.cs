@@ -5614,6 +5614,10 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 {
                     //Notes were entered, do checks and then save
                     saveNotes();
+                    if (comboxSendEmailOnNotes.SelectedValue == "yes")
+                    {
+                        sendEDISpecialistEmail(objDiscoveryRequest,3);
+                    }
                 }
             }
         }
@@ -6742,7 +6746,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         return msgBody;
     }
 
-
     protected void sendITBAEmail(ClsDiscoveryRequest objDiscoveryRequest)
     {
         try
@@ -6793,8 +6796,16 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             {
                 subject = "EDI Solution Is Ready for Development";
             }
+            else if(iSubject == 3)
+            {
+                subject = "EDI Solution Notes";
+            }
 
             string msgBody = composeEmail(objDiscoveryRequest);
+            if (iSubject == 3)
+            {
+                msgBody = "The Note: " + txtNotes.Text + "\n\n" + msgBody;
+            }
 
             string host = ConfigurationManager.AppSettings["host"].ToString();
             int port = int.Parse(ConfigurationManager.AppSettings["port"]);
@@ -6817,7 +6828,6 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
                 ClsITBA currentITBA = ba.GetITBA(Convert.ToInt16(objDiscoveryRequest.idITBA));
                 MailAddress copy = new MailAddress(currentITBA.ITBAEmail);
                 message.CC.Add(copy);
-                //message.To.Add(new MailAddress(currentITBA.ITBAEmail));
             }
             message.Body = msgBody;
 
