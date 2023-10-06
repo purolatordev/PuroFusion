@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29215.179
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PuroFusion", ".", "{DAA21008-135F-4766-8EBF-BFFEBF6E2504}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
 		ProjectReferences = "{b2d636a6-cf0f-4370-b2c8-5a62fd47594a}|PI_Application.dll;{2EBFAB94-E807-4DF9-812E-E96ADD9F63D3}|PI_People.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_58973"
 		Debug.AspNetCompiler.PhysicalPath = "..\PuroFusion\"

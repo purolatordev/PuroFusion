@@ -3947,15 +3947,15 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
             txtCommodity.Text = request.Commodity;
             txtWebsite.Text = request.CustomerWebsite;
             //only ITmanager can change the name
-            if (userRole == "itmanager" || userRole == "itadmin")
-            {
-                txtCustomerName.Enabled = true;
-            }
-            else
-            {
-                txtCustomerName.Enabled = false;
-            }
-
+            //if (userRole == "itmanager" || userRole == "itadmin")
+            //{
+            //    txtCustomerName.Enabled = true;
+            //}
+            //else
+            //{
+            //    txtCustomerName.Enabled = false;
+            //}
+            txtCustomerName.Enabled = true;
             //Tab2 - Contact Information
 
             //Tab3 - Current Solution
