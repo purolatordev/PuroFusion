@@ -3715,6 +3715,19 @@
                         </td>
                     </tr>
                     <tr>
+                        <td style="text-align: right;">Send Email
+                        </td>
+                        <td style="color: red;"></td>
+                        <td>
+                            <telerik:RadDropDownList ID="comboxSendEmailOnNotes" runat="server" Visible="true" Width="70px">
+                                <Items>
+                                    <telerik:DropDownListItem Value="no" Text="No" Selected="true" />
+                                    <telerik:DropDownListItem Value="yes" Text="Yes" />
+                                </Items>
+                            </telerik:RadDropDownList>
+                        </td>
+                    </tr>
+                    <tr>
                         <td style="text-align: right; vertical-align: top">Enter Notes
                         </td>
                         <td style="color: red; text-align: left; vertical-align: top">

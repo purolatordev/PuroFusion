@@ -623,4 +623,22 @@ public class ClsDiscoveryRequest
         }
         return errMsg;
     }
+    public ClsDiscoveryRequest GetRequestUpdatedOn(int idRequest)
+    {
+        PuroTouchSQLDataContext puroTouchContext = new PuroTouchSQLDataContext();
+        ClsDiscoveryRequest oReq = (from data in puroTouchContext.GetTable<tblDiscoveryRequest>()
+                                    where data.idRequest == idRequest
+                                    where data.ActiveFlag != false
+                                    select new ClsDiscoveryRequest
+                                    {
+                                        idRequest = data.idRequest,
+                                        UpdatedBy = data.UpdatedBy,
+                                        UpdatedOn = data.UpdatedOn.HasValue ? data.UpdatedOn.Value : data.CreatedOn.Value,  
+                                        CreatedBy = data.CreatedBy,
+                                        CreatedOn = (DateTime?)data.CreatedOn,
+                                        ActiveFlag = Convert.ToBoolean(data.ActiveFlag)
+                                    }).FirstOrDefault();
+        return oReq;
+    }
+
 }
