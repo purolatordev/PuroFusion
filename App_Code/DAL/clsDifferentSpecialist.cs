@@ -251,6 +251,7 @@ public static class SrvCollectionSpecialist
         PuroTouchSQLDataContext o = new PuroTouchSQLDataContext();
         List<clsCollectionSpecialist> qEDISpecialisth = o.GetTable<vw_CollectionSpecialist>()
                                             .Select(p => new clsCollectionSpecialist() { ActiveDirectoryName = p.ActiveDirectoryName, Name = p.Name, idCollectionSpecialist = p.idCollectionSpecialist, idEmployee = p.idEmployee, login = p.login, email = p.email, ReceiveNewReqEmail = p.ReceiveNewReqEmail, ActiveFlag = p.ActiveFlag, CreatedBy = p.CreatedBy, CreatedOn = p.CreatedOn, UpdatedBy = p.UpdatedBy, UpdatedOn = p.UpdatedOn })
+                                            .Where(p => p.ActiveFlag == true)
                                             .ToList();
 
         return qEDISpecialisth;
