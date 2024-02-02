@@ -1005,12 +1005,12 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Control c = GetPostBackControl(Page);
         if ((c != null))
         {
-            if (c.ID.ToString() == "btnAdd")
-            {
+            //if (c.ID.ToString() == "btnAdd")
+            //{
                 //p.xNames.Add((p.xTimes.Count + 1).ToString());
                 //p.yNames.Add((p.xTimes.Count + 1).ToString());
                 //p.xTimes.Add(p.xTimes.Count + 1);
-            }
+            //}
         }
 
         ltlCount.Text = p.iTotalRecs.ToString();
@@ -1073,9 +1073,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Control c = GetPostBackControl(Page);
         if ((c != null))
         {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
+            //if (c.ID.ToString() == "btnAdd")
+            //{
+            //}
         }
 
         ltlCountNonCourier210.Text = p.iTotalRecs.ToString();
@@ -1109,9 +1109,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Control c = GetPostBackControl(Page);
         if ((c != null))
         {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
+            //if (c.ID.ToString() == "btnAdd")
+            //{
+            //}
         }
 
         ltlCountNonCourier210Test.Text = p.iTotalRecs.ToString();
@@ -1146,9 +1146,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Control c = GetPostBackControl(Page);
         if ((c != null))
         {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
+            //if (c.ID.ToString() == "btnAdd")
+            //{
+            //}
         }
 
         ltlCountNonCourier214.Text = p.iTotalRecs.ToString();
@@ -1182,9 +1182,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Control c = GetPostBackControl(Page);
         if ((c != null))
         {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
+            //if (c.ID.ToString() == "btnAdd")
+            //{
+            //}
         }
 
         ltlCountNonCourier214Test.Text = p.iTotalRecs.ToString();
@@ -1219,9 +1219,9 @@ public partial class DiscoveryRequestForm2 : System.Web.UI.Page
         Control c = GetPostBackControl(Page);
         if ((c != null))
         {
-            if (c.ID.ToString() == "btnAdd")
-            {
-            }
+            //if (c.ID.ToString() == "btnAdd")
+            //{
+            //}
         }
 
         ltlCountPuroPostStand.Text = p.iTotalRecs.ToString();
