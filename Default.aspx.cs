@@ -4,7 +4,8 @@ using System.Web.UI;
 using System.DirectoryServices;
 using System.Data.SqlClient;
 using System.Data;
-
+using System.DirectoryServices.AccountManagement;
+using System.Web.Helpers;
 
 public partial class _Default : Page
 {
@@ -77,6 +78,12 @@ public partial class _Default : Page
 
         try
         {
+            if (username.Contains("@purolator.com"))
+            {
+                validuser = ValidateCredentials(username, password);
+                return validuser;
+            }
+
             DirectoryEntry DE = new DirectoryEntry(@"LDAP://" + path, username, password);
             DirectorySearcher DS = new DirectorySearcher(DE);
             DS.Filter = "sAMAccountName=" + username;
@@ -104,6 +111,22 @@ public partial class _Default : Page
 
         }
 
+        return validuser;
+    }
+    public static bool ValidateCredentials(string username, string password)
+    {
+        bool validuser = false;
+        try
+        {
+            using (PrincipalContext context = new PrincipalContext(ContextType.Domain))
+            {
+                validuser = context.ValidateCredentials(username, password);
+            }
+        }
+        catch (System.Exception e)
+        {
+
+        }
         return validuser;
     }
 
