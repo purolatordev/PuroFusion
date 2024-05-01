@@ -78,20 +78,22 @@ public partial class _Default : Page
 
         try
         {
-            if (username.Contains("@purolator.com"))
-            {
-                validuser = ValidateCredentials(username, password);
-                return validuser;
-            }
+            //if (username.Contains("@purolator.com"))
+            //{
+            //    validuser = ValidateCredentials(username, password);
+            //    return validuser;
+            //}
 
             DirectoryEntry DE = new DirectoryEntry(@"LDAP://" + path, username, password);
             DirectorySearcher DS = new DirectorySearcher(DE);
             DS.Filter = "sAMAccountName=" + username;
             SearchResult SR = DS.FindOne();
-            DirectoryEntry USER = SR.GetDirectoryEntry();
+            DirectoryEntry USER = null;
+            if (SR != null)
+            {           
+             USER = SR.GetDirectoryEntry();
 
-            if (USER != null)
-            {
+       
                 string displayname = USER.Properties["displayName"].Value.ToString();
                 string firstname = USER.Properties["givenName"].Value.ToString();
                 string lastname = USER.Properties["sn"].Value.ToString();
@@ -102,6 +104,33 @@ public partial class _Default : Page
                 string distinguishedName = USER.Properties["distinguishedName"].Value.ToString();
 
                 validuser = true;
+            }  else
+            {
+                //New Users will use name with @purolator.com to login, and their AccountName will be their  EmployeeID
+                //First get sAMAccountName using the login, which inclues @purolator.com
+                //then use the Directory Searcher using that ID 
+
+                String accountName = getAccountName(username);
+
+
+                DE = new DirectoryEntry(@"LDAP://" + path, accountName, password);
+                DS = new DirectorySearcher(DE);
+                DS.Filter = "sAMAccountName=" + accountName;
+                SR = DS.FindOne();
+                USER = SR.GetDirectoryEntry();
+                if (USER != null)
+                {
+                    string displayname = USER.Properties["displayName"].Value.ToString();
+                    string firstname = USER.Properties["givenName"].Value.ToString();
+                    string lastname = USER.Properties["sn"].Value.ToString();
+                    string email = USER.Properties["userPrincipalName"].Value.ToString();
+                    string objectname = USER.Properties["objectCategory"].Value.ToString();
+                    string accountname = USER.Properties["sAMAccountName"].Value.ToString();
+                    string name = USER.Properties["name"].Value.ToString();
+                    string distinguishedName = USER.Properties["distinguishedName"].Value.ToString();
+
+                    validuser = true;
+                }
 
             }
 
@@ -144,6 +173,34 @@ public partial class _Default : Page
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@user_name",SqlDbType.VarChar).Value=username;
             cmd.Parameters.Add("@appid", SqlDbType.Int).Value=appid;          
+            cnn.Open();
+            userrole = (string)cmd.ExecuteScalar();
+
+        }
+        catch (Exception ex)
+        {
+            string errMsg = ex.Message.ToString();
+        }
+        finally
+        {
+            cnn.Close();
+        }
+
+        return userrole;
+    }
+
+    private string getAccountName(string username)
+    {
+        string userrole = "";
+        SqlConnection cnn;
+        String strConnString = ConfigurationManager.ConnectionStrings["PurolatorReportingConnectionString"].ConnectionString;
+        cnn = new SqlConnection(strConnString);
+        SqlCommand cmd = new SqlCommand();
+        try
+        {
+            cmd = new SqlCommand("sp_GetADAccountNameFromPrincipalName", cnn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@username", SqlDbType.VarChar).Value = username;            
             cnn.Open();
             userrole = (string)cmd.ExecuteScalar();
 
